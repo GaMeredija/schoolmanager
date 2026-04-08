@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: schoolmanager-gameredija
+    runtime: node
+    plan: starter
+    region: virginia
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start:render
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    disk:
+      name: schoolmanager-gameredija-data
+      mountPath: /opt/render/project/src/render-data
+      sizeGB: 5
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ENABLE_GEO
+        value: "false"
+      - key: RENDER_DISK_MOUNT_PATH
+        value: /opt/render/project/src/render-data

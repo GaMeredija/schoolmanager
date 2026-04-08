@@ -60,7 +60,7 @@ export function AdminDashboard() {
             </button>
             <button 
               onClick={() => {
-                alert('🔐 COORDENADOR\n\n📧 Email: coord@escola.com\n🔑 Senha: 123456\n\n⚠️ Use essas credenciais para fazer login como coordenador pedagógico');
+                alert('🔐 COORDENADOR\n\n📧 Email: coord@escola.com\n🔑 Senha: 123\n\n⚠️ Use essas credenciais para fazer login como coordenador pedagógico');
               }}
               className="btn-modern bg-purple-600 hover:bg-purple-700 text-white"
             >

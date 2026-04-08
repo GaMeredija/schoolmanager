@@ -51,6 +51,21 @@ npm run build
 npm start
 ```
 
+## Deploy no Render
+
+O repositório já inclui um [render.yaml](./render.yaml) com a configuração do deploy real em um Web Service Node.js.
+
+- Usa o script `npm run start:render`
+- Sobe com banco SQLite persistente em disco
+- Mantém dados e uploads no diretório persistente do serviço
+- Foi preparado para o plano `Starter`, que permite disco persistente
+
+Link direto para iniciar o deploy no Render:
+
+```text
+https://render.com/deploy?repo=https://github.com/GaMeredija/schoolmanager
+```
+
 ## Documentacao complementar
 
 - Veja `docs/` para arquitetura, fluxos, planos e materiais de TCC.

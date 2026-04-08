@@ -95,19 +95,19 @@ export default function LoginPage() {
         demoPassword = '123';
         break;
       case 'teacher':
-        demoEmail = 'prof.teste3546@escola.com';
+        demoEmail = 'prof@escola.com';
         demoPassword = '123';
         break;
       case 'coordinator':
-        demoEmail = 'coord.teste@escola.com';
+        demoEmail = 'coord@escola.com';
         demoPassword = '123';
         break;
       case 'student':
-        demoEmail = 'aluno.teste@escola.com';
+        demoEmail = 'aluno@escola.com';
         demoPassword = '123';
         break;
       case 'director':
-        demoEmail = 'carlos.diretor@escola.com';
+        demoEmail = 'diretor@escola.com';
         demoPassword = '123';
         break;
     }
@@ -172,7 +172,7 @@ export default function LoginPage() {
       id: 'teacher',
       title: 'Professor',
       icon: '👨‍🏫',
-      email: 'prof.teste3546@escola.com',
+      email: 'prof@escola.com',
       color: 'from-blue-500 to-blue-600',
       bgColor: 'bg-blue-500',
       borderColor: 'border-blue-400',
@@ -182,7 +182,7 @@ export default function LoginPage() {
       id: 'coordinator',
       title: 'Coordenador',
       icon: '👩‍🏫',
-      email: 'coord.teste@escola.com',
+      email: 'coord@escola.com',
       color: 'from-red-500 to-red-600',
       bgColor: 'bg-red-500',
       borderColor: 'border-red-400',
@@ -192,7 +192,7 @@ export default function LoginPage() {
       id: 'student',
       title: 'Aluno',
       icon: '👨‍🎓',
-      email: 'aluno.teste@escola.com',
+      email: 'aluno@escola.com',
       color: 'from-green-500 to-green-600',
       bgColor: 'bg-green-500',
       borderColor: 'border-green-400',
@@ -202,7 +202,7 @@ export default function LoginPage() {
       id: 'director',
       title: 'Diretor',
       icon: '👔',
-      email: 'carlos.diretor@escola.com',
+      email: 'diretor@escola.com',
       color: 'from-gray-800 to-gray-900',
       bgColor: 'bg-gray-800',
       borderColor: 'border-gray-700',

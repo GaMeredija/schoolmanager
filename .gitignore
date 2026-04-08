@@ -5,9 +5,16 @@ dist/
 !.env.example
 *.db
 *.sqlite
+*.db-shm
+*.db-wal
+*.sqlite-shm
+*.sqlite-wal
 *.log
 uploads/
 logs/
 server/logs/
+.render-data/
 *.zip
 .DS_Store
+!scripts/database/bootstrap/
+!scripts/database/bootstrap/school.seed.sqlite3
