@@ -17,9 +17,9 @@ export async function apiRequest(
   if (url.startsWith('http://') || url.startsWith('https://')) {
     const headers: Record<string, string> = {
       "bypass-tunnel-reminder": "true",
-      "User-Agent": "SchoolManager-App/1.0",
+      "User-Agent": "SchoolManager-Web/1.0",
       "X-Bypass-Tunnel": "true",
-      "X-App-Source": "mobile-app"
+      "X-App-Source": "web-client"
     };
     
     if (data) {
@@ -67,9 +67,9 @@ export const getQueryFn: <T>(options: {
         credentials: "include",
         headers: {
           "bypass-tunnel-reminder": "true",
-          "User-Agent": "SchoolManager-App/1.0",
+          "User-Agent": "SchoolManager-Web/1.0",
           "X-Bypass-Tunnel": "true",
-          "X-App-Source": "mobile-app"
+          "X-App-Source": "web-client"
         }
       });
 

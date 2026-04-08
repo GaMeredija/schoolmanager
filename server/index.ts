@@ -27,7 +27,7 @@ app.use(cors({
 app.use((req: Request, res: Response, next: NextFunction) => {
   // Set headers to bypass LocalTunnel warning page
   res.setHeader('bypass-tunnel-reminder', 'true');
-  res.setHeader('User-Agent', 'SchoolManager-App/1.0');
+  res.setHeader('User-Agent', 'SchoolManager-Web/1.0');
   next();
 });
 
