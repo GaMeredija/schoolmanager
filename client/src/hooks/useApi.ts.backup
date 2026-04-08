@@ -1,0 +1,796 @@
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
+
+// Types
+export interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: 'admin' | 'coordinator' | 'teacher' | 'student';
+  status: string;
+  phone?: string;
+  address?: string;
+  registrationNumber?: string;
+}
+
+export interface Class {
+  id: string;
+  name: string;
+  grade: string;
+  section: string;
+  academicYear: string;
+  capacity: number;
+  currentStudents: number;
+  coordinatorId: string;
+  status: string;
+}
+
+export interface Subject {
+  id: string;
+  name: string;
+  code: string;
+  description?: string;
+  workload: number;
+  status: string;
+}
+
+export interface ClassSubject {
+  id: string;
+  classId: string;
+  subjectId: string;
+  teacherId: string;
+  schedule?: string;
+  room?: string;
+  semester: string;
+  academicYear: string;
+  status: string;
+}
+
+// API call utility
+export const apiCall = async (endpoint: string, options: RequestInit = {}) => {
+  const headers: Record<string, string> = {};
+  
+  // Só definir Content-Type se não for FormData
+  if (!(options.body instanceof FormData)) {
+    headers['Content-Type'] = 'application/json';
+  }
+  
+  const response = await fetch(`/api${endpoint}`, {
+    ...options,
+    credentials: 'include',
+    headers: {
+      ...headers,
+      ...options.headers,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'API request failed');
+  }
+
+  return response.json();
+};
+
+// Auth API
+export const useLogin = () => {
+  return useMutation({
+    mutationFn: (credentials: { email: string; password: string }) =>
+      apiCall('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(credentials),
+      }),
+  });
+};
+
+export const useLogout = () => {
+  return useMutation({
+    mutationFn: () => apiCall('/auth/logout', { method: 'POST' }),
+  });
+};
+
+export const useUser = () => {
+  return useQuery({
+    queryKey: ['user'],
+    queryFn: () => apiCall('/auth/user'),
+    retry: false,
+  });
+};
+
+// Activities API
+export const useActivities = (filters?: { classId?: string; subjectId?: string; status?: string }) => {
+  const queryString = filters ? new URLSearchParams(filters as Record<string, string>).toString() : '';
+  return useQuery({
+    queryKey: ['activities', filters],
+    queryFn: () => apiCall(`/activities${queryString ? `?${queryString}` : ''}`),
+  });
+};
+
+export const useActivity = (id: string) => {
+  return useQuery({
+    queryKey: ['activity', id],
+    queryFn: () => apiCall(`/activities/${id}`),
+    enabled: !!id,
+  });
+};
+
+export const useCreateActivity = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (activityData: any) => {
+      const formData = new FormData();
+      
+      // Adicionar campos básicos
+      formData.append('title', activityData.title);
+      formData.append('description', activityData.description);
+      formData.append('subjectId', activityData.subjectId);
+      formData.append('classId', activityData.classId);
+      formData.append('dueDate', activityData.dueDate);
+      formData.append('maxGrade', activityData.maxGrade.toString());
+      formData.append('instructions', activityData.instructions || '');
+      formData.append('requirements', activityData.requirements || '');
+      formData.append('allowLateSubmission', activityData.allowLateSubmission.toString());
+      formData.append('latePenalty', activityData.latePenalty.toString());
+      
+      // Adicionar arquivos se existirem
+      if (activityData.files && activityData.files.length > 0) {
+        activityData.files.forEach((file: File) => {
+          formData.append('files', file);
+        });
+      }
+      
+      return apiCall('/activities', {
+        method: 'POST',
+        body: formData,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['activities'] });
+      queryClient.invalidateQueries({ queryKey: ['student-activities'] });
+      queryClient.invalidateQueries({ queryKey: ['teacher-activities'] });
+    },
+  });
+};
+
+export const useUpdateActivity = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: any }) =>
+      apiCall(`/activities/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['activities'] });
+      queryClient.invalidateQueries({ queryKey: ['student-activities'] });
+      queryClient.invalidateQueries({ queryKey: ['teacher-activities'] });
+    },
+  });
+};
+
+export const useDeleteActivity = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => apiCall(`/activities/${id}`, { method: 'DELETE' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['activities'] });
+      queryClient.invalidateQueries({ queryKey: ['student-activities'] });
+      queryClient.invalidateQueries({ queryKey: ['teacher-activities'] });
+    },
+  });
+};
+
+export const useSubmitActivity = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ activityId, submission }: { activityId: string; submission: any }) => {
+      const formData = new FormData();
+      formData.append('content', submission.content);
+      
+      // Adicionar arquivos se existirem
+      if (submission.attachments && submission.attachments.length > 0) {
+        submission.attachments.forEach((file: File) => {
+          formData.append('files', file);
+        });
+      }
+      
+      return apiCall(`/activities/${activityId}/submit`, {
+        method: 'POST',
+        body: formData,
+        // Não definir Content-Type, deixar o browser definir automaticamente para FormData
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['student-activities'] });
+      queryClient.invalidateQueries({ queryKey: ['teacher-activities'] });
+      queryClient.invalidateQueries({ queryKey: ['activity-submissions'] });
+    },
+  });
+};
+
+export const useActivitySubmissions = (activityId: string) => {
+  return useQuery({
+    queryKey: ['activity-submissions', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/submissions`),
+    enabled: !!activityId,
+  });
+};
+
+export const useGradeSubmission = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ submissionId, grade, feedback }: { submissionId: string; grade: number; feedback?: string }) =>
+      apiCall(`/submissions/${submissionId}/grade`, {
+        method: 'POST',
+        body: JSON.stringify({ grade, feedback }),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['activity-submissions'] });
+      queryClient.invalidateQueries({ queryKey: ['student-activities'] });
+    },
+  });
+};
+
+// Users API
+export const useUsers = () => {
+  return useQuery({
+    queryKey: ['users'],
+    queryFn: () => apiCall('/users'),
+  });
+};
+
+export const useCreateUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (userData: any) =>
+      apiCall('/users', {
+        method: 'POST',
+        body: JSON.stringify(userData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  });
+};
+
+// Classes API
+export const useClasses = (filters?: { status?: string; coordinatorId?: string }) => {
+  const queryString = filters ? new URLSearchParams(filters as Record<string, string>).toString() : '';
+  return useQuery({
+    queryKey: ['classes', filters],
+    queryFn: () => apiCall(`/classes${queryString ? `?${queryString}` : ''}`),
+  });
+};
+
+export const useCreateClass = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (classData: any) =>
+      apiCall('/classes', {
+        method: 'POST',
+        body: JSON.stringify(classData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['classes'] });
+    },
+  });
+};
+
+export const useSubjects = () => {
+  return useQuery({
+    queryKey: ['subjects'],
+    queryFn: () => apiCall('/subjects'),
+  });
+};
+
+// Teacher-specific subjects (only subjects the teacher teaches)
+export const useTeacherSubjects = (teacherId?: string) => {
+  return useQuery({
+    queryKey: ['teacher-subjects', teacherId],
+    queryFn: () => apiCall('/subjects', { method: 'GET' }),
+    enabled: !!teacherId,
+  });
+};
+
+// Teacher-specific classes (only classes the teacher teaches)
+export const useTeacherClasses = (teacherId?: string) => {
+  return useQuery({
+    queryKey: ['teacher-classes', teacherId],
+    queryFn: () => apiCall('/classes', { method: 'GET' }),
+    enabled: !!teacherId,
+  });
+};
+
+export const useCreateSubject = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (subjectData: any) =>
+      apiCall('/subjects', {
+        method: 'POST',
+        body: JSON.stringify(subjectData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['subjects'] });
+    },
+  });
+};
+
+// Student API
+export const useStudentActivities = (studentId?: string) => {
+  return useQuery({
+    queryKey: ['student-activities', studentId],
+    queryFn: () => apiCall('/student/activities'),
+    enabled: !!studentId,
+  });
+};
+
+export const useStudentClassInfo = (studentId?: string) => {
+  return useQuery({
+    queryKey: ['student-class-info', studentId],
+    queryFn: () => apiCall('/student/class-info'),
+    enabled: !!studentId,
+  });
+};
+
+// Teacher API
+export const useTeacherActivities = (teacherId?: string) => {
+  return useQuery({
+    queryKey: ['teacher-activities', teacherId],
+    queryFn: () => apiCall(`/activities/teacher/${teacherId}`),
+    enabled: !!teacherId,
+  });
+};
+
+export const useTeacherPendingSubmissions = (teacherId?: string) => {
+  return useQuery({
+    queryKey: ['teacher-pending-submissions', teacherId],
+    queryFn: () => apiCall(`/teacher/${teacherId}/pending-submissions`),
+    enabled: !!teacherId,
+  });
+};
+
+// Grades API
+export const useGrades = (filters?: { studentId?: string; subjectId?: string; classId?: string }) => {
+  const queryString = filters ? new URLSearchParams(filters as Record<string, string>).toString() : '';
+  return useQuery({
+    queryKey: ['grades', filters],
+    queryFn: () => apiCall(`/grades${queryString ? `?${queryString}` : ''}`),
+  });
+};
+
+export const useCreateGrade = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (gradeData: any) =>
+      apiCall('/grades', {
+        method: 'POST',
+        body: JSON.stringify(gradeData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['grades'] });
+    },
+  });
+};
+
+// Notifications API
+export const useNotifications = () => {
+  return useQuery({
+    queryKey: ['notifications'],
+    queryFn: () => apiCall('/notifications'),
+  });
+};
+
+export const useMarkNotificationAsRead = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (notificationId: string) =>
+      apiCall(`/notifications/${notificationId}/read`, { method: 'POST' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+    },
+  });
+};
+
+// Chat API
+export const useChatMessages = (conversationId?: string) => {
+  return useQuery({
+    queryKey: ['chat-messages', conversationId],
+    queryFn: () => apiCall(`/chat/messages/${conversationId}`),
+    enabled: !!conversationId,
+  });
+};
+
+export const useSendMessage = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (messageData: { conversationId: string; content: string }) =>
+      apiCall('/chat/messages', {
+        method: 'POST',
+        body: JSON.stringify(messageData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['chat-messages'] });
+    },
+  });
+};
+
+// Reports API
+export const useReports = () => {
+  return useQuery({
+    queryKey: ['reports'],
+    queryFn: () => apiCall('/reports'),
+  });
+};
+
+export const useGenerateReport = () => {
+  return useMutation({
+    mutationFn: (reportData: any) =>
+      apiCall('/reports/generate', {
+        method: 'POST',
+        body: JSON.stringify(reportData),
+      }),
+  });
+};
+
+// Dashboard API
+export const useDashboardStats = () => {
+  return useQuery({
+    queryKey: ['dashboard-stats'],
+    queryFn: () => apiCall('/dashboard/stats'),
+  });
+};
+
+// Settings API
+export const useSettings = () => {
+  return useQuery({
+    queryKey: ['settings'],
+    queryFn: () => apiCall('/settings'),
+  });
+};
+
+export const useUpdateSettings = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (settingsData: any) =>
+      apiCall('/settings', {
+        method: 'PUT',
+        body: JSON.stringify(settingsData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['settings'] });
+    },
+  });
+};
+
+// File API
+export const useUploadFile = () => {
+  return useMutation({
+    mutationFn: (file: File) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      return apiCall('/files/upload', {
+        method: 'POST',
+        body: formData,
+      });
+    },
+  });
+};
+
+export const useDownloadFile = (fileId: string) => {
+  return useQuery({
+    queryKey: ['file', fileId],
+    queryFn: () => apiCall(`/files/${fileId}/download`),
+    enabled: !!fileId,
+  });
+};
+
+// Calendar API
+export const useCalendarEvents = (filters?: { startDate?: string; endDate?: string; classId?: string }) => {
+  const queryString = filters ? new URLSearchParams(filters as Record<string, string>).toString() : '';
+  return useQuery({
+    queryKey: ['calendar-events', filters],
+    queryFn: () => apiCall(`/calendar/events${queryString ? `?${queryString}` : ''}`),
+  });
+};
+
+export const useCreateCalendarEvent = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (eventData: any) =>
+      apiCall('/calendar/events', {
+        method: 'POST',
+        body: JSON.stringify(eventData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['calendar-events'] });
+    },
+  });
+};
+
+// Events API
+export const useCreateEvent = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (eventData: any) =>
+      apiCall('/events', {
+        method: 'POST',
+        body: JSON.stringify(eventData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['events'] });
+    },
+  });
+};
+
+// Attendance API
+export const useAttendance = (classId?: string, date?: string) => {
+  return useQuery({
+    queryKey: ['attendance', classId, date],
+    queryFn: () => apiCall(`/attendance?classId=${classId}&date=${date}`),
+    enabled: !!classId && !!date,
+  });
+};
+
+export const useMarkAttendance = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (attendanceData: any) =>
+      apiCall('/attendance', {
+        method: 'POST',
+        body: JSON.stringify(attendanceData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['attendance'] });
+    },
+  });
+};
+
+// Schedule API
+export const useSchedule = (filters?: { classId?: string; teacherId?: string; studentId?: string }) => {
+  const queryString = filters ? new URLSearchParams(filters as Record<string, string>).toString() : '';
+  return useQuery({
+    queryKey: ['schedule', filters],
+    queryFn: () => apiCall(`/schedule${queryString ? `?${queryString}` : ''}`),
+  });
+};
+
+export const useCreateSchedule = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (scheduleData: any) =>
+      apiCall('/schedule', {
+        method: 'POST',
+        body: JSON.stringify(scheduleData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['schedule'] });
+    },
+  });
+};
+
+// Library API
+export const useLibraryResources = (filters?: { type?: string; subjectId?: string; search?: string }) => {
+  const queryString = filters ? new URLSearchParams(filters as Record<string, string>).toString() : '';
+  return useQuery({
+    queryKey: ['library-resources', filters],
+    queryFn: () => apiCall(`/library/resources${queryString ? `?${queryString}` : ''}`),
+  });
+};
+
+export const useCreateLibraryResource = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (resourceData: any) =>
+      apiCall('/library/resources', {
+        method: 'POST',
+        body: JSON.stringify(resourceData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['library-resources'] });
+    },
+  });
+};
+
+// Advanced Activities API
+export const useAdvancedActivities = (filters?: { classId?: string; type?: string; status?: string; search?: string }) => {
+  const queryString = filters ? new URLSearchParams(filters as Record<string, string>).toString() : '';
+  return useQuery({
+    queryKey: ['advanced-activities', filters],
+    queryFn: () => apiCall(`/activities/advanced${queryString ? `?${queryString}` : ''}`),
+  });
+};
+
+// Team API
+export const useTeams = (activityId?: string) => {
+  return useQuery({
+    queryKey: ['teams', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/teams`),
+    enabled: !!activityId,
+  });
+};
+
+export const useCreateTeam = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ activityId, teamData }: { activityId: string; teamData: any }) =>
+      apiCall(`/activities/${activityId}/teams`, {
+        method: 'POST',
+        body: JSON.stringify(teamData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['teams'] });
+    },
+  });
+};
+
+// Peer Review API
+export const usePeerReviews = (activityId?: string) => {
+  return useQuery({
+    queryKey: ['peer-reviews', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/peer-reviews`),
+    enabled: !!activityId,
+  });
+};
+
+export const useSubmitPeerReview = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ activityId, reviewData }: { activityId: string; reviewData: any }) =>
+      apiCall(`/activities/${activityId}/peer-reviews`, {
+        method: 'POST',
+        body: JSON.stringify(reviewData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['peer-reviews'] });
+    },
+  });
+};
+
+// Comments API
+export const useActivityComments = (activityId?: string) => {
+  return useQuery({
+    queryKey: ['activity-comments', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/comments`),
+    enabled: !!activityId,
+  });
+};
+
+export const useAddComment = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ activityId, commentData }: { activityId: string; commentData: any }) =>
+      apiCall(`/activities/${activityId}/comments`, {
+        method: 'POST',
+        body: JSON.stringify(commentData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['activity-comments'] });
+    },
+  });
+};
+
+// Configuration API
+export const useActivityConfig = (activityId?: string) => {
+  return useQuery({
+    queryKey: ['activity-config', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/config`),
+    enabled: !!activityId,
+  });
+};
+
+export const useUpdateActivityConfig = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ activityId, configData }: { activityId: string; configData: any }) =>
+      apiCall(`/activities/${activityId}/config`, {
+        method: 'PUT',
+        body: JSON.stringify(configData),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['activity-config'] });
+    },
+  });
+};
+
+// Export API
+export const useExportGrades = (activityId?: string) => {
+  return useQuery({
+    queryKey: ['export-grades', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/submissions/export-grades`),
+    enabled: !!activityId,
+  });
+};
+
+export const useDownloadAllSubmissions = (activityId?: string) => {
+  return useQuery({
+    queryKey: ['download-all-submissions', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/submissions/download-all`),
+    enabled: !!activityId,
+  });
+};
+
+// Batch Operations API
+export const useBatchGradeSubmissions = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ activityId, grades }: { activityId: string; grades: any[] }) =>
+      apiCall(`/activities/${activityId}/submissions/batch-grade`, {
+        method: 'POST',
+        body: JSON.stringify({ grades }),
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['activity-submissions'] });
+      queryClient.invalidateQueries({ queryKey: ['student-activities'] });
+    },
+  });
+};
+
+// Filter API
+export const useFilteredSubmissions = (activityId?: string, filters?: any) => {
+  return useQuery({
+    queryKey: ['filtered-submissions', activityId, filters],
+    queryFn: () => apiCall(`/activities/${activityId}/submissions/filtered`, {
+      method: 'POST',
+      body: JSON.stringify(filters),
+    }),
+    enabled: !!activityId,
+  });
+};
+
+// Undo Submit API
+export const useUndoSubmit = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (activityId: string) =>
+      apiCall(`/activities/${activityId}/undo-submit`, { method: 'POST' }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['student-activities'] });
+      queryClient.invalidateQueries({ queryKey: ['activity-submissions'] });
+    },
+  });
+};
+
+// File View API
+export const useFileView = (fileId?: string) => {
+  return useQuery({
+    queryKey: ['file-view', fileId],
+    queryFn: () => apiCall(`/activities/files/${fileId}/view`),
+    enabled: !!fileId,
+  });
+};
+
+export const useFileDownload = (fileId?: string) => {
+  return useQuery({
+    queryKey: ['file-download', fileId],
+    queryFn: () => apiCall(`/activities/files/${fileId}/download`),
+    enabled: !!fileId,
+  });
+};
+
+// My Submission API
+export const useMySubmission = (activityId?: string) => {
+  return useQuery({
+    queryKey: ['my-submission', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/my-submission`),
+    enabled: !!activityId,
+  });
+};
+
+// Activity Files API
+export const useActivityFiles = (activityId?: string) => {
+  return useQuery({
+    queryKey: ['activity-files', activityId],
+    queryFn: () => apiCall(`/activities/${activityId}/files`),
+    enabled: !!activityId,
+  });
+};
+
+// Submission Files API
+export const useSubmissionFiles = (fileId?: string) => {
+  return useQuery({
+    queryKey: ['submission-files', fileId],
+    queryFn: () => apiCall(`/submissions/files/${fileId}/view`),
+    enabled: !!fileId,
+  });
+};
