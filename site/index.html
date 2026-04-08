@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Manager | Vitrine</title>
+    <meta
+      name="description"
+      content="Vitrine do School Manager, sistema escolar web para gestao academica, notas, frequencia, calendario e comunicacao entre perfis."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">GitHub Pages Showcase</p>
+        <h1>School Manager</h1>
+        <p class="hero-text">
+          Sistema escolar web pensado para centralizar a rotina academica em um
+          unico ambiente, com perfis de administrador, diretor, coordenador,
+          professor e aluno.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/GaMeredija/schoolmanager" target="_blank" rel="noreferrer">
+            Ver repositorio
+          </a>
+          <a class="button button-secondary" href="#como-rodar">
+            Como rodar
+          </a>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel grid-two">
+          <article>
+            <p class="section-label">Visao geral</p>
+            <h2>Uma base unica para a gestao escolar</h2>
+            <p>
+              O projeto organiza turmas, disciplinas, notas, frequencia,
+              calendario, atividades, materiais, relatorios e comunicacao
+              interna em uma experiencia web unica.
+            </p>
+          </article>
+          <article class="highlight-card">
+            <p class="highlight-title">Essencia da publicacao</p>
+            <ul class="highlight-list">
+              <li>Frontend React + Vite</li>
+              <li>Backend Node.js + Express</li>
+              <li>Banco SQLite</li>
+              <li>Perfis e fluxos academicos integrados</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="cards-section">
+          <div class="section-heading">
+            <p class="section-label">Modulos</p>
+            <h2>O que esta organizado dentro do sistema</h2>
+          </div>
+          <div class="cards-grid">
+            <article class="feature-card">
+              <h3>Usuarios e perfis</h3>
+              <p>
+                Controle de acesso para administracao, diretoria, coordenacao,
+                docentes e estudantes.
+              </p>
+            </article>
+            <article class="feature-card">
+              <h3>Academico</h3>
+              <p>
+                Turmas, disciplinas, calendario, periodos letivos, matriculas e
+                acompanhamento da rotina escolar.
+              </p>
+            </article>
+            <article class="feature-card">
+              <h3>Avaliacao</h3>
+              <p>
+                Notas, exames, frequencia, atividades, entregas e acompanhamento
+                do desempenho.
+              </p>
+            </article>
+            <article class="feature-card">
+              <h3>Comunicacao</h3>
+              <p>
+                Mensagens, notificacoes, materiais e fluxos de acompanhamento
+                entre equipe escolar e alunos.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel architecture">
+          <div class="section-heading">
+            <p class="section-label">Arquitetura</p>
+            <h2>Como o projeto esta estruturado</h2>
+          </div>
+          <div class="architecture-grid">
+            <div class="architecture-step">
+              <span>01</span>
+              <h3>Client</h3>
+              <p>Interface web feita em React com build via Vite.</p>
+            </div>
+            <div class="architecture-step">
+              <span>02</span>
+              <h3>Server</h3>
+              <p>API e regras de negocio em Node.js e Express.</p>
+            </div>
+            <div class="architecture-step">
+              <span>03</span>
+              <h3>Shared</h3>
+              <p>Schema compartilhado entre frontend, backend e banco.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="como-rodar" class="panel run-panel">
+          <div class="section-heading">
+            <p class="section-label">Execucao</p>
+            <h2>Como rodar o sistema completo localmente</h2>
+          </div>
+          <p>
+            Esta pagina no GitHub Pages funciona como vitrine. Para usar o
+            sistema completo com API e banco, rode o projeto localmente.
+          </p>
+          <pre><code>npm ci
+npm run dev</code></pre>
+          <p class="run-note">Acesso local padrao: <strong>http://localhost:3001</strong></p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>School Manager</p>
+        <a href="https://github.com/GaMeredija/schoolmanager" target="_blank" rel="noreferrer">
+          github.com/GaMeredija/schoolmanager
+        </a>
+      </footer>
+    </div>
+  </body>
+</html>
