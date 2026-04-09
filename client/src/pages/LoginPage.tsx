@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -15,8 +14,7 @@ export default function LoginPage() {
   const [selectedRole, setSelectedRole] = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   // const [showForgotPassword, setShowForgotPassword] = useState(false); // REMOVIDO temporariamente
-  const { goToDashboard } = useAuth();
-  const [, navigate] = useLocation();
+  const { login } = useAuth();
 
   // Matrícula removida
 
@@ -121,28 +119,7 @@ export default function LoginPage() {
     setIsLoading(true);
     
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Login successful:', data);
-        
-        // Force a page reload to update authentication state
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
-      } else {
-        const error = await response.json();
-        console.error('Login failed:', error.message);
-        alert(error.message || 'Erro no login');
-      }
+      await login(loginEmail, loginPassword);
     } catch (error) {
       console.error('Login error:', error);
       alert('Erro ao conectar com o servidor');

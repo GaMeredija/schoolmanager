@@ -5,15 +5,18 @@ import { Router as WouterRouter } from "wouter";
 import { useHashLocation } from "wouter/use-hash-location";
 import Router from "@/components/Router";
 import DemoRouter from "@/components/DemoRouter";
+import { AuthProvider } from "@/components/AuthProvider";
 import { isStaticDemo } from "@/lib/runtime";
 
 function App() {
   const content = (
-    <TooltipProvider>
-      <Toaster />
-      <SonnerToaster richColors position="top-right" />
-      {isStaticDemo ? <DemoRouter /> : <Router />}
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <SonnerToaster richColors position="top-right" />
+        {isStaticDemo ? <DemoRouter /> : <Router />}
+      </TooltipProvider>
+    </AuthProvider>
   );
 
   if (isStaticDemo) {

@@ -315,7 +315,7 @@ export function AppSidebar({ isOpen, onClose, onInstructionsClick }: AppSidebarP
                   </h3>
                 )}
                 <div className="space-y-1">
-                  {section.items ? section.items.map((item, itemIndex) => (
+                  {section.items.map((item, itemIndex) => (
                     <Link key={itemIndex} href={item.path}>
                       <Button
                         variant="ghost"
@@ -329,21 +329,7 @@ export function AppSidebar({ isOpen, onClose, onInstructionsClick }: AppSidebarP
                         {item.label}
                       </Button>
                     </Link>
-                  )) : (section.path ? (
-                    <Link href={section.path}>
-                      <Button
-                        variant="ghost"
-                        className={`w-full justify-start text-left h-10 px-3 ${
-                          isActive(section.path)
-                            ? `${isCoordinator ? 'bg-white/20 text-white' : 'bg-blue-600 text-white'}`
-                            : `${isCoordinator ? 'text-white hover:bg-red-700 hover:text-white' : 'text-slate-300 hover:bg-slate-700 hover:text-white'}`
-                        }`}
-                      >
-                        <section.icon className="h-4 w-4 mr-3" />
-                        {section.label}
-                      </Button>
-                    </Link>
-                  ) : null)}
+                  ))}
                 </div>
               </div>
             ))}
