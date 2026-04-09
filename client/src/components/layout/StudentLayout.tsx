@@ -43,6 +43,57 @@ function StudentLayout({ children }: StudentLayoutProps) {
               current: location === '/student/dashboard'
             }
           ]
+        },
+        {
+          title: 'ACADEMICO',
+          items: [
+            {
+              name: 'Turma',
+              href: '/student/class',
+              icon: School,
+              current: location === '/student/class'
+            },
+            {
+              name: 'Materiais',
+              href: '/student/materials',
+              icon: Library,
+              current: location === '/student/materials'
+            },
+            {
+              name: 'Notas',
+              href: '/student/grades',
+              icon: BookOpen,
+              current: location === '/student/grades'
+            }
+          ]
+        },
+        {
+          title: 'ATIVIDADES',
+          items: [
+            {
+              name: 'Minhas Atividades',
+              href: '/student/activities',
+              icon: FileText,
+              current: location === '/student/activities'
+            },
+            {
+              name: 'Provas',
+              href: '/student/exams',
+              icon: ClipboardList,
+              current: location === '/student/exams'
+            }
+          ]
+        },
+        {
+          title: 'COMUNICACAO',
+          items: [
+            {
+              name: 'Calendario',
+              href: '/student/calendar',
+              icon: Calendar,
+              current: location === '/student/calendar'
+            }
+          ]
         }
       ]
     : [

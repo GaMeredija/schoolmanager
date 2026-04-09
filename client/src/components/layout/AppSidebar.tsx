@@ -118,6 +118,23 @@ export function AppSidebar({ isOpen, onClose, onInstructionsClick }: AppSidebarP
               items: [
                 { icon: BarChart3, label: 'Dashboard', path: '/coordinator/dashboard' }
               ]
+            },
+            {
+              title: 'MONITORAMENTO',
+              items: [
+                { icon: Users, label: 'Professores', path: '/coordinator/teachers' },
+                { icon: GraduationCap, label: 'Turmas', path: '/coordinator/classes' },
+                { icon: UserCheck, label: 'Alunos', path: '/coordinator/students' },
+                { icon: BookOpen, label: 'Atividades', path: '/coordinator/activities' }
+              ]
+            },
+            {
+              title: 'ANALISE',
+              items: [
+                { icon: BarChart3, label: 'Performance', path: '/coordinator/performance' },
+                { icon: FileText, label: 'Relatorios', path: '/coordinator/reports' },
+                { icon: Calendar, label: 'Calendario', path: '/coordinator/academic-calendar' }
+              ]
             }
           ];
         case 'student':

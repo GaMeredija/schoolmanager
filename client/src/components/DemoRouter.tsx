@@ -13,8 +13,27 @@ import AdminStudentsPage from "@/pages/admin/StudentsPage";
 import AdminSubjectsPage from "@/pages/admin/SubjectsPage";
 import AdminClassesPage from "@/pages/admin/ClassesPage";
 import TeacherDashboardPage from "@/pages/teacher/TeacherDashboardPage";
+import TeacherClassesPage from "@/pages/teacher/TeacherClassesPage";
+import TeacherExamsPage from "@/pages/teacher/TeacherExamsPage";
+import TeacherChatPage from "@/pages/teacher/TeacherChatPage";
+import TeacherCalendarPage from "@/pages/teacher/TeacherCalendarPage";
+import { TeacherMaterialsPage } from "@/pages/teacher/TeacherMaterialsPage";
+import TeacherActivitiesPage from "@/pages/teacher/TeacherActivitiesPage";
 import StudentDashboardPage from "@/pages/student/StudentDashboardPage";
+import StudentClassPage from "@/pages/student/StudentClassPage";
+import StudentActivitiesPage from "@/pages/student/StudentActivitiesPage";
+import { StudentMaterialsPage } from "@/pages/student/StudentMaterialsPage";
+import StudentExamsPage from "@/pages/student/StudentExamsPage";
+import StudentGradesPage from "@/pages/student/StudentGradesPage";
+import StudentCalendarPage from "@/pages/student/StudentCalendarPage";
 import CoordinatorDashboard from "@/pages/coordinator/CoordinatorDashboard";
+import CoordinatorTeachers from "@/pages/coordinator/CoordinatorTeachers";
+import CoordinatorClasses from "@/pages/coordinator/CoordinatorClasses";
+import CoordinatorStudents from "@/pages/coordinator/CoordinatorStudents";
+import CoordinatorActivities from "@/pages/coordinator/CoordinatorActivities";
+import CoordinatorPerformance from "@/pages/coordinator/CoordinatorPerformance";
+import CoordinatorReports from "@/pages/coordinator/CoordinatorReports";
+import CoordinatorAcademicCalendar from "@/pages/coordinator/CoordinatorAcademicCalendar";
 import DirectorDashboard from "@/pages/director/DirectorDashboard";
 import TestProfilePage from "@/pages/TestProfilePage";
 
@@ -145,9 +164,81 @@ export default function DemoRouter() {
         </TeacherLayout>
       </Route>
 
+      <Route path="/teacher/classes">
+        <TeacherLayout>
+          <TeacherClassesPage />
+        </TeacherLayout>
+      </Route>
+
+      <Route path="/teacher/materials">
+        <TeacherLayout>
+          <TeacherMaterialsPage />
+        </TeacherLayout>
+      </Route>
+
+      <Route path="/teacher/activities">
+        <TeacherLayout>
+          <TeacherActivitiesPage />
+        </TeacherLayout>
+      </Route>
+
+      <Route path="/teacher/exams">
+        <TeacherLayout>
+          <TeacherExamsPage />
+        </TeacherLayout>
+      </Route>
+
+      <Route path="/teacher/chat">
+        <TeacherLayout>
+          <TeacherChatPage />
+        </TeacherLayout>
+      </Route>
+
+      <Route path="/teacher/calendar">
+        <TeacherLayout>
+          <TeacherCalendarPage />
+        </TeacherLayout>
+      </Route>
+
       <Route path="/student/dashboard">
         <StudentLayout>
           <StudentDashboardPage />
+        </StudentLayout>
+      </Route>
+
+      <Route path="/student/class">
+        <StudentLayout>
+          <StudentClassPage />
+        </StudentLayout>
+      </Route>
+
+      <Route path="/student/activities">
+        <StudentLayout>
+          <StudentActivitiesPage />
+        </StudentLayout>
+      </Route>
+
+      <Route path="/student/materials">
+        <StudentLayout>
+          <StudentMaterialsPage />
+        </StudentLayout>
+      </Route>
+
+      <Route path="/student/exams">
+        <StudentLayout>
+          <StudentExamsPage />
+        </StudentLayout>
+      </Route>
+
+      <Route path="/student/grades">
+        <StudentLayout>
+          <StudentGradesPage />
+        </StudentLayout>
+      </Route>
+
+      <Route path="/student/calendar">
+        <StudentLayout>
+          <StudentCalendarPage />
         </StudentLayout>
       </Route>
 
@@ -155,6 +246,34 @@ export default function DemoRouter() {
         <MainLayout pageTitle="Dashboard">
           <CoordinatorDashboard />
         </MainLayout>
+      </Route>
+
+      <Route path="/coordinator/teachers">
+        <CoordinatorTeachers />
+      </Route>
+
+      <Route path="/coordinator/classes">
+        <CoordinatorClasses />
+      </Route>
+
+      <Route path="/coordinator/students">
+        <CoordinatorStudents />
+      </Route>
+
+      <Route path="/coordinator/activities">
+        <CoordinatorActivities />
+      </Route>
+
+      <Route path="/coordinator/performance">
+        <CoordinatorPerformance />
+      </Route>
+
+      <Route path="/coordinator/reports">
+        <CoordinatorReports />
+      </Route>
+
+      <Route path="/coordinator/academic-calendar">
+        <CoordinatorAcademicCalendar />
       </Route>
 
       <Route path="/director/dashboard">

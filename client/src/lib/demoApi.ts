@@ -111,6 +111,19 @@ interface DemoEvent {
   endDate: string;
   location: string;
   type: string;
+  description?: string;
+  startTime?: string;
+  endTime?: string;
+  color?: string;
+  isGlobal?: boolean;
+  classId?: string;
+  className?: string;
+  subjectName?: string;
+  customType?: string;
+  createdBy?: string;
+  creatorName?: string;
+  createdAt?: string;
+  status?: "active" | "pending";
 }
 
 interface DemoCurrentPeriod {
@@ -964,14 +977,553 @@ function buildDirectorDashboard(state: DemoState) {
 }
 
 function buildCalendarEvents(state: DemoState) {
-  return state.events.map((event) => ({
+  const activityEvents = state.activities.map((activity) => ({
+    id: `calendar-activity-${activity.id}`,
+    title: activity.title,
+    description: activity.description,
+    date: activity.dueDate,
+    classId: activity.classId,
+    className: state.classes.find((item) => item.id === activity.classId)?.name ?? "",
+    subjectName: state.subjects.find((subject) => subject.id === activity.subjectId)?.name ?? "",
+    type: "activity",
+  }));
+
+  const examEvents = state.exams.map((exam) => ({
+    id: `calendar-exam-${exam.id}`,
+    title: exam.title,
+    description: exam.description,
+    date: exam.examDate,
+    classId: exam.classId,
+    className: state.classes.find((item) => item.id === exam.classId)?.name ?? "",
+    subjectName: state.subjects.find((subject) => subject.id === exam.subjectId)?.name ?? "",
+    type: "exam",
+  }));
+
+  return [...activityEvents, ...examEvents];
+}
+
+function getPrimaryClass(state: DemoState) {
+  return state.classes[0];
+}
+
+function getStudentUser(state: DemoState) {
+  return state.users.find((user) => user.role === "student");
+}
+
+function getTeacherUser(state: DemoState) {
+  return state.users.find((user) => user.role === "teacher");
+}
+
+function getCoordinatorUser(state: DemoState) {
+  return state.users.find((user) => user.role === "coordinator");
+}
+
+function buildClassStudents(state: DemoState, classId: string) {
+  const targetClass = state.classes.find((item) => item.id === classId) ?? getPrimaryClass(state);
+
+  return state.users
+    .filter((user) => user.role === "student")
+    .map((student) => ({
+      id: student.id,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      email: student.email,
+      phone: student.phone ?? "",
+      registrationNumber: student.registrationNumber,
+      enrollmentDate: student.updatedAt,
+      status: student.status,
+      classId: targetClass?.id ?? "",
+      className: targetClass?.name ?? "",
+    }));
+}
+
+function buildTeacherFolders(state: DemoState, teacherId: string) {
+  const grouped = new Map<string, { folder: string; count: number; totalSize: number }>();
+
+  state.materials
+    .filter((material) => material.teacherId === teacherId && material.folder)
+    .forEach((material) => {
+      const folderName = material.folder as string;
+      const current = grouped.get(folderName) ?? { folder: folderName, count: 0, totalSize: 0 };
+      current.count += 1;
+      current.totalSize += 1024 * 256;
+      grouped.set(folderName, current);
+    });
+
+  return Array.from(grouped.values());
+}
+
+function buildStudentSubjects(state: DemoState) {
+  return {
+    data: state.subjects.map((subject) => ({
+      id: subject.id,
+      name: subject.name,
+      code: subject.code,
+      description: subject.description,
+    })),
+  };
+}
+
+function buildStudentMaterials(state: DemoState, subjectId?: string | null) {
+  return state.materials
+    .filter((material) => !subjectId || material.subjectId === subjectId)
+    .map((material) => ({
+      id: material.id,
+      title: material.title,
+      description: material.description,
+      materialType: material.materialType,
+      content: material.content,
+      folder: material.folder,
+      isPublic: material.isPublic,
+      createdAt: material.createdAt,
+      updatedAt: material.updatedAt,
+      subjectName: state.subjects.find((subject) => subject.id === material.subjectId)?.name ?? "",
+      className: state.classes.find((item) => item.id === material.classId)?.name ?? "",
+      filesCount: 1,
+      totalSize: 1024 * 256,
+    }));
+}
+
+function buildStudentExams(state: DemoState) {
+  return state.exams.map((exam, index) => ({
+    id: exam.id,
+    title: exam.title,
+    description: exam.description,
+    examDate: exam.examDate,
+    subjectId: exam.subjectId,
+    subjectName: state.subjects.find((subject) => subject.id === exam.subjectId)?.name ?? "",
+    bimonthly: Number(exam.bimonthly),
+    semester: Number(exam.semester),
+    totalPoints: exam.totalPoints,
+    createdAt: exam.createdAt,
+    grade:
+      index === 0
+        ? {
+            id: `grade-${exam.id}`,
+            grade: 8.5,
+            isPresent: true,
+            observations: "Bom desempenho na avaliação.",
+            gradedAt: state.currentPeriod.updatedAt,
+          }
+        : null,
+  }));
+}
+
+function buildStudentAttendance(state: DemoState, subjectId?: string | null) {
+  const primaryClass = getPrimaryClass(state);
+  const allRecords = state.subjects.flatMap((subject, index) => [
+    {
+      id: `attendance-${subject.id}-1`,
+      date: `2026-04-0${index + 2}`,
+      status: "present",
+      notes: "Registro demo",
+      subjectId: subject.id,
+      subjectName: subject.name,
+      subjectCode: subject.code,
+      className: primaryClass?.name ?? "",
+      academicYear: primaryClass?.academicYear ?? state.currentPeriod.academicYear,
+      createdAt: getNowIso(),
+    },
+    {
+      id: `attendance-${subject.id}-2`,
+      date: `2026-04-1${index + 1}`,
+      status: index % 2 === 0 ? "late" : "absent",
+      notes: index % 2 === 0 ? "Chegada após o início da aula" : "Falta sem justificativa",
+      subjectId: subject.id,
+      subjectName: subject.name,
+      subjectCode: subject.code,
+      className: primaryClass?.name ?? "",
+      academicYear: primaryClass?.academicYear ?? state.currentPeriod.academicYear,
+      createdAt: getNowIso(),
+    },
+  ]);
+
+  const attendance = allRecords.filter((record) => !subjectId || record.subjectId === subjectId);
+
+  const statsBySubject = state.subjects
+    .filter((subject) => !subjectId || subject.id === subjectId)
+    .map((subject) => {
+      const records = attendance.filter((record) => record.subjectId === subject.id);
+      const presentClasses = records.filter((record) => record.status === "present").length;
+      const absentClasses = records.filter((record) => record.status === "absent").length;
+      const lateClasses = records.filter((record) => record.status === "late").length;
+      const excusedClasses = records.filter((record) => record.status === "excused").length;
+
+      return {
+        subjectId: subject.id,
+        subjectName: subject.name,
+        totalClasses: records.length,
+        presentClasses,
+        absentClasses,
+        lateClasses,
+        excusedClasses,
+      };
+    });
+
+  const totalClasses = attendance.length;
+  const presentCount = attendance.filter((record) => record.status === "present").length;
+  const absentCount = attendance.filter((record) => record.status === "absent").length;
+  const lateCount = attendance.filter((record) => record.status === "late").length;
+  const excusedCount = attendance.filter((record) => record.status === "excused").length;
+
+  return {
+    attendance,
+    statsBySubject,
+    generalStats: {
+      totalClasses,
+      presentCount,
+      absentCount,
+      lateCount,
+      excusedCount,
+      attendanceRate: totalClasses > 0 ? Number(((presentCount / totalClasses) * 100).toFixed(1)) : 0,
+    },
+  };
+}
+
+function buildTeacherEvents(state: DemoState, teacherId: string) {
+  const teacherActivities = state.activities
+    .filter((activity) => activity.teacherId === teacherId)
+    .map((activity) => ({
+      id: `teacher-activity-${activity.id}`,
+      title: activity.title,
+      description: activity.description,
+      date: activity.dueDate,
+      classId: activity.classId,
+      className: state.classes.find((item) => item.id === activity.classId)?.name ?? "",
+      subjectName: state.subjects.find((subject) => subject.id === activity.subjectId)?.name ?? "",
+      type: "activity",
+    }));
+
+  const teacherExams = state.exams
+    .filter((exam) => exam.teacherId === teacherId)
+    .map((exam) => ({
+      id: `teacher-exam-${exam.id}`,
+      title: exam.title,
+      description: exam.description,
+      date: exam.examDate,
+      classId: exam.classId,
+      className: state.classes.find((item) => item.id === exam.classId)?.name ?? "",
+      subjectName: state.subjects.find((subject) => subject.id === exam.subjectId)?.name ?? "",
+      type: "exam",
+    }));
+
+  const globalEvents = state.events.map((event) => ({
     id: event.id,
     title: event.title,
-    start: event.startDate,
-    end: event.endDate,
+    description: event.description ?? "",
+    startDate: event.startDate,
+    endDate: event.endDate,
+    startTime: event.startTime,
+    endTime: event.endTime,
     location: event.location,
-    type: event.type,
+    type: event.type || "meeting",
+    isGlobal: true,
+    className: event.className ?? "Evento Global",
+    subjectName: event.subjectName ?? "Coordenação",
   }));
+
+  return { data: [...teacherActivities, ...teacherExams, ...globalEvents] };
+}
+
+function buildStudentEvents(state: DemoState) {
+  return {
+    data: state.events.map((event) => ({
+      id: event.id,
+      title: event.title,
+      description: event.description ?? "",
+      startDate: event.startDate,
+      endDate: event.endDate,
+      startTime: event.startTime,
+      endTime: event.endTime,
+      location: event.location,
+      type: event.type || "meeting",
+      isGlobal: true,
+      className: event.className ?? "Evento Global",
+      subjectName: event.subjectName ?? "Coordenação",
+      creatorName: event.creatorName ?? "Coordenação",
+    })),
+  };
+}
+
+function buildCoordinatorStudents(state: DemoState) {
+  const primaryClass = getPrimaryClass(state);
+  const attendance = buildStudentAttendance(state);
+
+  return {
+    data: state.users
+      .filter((user) => user.role === "student")
+      .map((student) => ({
+        ...publicUser(student),
+        classInfo: primaryClass
+          ? {
+              id: primaryClass.id,
+              name: primaryClass.name,
+              grade: primaryClass.grade,
+              section: primaryClass.section,
+              enrollmentDate: student.updatedAt,
+            }
+          : undefined,
+        attendanceStats: {
+          totalClasses: attendance.generalStats.totalClasses,
+          presentCount: attendance.generalStats.presentCount,
+          absentCount: attendance.generalStats.absentCount,
+          attendanceRate: attendance.generalStats.attendanceRate,
+          lastAttendanceDate: attendance.attendance[0]?.date,
+        },
+        gradeStats: {
+          averageGrade: 8.4,
+          totalGrades: 2,
+          lastGradeDate: state.currentPeriod.updatedAt,
+        },
+      })),
+  };
+}
+
+function buildCoordinatorTeacherStats(state: DemoState) {
+  return {
+    data: state.users
+      .filter((user) => user.role === "teacher")
+      .map((teacher) => {
+        const teacherActivities = state.activities.filter((activity) => activity.teacherId === teacher.id);
+        const teacherExams = state.exams.filter((exam) => exam.teacherId === teacher.id);
+        const teacherMaterials = state.materials.filter((material) => material.teacherId === teacher.id);
+        const gradedActivities = teacherActivities.filter((activity) => activity.studentSubmissionStatus === "graded").length;
+        const pendingActivities = teacherActivities.filter((activity) => activity.studentSubmissionStatus === "submitted").length;
+
+        return {
+          ...publicUser(teacher),
+          stats: {
+            activities: {
+              total: teacherActivities.length,
+              approved: teacherActivities.filter((activity) => activity.status === "active").length,
+              draft: teacherActivities.filter((activity) => activity.status === "inactive").length,
+              expired: 0,
+            },
+            exams: {
+              total: teacherExams.length,
+              completed: teacherExams.filter((exam) => exam.status === "completed").length,
+              active: teacherExams.filter((exam) => exam.status === "scheduled").length,
+            },
+            materials: {
+              total: teacherMaterials.length,
+            },
+            grades: {
+              activityGrades: { total: gradedActivities, average: 8.5 },
+              examGrades: { total: teacherExams.length ? 1 : 0, average: 8.2 },
+            },
+            submissions: {
+              total: teacherActivities.filter((activity) => activity.studentSubmissionStatus).length,
+              graded: gradedActivities,
+              pending: pendingActivities,
+            },
+            performance: 8.7,
+            approvalRate: 92,
+            gradingRate: 88,
+          },
+        };
+      }),
+  };
+}
+
+function buildCoordinatorTeacherDetails(state: DemoState, teacherId: string) {
+  const teacherActivities = buildTeacherActivities(state, teacherId);
+
+  return {
+    data: {
+      recentActivities: teacherActivities.slice(0, 5).map((activity) => ({
+        id: activity.id,
+        title: activity.title,
+        subjectName: activity.subjectName,
+        className: activity.className,
+        status: activity.status,
+      })),
+      pendingSubmissions: teacherActivities
+        .filter((activity) => activity.pendingCount > 0)
+        .map((activity) => ({
+          id: `submission-${activity.id}`,
+          activityTitle: activity.title,
+          studentName: "Aluno Demo",
+          subjectName: activity.subjectName,
+          submittedAt: state.currentPeriod.updatedAt,
+        })),
+    },
+  };
+}
+
+function buildCoordinatorActivities(state: DemoState) {
+  return state.activities.map((activity) => ({
+    id: activity.id,
+    title: activity.title,
+    description: activity.description,
+    teacherName:
+      state.users.find((user) => user.id === activity.teacherId)
+        ? `${state.users.find((user) => user.id === activity.teacherId)!.firstName} ${state.users.find((user) => user.id === activity.teacherId)!.lastName}`
+        : "",
+    subjectName: state.subjects.find((subject) => subject.id === activity.subjectId)?.name ?? "",
+    className: state.classes.find((item) => item.id === activity.classId)?.name ?? "",
+    createdAt: activity.createdAt,
+    dueDate: activity.dueDate,
+    status: activity.status,
+    isActive: activity.status === "active",
+  }));
+}
+
+function buildCoordinatorPerformanceSimple(state: DemoState) {
+  return {
+    data: {
+      summary: {
+        totalStudents: state.users.filter((user) => user.role === "student").length,
+        totalTeachers: state.users.filter((user) => user.role === "teacher").length,
+        avgPerformance: 8.6,
+        attendanceRate: 91.5,
+        completionRate: 88.2,
+      },
+      keyMetrics: {
+        topPerformingClass: state.classes[0]?.name ?? "9º Ano A",
+        needsAttention: 1,
+        overallTrend: "up" as const,
+      },
+    },
+  };
+}
+
+function buildPeriods(state: DemoState) {
+  const academicYear = Number(state.currentPeriod.academicYear);
+
+  return {
+    data: ["1", "2", "3", "4"].map((period, index) => ({
+      id: `demo-period-${period}`,
+      name: `${period}º Bimestre ${academicYear}`,
+      period,
+      academicYear,
+      startDate: `2026-0${index * 2 + 2}-01`,
+      endDate: `2026-0${index * 2 + 3}-30`,
+      status: period === state.currentPeriod.period ? "active" : Number(period) < Number(state.currentPeriod.period) ? "completed" : "pending",
+      totalDays: 60,
+      remainingDays: period === state.currentPeriod.period ? state.currentPeriod.remainingDays : 0,
+      isCurrent: period === state.currentPeriod.period,
+    })),
+  };
+}
+
+function buildTeacherSubjectsForExams(state: DemoState, teacherId: string) {
+  return {
+    success: true,
+    data: buildTeacherClasses(state, teacherId),
+  };
+}
+
+function buildExamDetails(state: DemoState, examId: string) {
+  const exam = state.exams.find((entry) => entry.id === examId);
+  if (!exam) return null;
+
+  const students = buildClassStudents(state, exam.classId);
+
+  return {
+    id: exam.id,
+    title: exam.title,
+    description: exam.description,
+    examDate: exam.examDate,
+    duration: exam.duration,
+    totalPoints: exam.totalPoints,
+    semester: exam.semester,
+    bimonthly: exam.bimonthly,
+    status: exam.status,
+    subjectId: exam.subjectId,
+    subjectName: state.subjects.find((subject) => subject.id === exam.subjectId)?.name ?? "",
+    classId: exam.classId,
+    className: state.classes.find((item) => item.id === exam.classId)?.name ?? "",
+    grades: students.map((student, index) => ({
+      id: `exam-grade-${exam.id}-${student.id}`,
+      studentId: student.id,
+      studentName: `${student.firstName} ${student.lastName}`,
+      registrationNumber: student.registrationNumber,
+      grade: index === 0 ? 8.5 : null,
+      observations: index === 0 ? "Boa compreensão do conteúdo." : "",
+      isPresent: true,
+    })),
+  };
+}
+
+function buildCoordinatorSubmissions(state: DemoState) {
+  const student = getStudentUser(state);
+
+  return state.activities
+    .filter((activity) => activity.studentSubmissionStatus)
+    .map((activity) => ({
+      id: `submission-${activity.id}`,
+      activityId: activity.id,
+      studentId: student?.id ?? "browser_demo_student",
+      studentName: `${student?.firstName ?? "Aluno"} ${student?.lastName ?? "Demo"}`.trim(),
+      submittedAt: activity.studentSubmissionDate ?? state.currentPeriod.updatedAt,
+      grade: activity.studentSubmissionGrade,
+      status: activity.studentSubmissionStatus,
+    }));
+}
+
+function buildCoordinatorExamGrades(state: DemoState) {
+  return state.exams.map((exam, index) => ({
+    id: `coordinator-grade-${exam.id}`,
+    examId: exam.id,
+    classId: exam.classId,
+    subjectId: exam.subjectId,
+    grade: index === 0 ? 8.5 : 7.2,
+    totalPoints: exam.totalPoints,
+  }));
+}
+
+function buildUsersByRole(state: DemoState, role: string) {
+  const primaryClass = getPrimaryClass(state);
+
+  return state.users
+    .filter((user) => user.role === role)
+    .map((user) => ({
+      ...publicUser(user),
+      classId: role === "student" ? primaryClass?.id ?? "" : undefined,
+      className: role === "student" ? primaryClass?.name ?? "" : undefined,
+      profileImageUrl: user.profileImageUrl,
+    }));
+}
+
+function buildClassesList(state: DemoState) {
+  return state.classes.map((item) => ({
+    id: item.id,
+    name: item.name,
+    grade: item.grade,
+    section: item.section,
+    academicYear: item.academicYear,
+    status: item.status,
+    studentsCount: state.users.filter((user) => user.role === "student").length,
+    createdAt: item.createdAt,
+  }));
+}
+
+function buildActivityDetails(state: DemoState, activityId: string) {
+  const activity = state.activities.find((entry) => entry.id === activityId);
+  if (!activity) return null;
+
+  return {
+    id: activity.id,
+    title: activity.title,
+    description: activity.description,
+    subjectId: activity.subjectId,
+    subjectName: state.subjects.find((subject) => subject.id === activity.subjectId)?.name ?? "",
+    classId: activity.classId,
+    className: state.classes.find((item) => item.id === activity.classId)?.name ?? "",
+    dueDate: activity.dueDate,
+    maxGrade: activity.maxGrade,
+    instructions: activity.instructions,
+    requirements: activity.requirements,
+    status: activity.status,
+    allowLateSubmission: activity.allowLateSubmission,
+    latePenalty: activity.latePenalty,
+    maxFileSize: activity.maxFileSize,
+    files: [],
+    submissionStatus: activity.studentSubmissionStatus,
+    submissionGrade: activity.studentSubmissionGrade,
+    submissionFeedback: activity.studentSubmissionFeedback,
+    submissionDate: activity.studentSubmissionDate,
+  };
 }
 
 function jsonResponse(body: unknown, status = 200) {
@@ -1482,6 +2034,44 @@ async function handleDemoApi(url: string, init?: RequestInit, request?: Request)
     return jsonResponse(buildStudentActivities(getState()));
   }
 
+  if (path === "/api/student/subjects" && method === "GET") {
+    return jsonResponse(buildStudentSubjects(getState()));
+  }
+
+  if (path === "/api/materials/student" && method === "GET") {
+    return jsonResponse(buildStudentMaterials(getState(), parsed.searchParams.get("subjectId")));
+  }
+
+  if (path === "/api/student/exams" && method === "GET") {
+    return jsonResponse(buildStudentExams(getState()));
+  }
+
+  const activityDetailsMatch = path.match(/^\/api\/activities\/([^/]+)$/);
+  if (activityDetailsMatch && method === "GET") {
+    const details = buildActivityDetails(getState(), activityDetailsMatch[1]);
+    return details ? jsonResponse(details) : jsonResponse({ message: "Atividade não encontrada" }, 404);
+  }
+
+  const activityFilesMatch = path.match(/^\/api\/activities\/([^/]+)\/files$/);
+  if (activityFilesMatch && method === "GET") {
+    return jsonResponse([]);
+  }
+
+  const classStudentsMatch = path.match(/^\/api\/classes\/([^/]+)\/students$/);
+  if (classStudentsMatch && method === "GET") {
+    return jsonResponse(buildClassStudents(getState(), classStudentsMatch[1]));
+  }
+
+  const coordinatorClassStudentsMatch = path.match(/^\/api\/coordinator\/classes\/([^/]+)\/students$/);
+  if (coordinatorClassStudentsMatch && method === "GET") {
+    return jsonResponse({ data: buildClassStudents(getState(), coordinatorClassStudentsMatch[1]) });
+  }
+
+  const teacherSubjectsMatch = path.match(/^\/api\/teacher\/([^/]+)\/subjects$/);
+  if (teacherSubjectsMatch && method === "GET") {
+    return jsonResponse(buildTeacherSubjectsForExams(getState(), teacherSubjectsMatch[1]));
+  }
+
   const teacherClassesMatch = path.match(/^\/api\/teacher\/([^/]+)\/classes$/);
   if (teacherClassesMatch && method === "GET") {
     return jsonResponse(buildTeacherClasses(getState(), teacherClassesMatch[1]));
@@ -1494,7 +2084,14 @@ async function handleDemoApi(url: string, init?: RequestInit, request?: Request)
 
   const teacherMaterialsMatch = path.match(/^\/api\/materials\/teacher\/([^/]+)$/);
   if (teacherMaterialsMatch && method === "GET") {
-    return jsonResponse(buildTeacherMaterials(getState(), teacherMaterialsMatch[1]));
+    const folder = parsed.searchParams.get("folder");
+    const materials = buildTeacherMaterials(getState(), teacherMaterialsMatch[1]);
+    return jsonResponse(folder ? materials.filter((material) => material.folder === folder) : materials);
+  }
+
+  const teacherFoldersMatch = path.match(/^\/api\/materials\/teacher\/([^/]+)\/folders$/);
+  if (teacherFoldersMatch && method === "GET") {
+    return jsonResponse(buildTeacherFolders(getState(), teacherFoldersMatch[1]));
   }
 
   const teacherExamsMatch = path.match(/^\/api\/exams\/teacher\/([^/]+)$/);
@@ -1502,12 +2099,128 @@ async function handleDemoApi(url: string, init?: RequestInit, request?: Request)
     return jsonResponse(buildTeacherExams(getState(), teacherExamsMatch[1]));
   }
 
+  const teacherEventsMatch = path.match(/^\/api\/teacher\/([^/]+)\/events$/);
+  if (teacherEventsMatch && method === "GET") {
+    return jsonResponse(buildTeacherEvents(getState(), teacherEventsMatch[1]));
+  }
+
+  const examDetailsMatch = path.match(/^\/api\/exams\/([^/]+)$/);
+  if (examDetailsMatch && method === "GET") {
+    const details = buildExamDetails(getState(), examDetailsMatch[1]);
+    return details ? jsonResponse(details) : jsonResponse({ message: "Prova não encontrada" }, 404);
+  }
+
+  const completeExamMatch = path.match(/^\/api\/exams\/([^/]+)\/complete$/);
+  if (completeExamMatch && method === "PATCH") {
+    updateState((draft) => {
+      const exam = draft.exams.find((entry) => entry.id === completeExamMatch[1]);
+      if (exam) {
+        exam.status = "completed";
+      }
+    });
+    return jsonResponse({ message: "Prova marcada como concluída" });
+  }
+
+  if (path === "/api/exams" && method === "GET") {
+    return jsonResponse(buildTeacherExams(getState(), getTeacherUser(getState())?.id ?? "browser_demo_teacher"));
+  }
+
+  if (path === "/api/exams" && method === "POST") {
+    const body = (await parseBody(init, request)) as Partial<DemoExam>;
+    const next = updateState((draft) => {
+      draft.exams.push({
+        id: `demo_exam_${crypto.randomUUID().slice(0, 8)}`,
+        title: body.title || "Nova Prova",
+        description: body.description || "Prova criada no modo demonstração",
+        subjectId: body.subjectId || draft.subjects[0]?.id || "browser_demo_subject_math",
+        classId: body.classId || draft.classes[0]?.id || "browser_demo_class_9a",
+        teacherId: draft.users.find((user) => user.role === "teacher")?.id || "browser_demo_teacher",
+        examDate: body.examDate || getNowIso().slice(0, 10),
+        duration: Number(body.duration) || 60,
+        totalPoints: Number(body.totalPoints) || 10,
+        semester: String(body.semester || "1"),
+        bimonthly: String(body.bimonthly || draft.currentPeriod.period || "1"),
+        status: "scheduled",
+        createdAt: getNowIso(),
+      });
+    });
+    return jsonResponse(buildTeacherExams(next, getTeacherUser(next)?.id ?? "browser_demo_teacher"));
+  }
+
+  if (examDetailsMatch && method === "DELETE") {
+    updateState((draft) => {
+      draft.exams = draft.exams.filter((entry) => entry.id !== examDetailsMatch[1]);
+    });
+    return jsonResponse({ message: "Prova excluída com sucesso" });
+  }
+
+  const examGradesMatch = path.match(/^\/api\/exams\/([^/]+)\/grades$/);
+  if (examGradesMatch && (method === "POST" || method === "PUT")) {
+    return jsonResponse({ message: "Notas salvas com sucesso" });
+  }
+
+  if (path === "/api/periods/all" && method === "GET") {
+    return jsonResponse(buildPeriods(getState()));
+  }
+
+  if (path === "/api/periods" && method === "GET") {
+    return jsonResponse(buildPeriods(getState()));
+  }
+
   if (path === "/api/coordinator/dashboard" && method === "GET") {
     return jsonResponse(buildCoordinatorDashboard(getState()));
   }
 
+  if (path === "/api/coordinator/students" && method === "GET") {
+    return jsonResponse(buildCoordinatorStudents(getState()));
+  }
+
+  if (path === "/api/coordinator/teacher-stats" && method === "GET") {
+    return jsonResponse(buildCoordinatorTeacherStats(getState()));
+  }
+
+  const coordinatorTeacherDetailsMatch = path.match(/^\/api\/coordinator\/teacher-details\/([^/]+)$/);
+  if (coordinatorTeacherDetailsMatch && method === "GET") {
+    return jsonResponse(buildCoordinatorTeacherDetails(getState(), coordinatorTeacherDetailsMatch[1]));
+  }
+
+  if (path === "/api/coordinator/activities" && method === "GET") {
+    return jsonResponse(buildCoordinatorActivities(getState()));
+  }
+
+  if (path === "/api/coordinator/performance-simple" && method === "GET") {
+    return jsonResponse(buildCoordinatorPerformanceSimple(getState()));
+  }
+
+  if (path === "/api/coordinator/submissions" && method === "GET") {
+    return jsonResponse(buildCoordinatorSubmissions(getState()));
+  }
+
+  if (path === "/api/coordinator/exam-grades" && method === "GET") {
+    return jsonResponse(buildCoordinatorExamGrades(getState()));
+  }
+
+  if (path === "/api/coordinator/calendar/events" && method === "GET") {
+    return jsonResponse({
+      data: getState().events.map((event) => ({
+        ...event,
+        creatorName: event.creatorName ?? "Coordenação",
+        color: event.color ?? "#F97316",
+        isGlobal: event.isGlobal ?? true,
+      })),
+    });
+  }
+
   if (path === "/api/coordinator/classes" && method === "GET") {
     return jsonResponse(buildCoordinatorClasses(getState()));
+  }
+
+  const coordinatorGlobalEventMatch = path.match(/^\/api\/coordinator\/global-events\/([^/]+)$/);
+  if (coordinatorGlobalEventMatch && method === "DELETE") {
+    updateState((draft) => {
+      draft.events = draft.events.filter((event) => event.id !== coordinatorGlobalEventMatch[1]);
+    });
+    return jsonResponse({ message: "Evento excluído com sucesso" });
   }
 
   if (path === "/api/coordinator/system/status" && method === "GET") {
@@ -1516,6 +2229,54 @@ async function handleDemoApi(url: string, init?: RequestInit, request?: Request)
 
   if (path === "/api/director/dashboard" && method === "GET") {
     return jsonResponse(buildDirectorDashboard(getState()));
+  }
+
+  const studentEventsMatch = path.match(/^\/api\/student\/([^/]+)\/events$/);
+  if (studentEventsMatch && method === "GET") {
+    return jsonResponse(buildStudentEvents(getState()));
+  }
+
+  if (path === "/api/users" && method === "GET") {
+    const role = parsed.searchParams.get("role");
+    return jsonResponse(role ? buildUsersByRole(getState(), role) : buildAdminUsers(getState()));
+  }
+
+  if (path === "/api/classes" && method === "GET") {
+    return jsonResponse(buildClassesList(getState()));
+  }
+
+  if (path === "/api/events" && method === "POST") {
+    const body = (await parseBody(init, request)) as Partial<DemoEvent> & { classIds?: string[] };
+    const classes = body.isGlobal ? [undefined] : (body.classIds && body.classIds.length > 0 ? body.classIds : [body.classId]);
+
+    const next = updateState((draft) => {
+      classes.forEach((classId) => {
+        const targetClass = draft.classes.find((item) => item.id === classId);
+        draft.events.push({
+          id: `demo_event_${crypto.randomUUID().slice(0, 8)}`,
+          title: body.title || "Novo Evento",
+          description: body.description || "",
+          startDate: body.startDate || getNowIso().slice(0, 10),
+          endDate: body.endDate || body.startDate || getNowIso().slice(0, 10),
+          startTime: body.startTime || "08:00",
+          endTime: body.endTime || body.startTime || "09:00",
+          location: body.location || "Escola",
+          type: body.type || "event",
+          color: body.color || "#F97316",
+          isGlobal: body.isGlobal ?? true,
+          classId: classId,
+          className: targetClass?.name,
+          subjectName: body.subjectName || "Coordenação",
+          customType: body.customType,
+          createdBy: body.createdBy || getCoordinatorUser(draft)?.id || "browser_demo_coord",
+          creatorName: "Coordenação",
+          createdAt: getNowIso(),
+          status: "active",
+        });
+      });
+    });
+
+    return jsonResponse({ message: "Evento criado com sucesso", data: next.events });
   }
 
   if (path === "/api/calendar/events" && method === "GET") {

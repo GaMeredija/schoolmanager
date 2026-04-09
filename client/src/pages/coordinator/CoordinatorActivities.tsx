@@ -52,7 +52,7 @@ export default function CoordinatorActivities() {
     }
   });
 
-  const activities = activitiesData?.data || [];
+  const activities = Array.isArray(activitiesData) ? activitiesData : activitiesData?.data || [];
 
   const { data: subjects = [] } = useQuery({
     queryKey: ['subjects'],

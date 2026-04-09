@@ -40,6 +40,27 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
           items: [
             { icon: GraduationCap, label: 'Dashboard', path: '/teacher/dashboard' }
           ]
+        },
+        {
+          title: 'ACADEMICO',
+          items: [
+            { icon: BookOpen, label: 'Minhas Turmas', path: '/teacher/classes' },
+            { icon: Library, label: 'Materiais', path: '/teacher/materials' }
+          ]
+        },
+        {
+          title: 'AVALIACOES',
+          items: [
+            { icon: FileText, label: 'Atividades', path: '/teacher/activities' },
+            { icon: ClipboardList, label: 'Provas', path: '/teacher/exams' }
+          ]
+        },
+        {
+          title: 'COMUNICACAO',
+          items: [
+            { icon: MessageSquare, label: 'Chat', path: '/teacher/chat' },
+            { icon: Calendar, label: 'Calendario', path: '/teacher/calendar' }
+          ]
         }
       ]
     : [
