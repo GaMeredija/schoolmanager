@@ -14,6 +14,8 @@ import {
   Home,
   User,
   GraduationCap,
+  BookOpen,
+  School,
   FileText,
   Lightbulb,
   TrendingUp
@@ -35,18 +37,52 @@ const DirectorLayout: React.FC<DirectorLayoutProps> = ({ children }) => {
     setLocation('/');
   };
 
-  const navigation = isStaticDemo
+  const navigationSections = isStaticDemo
     ? [
-        { name: 'Dashboard', href: '/director/dashboard', icon: BarChart3 },
+        {
+          title: 'PRINCIPAL',
+          items: [
+            { name: 'Dashboard', href: '/director/dashboard', icon: BarChart3 },
+          ],
+        },
+        {
+          title: 'GESTAO ESCOLAR',
+          items: [
+            { name: 'Professores', href: '/director/teachers', icon: GraduationCap },
+            { name: 'Alunos', href: '/director/students', icon: Users },
+          ],
+        },
+        {
+          title: 'ACADEMICO',
+          items: [
+            { name: 'Disciplinas', href: '/director/subjects', icon: BookOpen },
+            { name: 'Turmas', href: '/director/classes', icon: School },
+          ],
+        },
       ]
     : [
-        { name: 'Dashboard', href: '/director/dashboard', icon: BarChart3 },
-        { name: 'Periodos', href: '/director/periods', icon: TrendingUp },
-        { name: 'Matriculas', href: '/director/enrollments', icon: GraduationCap },
-        { name: 'Aprovacoes', href: '/director/approvals', icon: FileText },
-        { name: 'Usuarios', href: '/director/users', icon: Users },
-        { name: 'Comunicados', href: '/director/announcements', icon: MessageSquare },
-        { name: 'Chat', href: '/director/chat', icon: MessageSquare },
+        {
+          title: 'PRINCIPAL',
+          items: [
+            { name: 'Dashboard', href: '/director/dashboard', icon: BarChart3 },
+          ],
+        },
+        {
+          title: 'ACADEMICO',
+          items: [
+            { name: 'Periodos', href: '/director/periods', icon: TrendingUp },
+            { name: 'Matriculas', href: '/director/enrollments', icon: GraduationCap },
+            { name: 'Aprovacoes', href: '/director/approvals', icon: FileText },
+            { name: 'Usuarios', href: '/director/users', icon: Users },
+          ],
+        },
+        {
+          title: 'COMUNICACAO',
+          items: [
+            { name: 'Comunicados', href: '/director/announcements', icon: MessageSquare },
+            { name: 'Chat', href: '/director/chat', icon: MessageSquare },
+          ],
+        },
       ];
 
   return (
@@ -68,23 +104,30 @@ const DirectorLayout: React.FC<DirectorLayoutProps> = ({ children }) => {
               <X className="h-6 w-6" />
             </Button>
           </div>
-          <nav className="flex-1 px-4 py-4 space-y-2">
-            {navigation.map((item) => {
-              const active = location === item.href;
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                    active ? 'active text-white' : 'text-gray-300 hover:text-white'
-                  }`}
-                  onClick={() => setSidebarOpen(false)}
-                >
-                  <item.icon className="mr-3 h-5 w-5" />
-                  {item.name}
-                </Link>
-              );
-            })}
+          <nav className="flex-1 px-4 py-4 space-y-6">
+            {navigationSections.map((section) => (
+              <div key={section.title} className="space-y-1">
+                <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  {section.title}
+                </div>
+                {section.items.map((item) => {
+                  const active = location === item.href;
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                        active ? 'active text-white' : 'text-gray-300 hover:text-white'
+                      }`}
+                      onClick={() => setSidebarOpen(false)}
+                    >
+                      <item.icon className="mr-3 h-5 w-5" />
+                      {item.name}
+                    </Link>
+                  );
+                })}
+              </div>
+            ))}
           </nav>
         </div>
       </div>
@@ -133,82 +176,26 @@ const DirectorLayout: React.FC<DirectorLayoutProps> = ({ children }) => {
             </div>
           </div>
 
-          <nav className="flex-1 px-4 py-4 space-y-2">
-            <div className="space-y-1">
-              <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                PRINCIPAL
+          <nav className="flex-1 px-4 py-4 space-y-6">
+            {navigationSections.map((section) => (
+              <div key={section.title} className="space-y-1">
+                <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                  {section.title}
+                </div>
+                {section.items.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                      location === item.href ? 'active text-white' : 'text-gray-300 hover:text-white'
+                    }`}
+                  >
+                    <item.icon className="mr-3 h-5 w-5" />
+                    {item.name}
+                  </Link>
+                ))}
               </div>
-              <Link
-                href="/director/dashboard"
-                className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                  location === '/director/dashboard' ? 'active text-white' : 'text-gray-300 hover:text-white'
-                }`}
-              >
-                <BarChart3 className="mr-3 h-5 w-5" />
-                Dashboard
-              </Link>
-            </div>
-
-            {!isStaticDemo && (
-              <>
-                <div className="space-y-1">
-                  <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                    ACADEMICO
-                  </div>
-                  <Link
-                    href="/director/periods"
-                    className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      location === '/director/periods' ? 'active text-white' : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    <TrendingUp className="mr-3 h-5 w-5" />
-                    Periodos
-                  </Link>
-                  <Link
-                    href="/director/approvals"
-                    className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      location === '/director/approvals' ? 'active text-white' : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    <FileText className="mr-3 h-5 w-5" />
-                    Aprovacoes
-                  </Link>
-                  <Link
-                    href="/director/users"
-                    className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      location === '/director/users' ? 'active text-white' : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    <Users className="mr-3 h-5 w-5" />
-                    Usuarios
-                  </Link>
-                </div>
-
-                <div className="space-y-1">
-                  <div className="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
-                    COMUNICACAO
-                  </div>
-                  <Link
-                    href="/director/announcements"
-                    className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      location === '/director/announcements' ? 'active text-white' : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    <MessageSquare className="mr-3 h-5 w-5" />
-                    Comunicados
-                  </Link>
-                  <Link
-                    href="/director/chat"
-                    className={`nav-item flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                      location === '/director/chat' ? 'active text-white' : 'text-gray-300 hover:text-white'
-                    }`}
-                  >
-                    <MessageSquare className="mr-3 h-5 w-5" />
-                    Chat
-                  </Link>
-                </div>
-              </>
-            )}
+            ))}
           </nav>
 
           <div className="px-4 py-4 border-t border-gray-700">

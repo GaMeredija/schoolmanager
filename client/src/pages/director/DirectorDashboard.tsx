@@ -34,8 +34,10 @@ const DirectorDashboard: React.FC = () => {
 
   const quickActions = isStaticDemo
     ? [
-        { label: 'Atualizar painel', path: '/director/dashboard' },
-        { label: 'Meu perfil', path: '/meu-perfil' },
+        { label: 'Professores', path: '/director/teachers' },
+        { label: 'Alunos', path: '/director/students' },
+        { label: 'Disciplinas', path: '/director/subjects' },
+        { label: 'Turmas', path: '/director/classes' },
       ]
     : [
         { label: 'Gerenciar Aprovações', path: '/director/approvals' },

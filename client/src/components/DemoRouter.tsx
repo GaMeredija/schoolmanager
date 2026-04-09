@@ -163,6 +163,30 @@ export default function DemoRouter() {
         </DirectorLayout>
       </Route>
 
+      <Route path="/director/teachers">
+        <DirectorLayout>
+          <AdminTeachersPage />
+        </DirectorLayout>
+      </Route>
+
+      <Route path="/director/students">
+        <DirectorLayout>
+          <AdminStudentsPage />
+        </DirectorLayout>
+      </Route>
+
+      <Route path="/director/subjects">
+        <DirectorLayout>
+          <AdminSubjectsPage />
+        </DirectorLayout>
+      </Route>
+
+      <Route path="/director/classes">
+        <DirectorLayout>
+          <AdminClassesPage />
+        </DirectorLayout>
+      </Route>
+
       <Route path="/meu-perfil">
         <ProfileRoute />
       </Route>
