@@ -187,6 +187,12 @@ export default function LoginPage() {
     },
   ];
 
+  const activeRoleId = selectedRole ?? "coordinator";
+  const activeRoleIndex = roles.findIndex((role) => role.id === activeRoleId);
+  const anchorIndex = 2;
+  const rotationDegrees =
+    activeRoleIndex >= 0 ? (anchorIndex - activeRoleIndex) * 72 : 0;
+
   // Mantemos seleção apenas para preencher e-mail/senha de demonstração
 
   return (
@@ -227,7 +233,16 @@ export default function LoginPage() {
               <div className="flex justify-center items-center py-2 animate-in fade-in slide-in-from-left-8">
                 <div className="relative w-[560px] h-[560px]">
                   {/* Pentagon SVG Container */}
-                  <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 600">
+                  <svg
+                    className="absolute inset-0 w-full h-full"
+                    viewBox="0 0 600 600"
+                    style={{
+                      transform: `rotate(${rotationDegrees}deg)`,
+                      transformOrigin: "center",
+                      transformBox: "view-box",
+                      transition: "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+                    }}
+                  >
                     {/* Gradient Definitions */}
                     <defs>
                       <linearGradient id="gradient-admin" x1="0%" y1="0%" x2="100%" y2="100%">
