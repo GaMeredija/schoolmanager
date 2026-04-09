@@ -23,6 +23,7 @@ import {
   X
 } from "lucide-react";
 import { getUserInitials } from "@/lib/utils";
+import { isStaticDemo } from "@/lib/runtime";
 
 interface AppSidebarProps {
   isOpen: boolean;
@@ -99,6 +100,47 @@ export function AppSidebar({ isOpen, onClose, onInstructionsClick }: AppSidebarP
   };
 
   const getNavigation = () => {
+    if (isStaticDemo) {
+      switch (user?.role) {
+        case 'teacher':
+          return [
+            {
+              title: 'PRINCIPAL',
+              items: [
+                { icon: BarChart3, label: 'Dashboard', path: '/teacher/dashboard' }
+              ]
+            }
+          ];
+        case 'coordinator':
+          return [
+            {
+              title: 'PRINCIPAL',
+              items: [
+                { icon: BarChart3, label: 'Dashboard', path: '/coordinator/dashboard' }
+              ]
+            }
+          ];
+        case 'student':
+          return [
+            {
+              title: 'PRINCIPAL',
+              items: [
+                { icon: BarChart3, label: 'Dashboard', path: '/student/dashboard' }
+              ]
+            }
+          ];
+        default:
+          return [
+            {
+              title: 'PRINCIPAL',
+              items: [
+                { icon: BarChart3, label: 'Dashboard', path: '/dashboard' }
+              ]
+            }
+          ];
+      }
+    }
+
     const baseItems = [
       {
         title: 'PRINCIPAL',
@@ -313,7 +355,7 @@ export function AppSidebar({ isOpen, onClose, onInstructionsClick }: AppSidebarP
               variant="ghost"
               className={`w-full justify-start text-left ${isCoordinator ? 'text-white hover:bg-red-700 hover:text-white' : 'text-slate-300 hover:bg-slate-700 hover:text-white'}`}
               onClick={() => {
-                window.location.href = '/meu-perfil';
+                navigate('/meu-perfil');
               }}
             >
               <User className="h-4 w-4 mr-3" />

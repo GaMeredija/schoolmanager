@@ -3,15 +3,13 @@ import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { 
-  GraduationCap, 
-  User, 
-  BookOpen, 
-  FileText, 
+import {
+  GraduationCap,
+  User,
+  BookOpen,
+  FileText,
   MessageSquare,
   LogOut,
-  Bell,
-  BarChart3,
   School,
   Calendar,
   Library,
@@ -21,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import StudentInstructionModal from '@/components/instructions/StudentInstructionModal';
+import { isStaticDemo } from '@/lib/runtime';
 
 interface StudentLayoutProps {
   children: React.ReactNode;
@@ -32,82 +31,96 @@ function StudentLayout({ children }: StudentLayoutProps) {
   const [showInstructions, setShowInstructions] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navigation = [
-    {
-      title: 'PRINCIPAL',
-      items: [
+  const navigation = isStaticDemo
+    ? [
         {
-          name: 'Dashboard',
-          href: '/student/dashboard',
-          icon: GraduationCap,
-          current: location === '/student/dashboard'
+          title: 'PRINCIPAL',
+          items: [
+            {
+              name: 'Dashboard',
+              href: '/student/dashboard',
+              icon: GraduationCap,
+              current: location === '/student/dashboard'
+            }
+          ]
         }
       ]
-    },
-    {
-      title: 'ACADÊMICO',
-      items: [
+    : [
         {
-          name: 'Turma',
-          href: '/student/class',
-          icon: School,
-          current: location === '/student/class'
+          title: 'PRINCIPAL',
+          items: [
+            {
+              name: 'Dashboard',
+              href: '/student/dashboard',
+              icon: GraduationCap,
+              current: location === '/student/dashboard'
+            }
+          ]
         },
         {
-          name: 'Boletim',
-          href: '/student/report-card',
-          icon: BookOpen,
-          current: location === '/student/report-card'
+          title: 'ACADEMICO',
+          items: [
+            {
+              name: 'Turma',
+              href: '/student/class',
+              icon: School,
+              current: location === '/student/class'
+            },
+            {
+              name: 'Boletim',
+              href: '/student/report-card',
+              icon: BookOpen,
+              current: location === '/student/report-card'
+            },
+            {
+              name: 'Materiais',
+              href: '/student/materials',
+              icon: Library,
+              current: location === '/student/materials'
+            }
+          ]
         },
         {
-          name: 'Materiais',
-          href: '/student/materials',
-          icon: Library,
-          current: location === '/student/materials'
+          title: 'ATIVIDADES',
+          items: [
+            {
+              name: 'Minhas Atividades',
+              href: '/student/activities',
+              icon: FileText,
+              current: location === '/student/activities'
+            },
+            {
+              name: 'Provas',
+              href: '/student/exams',
+              icon: ClipboardList,
+              current: location === '/student/exams'
+            },
+            {
+              name: 'Frequencia',
+              href: '/student/attendance',
+              icon: CheckSquare,
+              current: location === '/student/attendance'
+            }
+          ]
+        },
+        {
+          title: 'COMUNICACAO',
+          items: [
+            {
+              name: 'Chat',
+              href: '/student/chat',
+              icon: MessageSquare,
+              current: location === '/student/chat'
+            },
+            {
+              name: 'Calendario',
+              href: '/student/calendar',
+              icon: Calendar,
+              current: location === '/student/calendar'
+            }
+          ]
         }
-      ]
-    },
-    {
-      title: 'ATIVIDADES',
-      items: [
-        {
-          name: 'Minhas Atividades',
-          href: '/student/activities',
-          icon: FileText,
-          current: location === '/student/activities'
-        },
-        {
-          name: 'Provas',
-          href: '/student/exams',
-          icon: ClipboardList,
-          current: location === '/student/exams'
-        },
-        {
-          name: 'Frequência',
-          href: '/student/attendance',
-          icon: CheckSquare,
-          current: location === '/student/attendance'
-        }
-      ]
-    },
-    {
-      title: 'COMUNICAÇÃO',
-      items: [
-        {
-          name: 'Chat',
-          href: '/student/chat',
-          icon: MessageSquare,
-          current: location === '/student/chat'
-        },
-        {
-          name: 'Calendário',
-          href: '/student/calendar',
-          icon: Calendar,
-          current: location === '/student/calendar'
-        }
-      ]
-    }
-  ];
+      ];
 
   const handleLogout = async () => {
     await logout();
@@ -115,10 +128,8 @@ function StudentLayout({ children }: StudentLayoutProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Sidebar (desktop) */}
       <div className="fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-green-900 to-green-800 shadow-lg hidden md:block">
         <div className="flex h-full flex-col">
-          {/* Header */}
           <div className="flex h-16 items-center justify-between border-b border-green-700 px-6">
             <div className="flex items-center space-x-3">
               <div className="p-2 bg-gradient-to-r from-green-500 to-green-600 rounded-lg">
@@ -131,7 +142,6 @@ function StudentLayout({ children }: StudentLayoutProps) {
             </div>
           </div>
 
-          {/* User Profile */}
           <div className="border-b border-green-700 p-4">
             <div className="flex items-center space-x-3">
               <Avatar className="h-10 w-10">
@@ -151,15 +161,12 @@ function StudentLayout({ children }: StudentLayoutProps) {
             </div>
           </div>
 
-          {/* Navigation */}
           <nav className="flex-1 space-y-6 p-4">
             {navigation.map((section, sectionIndex) => (
               <div key={sectionIndex}>
-                {section.title && (
-                  <h3 className="px-2 text-xs font-semibold text-green-300 uppercase tracking-wider mb-3 border-b border-green-600/30 pb-2">
-                    {section.title}
-                  </h3>
-                )}
+                <h3 className="px-2 text-xs font-semibold text-green-300 uppercase tracking-wider mb-3 border-b border-green-600/30 pb-2">
+                  {section.title}
+                </h3>
                 <div className="space-y-1">
                   {section.items.map((item) => {
                     const Icon = item.icon;
@@ -183,7 +190,6 @@ function StudentLayout({ children }: StudentLayoutProps) {
             ))}
           </nav>
 
-          {/* Footer */}
           <div className="border-t border-green-700 p-4 space-y-2">
             <Button
               variant="ghost"
@@ -199,7 +205,7 @@ function StudentLayout({ children }: StudentLayoutProps) {
               className="w-full justify-start text-green-100 hover:text-white hover:bg-green-700"
             >
               <Lightbulb className="mr-3 h-4 w-4" />
-              Instruções
+              Instrucoes
             </Button>
             <Button
               variant="ghost"
@@ -213,7 +219,6 @@ function StudentLayout({ children }: StudentLayoutProps) {
         </div>
       </div>
 
-      {/* Mobile top bar */}
       <div className="md:hidden sticky top-0 z-40 bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={() => setMobileOpen(!mobileOpen)}>
           <span className="sr-only">Abrir menu</span>
@@ -230,7 +235,6 @@ function StudentLayout({ children }: StudentLayoutProps) {
         </div>
       </div>
 
-      {/* Mobile menu panel (slides, não cobre a tela inteira) */}
       <div className={`md:hidden fixed left-2 top-14 z-50 w-64 max-w-[80%] rounded-lg shadow-lg bg-gradient-to-b from-green-900 to-green-800 transition-all duration-200 ${mobileOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-[110%] pointer-events-none'}`}>
         <div className="p-3">
           <div className="flex items-center gap-2 mb-3">
@@ -246,15 +250,19 @@ function StudentLayout({ children }: StudentLayoutProps) {
             </div>
           </div>
           <div className="space-y-1">
-            {navigation.flatMap(s => s.items).map((item) => {
+            {navigation.flatMap((section) => section.items).map((item) => {
               const Icon = item.icon;
               return (
                 <button
                   key={item.name}
-                  onClick={() => { setMobileOpen(false); navigate(item.href); }}
+                  onClick={() => {
+                    setMobileOpen(false);
+                    navigate(item.href);
+                  }}
                   className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors ${item.current ? 'bg-green-700 text-white' : 'text-green-100 hover:bg-green-700 hover:text-white'}`}
                 >
-                  <Icon className="mr-3 h-5 w-5" />{item.name}
+                  <Icon className="mr-3 h-5 w-5" />
+                  {item.name}
                 </button>
               );
             })}
@@ -263,7 +271,7 @@ function StudentLayout({ children }: StudentLayoutProps) {
               <User className="mr-3 h-4 w-4" /> Meu Perfil
             </button>
             <button className="w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-green-100 hover:bg-green-700 hover:text-white" onClick={() => { setMobileOpen(false); setShowInstructions(true); }}>
-              <Lightbulb className="mr-3 h-4 w-4" /> Instruções
+              <Lightbulb className="mr-3 h-4 w-4" /> Instrucoes
             </button>
             <button className="w-full flex items-center px-3 py-2 text-sm font-medium rounded-md text-red-200 hover:bg-red-600" onClick={handleLogout}>
               <LogOut className="mr-3 h-4 w-4" /> Sair
@@ -272,15 +280,13 @@ function StudentLayout({ children }: StudentLayoutProps) {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="md:pl-64">
         <main className="p-4 sm:p-6">
           {children}
         </main>
       </div>
 
-      {/* Instructions Modal */}
-      <StudentInstructionModal 
+      <StudentInstructionModal
         isOpen={showInstructions}
         onClose={() => setShowInstructions(false)}
       />
@@ -289,5 +295,3 @@ function StudentLayout({ children }: StudentLayoutProps) {
 }
 
 export default StudentLayout;
-
-

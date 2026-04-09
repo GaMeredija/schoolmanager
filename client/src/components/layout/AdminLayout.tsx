@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { 
+import {
   Home,
   Users,
   GraduationCap,
@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import AdminInstructionModal from '@/components/instructions/AdminInstructionModal';
-import { useAdminCapabilities } from '@/hooks/useAdminApi';
+import { isStaticDemo } from '@/lib/runtime';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -27,70 +27,79 @@ interface AdminLayoutProps {
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
   const { user, logout } = useAuth();
-  const { data: capsData } = useAdminCapabilities();
-  const caps = capsData?.data;
 
-  const navigation = [
-    {
-      title: 'PRINCIPAL',
-      items: [
-        { icon: BarChart3, label: 'Dashboard', path: '/admin/dashboard' }
+  const navigation = isStaticDemo
+    ? [
+        {
+          title: 'PRINCIPAL',
+          items: [
+            { icon: BarChart3, label: 'Dashboard', path: '/admin/dashboard' }
+          ]
+        },
+        {
+          title: 'GESTAO DE PESSOAS',
+          items: [
+            { icon: GraduationCap, label: 'Professores', path: '/admin/teachers' },
+            { icon: Users, label: 'Alunos', path: '/admin/students' }
+          ]
+        },
+        {
+          title: 'ACADEMICO',
+          items: [
+            { icon: BookOpen, label: 'Disciplinas', path: '/admin/subjects' },
+            { icon: Users, label: 'Turmas', path: '/admin/classes' }
+          ]
+        }
       ]
-    },
-    {
-      title: 'GESTÃO DE PESSOAS',
-      items: [
-        { icon: GraduationCap, label: 'Professores', path: '/admin/teachers' },
-        { icon: Users, label: 'Alunos', path: '/admin/students' },
-        { icon: UserCheck, label: 'Coordenadores', path: '/admin/coordinators' }
-      ]
-    },
-    {
-      title: 'ACADÊMICO',
-      items: [
-        { icon: BookOpen, label: 'Disciplinas', path: '/admin/subjects' },
-        { icon: Users, label: 'Turmas', path: '/admin/classes' }
-      ]
-    },
-    {
-      title: 'COMUNICAÇÃO',
-      items: [
-        { icon: MessageSquare, label: 'Chat', path: '/chat' }
-      ]
-    },
-    {
-      title: 'SISTEMA',
-      items: [
-        { icon: Terminal, label: 'Logs', path: '/admin/logs' }
-      ]
-    }
-  ];
-
-  {
-    const peopleSection = navigation.find(s => s.title === 'GESTÃO DE PESSOAS');
-    if (peopleSection) {
-      peopleSection.items.push({ icon: Users, label: 'Administradores', path: '/admin/administrators' });
-      peopleSection.items.push({ icon: UserCheck, label: 'Diretor', path: '/admin/director-view' });
-    }
-  }
-  {
-    const systemSection = navigation.find(s => s.title === 'SISTEMA');
-    if (systemSection) {
-      systemSection.items.push({ icon: UserCheck, label: 'Solicitação de Cargo', path: '/admin/director-transfer' });
-    }
-  }
+    : [
+        {
+          title: 'PRINCIPAL',
+          items: [
+            { icon: BarChart3, label: 'Dashboard', path: '/admin/dashboard' }
+          ]
+        },
+        {
+          title: 'GESTAO DE PESSOAS',
+          items: [
+            { icon: GraduationCap, label: 'Professores', path: '/admin/teachers' },
+            { icon: Users, label: 'Alunos', path: '/admin/students' },
+            { icon: UserCheck, label: 'Coordenadores', path: '/admin/coordinators' },
+            { icon: Users, label: 'Administradores', path: '/admin/administrators' },
+            { icon: UserCheck, label: 'Diretor', path: '/admin/director-view' }
+          ]
+        },
+        {
+          title: 'ACADEMICO',
+          items: [
+            { icon: BookOpen, label: 'Disciplinas', path: '/admin/subjects' },
+            { icon: Users, label: 'Turmas', path: '/admin/classes' }
+          ]
+        },
+        {
+          title: 'COMUNICACAO',
+          items: [
+            { icon: MessageSquare, label: 'Chat', path: '/chat' }
+          ]
+        },
+        {
+          title: 'SISTEMA',
+          items: [
+            { icon: Terminal, label: 'Logs', path: '/admin/logs' },
+            { icon: UserCheck, label: 'Solicitacao de Cargo', path: '/admin/director-transfer' }
+          ]
+        }
+      ];
 
   const isActive = (path: string) => location === path;
 
   const getUserInitials = (name: string) => {
-    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+    return name.split(' ').map((n) => n[0]).join('').toUpperCase();
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Mobile top bar */}
       <div className="lg:hidden sticky top-0 z-40 bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={() => setIsSidebarOpen(true)}>
           <span className="sr-only">Abrir menu</span>
@@ -106,7 +115,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           <span className="text-sm font-medium">{user?.firstName}</span>
         </div>
       </div>
-      {/* Sidebar */}
+
       <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-purple-900 to-purple-800 transform transition-transform duration-300 ease-in-out flex flex-col overflow-y-auto max-h-screen ${
         isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
       } lg:translate-x-0`}>
@@ -127,7 +136,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           </Button>
         </div>
 
-        {/* User Profile */}
         <div className="px-6 py-4 border-b border-purple-700">
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10">
@@ -144,7 +152,6 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1 px-4 py-6 space-y-6">
           {navigation.map((section, sectionIndex) => (
             <div key={sectionIndex}>
@@ -153,47 +160,30 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
               </h3>
               <div className="space-y-1">
                 {section.items.map((item, itemIndex) => (
-                  item.path === '/instructions' ? (
+                  <Link key={itemIndex} href={item.path}>
                     <Button
-                      key={itemIndex}
                       variant="ghost"
                       className={`w-full justify-start text-left h-10 px-3 ${
                         isActive(item.path)
                           ? 'bg-purple-700 text-white'
                           : 'text-purple-100 hover:bg-purple-700 hover:text-white'
                       }`}
-                      onClick={() => setShowInstructions(true)}
                     >
                       <item.icon className="h-4 w-4 mr-3" />
                       {item.label}
                     </Button>
-                  ) : (
-                    <Link key={itemIndex} href={item.path}>
-                      <Button
-                        variant="ghost"
-                        className={`w-full justify-start text-left h-10 px-3 ${
-                          isActive(item.path)
-                            ? 'bg-purple-700 text-white'
-                            : 'text-purple-100 hover:bg-purple-700 hover:text-white'
-                        }`}
-                      >
-                        <item.icon className="h-4 w-4 mr-3" />
-                        {item.label}
-                      </Button>
-                    </Link>
-                  )
+                  </Link>
                 ))}
               </div>
             </div>
           ))}
         </nav>
 
-        {/* Bottom Actions */}
         <div className="mt-auto px-4 py-4 border-t border-purple-700 space-y-2">
           <Button
             variant="ghost"
             className="w-full justify-start text-left text-purple-100 hover:bg-purple-700 hover:text-white"
-            onClick={() => window.location.href = '/meu-perfil'}
+            onClick={() => navigate('/meu-perfil')}
           >
             <User className="h-4 w-4 mr-3" />
             Meu Perfil
@@ -204,7 +194,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
             onClick={() => setShowInstructions(true)}
           >
             <Lightbulb className="h-4 w-4 mr-3" />
-            Instruções
+            Instrucoes
           </Button>
           <Button
             variant="ghost"
@@ -217,16 +207,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="lg:ml-64">
-
-        {/* Page Content */}
         <main className="p-6">
           {children}
         </main>
       </div>
 
-      {/* Overlay for mobile */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
@@ -234,8 +220,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         />
       )}
 
-      {/* Instructions Modal */}
-      <AdminInstructionModal 
+      <AdminInstructionModal
         isOpen={showInstructions}
         onClose={() => setShowInstructions(false)}
       />

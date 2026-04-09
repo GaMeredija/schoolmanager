@@ -1,11 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useQuery } from "@tanstack/react-query";
 
 interface CurrentPeriod {
   id: string;
   name: string;
   description?: string;
-  period: number;
+  period: number | string;
   academicYear: string;
   startDate: string;
   endDate: string;
@@ -26,15 +25,19 @@ interface CurrentPeriodResponse {
 
 export const useCurrentPeriod = () => {
   return useQuery<CurrentPeriodResponse>({
-    queryKey: ['currentPeriod'],
+    queryKey: ["currentPeriod"],
     queryFn: async () => {
-      const response = await axios.get('/api/periods/current');
-      return response.data;
+      const response = await fetch("/api/periods/current", {
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao carregar período atual");
+      }
+
+      return response.json();
     },
-    refetchInterval: 30000, // Refetch a cada 30 segundos
-    staleTime: 10000, // Considera stale após 10 segundos
+    refetchInterval: 30000,
+    staleTime: 10000,
   });
 };
-
-
-

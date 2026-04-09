@@ -1,5 +1,6 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 import { connectionManager } from "./connectionManager";
+import { isStaticDemo } from "./runtime";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
@@ -13,15 +14,9 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
-  // Se a URL já é completa (com protocolo), usar diretamente
-  if (url.startsWith('http://') || url.startsWith('https://')) {
-    const headers: Record<string, string> = {
-      "bypass-tunnel-reminder": "true",
-      "User-Agent": "SchoolManager-Web/1.0",
-      "X-Bypass-Tunnel": "true",
-      "X-App-Source": "web-client"
-    };
-    
+  if (isStaticDemo && !url.startsWith("http://") && !url.startsWith("https://")) {
+    const headers: Record<string, string> = {};
+
     if (data) {
       headers["Content-Type"] = "application/json";
     }
@@ -37,7 +32,29 @@ export async function apiRequest(
     return res;
   }
 
-  // Para URLs relativas, usar o connection manager
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    const headers: Record<string, string> = {
+      "bypass-tunnel-reminder": "true",
+      "User-Agent": "SchoolManager-Web/1.0",
+      "X-Bypass-Tunnel": "true",
+      "X-App-Source": "web-client",
+    };
+
+    if (data) {
+      headers["Content-Type"] = "application/json";
+    }
+
+    const res = await fetch(url, {
+      method,
+      headers,
+      body: data ? JSON.stringify(data) : undefined,
+      credentials: "include",
+    });
+
+    await throwIfResNotOk(res);
+    return res;
+  }
+
   const headers: Record<string, string> = {};
   if (data) {
     headers["Content-Type"] = "application/json";
@@ -60,17 +77,10 @@ export const getQueryFn: <T>(options: {
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
     const url = queryKey[0] as string;
-    
-    // Se a URL já é completa (com protocolo), usar diretamente
-    if (url.startsWith('http://') || url.startsWith('https://')) {
+
+    if (isStaticDemo && !url.startsWith("http://") && !url.startsWith("https://")) {
       const res = await fetch(url, {
         credentials: "include",
-        headers: {
-          "bypass-tunnel-reminder": "true",
-          "User-Agent": "SchoolManager-Web/1.0",
-          "X-Bypass-Tunnel": "true",
-          "X-App-Source": "web-client"
-        }
       });
 
       if (unauthorizedBehavior === "returnNull" && res.status === 401) {
@@ -81,9 +91,27 @@ export const getQueryFn: <T>(options: {
       return await res.json();
     }
 
-    // Para URLs relativas, usar o connection manager
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      const res = await fetch(url, {
+        credentials: "include",
+        headers: {
+          "bypass-tunnel-reminder": "true",
+          "User-Agent": "SchoolManager-Web/1.0",
+          "X-Bypass-Tunnel": "true",
+          "X-App-Source": "web-client",
+        },
+      });
+
+      if (unauthorizedBehavior === "returnNull" && res.status === 401) {
+        return null;
+      }
+
+      await throwIfResNotOk(res);
+      return await res.json();
+    }
+
     const res = await connectionManager.makeRequest(url, {
-      method: 'GET'
+      method: "GET",
     });
 
     if (unauthorizedBehavior === "returnNull" && res.status === 401) {

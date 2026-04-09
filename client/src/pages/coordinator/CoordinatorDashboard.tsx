@@ -12,12 +12,12 @@ import {
   BookOpen,
   Building,
   TrendingUp,
-  Calendar,
-  MessageSquare,
   FileText,
   BarChart3,
-  Activity
+  Activity,
+  User
 } from 'lucide-react';
+import { isStaticDemo } from '@/lib/runtime';
 
 const CoordinatorDashboard: React.FC = () => {
   const [, navigate] = useLocation();
@@ -57,16 +57,15 @@ const CoordinatorDashboard: React.FC = () => {
       change: '',
       changeType: 'neutral',
       icon: FileText,
-      description: 'aguardando aprovação'
+      description: 'aguardando aprovacao'
     },
   ];
 
-  // Garantir que usamos o array corretamente, pois a API retorna { success, data }
   const classesList = Array.isArray(classesData?.data)
     ? classesData.data
     : Array.isArray(classesData)
-    ? classesData
-    : [];
+      ? classesData
+      : [];
 
   const recentActivities = classesList
     .map((cls: any) => ({
@@ -76,19 +75,30 @@ const CoordinatorDashboard: React.FC = () => {
         ? `Atividade recente em ${cls.name}: ${cls.lastActivity.title}`
         : `Sem atividades recentes em ${cls.name}`,
       time: cls.lastActivity
-        ? format(new Date(cls.lastActivity.createdAt), "dd/MM/yyyy HH:mm", { locale: ptBR })
-        : '—',
+        ? format(new Date(cls.lastActivity.createdAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })
+        : '--',
       icon: Activity
     }))
     .slice(0, 6);
 
+  const quickActions = isStaticDemo
+    ? [
+        { label: 'Atualizar painel', icon: BarChart3, path: '/coordinator/dashboard' },
+        { label: 'Meu perfil', icon: User, path: '/meu-perfil' },
+      ]
+    : [
+        { label: 'Gerenciar Alunos', icon: Users, path: '/coordinator/students' },
+        { label: 'Gerenciar Professores', icon: GraduationCap, path: '/coordinator/teachers' },
+        { label: 'Gerenciar Turmas', icon: Building, path: '/coordinator/classes' },
+        { label: 'Gerenciar Atividades', icon: BookOpen, path: '/coordinator/activities' },
+      ];
+
   return (
     <div className="p-6 space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Dashboard Coordenador</h1>
-          <p className="text-gray-600">Visão geral do sistema escolar</p>
+          <p className="text-gray-600">Visao geral do sistema escolar</p>
         </div>
         <div className="flex items-center space-x-2">
           <Badge variant="secondary" className="bg-green-100 text-green-800">
@@ -98,9 +108,8 @@ const CoordinatorDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {(statsLoading ? [1,2,3,4] : stats).map((stat: any, index: number) => (
+        {(statsLoading ? [1, 2, 3, 4] : stats).map((stat: any, index: number) => (
           <Card key={index}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-gray-600">
@@ -109,16 +118,16 @@ const CoordinatorDashboard: React.FC = () => {
               {!statsLoading && stat.icon && <stat.icon className="h-4 w-4 text-gray-400" />}
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{statsLoading ? '—' : stat.value}</div>
+              <div className="text-2xl font-bold">{statsLoading ? '--' : stat.value}</div>
               <div className="flex items-center space-x-2 text-xs text-gray-500">
                 <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                  stat.changeType === 'positive' 
-                    ? 'bg-green-100 text-green-800' 
+                  stat.changeType === 'positive'
+                    ? 'bg-green-100 text-green-800'
                     : stat.changeType === 'negative'
-                    ? 'bg-red-100 text-red-800'
-                    : 'bg-gray-100 text-gray-800'
+                      ? 'bg-red-100 text-red-800'
+                      : 'bg-gray-100 text-gray-800'
                 }`}>
-                  {stat.change || '—'}
+                  {stat.change || '--'}
                 </span>
                 <span>{stat.description}</span>
               </div>
@@ -128,7 +137,6 @@ const CoordinatorDashboard: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Activities */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
@@ -151,45 +159,38 @@ const CoordinatorDashboard: React.FC = () => {
                   </div>
                 </div>
               ))}
-              {(!classesLoading && recentActivities.length === 0) && (
+              {!classesLoading && recentActivities.length === 0 && (
                 <div className="text-sm text-gray-500">Nenhuma atividade recente encontrada.</div>
               )}
             </div>
           </CardContent>
         </Card>
 
-        {/* Quick Actions */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
               <BarChart3 className="h-5 w-5 mr-2" />
-              Ações Rápidas
+              {isStaticDemo ? 'Acoes de Demonstracao' : 'Acoes Rapidas'}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" className="h-20 flex flex-col items-center justify-center" onClick={() => navigate('/coordinator/students')}>
-                <Users className="h-6 w-6 mb-2" />
-                <span className="text-sm">Gerenciar Alunos</span>
-              </Button>
-              <Button variant="outline" className="h-20 flex flex-col items-center justify-center" onClick={() => navigate('/coordinator/teachers')}>
-                <GraduationCap className="h-6 w-6 mb-2" />
-                <span className="text-sm">Gerenciar Professores</span>
-              </Button>
-              <Button variant="outline" className="h-20 flex flex-col items-center justify-center" onClick={() => navigate('/coordinator/classes')}>
-                <Building className="h-6 w-6 mb-2" />
-                <span className="text-sm">Gerenciar Turmas</span>
-              </Button>
-              <Button variant="outline" className="h-20 flex flex-col items-center justify-center" onClick={() => navigate('/coordinator/activities')}>
-                <BookOpen className="h-6 w-6 mb-2" />
-                <span className="text-sm">Gerenciar Atividades</span>
-              </Button>
+            <div className={`grid gap-3 ${isStaticDemo ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2'}`}>
+              {quickActions.map((action) => (
+                <Button
+                  key={action.label}
+                  variant="outline"
+                  className="h-20 flex flex-col items-center justify-center"
+                  onClick={() => navigate(action.path)}
+                >
+                  <action.icon className="h-6 w-6 mb-2" />
+                  <span className="text-sm">{action.label}</span>
+                </Button>
+              ))}
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* System Status */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center">
@@ -209,7 +210,7 @@ const CoordinatorDashboard: React.FC = () => {
             </div>
             <div className="flex items-center space-x-3">
               <div className={`w-3 h-3 ${systemStatus?.apiWorking ? 'bg-green-500' : 'bg-red-500'} rounded-full`}></div>
-              <span className="text-sm">API {systemStatus?.apiWorking ? 'Funcionando' : 'Indisponível'}</span>
+              <span className="text-sm">API {systemStatus?.apiWorking ? 'Funcionando' : 'Indisponivel'}</span>
             </div>
           </div>
         </CardContent>
@@ -219,7 +220,3 @@ const CoordinatorDashboard: React.FC = () => {
 };
 
 export default CoordinatorDashboard;
-
-
-
-

@@ -1,10 +1,11 @@
 import React from 'react';
+import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart3, Users, GraduationCap, Calendar, Activity } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'wouter';
 import { useDirectorDashboard } from '@/hooks/useApi';
 import { useQuery } from '@tanstack/react-query';
+import { isStaticDemo } from '@/lib/runtime';
 
 function formatDate(dateStr?: string) {
   if (!dateStr) return '';
@@ -13,9 +14,9 @@ function formatDate(dateStr?: string) {
 }
 
 const DirectorDashboard: React.FC = () => {
+  const [, navigate] = useLocation();
   const { data: stats, isLoading } = useDirectorDashboard();
 
-  // Buscar próximos eventos (7 dias) para lista rápida
   const today = new Date();
   const in7Days = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   const { data: upcoming = [] } = useQuery({
@@ -31,6 +32,17 @@ const DirectorDashboard: React.FC = () => {
     }
   });
 
+  const quickActions = isStaticDemo
+    ? [
+        { label: 'Atualizar painel', path: '/director/dashboard' },
+        { label: 'Meu perfil', path: '/meu-perfil' },
+      ]
+    : [
+        { label: 'Gerenciar Aprovações', path: '/director/approvals' },
+        { label: 'Gerenciar Períodos', path: '/director/periods' },
+        { label: 'Gerenciar Comunicados', path: '/director/announcements' },
+      ];
+
   return (
     <div className="p-6">
       <div className="mb-6">
@@ -45,7 +57,7 @@ const DirectorDashboard: React.FC = () => {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{isLoading ? '…' : stats?.totals?.students ?? '—'}</div>
+            <div className="text-2xl font-bold">{isLoading ? '...' : stats?.totals?.students ?? '--'}</div>
             <p className="text-xs text-muted-foreground">Total de alunos cadastrados</p>
           </CardContent>
         </Card>
@@ -56,7 +68,7 @@ const DirectorDashboard: React.FC = () => {
             <GraduationCap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{isLoading ? '…' : stats?.totals?.teachers ?? '—'}</div>
+            <div className="text-2xl font-bold">{isLoading ? '...' : stats?.totals?.teachers ?? '--'}</div>
             <p className="text-xs text-muted-foreground">Total de professores ativos</p>
           </CardContent>
         </Card>
@@ -67,7 +79,7 @@ const DirectorDashboard: React.FC = () => {
             <BarChart3 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{isLoading ? '…' : stats?.totals?.classes ?? '—'}</div>
+            <div className="text-2xl font-bold">{isLoading ? '...' : stats?.totals?.classes ?? '--'}</div>
             <p className="text-xs text-muted-foreground">Turmas no período atual</p>
           </CardContent>
         </Card>
@@ -78,7 +90,7 @@ const DirectorDashboard: React.FC = () => {
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{isLoading ? '…' : stats?.upcomingEvents?.count ?? '—'}</div>
+            <div className="text-2xl font-bold">{isLoading ? '...' : stats?.upcomingEvents?.count ?? '--'}</div>
             <p className="text-xs text-muted-foreground">Eventos próximos</p>
           </CardContent>
         </Card>
@@ -87,18 +99,20 @@ const DirectorDashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         <Card>
           <CardHeader>
-            <CardTitle>Ações rápidas</CardTitle>
+            <CardTitle>{isStaticDemo ? 'Ações de demonstração' : 'Ações rápidas'}</CardTitle>
           </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <Link href="/director/approvals">
-              <Button variant="outline" size="sm" className="w-full">Gerenciar Aprovações</Button>
-            </Link>
-            <Link href="/director/periods">
-              <Button variant="outline" size="sm" className="w-full">Gerenciar Períodos</Button>
-            </Link>
-            <Link href="/director/announcements">
-              <Button variant="outline" size="sm" className="w-full">Gerenciar Comunicados</Button>
-            </Link>
+          <CardContent className={`grid gap-3 ${isStaticDemo ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'}`}>
+            {quickActions.map((action) => (
+              <Button
+                key={action.label}
+                variant="outline"
+                size="sm"
+                className="w-full"
+                onClick={() => navigate(action.path)}
+              >
+                {action.label}
+              </Button>
+            ))}
           </CardContent>
         </Card>
 

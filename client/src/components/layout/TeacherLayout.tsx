@@ -3,11 +3,11 @@ import { useLocation } from 'wouter';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { 
-  GraduationCap, 
-  User, 
-  BookOpen, 
-  FileText, 
+import {
+  GraduationCap,
+  User,
+  BookOpen,
+  FileText,
   MessageSquare,
   LogOut,
   Bell,
@@ -16,12 +16,12 @@ import {
   Calendar,
   Users,
   Brain,
-  Sparkles,
-  CheckSquare,
-  Lightbulb
+  Lightbulb,
+  CheckSquare
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import TeacherInstructionModal from '@/components/instructions/TeacherInstructionModal';
+import { isStaticDemo } from '@/lib/runtime';
 
 interface TeacherLayoutProps {
   children: React.ReactNode;
@@ -33,52 +33,70 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
   const [showInstructions, setShowInstructions] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navigation = [
-    {
-      title: 'PRINCIPAL',
-      items: [
-        { icon: GraduationCap, label: 'Dashboard', path: '/teacher/dashboard' }
+  const navigation = isStaticDemo
+    ? [
+        {
+          title: 'PRINCIPAL',
+          items: [
+            { icon: GraduationCap, label: 'Dashboard', path: '/teacher/dashboard' }
+          ]
+        }
       ]
-    },
-    {
-      title: 'ACADÊMICO',
-      items: [
-        { icon: BookOpen, label: 'Minhas Turmas', path: '/teacher/classes' },
-        { icon: Library, label: 'Materiais', path: '/teacher/materials' },
-        { icon: FileText, label: 'Relatórios', path: '/reports' }
-      ]
-    },
-    {
-      title: 'AVALIAÇÕES',
-      items: [
-        { icon: FileText, label: 'Atividades', path: '/teacher/activities' },
-        { icon: ClipboardList, label: 'Provas', path: '/teacher/exams' },
-        { icon: CheckSquare, label: 'Frequência', path: '/teacher/attendance' }
-      ]
-    },
-    {
-      title: 'COMUNICAÇÃO',
-      items: [
-        { icon: MessageSquare, label: 'Chat', path: '/chat' },
-        { icon: Calendar, label: 'Calendário', path: '/teacher/calendar' }
-      ]
-    },
-    {
-      title: 'FERRAMENTAS',
-      items: [
-        { icon: Brain, label: 'Assistente', path: '/teacher/ai-assistant', special: true }
-      ]
-    }
-  ];
+    : [
+        {
+          title: 'PRINCIPAL',
+          items: [
+            { icon: GraduationCap, label: 'Dashboard', path: '/teacher/dashboard' }
+          ]
+        },
+        {
+          title: 'ACADEMICO',
+          items: [
+            { icon: BookOpen, label: 'Minhas Turmas', path: '/teacher/classes' },
+            { icon: Library, label: 'Materiais', path: '/teacher/materials' },
+            { icon: FileText, label: 'Relatorios', path: '/reports' }
+          ]
+        },
+        {
+          title: 'AVALIACOES',
+          items: [
+            { icon: FileText, label: 'Atividades', path: '/teacher/activities' },
+            { icon: ClipboardList, label: 'Provas', path: '/teacher/exams' },
+            { icon: CheckSquare, label: 'Frequencia', path: '/teacher/attendance' }
+          ]
+        },
+        {
+          title: 'COMUNICACAO',
+          items: [
+            { icon: MessageSquare, label: 'Chat', path: '/chat' },
+            { icon: Calendar, label: 'Calendario', path: '/teacher/calendar' }
+          ]
+        },
+        {
+          title: 'FERRAMENTAS',
+          items: [
+            { icon: Brain, label: 'Assistente', path: '/teacher/ai-assistant', special: true }
+          ]
+        }
+      ];
 
   const handleLogout = async () => {
     await logout();
     navigate('/');
   };
 
+  const pageTitle = (() => {
+    for (const section of navigation) {
+      const activeItem = section.items.find((item) => item.path === location);
+      if (activeItem) {
+        return activeItem.label;
+      }
+    }
+    return 'Dashboard';
+  })();
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Mobile top bar */}
       <div className="md:hidden sticky top-0 z-40 bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={() => setMobileOpen(!mobileOpen)}>
           <span className="sr-only">Abrir menu</span>
@@ -94,10 +112,9 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
           <span className="text-sm font-medium">{user?.firstName}</span>
         </div>
       </div>
-      {/* Sidebar (desktop) */}
+
       <div className="hidden md:fixed md:inset-y-0 md:left-0 md:z-50 md:w-64 bg-gradient-to-b from-blue-900 to-blue-800 shadow-lg md:block md:overflow-y-auto md:max-h-screen">
         <div className="flex h-full flex-col">
-          {/* Logo */}
           <div className="flex h-16 items-center justify-center border-b border-blue-700">
             <div className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-white" />
@@ -105,7 +122,6 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
             </div>
           </div>
 
-          {/* User Info */}
           <div className="border-b border-blue-700 p-4">
             <div className="flex items-center space-x-3">
               <Avatar className="h-10 w-10">
@@ -124,7 +140,6 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
             </div>
           </div>
 
-          {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-6">
             {navigation.map((section, sectionIndex) => (
               <div key={sectionIndex}>
@@ -133,40 +148,21 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
                 </h3>
                 <div className="space-y-1">
                   {section.items.map((item, itemIndex) => {
-                    const isActive = location === item.path;
-                    const isSpecial = (item as any).special;
-                    
-                    if (isSpecial) {
-                      return (
-                        <Button
-                          key={itemIndex}
-                          variant="ghost"
-                          className={`w-full justify-start text-left h-10 px-3 ${
-                            isActive
-                              ? 'bg-blue-800 text-white'
-                              : 'bg-blue-700 text-gray-200 hover:bg-blue-800 hover:text-white'
-                          }`}
-                          onClick={() => navigate(item.path)}
-                        >
-                          <item.icon className="mr-3 h-4 w-4" />
-                          <span className="font-semibold">{item.label}</span>
-                        </Button>
-                      );
-                    }
-                    
+                    const active = location === item.path;
+                    const special = (item as any).special;
                     return (
                       <Button
                         key={itemIndex}
                         variant="ghost"
                         className={`w-full justify-start text-left h-10 px-3 ${
-                          isActive
-                            ? 'bg-blue-700 text-white'
-                            : 'text-blue-100 hover:bg-blue-600 hover:text-white'
+                          active
+                            ? `${special ? 'bg-blue-800' : 'bg-blue-700'} text-white`
+                            : `${special ? 'bg-blue-700 text-gray-200 hover:bg-blue-800' : 'text-blue-100 hover:bg-blue-600 hover:text-white'}`
                         }`}
                         onClick={() => navigate(item.path)}
                       >
                         <item.icon className="mr-3 h-4 w-4" />
-                        {item.label}
+                        {special ? <span className="font-semibold">{item.label}</span> : item.label}
                       </Button>
                     );
                   })}
@@ -175,7 +171,6 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
             ))}
           </nav>
 
-          {/* Bottom Actions */}
           <div className="border-t border-blue-700 p-4 space-y-2">
             <Button
               variant="ghost"
@@ -191,7 +186,7 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
               onClick={() => setShowInstructions(true)}
             >
               <Lightbulb className="mr-3 h-4 w-4" />
-              Instruções
+              Instrucoes
             </Button>
             <Button
               variant="ghost"
@@ -205,7 +200,6 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
         </div>
       </div>
 
-      {/* Mobile menu panel */}
       <div className={`md:hidden fixed inset-0 z-50 ${mobileOpen ? 'block' : 'hidden'}`}>
         <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setMobileOpen(false)} />
         <div className="fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-blue-900 to-blue-800 shadow-lg overflow-y-auto max-h-screen">
@@ -241,39 +235,24 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
                   </h3>
                   <div className="space-y-1">
                     {section.items.map((item, itemIndex) => {
-                      const isActive = location === item.path;
-                      const isSpecial = (item as any).special;
-                      const handleClick = () => { navigate(item.path); setMobileOpen(false); };
-                      if (isSpecial) {
-                        return (
-                          <Button
-                            key={itemIndex}
-                            variant="ghost"
-                            className={`w-full justify-start text-left h-10 px-3 ${
-                              isActive
-                                ? 'bg-blue-800 text-white'
-                                : 'bg-blue-700 text-gray-200 hover:bg-blue-800 hover:text-white'
-                            }`}
-                            onClick={handleClick}
-                          >
-                            <item.icon className="mr-3 h-4 w-4" />
-                            <span className="font-semibold">{item.label}</span>
-                          </Button>
-                        );
-                      }
+                      const active = location === item.path;
+                      const special = (item as any).special;
                       return (
                         <Button
                           key={itemIndex}
                           variant="ghost"
                           className={`w-full justify-start text-left h-10 px-3 ${
-                            isActive
-                              ? 'bg-blue-700 text-white'
-                              : 'text-blue-100 hover:bg-blue-600 hover:text-white'
+                            active
+                              ? `${special ? 'bg-blue-800' : 'bg-blue-700'} text-white`
+                              : `${special ? 'bg-blue-700 text-gray-200 hover:bg-blue-800' : 'text-blue-100 hover:bg-blue-600 hover:text-white'}`
                           }`}
-                          onClick={handleClick}
+                          onClick={() => {
+                            navigate(item.path);
+                            setMobileOpen(false);
+                          }}
                         >
                           <item.icon className="mr-3 h-4 w-4" />
-                          {item.label}
+                          {special ? <span className="font-semibold">{item.label}</span> : item.label}
                         </Button>
                       );
                     })}
@@ -285,7 +264,10 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
               <Button
                 variant="ghost"
                 className="w-full justify-start text-blue-100 hover:bg-blue-600 hover:text-white"
-                onClick={() => { navigate('/meu-perfil'); setMobileOpen(false); }}
+                onClick={() => {
+                  navigate('/meu-perfil');
+                  setMobileOpen(false);
+                }}
               >
                 <User className="mr-3 h-4 w-4" />
                 Meu Perfil
@@ -296,12 +278,15 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
                 onClick={() => setShowInstructions(true)}
               >
                 <Lightbulb className="mr-3 h-4 w-4" />
-                Instruções
+                Instrucoes
               </Button>
               <Button
                 variant="ghost"
                 className="w-full justify-start text-red-300 hover:bg-red-600 hover:text-white"
-                onClick={() => { handleLogout(); setMobileOpen(false); }}
+                onClick={() => {
+                  handleLogout();
+                  setMobileOpen(false);
+                }}
               >
                 <LogOut className="mr-3 h-4 w-4" />
                 Sair
@@ -311,25 +296,12 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
         </div>
       </div>
 
-      {/* Main Content */}
       <div className="md:pl-64">
-        {/* Header */}
         <header className="bg-white shadow-sm border-b border-gray-200">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-semibold text-gray-900">
-                  {(() => {
-                    // Buscar o item ativo em todas as seções
-                    for (const section of navigation) {
-                      const activeItem = section.items.find(item => item.path === location);
-                      if (activeItem) {
-                        return activeItem.label;
-                      }
-                    }
-                    return 'Dashboard';
-                  })()}
-                </h1>
+                <h1 className="text-2xl font-semibold text-gray-900">{pageTitle}</h1>
               </div>
               <div className="flex items-center gap-4">
                 <Button variant="ghost" size="sm" className="relative">
@@ -343,14 +315,12 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
           </div>
         </header>
 
-        {/* Page Content */}
         <main className="p-6">
           {children}
         </main>
       </div>
 
-      {/* Instructions Modal */}
-      <TeacherInstructionModal 
+      <TeacherInstructionModal
         isOpen={showInstructions}
         onClose={() => setShowInstructions(false)}
       />
