@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import { useTheme } from '@/components/ThemeProvider';
 
 // Register all Chart.js components
 Chart.register(...registerables);
@@ -8,7 +7,6 @@ Chart.register(...registerables);
 export function GradeDistributionChart({ buckets }: { buckets?: number[] }) {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
-  const { theme } = useTheme();
   
   useEffect(() => {
     if (chartRef.current) {
@@ -20,9 +18,8 @@ export function GradeDistributionChart({ buckets }: { buckets?: number[] }) {
           chartInstance.current.destroy();
         }
         
-        // Define colors based on theme
-        const textColor = theme === 'dark' ? '#e5e7eb' : '#4b5563';
-        const gridColor = theme === 'dark' ? 'rgba(75, 85, 99, 0.2)' : 'rgba(209, 213, 219, 0.5)';
+        const textColor = '#4b5563';
+        const gridColor = 'rgba(209, 213, 219, 0.5)';
         
         const values = buckets && buckets.length === 5 ? buckets : [5,25,140,320,96];
         const data = {
@@ -127,7 +124,7 @@ export function GradeDistributionChart({ buckets }: { buckets?: number[] }) {
         chartInstance.current.destroy();
       }
     };
-  }, [theme, buckets]);
+  }, [buckets]);
   
   return <canvas ref={chartRef} />;
 }

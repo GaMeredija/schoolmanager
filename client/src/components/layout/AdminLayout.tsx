@@ -99,8 +99,8 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="lg:hidden sticky top-0 z-40 bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between">
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="lg:hidden sticky top-0 z-40 bg-card border-b border-border px-3 py-2 flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={() => setIsSidebarOpen(true)}>
           <span className="sr-only">Abrir menu</span>
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -108,7 +108,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
         <div className="flex items-center gap-2">
           <Avatar className="h-8 w-8">
             <AvatarImage src={user?.avatar} />
-            <AvatarFallback className="bg-purple-100 text-purple-700">
+            <AvatarFallback className="bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-200">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </AvatarFallback>
           </Avatar>
@@ -208,7 +208,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       </div>
 
       <div className="lg:ml-64">
-        <main className="p-6">
+        <main className="min-h-screen bg-background p-6">
           {children}
         </main>
       </div>

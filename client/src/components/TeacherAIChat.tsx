@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+﻿import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -82,17 +82,17 @@ const TypewriterText: React.FC<{ text: string; speed?: number; onComplete?: () =
             </code>
           );
         },
-        h1: ({ children }) => <h1 className="text-xl font-bold mb-2 text-gray-800 break-words">{children}</h1>,
-        h2: ({ children }) => <h2 className="text-lg font-semibold mb-2 text-gray-800 break-words">{children}</h2>,
-        h3: ({ children }) => <h3 className="text-md font-medium mb-1 text-gray-700 break-words">{children}</h3>,
+        h1: ({ children }) => <h1 className="text-xl font-bold mb-2 text-foreground break-words">{children}</h1>,
+        h2: ({ children }) => <h2 className="text-lg font-semibold mb-2 text-foreground break-words">{children}</h2>,
+        h3: ({ children }) => <h3 className="text-md font-medium mb-1 text-foreground break-words">{children}</h3>,
         p: ({ children }) => <p className="mb-2 leading-relaxed break-words">{children}</p>,
         ul: ({ children }) => <ul className="list-disc list-inside mb-2 space-y-1 break-words">{children}</ul>,
         ol: ({ children }) => <ol className="list-decimal list-inside mb-2 space-y-1 break-words">{children}</ol>,
-        li: ({ children }) => <li className="text-gray-700 break-words">{children}</li>,
-        strong: ({ children }) => <strong className="font-semibold text-gray-800">{children}</strong>,
-        em: ({ children }) => <em className="italic text-gray-700">{children}</em>,
+        li: ({ children }) => <li className="text-foreground break-words">{children}</li>,
+        strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
+        em: ({ children }) => <em className="italic text-foreground">{children}</em>,
         blockquote: ({ children }) => (
-          <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-600 my-2 break-words">
+          <blockquote className="border-l-4 border-blue-500 pl-4 italic text-muted-foreground my-2 break-words">
             {children}
           </blockquote>
         ),
@@ -142,17 +142,17 @@ const TeacherAIChat: React.FC<TeacherAIChatProps> = ({ isOpen, onClose }) => {
       const welcomeMessage: Message = {
         id: 'welcome',
         role: 'assistant',
-        content: `# Olá, ${user?.firstName}! 👋
+        content: `# Olá, ${user?.firstName}! ðŸ‘‹
 
 Sou sua **assistente de IA educacional**. Estou aqui para ajudá-lo(a) com:
 
-## 🎯 Minhas especialidades:
-- **📚 Criação de planos de aula** estruturados e eficazes
-- **🎯 Desenvolvimento de atividades** criativas e engajantes  
-- **📝 Sugestões de exercícios** práticos e didáticos
+## ðŸŽ¯ Minhas especialidades:
+- **ðŸ“š Criação de planos de aula** estruturados e eficazes
+- **ðŸŽ¯ Desenvolvimento de atividades** criativas e engajantes  
+- **ðŸ“ Sugestões de exercícios** práticos e didáticos
 - **🔍 Métodos de avaliação** formativa e somativa
-- **💡 Ideias criativas** para engajar alunos de todas as idades
-- **🎨 Recursos educacionais** e materiais didáticos
+- **ðŸ’¡ Ideias criativas** para engajar alunos de todas as idades
+- **ðŸŽ¨ Recursos educacionais** e materiais didáticos
 
 Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
         timestamp: new Date()
@@ -280,7 +280,7 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
     const welcomeMessage: Message = {
       id: 'welcome_new',
       role: 'assistant',
-      content: `# Olá novamente, ${user?.firstName}! 👋\n\n**Como posso ajudá-lo(a) hoje?**\n\nUse as sugestões abaixo ou digite sua pergunta diretamente!`,
+      content: `# Olá novamente, ${user?.firstName}! ðŸ‘‹\n\n**Como posso ajudá-lo(a) hoje?**\n\nUse as sugestões abaixo ou digite sua pergunta diretamente!`,
       timestamp: new Date()
     };
     setMessages([welcomeMessage]);
@@ -296,7 +296,7 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
 
   return (
     <div className="w-full h-full flex flex-col">
-      <Card className="w-full h-full flex flex-col bg-white shadow-lg overflow-hidden rounded-lg">
+      <Card className="w-full h-full flex flex-col bg-card shadow-lg overflow-hidden rounded-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-6 border-b bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-t-xl">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-white/20 rounded-lg">
@@ -371,7 +371,7 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
                     className={`p-4 rounded-lg break-words overflow-hidden ${
                       message.role === 'user'
                         ? 'bg-blue-600 text-white ml-auto'
-                        : 'bg-gray-50 text-gray-900 border border-gray-200'
+                        : 'bg-muted/60 text-foreground border border-border'
                     }`}
                   >
                     {message.isLoading ? (
@@ -412,17 +412,17 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
                               </code>
                             );
                           },
-                          h1: ({ children }) => <h1 className="text-xl font-bold mb-3 text-gray-800 border-b pb-2 break-words">{children}</h1>,
-                          h2: ({ children }) => <h2 className="text-lg font-semibold mb-2 text-gray-800 break-words">{children}</h2>,
-                          h3: ({ children }) => <h3 className="text-md font-medium mb-2 text-gray-700 break-words">{children}</h3>,
-                          p: ({ children }) => <p className="mb-3 leading-relaxed text-gray-700 break-words">{children}</p>,
+                          h1: ({ children }) => <h1 className="text-xl font-bold mb-3 text-foreground border-b pb-2 break-words">{children}</h1>,
+                          h2: ({ children }) => <h2 className="text-lg font-semibold mb-2 text-foreground break-words">{children}</h2>,
+                          h3: ({ children }) => <h3 className="text-md font-medium mb-2 text-foreground break-words">{children}</h3>,
+                          p: ({ children }) => <p className="mb-3 leading-relaxed text-foreground break-words">{children}</p>,
                           ul: ({ children }) => <ul className="list-disc list-inside mb-3 space-y-1 pl-2 break-words">{children}</ul>,
                           ol: ({ children }) => <ol className="list-decimal list-inside mb-3 space-y-1 pl-2 break-words">{children}</ol>,
-                          li: ({ children }) => <li className="text-gray-700 leading-relaxed break-words">{children}</li>,
-                          strong: ({ children }) => <strong className="font-semibold text-gray-800">{children}</strong>,
-                          em: ({ children }) => <em className="italic text-gray-600">{children}</em>,
+                          li: ({ children }) => <li className="text-foreground leading-relaxed break-words">{children}</li>,
+                          strong: ({ children }) => <strong className="font-semibold text-foreground">{children}</strong>,
+                          em: ({ children }) => <em className="italic text-muted-foreground">{children}</em>,
                           blockquote: ({ children }) => (
-                            <blockquote className="border-l-4 border-blue-500 pl-4 italic text-gray-600 my-3 bg-blue-50 py-2 rounded-r break-words">
+                            <blockquote className="border-l-4 border-blue-500 pl-4 italic text-muted-foreground my-3 bg-blue-50 py-2 rounded-r break-words">
                               {children}
                             </blockquote>
                           ),
@@ -439,7 +439,7 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
                         variant="ghost"
                         size="sm"
                         onClick={() => copyToClipboard(message.content)}
-                        className="h-6 px-2 text-xs text-gray-500 hover:text-gray-700"
+                        className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground"
                       >
                         <Copy className="w-3 h-3 mr-1" />
                         Copiar
@@ -463,7 +463,7 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
           {/* Sugestões rápidas */}
           {messages.length <= 1 && (
             <div className="p-8 border-t bg-gradient-to-r from-blue-50 to-purple-50">
-              <p className="text-lg text-gray-700 mb-6 font-medium flex items-center gap-3">
+              <p className="text-lg text-foreground mb-6 font-medium flex items-center gap-3">
                 <Sparkles className="w-6 h-6 text-purple-600" />
                 Sugestões rápidas para começar:
               </p>
@@ -474,7 +474,7 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
                     variant="outline"
                     size="sm"
                     onClick={() => sendMessage(suggestion.prompt)}
-                    className="justify-start h-auto p-6 text-left hover:bg-white hover:shadow-lg transition-all"
+                    className="justify-start h-auto p-6 text-left hover:bg-card hover:shadow-lg transition-all"
                     disabled={isLoading}
                   >
                     <div className="flex items-center gap-2">
@@ -488,7 +488,7 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
           )}
 
           {/* Input de mensagem */}
-          <div className="p-8 border-t bg-white">
+          <div className="p-8 border-t bg-card">
             <div className="flex gap-4">
               <Input
                 ref={inputRef}
@@ -511,9 +511,9 @@ Como posso ajudá-lo(a) hoje? Use as sugestões abaixo ou digite sua pergunta!`,
                 )}
               </Button>
             </div>
-            <p className="text-base text-gray-500 mt-4 flex items-center gap-1">
-              <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">Enter</kbd> para enviar • 
-              <kbd className="px-1 py-0.5 bg-gray-100 rounded text-xs">Shift+Enter</kbd> para nova linha
+            <p className="text-base text-muted-foreground mt-4 flex items-center gap-1">
+              <kbd className="px-1 py-0.5 bg-muted rounded text-xs">Enter</kbd> para enviar • 
+              <kbd className="px-1 py-0.5 bg-muted rounded text-xs">Shift+Enter</kbd> para nova linha
             </p>
           </div>
         </CardContent>

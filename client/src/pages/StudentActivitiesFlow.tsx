@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -93,7 +93,7 @@ export default function StudentActivitiesFlow() {
 
   // Classificar atividades - corrigir lógica
   const pendingActivities = activities.filter(a => {
-    // Só é pendente se NÃO tem submissionStatus OU submissionStatus é null/undefined
+    // Só é pendente se N?O tem submissionStatus OU submissionStatus é null/undefined
     const hasNoSubmission = !a.submissionStatus || a.submissionStatus === null || a.submissionStatus === undefined;
     const isActive = a.status === 'active';
     const notOverdue = new Date(a.dueDate) >= new Date();
@@ -160,7 +160,7 @@ export default function StudentActivitiesFlow() {
           Atrasada
         </Badge>;
       }
-      return <Badge variant="outline" className="text-gray-600 border-gray-600">
+      return <Badge variant="outline" className="text-muted-foreground border-gray-600">
         <Clock className="w-3 h-3 mr-1" />
         Expirada
       </Badge>;
@@ -253,8 +253,8 @@ export default function StudentActivitiesFlow() {
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <CardTitle className="text-lg mb-2">{activity.title}</CardTitle>
-            <p className="text-sm text-gray-600 mb-2">{activity.description}</p>
-            <div className="flex items-center space-x-4 text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground mb-2">{activity.description}</p>
+            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center">
                 <BookOpen className="w-4 h-4 mr-1" />
                 {activity.subjectName}
@@ -318,7 +318,7 @@ export default function StudentActivitiesFlow() {
               </p>
               {activity.isLate && (
                 <p className="text-sm text-red-600 mt-1">
-                  ⚠️ Entregue com atraso
+                  ⚠️ï¸ Entregue com atraso
                 </p>
               )}
             </div>
@@ -392,11 +392,11 @@ export default function StudentActivitiesFlow() {
               variant="outline"
               onClick={() => setShowSubmissionForm(false)}
             >
-              ← Voltar
+              ? Voltar
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{selectedActivity.title}</h1>
-              <p className="text-gray-600">Entregar sua atividade</p>
+              <h1 className="text-2xl font-bold text-foreground">{selectedActivity.title}</h1>
+              <p className="text-muted-foreground">Entregar sua atividade</p>
             </div>
           </div>
           
@@ -415,8 +415,8 @@ export default function StudentActivitiesFlow() {
       <div className="space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Minhas Atividades</h1>
-          <p className="text-gray-600">Acompanhe suas atividades, entregas e resultados</p>
+          <h1 className="text-3xl font-bold text-foreground">Minhas Atividades</h1>
+          <p className="text-muted-foreground">Acompanhe suas atividades, entregas e resultados</p>
         </div>
 
         {/* Estatísticas */}
@@ -424,37 +424,37 @@ export default function StudentActivitiesFlow() {
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">{stats.total}</div>
-              <div className="text-sm text-gray-600">Total</div>
+              <div className="text-sm text-muted-foreground">Total</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-orange-600">{stats.pending}</div>
-              <div className="text-sm text-gray-600">Pendentes</div>
+              <div className="text-sm text-muted-foreground">Pendentes</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-red-600">{stats.late}</div>
-              <div className="text-sm text-gray-600">Atrasadas</div>
+              <div className="text-sm text-muted-foreground">Atrasadas</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">{stats.submitted}</div>
-              <div className="text-sm text-gray-600">Entregues</div>
+              <div className="text-sm text-muted-foreground">Entregues</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">{stats.graded}</div>
-              <div className="text-sm text-gray-600">Avaliadas</div>
+              <div className="text-sm text-muted-foreground">Avaliadas</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-purple-600">{stats.averageGrade.toFixed(1)}</div>
-              <div className="text-sm text-gray-600">Média</div>
+              <div className="text-sm text-muted-foreground">Média</div>
             </CardContent>
           </Card>
         </div>
@@ -483,7 +483,7 @@ export default function StudentActivitiesFlow() {
                 <Card>
                   <CardContent className="p-8 text-center">
                     <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-                    <p className="text-gray-600">Parabéns! Não há atividades pendentes.</p>
+                    <p className="text-muted-foreground">Parabéns! Não há atividades pendentes.</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -500,8 +500,8 @@ export default function StudentActivitiesFlow() {
               {submittedActivities.length === 0 ? (
                 <Card>
                   <CardContent className="p-8 text-center">
-                    <Send className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">Nenhuma atividade entregue ainda.</p>
+                    <Send className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                    <p className="text-muted-foreground">Nenhuma atividade entregue ainda.</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -518,8 +518,8 @@ export default function StudentActivitiesFlow() {
               {gradedActivities.length === 0 ? (
                 <Card>
                   <CardContent className="p-8 text-center">
-                    <Star className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">Aguardando primeiras avaliações.</p>
+                    <Star className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                    <p className="text-muted-foreground">Aguardando primeiras avaliações.</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -537,7 +537,7 @@ export default function StudentActivitiesFlow() {
                 <Card>
                   <CardContent className="p-8 text-center">
                     <Target className="w-12 h-12 text-green-500 mx-auto mb-4" />
-                    <p className="text-gray-600">Ótimo! Você está em dia com suas atividades.</p>
+                    <p className="text-muted-foreground">Ótimo! Você está em dia com suas atividades.</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -552,3 +552,4 @@ export default function StudentActivitiesFlow() {
     </MainLayout>
   );
 }
+

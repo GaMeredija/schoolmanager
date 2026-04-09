@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import { useTheme } from '@/components/ThemeProvider';
 
 // Register all Chart.js components
 Chart.register(...registerables);
@@ -8,7 +7,6 @@ Chart.register(...registerables);
 export function ClassPerformanceChart() {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
-  const { theme } = useTheme();
   
   useEffect(() => {
     if (chartRef.current) {
@@ -20,9 +18,8 @@ export function ClassPerformanceChart() {
           chartInstance.current.destroy();
         }
         
-        // Define colors based on theme
-        const textColor = theme === 'dark' ? '#e5e7eb' : '#4b5563';
-        const gridColor = theme === 'dark' ? 'rgba(75, 85, 99, 0.2)' : 'rgba(209, 213, 219, 0.5)';
+        const textColor = '#4b5563';
+        const gridColor = 'rgba(209, 213, 219, 0.5)';
         
         // Sample data - in a real app, this would come from an API
         const data = {
@@ -89,7 +86,7 @@ export function ClassPerformanceChart() {
                 ticks: {
                   stepSize: 2,
                   color: textColor,
-                  backdropColor: theme === 'dark' ? '#1f2937' : '#ffffff'
+                    backdropColor: '#ffffff'
                 },
                 grid: {
                   color: gridColor
@@ -113,7 +110,7 @@ export function ClassPerformanceChart() {
         chartInstance.current.destroy();
       }
     };
-  }, [theme]); // Re-render chart when theme changes
+  }, []);
   
   return <canvas ref={chartRef} />;
 }

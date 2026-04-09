@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Dialog,
   DialogContent,
@@ -71,8 +71,8 @@ const TeacherInstructionModal: React.FC<TeacherInstructionModalProps> = ({ isOpe
               <CheckCircle2 className="h-5 w-5 text-white" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900">Tudo configurado!</div>
-          <div className="text-gray-600">Você pode começar a usar agora mesmo</div>
+          <div className="text-2xl font-bold text-foreground">Tudo configurado!</div>
+          <div className="text-muted-foreground">Você pode começar a usar agora mesmo</div>
         </div>
       ),
       keyPoints: [
@@ -126,14 +126,14 @@ const TeacherInstructionModal: React.FC<TeacherInstructionModalProps> = ({ isOpe
             </div>
           </div>
           <div className="flex items-center justify-center space-x-2">
-            <ArrowDown className="h-5 w-5 text-gray-400" />
-            <div className="p-3 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+            <ArrowDown className="h-5 w-5 text-muted-foreground/60" />
+            <div className="p-3 bg-muted/60 rounded-lg border-2 border-dashed border-gray-300">
               <div className="space-y-1">
                 <div className="h-2 bg-gray-300 rounded w-16"></div>
                 <div className="h-2 bg-gray-300 rounded w-12"></div>
               </div>
             </div>
-            <ArrowRight className="h-5 w-5 text-gray-400" />
+            <ArrowRight className="h-5 w-5 text-muted-foreground/60" />
             <div className="p-3 bg-green-100 rounded-lg">
               <CheckCircle2 className="h-5 w-5 text-green-600" />
             </div>
@@ -159,18 +159,18 @@ const TeacherInstructionModal: React.FC<TeacherInstructionModalProps> = ({ isOpe
               <div className="text-xl font-bold text-red-600">2</div>
               <div className="text-sm text-red-600">Agendadas</div>
             </div>
-            <ArrowRight className="h-6 w-6 text-gray-400" />
+            <ArrowRight className="h-6 w-6 text-muted-foreground/60" />
             <div className="p-4 bg-green-50 rounded-xl border border-green-200">
               <div className="text-xl font-bold text-green-600">5</div>
               <div className="text-sm text-green-600">Concluídas</div>
             </div>
           </div>
-          <div className="p-3 bg-gray-50 rounded-lg">
+          <div className="p-3 bg-muted/60 rounded-lg">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 text-green-600" />
               <span className="text-sm font-medium">Prova de Matemática</span>
             </div>
-            <div className="text-xs text-gray-500">15/10/2024 - 2h</div>
+            <div className="text-xs text-muted-foreground">15/10/2024 - 2h</div>
           </div>
         </div>
       ),
@@ -195,19 +195,19 @@ const TeacherInstructionModal: React.FC<TeacherInstructionModalProps> = ({ isOpe
             </div>
           </div>
           <div className="space-y-2">
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
               <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-sm font-bold text-green-700">M</div>
               <div className="flex-1">
-                <div className="font-medium text-gray-900">Maria Silva</div>
-                <div className="text-xs text-gray-500">Nota: 8.5</div>
+                <div className="font-medium text-foreground">Maria Silva</div>
+                <div className="text-xs text-muted-foreground">Nota: 8.5</div>
               </div>
               <Badge className="bg-green-100 text-green-800 text-xs">Ativa</Badge>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
               <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-sm font-bold text-blue-700">J</div>
               <div className="flex-1">
-                <div className="font-medium text-gray-900">João Santos</div>
-                <div className="text-xs text-gray-500">Nota: 7.2</div>
+                <div className="font-medium text-foreground">João Santos</div>
+                <div className="text-xs text-muted-foreground">Nota: 7.2</div>
               </div>
               <Badge className="bg-yellow-100 text-yellow-800 text-xs">Pendente</Badge>
             </div>
@@ -234,16 +234,16 @@ const TeacherInstructionModal: React.FC<TeacherInstructionModalProps> = ({ isOpe
               <span className="font-medium text-teal-800">Chat Ativo</span>
             </div>
           </div>
-          <div className="p-4 bg-white rounded-xl border border-gray-200">
+          <div className="p-4 bg-card rounded-xl border border-border">
             <div className="space-y-3">
               <div className="text-right">
                 <div className="bg-blue-500 text-white text-sm p-2 rounded-lg inline-block">
-                  Olá professor! 👋
+                  Olá professor! ðŸ‘‹
                 </div>
               </div>
               <div className="text-left">
-                <div className="bg-gray-100 text-gray-800 text-sm p-2 rounded-lg inline-block">
-                  Como posso ajudar? 😊
+                <div className="bg-muted text-foreground text-sm p-2 rounded-lg inline-block">
+                  Como posso ajudar? ðŸ˜Š
                 </div>
               </div>
             </div>
@@ -281,10 +281,10 @@ const TeacherInstructionModal: React.FC<TeacherInstructionModalProps> = ({ isOpe
             <div className="flex items-center gap-3">
               {currentStepData.icon}
               <div>
-                <DialogTitle className="text-2xl font-bold text-gray-900">
+                <DialogTitle className="text-2xl font-bold text-foreground">
                   {currentStepData.title}
                 </DialogTitle>
-                <p className="text-gray-600 mt-1">{currentStepData.subtitle}</p>
+                <p className="text-muted-foreground mt-1">{currentStepData.subtitle}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -317,17 +317,17 @@ const TeacherInstructionModal: React.FC<TeacherInstructionModalProps> = ({ isOpe
               {/* Key Points Side */}
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <h4 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
                     <Target className="h-5 w-5 text-blue-600" />
                     Principais funcionalidades:
                   </h4>
                   <div className="space-y-3">
                     {currentStepData.keyPoints.map((point, index) => (
-                      <div key={index} className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:shadow-sm transition-all">
+                      <div key={index} className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border hover:shadow-sm transition-all">
                         <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                           <CheckCircle2 className="h-4 w-4 text-blue-600" />
                         </div>
-                        <span className="text-gray-800 font-medium">{point}</span>
+                        <span className="text-foreground font-medium">{point}</span>
                       </div>
                     ))}
                   </div>
@@ -337,7 +337,7 @@ const TeacherInstructionModal: React.FC<TeacherInstructionModalProps> = ({ isOpe
           </div>
 
           {/* Navigation */}
-          <div className="border-t border-gray-200 p-6">
+          <div className="border-t border-border p-6">
             <div className="flex items-center justify-between">
               <Button
                 variant="outline"

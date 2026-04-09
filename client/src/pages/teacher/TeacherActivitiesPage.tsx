@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -121,7 +121,7 @@ const TeacherActivitiesPage = () => {
       case 'expired':
         return <Badge className="bg-red-100 text-red-800 border-red-200">Expirada</Badge>;
       case 'draft':
-        return <Badge className="bg-gray-100 text-gray-800 border-gray-200">Rascunho</Badge>;
+        return <Badge className="bg-muted text-muted-foreground border-border">Rascunho</Badge>;
       default:
         return <Badge variant="outline">Desconhecido</Badge>;
     }
@@ -136,7 +136,7 @@ const TeacherActivitiesPage = () => {
       'Geografia': 'bg-teal-500',
       'Inglês': 'bg-red-500'
     };
-    return colors[subjectName] || 'bg-gray-500';
+    return colors[subjectName] || 'bg-slate-500';
   };
 
   const handleDeleteActivity = async () => {
@@ -179,12 +179,12 @@ const TeacherActivitiesPage = () => {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
               <div className={`w-3 h-3 rounded-full ${getSubjectColor(activity.subjectName)}`}></div>
-              <span className="text-sm font-medium text-gray-600">{activity.subjectName}</span>
-              <span className="text-sm text-gray-500">•</span>
-              <span className="text-sm text-gray-600">{activity.className}</span>
+              <span className="text-sm font-medium text-muted-foreground">{activity.subjectName}</span>
+              <span className="text-sm text-muted-foreground">•</span>
+              <span className="text-sm text-muted-foreground">{activity.className}</span>
             </div>
             <CardTitle className="text-lg mb-1">{activity.title}</CardTitle>
-            <p className="text-sm text-gray-600 line-clamp-2">{activity.description}</p>
+            <p className="text-sm text-muted-foreground line-clamp-2">{activity.description}</p>
           </div>
           {getStatusBadge(activity)}
         </div>
@@ -210,7 +210,7 @@ const TeacherActivitiesPage = () => {
           </div>
 
           {/* Data de entrega */}
-          <div className="flex items-center gap-1 text-sm text-gray-600">
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <Calendar className="w-4 h-4" />
             <span>Entrega: {format(new Date(activity.dueDate), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}</span>
           </div>
@@ -255,21 +255,21 @@ const TeacherActivitiesPage = () => {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando atividades...</p>
+          <p className="text-muted-foreground">Carregando atividades...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-8">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Minhas Atividades</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-bold text-foreground">Minhas Atividades</h1>
+          <p className="text-muted-foreground mt-1">
             Gerencie suas atividades, avaliações e entregas dos alunos
           </p>
         </div>
@@ -293,57 +293,57 @@ const TeacherActivitiesPage = () => {
 
       {/* Estatísticas */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="bg-white shadow-sm border-0">
+        <Card className="border-border shadow-sm">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-blue-100 rounded-lg">
                 <BookOpen className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Total de Atividades</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total de Atividades</p>
+                <p className="text-2xl font-bold text-foreground">{stats.total}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-sm border-0">
+        <Card className="border-border shadow-sm">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-green-100 rounded-lg">
                 <CheckCircle className="w-6 h-6 text-green-600" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Ativas</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.active}</p>
+                <p className="text-sm font-medium text-muted-foreground">Ativas</p>
+                <p className="text-2xl font-bold text-foreground">{stats.active}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-sm border-0">
+        <Card className="border-border shadow-sm">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-orange-100 rounded-lg">
                 <Clock className="w-6 h-6 text-orange-600" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Pendentes Avaliação</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
+                <p className="text-sm font-medium text-muted-foreground">Pendentes Avaliação</p>
+                <p className="text-2xl font-bold text-foreground">{stats.pending}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white shadow-sm border-0">
+        <Card className="border-border shadow-sm">
           <CardContent className="p-6">
             <div className="flex items-center gap-4">
               <div className="p-3 bg-purple-100 rounded-lg">
                 <TrendingUp className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-600">Concluídas</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.completed}</p>
+                <p className="text-sm font-medium text-muted-foreground">Concluídas</p>
+                <p className="text-2xl font-bold text-foreground">{stats.completed}</p>
               </div>
             </div>
           </CardContent>
@@ -351,12 +351,12 @@ const TeacherActivitiesPage = () => {
       </div>
 
       {/* Filtros */}
-      <Card className="bg-white shadow-sm border-0">
+      <Card className="border-border shadow-sm">
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 w-4 h-4" />
                 <Input
                   placeholder="Buscar atividades..."
                   value={searchTerm}
@@ -398,38 +398,38 @@ const TeacherActivitiesPage = () => {
       </Card>
 
       {/* Tabs de atividades */}
-      <Card className="bg-white shadow-sm border-0">
+      <Card className="border-border shadow-sm">
         <CardContent className="p-0">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <div className="border-b border-gray-200">
+            <div className="border-b border-border">
               <TabsList className="grid w-full grid-cols-5 bg-transparent h-auto p-0">
                 <TabsTrigger 
                   value="todas" 
-                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 data-[state=active]:border-b-2 data-[state=active]:border-blue-600"
+                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 >
                   Todas ({filteredActivities.length})
                 </TabsTrigger>
                 <TabsTrigger 
                   value="ativas" 
-                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 data-[state=active]:border-b-2 data-[state=active]:border-blue-600"
+                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 >
                   Ativas ({activeActivities.length})
                 </TabsTrigger>
                 <TabsTrigger 
                   value="avaliar" 
-                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 data-[state=active]:border-b-2 data-[state=active]:border-blue-600"
+                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 >
                   Avaliar ({needingGrading.length})
                 </TabsTrigger>
                 <TabsTrigger 
                   value="rascunhos" 
-                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 data-[state=active]:border-b-2 data-[state=active]:border-blue-600"
+                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 >
                   Rascunhos ({draftActivities.length})
                 </TabsTrigger>
                 <TabsTrigger 
                   value="expiradas" 
-                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-blue-50 data-[state=active]:text-blue-600 data-[state=active]:border-b-2 data-[state=active]:border-blue-600"
+                  className="py-4 px-6 text-base font-medium data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
                 >
                   Expiradas ({expiredActivities.length})
                 </TabsTrigger>
@@ -440,15 +440,15 @@ const TeacherActivitiesPage = () => {
               {isLoading ? (
                 <div className="text-center py-12">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                  <p className="text-gray-600">Carregando atividades...</p>
+                  <p className="text-muted-foreground">Carregando atividades...</p>
                 </div>
               ) : error ? (
                 <div className="text-center py-12">
                   <AlertCircle className="h-12 w-12 text-red-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <h3 className="text-lg font-medium text-foreground mb-2">
                     Erro ao carregar atividades
                   </h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-muted-foreground mb-4">
                     {error?.message || 'Ocorreu um erro inesperado'}
                   </p>
                   <Button 
@@ -463,11 +463,11 @@ const TeacherActivitiesPage = () => {
                   <TabsContent value="todas" className="mt-0">
                     {filteredActivities.length === 0 ? (
                       <div className="text-center py-12">
-                        <BookOpen className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        <BookOpen className="h-16 w-16 text-muted-foreground/40 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-foreground mb-2">
                           Nenhuma atividade encontrada
                         </h3>
-                        <p className="text-gray-600 mb-6">
+                        <p className="text-muted-foreground mb-6">
                           Comece criando sua primeira atividade para os alunos.
                         </p>
                         <Button 
@@ -488,11 +488,11 @@ const TeacherActivitiesPage = () => {
                   <TabsContent value="ativas" className="mt-0">
                     {activeActivities.length === 0 ? (
                       <div className="text-center py-12">
-                        <CheckCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        <CheckCircle className="h-16 w-16 text-muted-foreground/40 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-foreground mb-2">
                           Nenhuma atividade ativa
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-muted-foreground">
                           Não há atividades ativas no momento.
                         </p>
                       </div>
@@ -506,11 +506,11 @@ const TeacherActivitiesPage = () => {
                   <TabsContent value="avaliar" className="mt-0">
                     {needingGrading.length === 0 ? (
                       <div className="text-center py-12">
-                        <Clock className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        <Clock className="h-16 w-16 text-muted-foreground/40 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-foreground mb-2">
                           Nenhuma atividade para avaliar
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-muted-foreground">
                           Todas as atividades estão avaliadas.
                         </p>
                       </div>
@@ -524,11 +524,11 @@ const TeacherActivitiesPage = () => {
                   <TabsContent value="rascunhos" className="mt-0">
                     {draftActivities.length === 0 ? (
                       <div className="text-center py-12">
-                        <FileText className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        <FileText className="h-16 w-16 text-muted-foreground/40 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-foreground mb-2">
                           Nenhum rascunho
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-muted-foreground">
                           Não há atividades em rascunho.
                         </p>
                       </div>
@@ -542,11 +542,11 @@ const TeacherActivitiesPage = () => {
                   <TabsContent value="expiradas" className="mt-0">
                     {expiredActivities.length === 0 ? (
                       <div className="text-center py-12">
-                        <AlertCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">
+                        <AlertCircle className="h-16 w-16 text-muted-foreground/40 mx-auto mb-4" />
+                        <h3 className="text-lg font-medium text-foreground mb-2">
                           Nenhuma atividade expirada
                         </h3>
-                        <p className="text-gray-600">
+                        <p className="text-muted-foreground">
                           Não há atividades expiradas.
                         </p>
                       </div>

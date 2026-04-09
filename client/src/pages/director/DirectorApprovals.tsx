@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -68,7 +68,7 @@ const DirectorApprovals = () => {
       case 'low':
         return 'bg-green-100 text-green-800 border-green-200';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-muted text-foreground border-border';
     }
   };
 
@@ -81,7 +81,7 @@ const DirectorApprovals = () => {
       case 'subject':
         return <BookOpen className="h-5 w-5 text-purple-600" />;
       default:
-        return <FileText className="h-5 w-5 text-gray-600" />;
+        return <FileText className="h-5 w-5 text-muted-foreground" />;
     }
   };
 
@@ -131,11 +131,11 @@ const DirectorApprovals = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-muted/60">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 h-16 flex items-center justify-between px-6">
+      <header className="bg-card shadow-sm border-b border-border h-16 flex items-center justify-between px-6">
         <div className="flex items-center gap-4">
-          <h1 className="text-2xl font-bold text-gray-900">Aprovações</h1>
+          <h1 className="text-2xl font-bold text-foreground">Aprovações</h1>
         </div>
         <div className="flex items-center gap-3">
           <Button
@@ -159,13 +159,13 @@ const DirectorApprovals = () => {
         <div className="space-y-6">
           {/* Description */}
           <div>
-            <p className="text-gray-600">Aprove solicitações de usuários, turmas e disciplinas criadas pelo administrador</p>
+            <p className="text-muted-foreground">Aprove solicitações de usuários, turmas e disciplinas criadas pelo administrador</p>
           </div>
 
           {/* Filtros */}
           <div className="flex flex-col md:flex-row gap-3">
             <div className="w-full md:w-64">
-              <label className="text-sm font-medium text-gray-600 mb-1 block">Tipo de Solicitação</label>
+              <label className="text-sm font-medium text-muted-foreground mb-1 block">Tipo de Solicitação</label>
               <Select value={filterType} onValueChange={setFilterType}>
                 <SelectTrigger>
                   <SelectValue placeholder="Filtrar por tipo" />
@@ -179,7 +179,7 @@ const DirectorApprovals = () => {
               </Select>
             </div>
             <div className="w-full md:w-64">
-              <label className="text-sm font-medium text-gray-600 mb-1 block">Cargo do Usuário</label>
+              <label className="text-sm font-medium text-muted-foreground mb-1 block">Cargo do Usuário</label>
               <Select value={filterRole} onValueChange={setFilterRole}>
                 <SelectTrigger>
                   <SelectValue placeholder="Filtrar por cargo" />
@@ -197,7 +197,7 @@ const DirectorApprovals = () => {
 
         {/* Pending Approvals */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+          <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
             <AlertCircle className="h-5 w-5 text-orange-600" />
             Aprovações Pendentes
           </h2>
@@ -219,7 +219,7 @@ const DirectorApprovals = () => {
                         return (
                           <>
                             <CardTitle className="text-lg">{title}</CardTitle>
-                            <p className="text-gray-600 mt-1">{desc}</p>
+                            <p className="text-muted-foreground mt-1">{desc}</p>
                           </>
                         );
                       })()}
@@ -234,7 +234,7 @@ const DirectorApprovals = () => {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Detalhes da Solicitação</h4>
+                    <h4 className="font-medium text-foreground mb-2">Detalhes da Solicitação</h4>
                     <div className="space-y-2 text-sm">
                       <p><span className="font-medium">Solicitado por:</span> {approval.requestedBy}</p>
                       <p><span className="font-medium">Data:</span> {approval.requestedAt}</p>
@@ -259,7 +259,7 @@ const DirectorApprovals = () => {
                     </div>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Ações</h4>
+                    <h4 className="font-medium text-foreground mb-2">Ações</h4>
                     <div className="flex gap-2">
                       <Button 
                         size="sm" 
@@ -292,8 +292,8 @@ const DirectorApprovals = () => {
           {/* Loading State */}
           {isLoadingApprovals && (
             <div className="text-center py-8">
-              <RefreshCw className="h-8 w-8 mx-auto mb-4 text-gray-400 animate-spin" />
-              <p className="text-gray-500">Carregando aprovações...</p>
+              <RefreshCw className="h-8 w-8 mx-auto mb-4 text-muted-foreground/60 animate-spin" />
+              <p className="text-muted-foreground">Carregando aprovações...</p>
             </div>
           )}
 
@@ -301,7 +301,7 @@ const DirectorApprovals = () => {
           {!isLoadingApprovals && pendingApprovals.length === 0 && (
             <Card>
               <CardContent>
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-muted-foreground">
                   <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-400" />
                   <p className="text-lg font-medium">Nenhuma aprovação pendente</p>
                   <p className="text-sm mt-1">Todas as solicitações foram processadas</p>
@@ -316,3 +316,4 @@ const DirectorApprovals = () => {
 };
 
 export default DirectorApprovals;
+

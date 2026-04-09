@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -167,7 +167,7 @@ const ChatPage = () => {
       case 'Coordenador': return 'text-orange-600';
       case 'Professor': return 'text-green-600';
       case 'Aluno': return 'text-blue-600';
-      default: return 'text-gray-600';
+      default: return 'text-muted-foreground';
     }
   };
 
@@ -180,18 +180,18 @@ const ChatPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Chat</h1>
-          <p className="text-gray-600 mt-1">Comunicação com professores, alunos e coordenadores</p>
+          <h1 className="text-3xl font-bold text-foreground">Chat</h1>
+          <p className="text-muted-foreground mt-1">Comunicação com professores, alunos e coordenadores</p>
         </div>
       </div>
 
       {/* Loading State */}
       {isLoading && (
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Carregando usuários...</h3>
-            <p className="text-gray-600">Aguarde enquanto buscamos os usuários do sistema.</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2">Carregando usuários...</h3>
+            <p className="text-muted-foreground">Aguarde enquanto buscamos os usuários do sistema.</p>
           </CardContent>
         </Card>
       )}
@@ -200,13 +200,13 @@ const ChatPage = () => {
       {error && (
         <Card className="border border-red-200">
           <CardContent className="text-center py-12">
-            <div className="text-red-500 mb-4">
+            <div className="text-destructive mb-4">
               <MessageSquare className="h-12 w-12 mx-auto mb-2" />
             </div>
-            <h3 className="text-lg font-semibold text-red-900 mb-2">Erro ao carregar usuários</h3>
-            <p className="text-red-600 mb-4">{error?.message || 'Erro desconhecido'}</p>
+            <h3 className="text-lg font-semibold text-destructive mb-2">Erro ao carregar usuários</h3>
+            <p className="text-destructive mb-4">{error?.message || 'Erro desconhecido'}</p>
             <Button 
-              className="bg-red-600 hover:bg-red-700"
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               onClick={() => window.location.reload()}
             >
               Tentar Novamente
@@ -217,20 +217,20 @@ const ChatPage = () => {
 
       {/* Chat Interface */}
       {!isLoading && !error && (
-        <div className="flex h-[calc(100vh-200px)] bg-white border border-gray-200 rounded-lg overflow-hidden">
+        <div className="flex h-[calc(100vh-200px)] bg-card border border-border rounded-lg overflow-hidden">
         {/* Chat List - Lado Esquerdo */}
-        <div className="w-80 border-r border-gray-200 flex flex-col">
-          <div className="p-4 border-b border-gray-200">
+        <div className="w-80 border-r border-border flex flex-col">
+          <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <MessageSquare className="h-5 w-5 text-purple-600" />
+                <MessageSquare className="h-5 w-5 text-violet-600 dark:text-violet-300" />
                 <h2 className="text-lg font-semibold">Chat</h2>
               </div>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowUserSearch(!showUserSearch)}
-                className="text-purple-600 hover:text-purple-700"
+                className="text-violet-600 hover:text-violet-500 dark:text-violet-300 dark:hover:text-violet-200"
               >
                 <UserPlus className="h-4 w-4" />
               </Button>
@@ -238,7 +238,7 @@ const ChatPage = () => {
             
             {/* Barra de busca única */}
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
               <Input 
                 placeholder="Buscar conversas ou usuários..." 
                 className="pl-10"
@@ -252,13 +252,13 @@ const ChatPage = () => {
           </div>
           {/* Lista de usuários disponíveis */}
           {showUserSearch && searchResults.length > 0 && (
-            <div className="border-b border-gray-200 p-4">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Usuários Encontrados</h4>
+            <div className="border-b border-border p-4">
+              <h4 className="mb-3 text-sm font-medium text-foreground">Usuários Encontrados</h4>
               <div className="space-y-2 max-h-40 overflow-y-auto">
                 {searchResults.map((user) => (
                   <div
                     key={user.id}
-                    className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded cursor-pointer"
+                    className="flex items-center gap-3 p-2 hover:bg-muted/50 rounded cursor-pointer"
                     onClick={() => handleStartChat(user)}
                   >
                     <Avatar className="h-8 w-8">
@@ -267,7 +267,7 @@ const ChatPage = () => {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-foreground truncate">
                         {user.firstName} {user.lastName}
                       </p>
                       <p className={`text-xs ${getRoleColor(user.role)}`}>
@@ -283,8 +283,8 @@ const ChatPage = () => {
           {/* Lista de conversas */}
           <div className="flex-1 overflow-y-auto">
             {filteredChats.length === 0 ? (
-              <div className="p-4 text-center text-gray-500">
-                <MessageSquare className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+              <div className="p-4 text-center text-muted-foreground">
+                <MessageSquare className="h-12 w-12 mx-auto mb-4 text-muted-foreground/60" />
                 <p className="text-sm">Nenhuma conversa iniciada</p>
                 <p className="text-xs mt-1">Busque por usuários para iniciar uma conversa</p>
               </div>
@@ -293,9 +293,9 @@ const ChatPage = () => {
                 {filteredChats.map((chat) => (
                 <div
                   key={chat.id}
-                  className={`p-4 cursor-pointer hover:bg-gray-50 border-l-4 transition-colors ${
+                  className={`p-4 cursor-pointer hover:bg-muted/50 border-l-4 transition-colors ${
                     selectedChat === chat.id 
-                      ? 'bg-purple-50 border-purple-500' 
+                      ? 'bg-violet-500/10 border-violet-500 dark:bg-violet-500/15' 
                       : 'border-transparent'
                   }`}
                   onClick={() => setSelectedChat(chat.id)}
@@ -309,23 +309,23 @@ const ChatPage = () => {
                         </AvatarFallback>
                       </Avatar>
                       {chat.isOnline && (
-                        <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                        <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-background rounded-full"></div>
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <p className="font-medium text-gray-900 truncate">{chat.name}</p>
-                        <span className="text-xs text-gray-500">{chat.timestamp}</span>
+                        <p className="font-medium text-foreground truncate">{chat.name}</p>
+                        <span className="text-xs text-muted-foreground">{chat.timestamp}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <p className="text-sm text-gray-600 truncate">{chat.lastMessage}</p>
+                          <p className="text-sm text-muted-foreground truncate">{chat.lastMessage}</p>
                           <span className={`text-xs ${getRoleColor(chat.role)}`}>
                             {chat.role}
                           </span>
                         </div>
                         {chat.unread > 0 && (
-                          <Badge className="bg-purple-600 text-white text-xs">
+                          <Badge className="bg-violet-600 text-white text-xs dark:bg-violet-500">
                             {chat.unread}
                           </Badge>
                         )}
@@ -344,7 +344,7 @@ const ChatPage = () => {
           {currentChat ? (
             <>
               {/* Chat Header */}
-              <div className="p-4 border-b border-gray-200 bg-white">
+              <div className="p-4 border-b border-border bg-card">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="relative">
@@ -355,11 +355,11 @@ const ChatPage = () => {
                         </AvatarFallback>
                       </Avatar>
                       {currentChat.isOnline && (
-                        <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+                        <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-background rounded-full"></div>
                       )}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{currentChat.name}</h3>
+                      <h3 className="font-semibold text-foreground">{currentChat.name}</h3>
                       <p className={`text-sm ${getRoleColor(currentChat.role)}`}>
                         {currentChat.role}
                       </p>
@@ -380,10 +380,10 @@ const ChatPage = () => {
               </div>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted/50">
                 {currentMessages.length === 0 ? (
-                  <div className="text-center text-gray-500 mt-8">
-                    <MessageSquare className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+                  <div className="text-center text-muted-foreground mt-8">
+                    <MessageSquare className="h-12 w-12 mx-auto mb-4 text-muted-foreground/60" />
                     <p className="text-sm">Nenhuma mensagem ainda</p>
                     <p className="text-xs mt-1">Envie uma mensagem para iniciar a conversa</p>
                   </div>
@@ -404,20 +404,20 @@ const ChatPage = () => {
                     <div
                       className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                         msg.isOwn
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-gray-100 text-gray-900'
+                          ? 'bg-violet-600 text-white dark:bg-violet-500'
+                          : 'border border-border bg-card text-foreground'
                       }`}
                     >
                       <p className="text-sm">{msg.content}</p>
                       <p className={`text-xs mt-1 ${
-                        msg.isOwn ? 'text-purple-200' : 'text-gray-500'
+                        msg.isOwn ? 'text-violet-100 dark:text-violet-50' : 'text-muted-foreground'
                       }`}>
                         {msg.timestamp}
                       </p>
                     </div>
                     {msg.isOwn && (
                       <Avatar className="h-8 w-8">
-                        <AvatarFallback className="text-xs bg-purple-600 text-white">
+                        <AvatarFallback className="text-xs bg-violet-600 text-white dark:bg-violet-500">
                           {getUserInitials('Admin')}
                         </AvatarFallback>
                       </Avatar>
@@ -428,7 +428,7 @@ const ChatPage = () => {
               </div>
 
               {/* Message Input */}
-              <div className="p-4 border-t border-gray-200 bg-white">
+              <div className="p-4 border-t border-border bg-card">
                 <div className="flex items-center gap-3">
                   <Button variant="ghost" size="sm">
                     <Paperclip className="h-4 w-4" />
@@ -450,7 +450,7 @@ const ChatPage = () => {
                   </div>
                   <Button 
                     onClick={handleSendMessage}
-                    className="bg-purple-600 hover:bg-purple-700"
+                    className="bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-400"
                     disabled={!message.trim()}
                   >
                     <Send className="h-4 w-4" />
@@ -459,11 +459,11 @@ const ChatPage = () => {
               </div>
             </>
           ) : (
-            <div className="flex-1 flex items-center justify-center bg-gray-50">
+            <div className="flex-1 flex items-center justify-center bg-muted/50">
               <div className="text-center">
-                <MessageSquare className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Selecione uma conversa</h3>
-                <p className="text-gray-600">Busque por usuários para iniciar uma conversa</p>
+                <MessageSquare className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-foreground mb-2">Selecione uma conversa</h3>
+                <p className="text-muted-foreground">Busque por usuários para iniciar uma conversa</p>
               </div>
             </div>
           )}
@@ -473,26 +473,26 @@ const ChatPage = () => {
 
       {/* Empty State */}
       {!isLoading && !error && chats.length === 0 && (
-        <div className="flex h-[calc(100vh-200px)] bg-white border border-gray-200 rounded-lg overflow-hidden">
-          <div className="w-80 border-r border-gray-200 flex flex-col">
-            <div className="p-4 border-b border-gray-200">
+        <div className="flex h-[calc(100vh-200px)] bg-card border border-border rounded-lg overflow-hidden">
+          <div className="w-80 border-r border-border flex flex-col">
+            <div className="p-4 border-b border-border">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <MessageSquare className="h-5 w-5 text-purple-600" />
+                  <MessageSquare className="h-5 w-5 text-violet-600 dark:text-violet-300" />
                   <h2 className="text-lg font-semibold">Chat</h2>
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setShowUserSearch(!showUserSearch)}
-                  className="text-purple-600 hover:text-purple-700"
+                  className="text-violet-600 hover:text-violet-500 dark:text-violet-300 dark:hover:text-violet-200"
                 >
                   <UserPlus className="h-4 w-4" />
                 </Button>
               </div>
               
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
                 <Input 
                   placeholder="Buscar conversas ou usuários..." 
                   className="pl-10"
@@ -506,19 +506,19 @@ const ChatPage = () => {
             </div>
             
             <div className="flex-1 flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <MessageSquare className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+              <div className="text-center text-muted-foreground">
+                <MessageSquare className="h-12 w-12 mx-auto mb-4 text-muted-foreground/60" />
                 <p className="text-sm">Nenhuma conversa iniciada</p>
                 <p className="text-xs mt-1">Busque por usuários para iniciar uma conversa</p>
               </div>
             </div>
           </div>
           
-          <div className="flex-1 flex items-center justify-center bg-gray-50">
+          <div className="flex-1 flex items-center justify-center bg-muted/50">
             <div className="text-center">
-              <MessageSquare className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Bem-vindo ao Chat</h3>
-              <p className="text-gray-600">Busque por usuários para iniciar uma conversa</p>
+              <MessageSquare className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-foreground mb-2">Bem-vindo ao Chat</h3>
+              <p className="text-muted-foreground">Busque por usuários para iniciar uma conversa</p>
             </div>
           </div>
         </div>
@@ -528,3 +528,5 @@ const ChatPage = () => {
 };
 
 export default ChatPage;
+
+

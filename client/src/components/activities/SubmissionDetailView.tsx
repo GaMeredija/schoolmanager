@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -149,7 +149,7 @@ export function SubmissionDetailView({
     if (fileType.includes('word') || fileType.includes('document')) {
       return <FileText className="w-5 h-5 text-blue-600" />;
     }
-    return <FileText className="w-5 h-5 text-gray-600" />;
+    return <FileText className="w-5 h-5 text-muted-foreground" />;
   };
 
   const handleDownloadFile = async (file: SubmissionFile) => {
@@ -235,36 +235,36 @@ export function SubmissionDetailView({
 
         <div className="space-y-6">
           {/* Informações Consolidadas */}
-          <div className="bg-gray-50 p-6 rounded-lg space-y-4">
+          <div className="bg-muted/60 p-6 rounded-lg space-y-4">
             {/* Aluno */}
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <User className="w-5 h-5 text-gray-600" />
+                <User className="w-5 h-5 text-muted-foreground" />
                 <div>
                   <p className="font-semibold text-lg">
                     {submission.student.firstName} {submission.student.lastName}
                   </p>
-                  <p className="text-sm text-gray-600">{submission.student.email}</p>
+                  <p className="text-sm text-muted-foreground">{submission.student.email}</p>
                 </div>
               </div>
               {getStatusBadge()}
             </div>
             
             {/* Informações de Entrega */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-border">
               <div className="flex items-center space-x-2">
-                <Calendar className="w-4 h-4 text-gray-500" />
+                <Calendar className="w-4 h-4 text-muted-foreground" />
                 <div>
-                  <p className="text-xs text-gray-500 uppercase tracking-wide">Entregue em</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wide">Entregue em</p>
                   <p className="font-medium">
                     {format(new Date(submission.submission.submittedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                   </p>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
-                <Clock className="w-4 h-4 text-gray-500" />
+                <Clock className="w-4 h-4 text-muted-foreground" />
                 <div>
-                  <p className="text-xs text-gray-500 uppercase tracking-wide">Prazo</p>
+                  <p className="text-xs text-muted-foreground uppercase tracking-wide">Prazo</p>
                   <p className="font-medium">
                     {format(new Date(activity.dueDate), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                   </p>
@@ -291,7 +291,7 @@ export function SubmissionDetailView({
           {submission.submission.comment && (
             <div>
               <div className="flex items-center space-x-2 mb-3">
-                <MessageSquare className="w-5 h-5 text-gray-600" />
+                <MessageSquare className="w-5 h-5 text-muted-foreground" />
                 <h3 className="font-semibold">Resposta do Aluno</h3>
               </div>
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
@@ -304,17 +304,17 @@ export function SubmissionDetailView({
           {submission.files.length > 0 && (
             <div>
               <div className="flex items-center space-x-2 mb-3">
-                <FileText className="w-5 h-5 text-gray-600" />
+                <FileText className="w-5 h-5 text-muted-foreground" />
                 <h3 className="font-semibold">Arquivos Anexados ({submission.files.length})</h3>
               </div>
               <div className="space-y-2">
                 {submission.files.map((file) => (
-                  <div key={file.id} className="flex items-center justify-between p-3 bg-white border rounded-lg hover:bg-gray-50">
+                  <div key={file.id} className="flex items-center justify-between p-3 bg-card border rounded-lg hover:bg-muted/60">
                     <div className="flex items-center space-x-3">
                       {getFileIcon(file.fileType)}
                       <div>
                         <p className="font-medium">{file.originalFileName}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-muted-foreground">
                           {formatFileSize(file.fileSize)} • {format(new Date(file.uploadedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                         </p>
                       </div>
@@ -347,7 +347,7 @@ export function SubmissionDetailView({
           <div className="border-t pt-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-2">
-                <Star className="w-5 h-5 text-gray-600" />
+                <Star className="w-5 h-5 text-muted-foreground" />
                 <h3 className="font-semibold text-lg">Avaliação</h3>
               </div>
               {submission.submission.status === 'graded' && !isEditing && (
@@ -365,10 +365,10 @@ export function SubmissionDetailView({
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-gray-600">Nota</p>
+                      <p className="text-sm text-muted-foreground">Nota</p>
                       <p className="text-2xl font-bold">
                         {submission.submission.finalGrade?.toFixed(1) || submission.submission.grade?.toFixed(1) || 0}
-                        <span className="text-sm text-gray-600">/{activity.maxGrade}</span>
+                        <span className="text-sm text-muted-foreground">/{activity.maxGrade}</span>
                       </p>
                       {submission.submission.latePenaltyApplied > 0 && (
                         <p className="text-sm text-red-600">
@@ -378,7 +378,7 @@ export function SubmissionDetailView({
                       )}
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Avaliado em</p>
+                      <p className="text-sm text-muted-foreground">Avaliado em</p>
                       <p className="font-medium">
                         {submission.submission.gradedAt && 
                           format(new Date(submission.submission.gradedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })
@@ -389,7 +389,7 @@ export function SubmissionDetailView({
                   
                   {submission.submission.feedback && (
                     <div>
-                      <p className="text-sm text-gray-600 mb-2">Feedback</p>
+                      <p className="text-sm text-muted-foreground mb-2">Feedback</p>
                       <div className="bg-green-50 p-4 rounded-lg border border-green-200">
                         <p className="whitespace-pre-wrap">{submission.submission.feedback}</p>
                       </div>
@@ -462,3 +462,4 @@ export function SubmissionDetailView({
     </Dialog>
   );
 }
+

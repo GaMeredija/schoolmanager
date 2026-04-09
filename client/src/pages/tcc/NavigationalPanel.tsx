@@ -7,7 +7,7 @@ const diagramSource = `
 %% Mermaid Flowchart for SchoolManager Navigational Model
 flowchart LR
   %% Subgrupos (títulos simples nas linhas 'subgraph')
-  subgraph Autenticacao
+  subgraph Autentica??o
     direction LR
     login[Login]
     recuperar[Recuperar senha]
@@ -22,14 +22,14 @@ flowchart LR
     ajuda[Ajuda]
   end
 
-  subgraph Academico
+  subgraph Acad?mico
     direction LR
     turmas[Turmas]
     disciplinas[Disciplinas]
     periodos[Períodos]
   end
 
-  subgraph Comunicacao
+  subgraph Comunica??o
     direction LR
     mensagens[Mensagens]
     notificacoes[Notificações]
@@ -42,7 +42,7 @@ flowchart LR
     arquivos[Arquivos]
   end
 
-  subgraph Avaliacao
+  subgraph Avalia??o
     direction LR
     atividades[Atividades]
     submissao[Submissões]
@@ -58,14 +58,14 @@ flowchart LR
     horarios[Horários]
   end
 
-  subgraph Administracao
+  subgraph Administra??o
     direction LR
     usuarios[Usuários]
     perfis[Perfis]
     configuracoes[Configurações]
   end
 
-  subgraph Relatorios
+  subgraph Relat?rios
     direction LR
     relatorios[Relatórios]
   end
@@ -79,13 +79,13 @@ flowchart LR
   login --> dashboard
   recuperar -.-> login
   dashboard --> home
-  home --> Academico
-  home --> Comunicacao
+  home --> Acad?mico
+  home --> Comunica??o
   home --> Conteudos
-  home --> Avaliacao
+  home --> Avalia??o
   home --> Agenda
-  home --> Administracao
-  home --> Relatorios
+  home --> Administra??o
+  home --> Relat?rios
   home --> perfil
 
   %% Painel principal encurta caminhos

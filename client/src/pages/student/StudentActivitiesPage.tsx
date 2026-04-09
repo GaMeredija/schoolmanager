@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -64,7 +64,7 @@ export default function StudentActivitiesPage() {
       case 'submitted': return 'bg-blue-100 text-blue-800';
       case 'graded': return 'bg-green-100 text-green-800';
       case 'late': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -128,13 +128,13 @@ export default function StudentActivitiesPage() {
           <div className="flex items-start justify-between">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <BookOpen className="h-4 w-4 text-gray-500" />
-                <span className="text-sm font-medium text-gray-600">{activity.subjectName}</span>
-                <span className="text-sm text-gray-500">•</span>
-                <span className="text-sm text-gray-600">{activity.className}</span>
+                <BookOpen className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium text-muted-foreground">{activity.subjectName}</span>
+                <span className="text-sm text-muted-foreground">•</span>
+                <span className="text-sm text-muted-foreground">{activity.className}</span>
               </div>
               <CardTitle className="text-lg mb-1">{activity.title}</CardTitle>
-              <p className="text-sm text-gray-600 line-clamp-2">{activity.description}</p>
+              <p className="text-sm text-muted-foreground line-clamp-2">{activity.description}</p>
             </div>
             <Badge className={getStatusColor(activity.status)}>
               <StatusIcon className="h-3 w-3 mr-1" />
@@ -146,11 +146,11 @@ export default function StudentActivitiesPage() {
           <div className="space-y-3">
             {/* Informações da atividade */}
             <div className="flex items-center gap-4 text-sm">
-              <div className="flex items-center gap-1 text-gray-600">
+              <div className="flex items-center gap-1 text-muted-foreground">
                 <Calendar className="w-4 h-4" />
                 <span>Entrega: {format(new Date(activity.dueDate), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}</span>
               </div>
-              <div className="flex items-center gap-1 text-gray-600">
+              <div className="flex items-center gap-1 text-muted-foreground">
                 <FileText className="w-4 h-4" />
                 <span>Nota máxima: {activity.maxGrade}</span>
               </div>
@@ -228,7 +228,7 @@ export default function StudentActivitiesPage() {
     <div className="space-y-6">
       {/* Status de conexão */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Minhas Atividades</h1>
+        <h1 className="text-2xl font-bold text-foreground">Minhas Atividades</h1>
         <div className="flex items-center gap-2">
           {isConnected ? (
             <div className="flex items-center gap-2 text-green-600">
@@ -251,8 +251,8 @@ export default function StudentActivitiesPage() {
             <div className="flex items-center">
               <Clock className="h-8 w-8 text-yellow-600" />
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-600">Pendentes</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.pending}</p>
+                <p className="text-sm font-medium text-muted-foreground">Pendentes</p>
+                <p className="text-2xl font-bold text-foreground">{stats.pending}</p>
               </div>
             </div>
           </CardContent>
@@ -263,8 +263,8 @@ export default function StudentActivitiesPage() {
             <div className="flex items-center">
               <FileText className="h-8 w-8 text-blue-600" />
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-600">Enviadas</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.submitted}</p>
+                <p className="text-sm font-medium text-muted-foreground">Enviadas</p>
+                <p className="text-2xl font-bold text-foreground">{stats.submitted}</p>
               </div>
             </div>
           </CardContent>
@@ -275,8 +275,8 @@ export default function StudentActivitiesPage() {
             <div className="flex items-center">
               <CheckCircle className="h-8 w-8 text-green-600" />
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-600">Avaliadas</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.graded}</p>
+                <p className="text-sm font-medium text-muted-foreground">Avaliadas</p>
+                <p className="text-2xl font-bold text-foreground">{stats.graded}</p>
               </div>
             </div>
           </CardContent>
@@ -287,8 +287,8 @@ export default function StudentActivitiesPage() {
             <div className="flex items-center">
               <AlertCircle className="h-8 w-8 text-red-600" />
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-600">Atrasadas</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.late}</p>
+                <p className="text-sm font-medium text-muted-foreground">Atrasadas</p>
+                <p className="text-2xl font-bold text-foreground">{stats.late}</p>
               </div>
             </div>
           </CardContent>
@@ -308,10 +308,10 @@ export default function StudentActivitiesPage() {
           {activities.length === 0 ? (
             <div className="text-center py-12">
               <FileText className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhuma atividade encontrada
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Sua turma ainda não possui atividades disponíveis.
               </p>
             </div>
@@ -326,10 +326,10 @@ export default function StudentActivitiesPage() {
           {activities.filter(a => a.status === 'pending' || a.status === 'late').length === 0 ? (
             <div className="text-center py-12">
               <CheckCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhuma atividade pendente
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Todas as suas atividades estão em dia!
               </p>
             </div>
@@ -344,10 +344,10 @@ export default function StudentActivitiesPage() {
           {activities.filter(a => a.status === 'submitted').length === 0 ? (
             <div className="text-center py-12">
               <FileText className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhuma atividade enviada
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Você ainda não enviou nenhuma atividade.
               </p>
             </div>
@@ -362,10 +362,10 @@ export default function StudentActivitiesPage() {
           {activities.filter(a => a.status === 'graded').length === 0 ? (
             <div className="text-center py-12">
               <CheckCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhuma atividade avaliada
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Ainda não há atividades avaliadas pelo professor.
               </p>
             </div>

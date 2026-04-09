@@ -1,8 +1,8 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Variáveis CSS para o tema */
+/* VariÃ¡veis CSS para o tema */
 :root {
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
@@ -41,12 +41,12 @@
 
 /* Estilos personalizados para o SchoolManager */
 
-/* Brilho para subtítulos do menu do Diretor */
+/* Brilho para subtÃ­tulos do menu do Diretor */
 .text-shadow-glow {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-/* Animações suaves */
+/* AnimaÃ§Ãµes suaves */
 .transition-all {
   transition: all 0.3s ease-in-out;
 }
@@ -61,7 +61,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Estilos para botões com gradiente */
+/* Estilos para botÃµes com gradiente */
 .btn-gradient {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   transition: all 0.3s ease;
@@ -82,14 +82,14 @@
   backdrop-filter: blur(4px);
 }
 
-/* Melhorar transparência dos modais e painéis */
+/* Melhorar transparÃªncia dos modais e painÃ©is */
 .dialog-content {
   background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* Garantir que cards não sejam transparentes */
+/* Garantir que cards nÃ£o sejam transparentes */
 .card-solid {
   background: hsl(var(--card)) !important;
   border: 1px solid hsl(var(--border));
@@ -101,7 +101,7 @@
   border: 1px solid hsl(var(--border));
 }
 
-/* Garantir que modais tenham fundo sólido */
+/* Garantir que modais tenham fundo sÃ³lido */
 .modal-solid {
   background: hsl(var(--card)) !important;
   backdrop-filter: none;
@@ -137,7 +137,7 @@
   }
 }
 
-/* Estilos para notificações */
+/* Estilos para notificaÃ§Ãµes */
 .notification-enter {
   animation: slideInRight 0.3s ease-out;
 }
@@ -191,7 +191,7 @@
   transform: translateY(-1px);
 }
 
-/* Estilos para botões do Diretor */
+/* Estilos para botÃµes do Diretor */
 .director-btn-primary {
   background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
   color: #ffffff;
@@ -236,7 +236,7 @@
   color: #1e40af;
   border-color: #bfdbfe;
 }
-/* Nome do usuário com destaque especial */
+/* Nome do usuÃ¡rio com destaque especial */
 .text-user-name {
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
@@ -301,7 +301,7 @@
   padding: 8px;
 }
 
-/* Animações simples e profissionais */
+/* AnimaÃ§Ãµes simples e profissionais */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -335,7 +335,7 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Botões profissionais e elegantes */
+/* BotÃµes profissionais e elegantes */
 .btn-primary {
   background: #d97706;
   border: none;
@@ -434,15 +434,57 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
-  /* Tema escuro removido - forçando tema claro */
-
+  .dark {
+    --background: 224 33% 8%;
+    --foreground: 210 40% 98%;
+    --card: 224 28% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 224 28% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217 19% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 19% 18%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217 19% 18%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217 19% 24%;
+    --input: 217 19% 24%;
+    --ring: 224.3 76.3% 48%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 224 33% 10%;
+    --sidebar-foreground: 210 40% 96%;
+    --sidebar-primary: 217.2 91.2% 59.8%;
+    --sidebar-primary-foreground: 222.2 47.4% 11.2%;
+    --sidebar-accent: 217 19% 18%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 19% 24%;
+    --sidebar-ring: 224.3 76.3% 48%;
+  }
   * {
-    @apply border-0;
+    @apply border-border;
+  }
+  html {
+    background-color: hsl(var(--background));
   }
   body {
-    @apply bg-white text-gray-900;
+    @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -456,16 +498,26 @@
   background: #f1f5f9;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
-/* Estilos de scrollbar escuros removidos */
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
 
 /* Glassmorphism Effect */
 .glass {
@@ -474,7 +526,10 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Estilos glassmorphism escuros removidos */
+.dark .glass {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
 
 /* Gradient Backgrounds */
 .gradient-bg {
@@ -667,7 +722,9 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Regras dark para input-modern removidas - forçando tema claro */
+.dark .input-modern {
+  @apply border-slate-700 bg-slate-900 text-slate-100 placeholder-slate-400;
+}
 
 /* Chart Container */
 .chart-container {
@@ -675,7 +732,10 @@
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
 }
 
-/* Regra dark para chart-container removida - forçando tema claro */
+.dark .chart-container {
+  @apply bg-slate-900;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 41, 59, 0.82) 100%);
+}
 
 /* Sidebar Enhancement */
 .sidebar-modern {
@@ -696,7 +756,10 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Regra dark removida - forçando tema claro */
+.dark .dashboard-card {
+  @apply bg-slate-900 text-slate-100;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 41, 59, 0.82) 100%);
+}
 
 /* Stats Cards */
 .stats-card {
@@ -773,7 +836,7 @@
   }
 }
 
-/* Utilitários globais de responsividade segura */
+/* UtilitÃ¡rios globais de responsividade segura */
 .responsive-container {
   @apply px-4 sm:px-6 lg:px-8 mx-auto w-full;
 }
@@ -802,3 +865,5 @@
     page-break-before: always;
   }
 }
+
+

@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+﻿import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -156,12 +156,12 @@ export default function CoordinatorChat() {
 
   // Processar conversas
   const conversations = useMemo(() => {
-    console.log('🔄 Processando conversas...');
-    console.log('📊 Dados do banco:', conversationsData);
-    console.log('📊 Dados do banco (data):', conversationsData?.data);
-    console.log('📊 Dados do banco (length):', conversationsData?.data?.length);
+    console.log('ðŸ”„ Processando conversas...');
+    console.log('ðŸ“Š Dados do banco:', conversationsData);
+    console.log('ðŸ“Š Dados do banco (data):', conversationsData?.data);
+    console.log('ðŸ“Š Dados do banco (length):', conversationsData?.data?.length);
     
-    // CORREÇÃO: A API retorna array diretamente, não { data: [...] }
+    // CORRE??O: A API retorna array diretamente, não { data: [...] }
     let rawData = conversationsData;
     if (Array.isArray(conversationsData)) {
       rawData = conversationsData;
@@ -169,17 +169,17 @@ export default function CoordinatorChat() {
       rawData = conversationsData.data;
     }
     
-    console.log('🔧 Dados processados:', rawData);
+    console.log('ðŸ”§ Dados processados:', rawData);
     
     // REGRA: Se não há dados, retornar array vazio
     if (!rawData || rawData.length === 0) {
-      console.log('🧹 Nenhum dado - retornando array vazio');
+      console.log('ðŸ§¹ Nenhum dado - retornando array vazio');
       return [];
     }
     
     // Se há dados, usar eles (fonte da verdade)
     let allConversations = [...rawData];
-    console.log('📋 Conversas do banco (antes do sort):', allConversations);
+    console.log('ðŸ“‹ Conversas do banco (antes do sort):', allConversations);
     
     // Ordenar por última mensagem (mais recente primeiro)
     const sorted = allConversations.sort((a: any, b: any) => {
@@ -248,7 +248,7 @@ export default function CoordinatorChat() {
     return matches;
   });
   
-  console.log('📊 filteredConversations após filtro:', filteredConversations);
+  console.log('ðŸ“Š filteredConversations após filtro:', filteredConversations);
 
   // Verificar se mensagem pode ser editada (dentro de 5 minutos)
   const canEditMessage = (message: any) => {
@@ -276,7 +276,7 @@ export default function CoordinatorChat() {
   // Forçar atualização quando a conversa mudar
   useEffect(() => {
     if (selectedConversation) {
-      console.log('🔄 Conversa selecionada mudou, forçando atualização...');
+      console.log('ðŸ”„ Conversa selecionada mudou, forçando atualização...');
       refetchMessages();
       queryClient.refetchQueries({ queryKey: ['conversations'] });
     }
@@ -302,7 +302,7 @@ export default function CoordinatorChat() {
   // Limpar localStorage quando banco estiver vazio
   useEffect(() => {
     if (conversationsData?.data && conversationsData.data.length === 0) {
-      console.log('🧹 Banco vazio - limpando localStorage e conversas recentes');
+      console.log('ðŸ§¹ Banco vazio - limpando localStorage e conversas recentes');
       localStorage.removeItem('localConversations');
       localStorage.removeItem('recentConversations');
       setRecentConversations([]);
@@ -382,7 +382,7 @@ export default function CoordinatorChat() {
 
   // Função para adicionar/atualizar conversas recentes
   const addToRecentConversations = (conversation: any, messageContent: string) => {
-    console.log('🔄 Adicionando conversa recente:', { conversation, messageContent });
+    console.log('ðŸ”„ Adicionando conversa recente:', { conversation, messageContent });
     
     const now = new Date().toISOString();
     
@@ -409,10 +409,10 @@ export default function CoordinatorChat() {
       };
     }
 
-    console.log('📝 Conversa processada:', conversationInfo);
+    console.log('ðŸ“ Conversa processada:', conversationInfo);
 
     setRecentConversations(prev => {
-      console.log('📋 Conversas anteriores:', prev);
+      console.log('ðŸ“‹ Conversas anteriores:', prev);
       
       // Remover conversa existente se houver
       const filtered = prev.filter(conv => conv.otherUserId !== conversationInfo.otherUserId);
@@ -456,7 +456,7 @@ export default function CoordinatorChat() {
       // Adicionar mensagem otimista à lista
       setOptimisticMessages(prev => [...prev, optimisticMessage]);
       
-      // CORREÇÃO: Buscar email do destinatário baseado no otherUserId
+      // CORRE??O: Buscar email do destinatário baseado no otherUserId
       let recipientEmail = selectedConversation.recipientEmail;
       
       // Se não tem email, buscar pelo otherUserId
@@ -490,7 +490,7 @@ export default function CoordinatorChat() {
       addToRecentConversations(selectedConversation, messageContent);
       
       // Forçar atualização imediata das mensagens e conversas
-      console.log('🔄 Forçando atualização imediata...');
+      console.log('ðŸ”„ Forçando atualização imediata...');
       
       // Aguardar um pouco para o banco processar
       setTimeout(() => {
@@ -592,21 +592,21 @@ export default function CoordinatorChat() {
     <MainLayout pageTitle="Chat">
       <div className="flex h-[calc(100vh-200px)] gap-4 bg-transparent">
          {/* Lista de conversas - Integrada no layout principal */}
-         <div className="w-80 flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm">
-           <div className="p-4 border-b border-gray-200 bg-white rounded-t-lg">
+         <div className="w-80 flex flex-col bg-card rounded-lg border border-border shadow-sm">
+           <div className="p-4 border-b border-border bg-card rounded-t-lg">
              <div className="mb-3">
-               <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+               <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
                  <MessageSquare className="h-5 w-5 text-amber-600" />
                  Chat - Coordenador
                </h2>
-               <p className="text-sm text-gray-600">Converse com professores e colegas</p>
+               <p className="text-sm text-muted-foreground">Converse com professores e colegas</p>
              </div>
                
                <div className="relative">
-                 <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                 <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground/60" />
                  <Input
                    placeholder="Buscar conversas ou usuários..."
-                   className="pl-9 pr-3 py-2 text-sm bg-gray-50 border-gray-300 focus:border-amber-500 focus:ring-amber-500 rounded-lg"
+                   className="pl-9 pr-3 py-2 text-sm bg-muted/50 border-border focus:border-amber-500 focus:ring-amber-500 rounded-lg"
                    value={searchTerm}
                    onChange={(e) => {
                      setSearchTerm(e.target.value);
@@ -618,19 +618,19 @@ export default function CoordinatorChat() {
                
                {/* Dropdown de busca de usuários */}
                {showUserSearch && searchTerm.length >= 2 && (
-                 <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+                 <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
                    {isLoadingUsers ? (
-                     <div className="p-3 text-center text-gray-500">
+                     <div className="p-3 text-center text-muted-foreground">
                        <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
                        Buscando...
                      </div>
                    ) : searchError ? (
-                     <div className="p-3 text-center text-red-500">
+                     <div className="p-3 text-center text-destructive">
                        Erro ao buscar usuários
                      </div>
                    ) : searchResults?.data && searchResults.data.length > 0 ? (
                      <div>
-                       <div className="p-2 text-xs font-medium text-gray-500 bg-gray-50 border-b">
+                       <div className="p-2 text-xs font-medium text-muted-foreground bg-muted/50 border-b">
                          Usuários encontrados ({searchResults.data.length})
                        </div>
                          {searchResults.data.map((user: any) => (
@@ -682,7 +682,7 @@ export default function CoordinatorChat() {
                                  description: `Chat iniciado com ${user.firstName} ${user.lastName}`
                                });
                              }}
-                             className="w-full p-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0 flex items-center gap-3"
+                             className="w-full p-3 text-left hover:bg-muted/50 border-b border-border/70 last:border-b-0 flex items-center gap-3"
                            >
                              <Avatar className="h-8 w-8">
                                <AvatarImage src={user.profileImageUrl} />
@@ -691,14 +691,14 @@ export default function CoordinatorChat() {
                                </AvatarFallback>
                              </Avatar>
                              <div className="flex-1 min-w-0">
-                               <p className="text-sm font-medium text-gray-900 truncate">
+                               <p className="text-sm font-medium text-foreground truncate">
                                  {user.firstName} {user.lastName}
                                </p>
-                               <p className="text-xs text-gray-500 truncate">
+                               <p className="text-xs text-muted-foreground truncate">
                                  {user.email}
                                </p>
                                <div className="flex items-center justify-between">
-                               <p className="text-xs text-gray-400 capitalize">
+                               <p className="text-xs text-muted-foreground/60 capitalize">
                                  {user.role === 'admin' && 'Administrador'}
                                  {user.role === 'coordinator' && 'Coordenador'}
                                  {user.role === 'teacher' && 'Professor'}
@@ -712,7 +712,7 @@ export default function CoordinatorChat() {
                          ))}
                        </div>
                      ) : (
-                       <div className="p-3 text-center text-gray-500">
+                       <div className="p-3 text-center text-muted-foreground">
                          Nenhum usuário encontrado
                        </div>
                      )}
@@ -723,7 +723,7 @@ export default function CoordinatorChat() {
             
             <div className="flex-1 overflow-y-auto">
               {filteredConversations.length === 0 ? (
-                <div className="p-4 text-center text-gray-500 text-sm">
+                <div className="p-4 text-center text-muted-foreground text-sm">
                   {searchTerm ? "Nenhuma conversa encontrada" : "Nenhuma conversa ainda"}
                 </div>
               ) : (
@@ -731,10 +731,10 @@ export default function CoordinatorChat() {
                   {filteredConversations.map((conversation: any) => (
                     <div
                       key={conversation.conversationId}
-                      className={`p-3 cursor-pointer hover:bg-gray-50 transition-all duration-200 border-l-4 rounded-r-lg ${
+                      className={`p-3 cursor-pointer hover:bg-muted/50 transition-all duration-200 border-l-4 rounded-r-lg ${
                         selectedConversation?.otherUserId === conversation.otherUserId 
-                          ? "bg-amber-50 border-l-amber-500 shadow-sm" 
-                          : "border-l-transparent hover:border-l-amber-300"
+                          ? "bg-amber-500/10 dark:bg-amber-500/15 border-l-amber-500 shadow-sm" 
+                          : "border-l-transparent hover:border-l-amber-400"
                       }`}
                       onClick={() => setSelectedConversation(conversation)}
                     >
@@ -748,7 +748,7 @@ export default function CoordinatorChat() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2">
-                              <h4 className="font-semibold text-gray-900 dark:text-gray-100 truncate text-sm">
+                              <h4 className="font-semibold text-foreground truncate text-sm">
                                 {conversation.otherUserFirstName} {conversation.otherUserLastName}
                               </h4>
                               {/* Status do usuário */}
@@ -760,7 +760,7 @@ export default function CoordinatorChat() {
                               )}
                             </div>
                             {conversation.unreadCount > 0 && (
-                              <Badge className="h-5 w-5 p-0 flex items-center justify-center text-xs bg-amber-500 hover:bg-amber-600">
+                              <Badge className="h-5 w-5 p-0 flex items-center justify-center text-xs bg-amber-500/10 dark:bg-amber-500/150 hover:bg-amber-600">
                                 {conversation.unreadCount}
                               </Badge>
                             )}
@@ -768,15 +768,15 @@ export default function CoordinatorChat() {
                           
                           {/* Email do usuário */}
                           <div className="flex items-center gap-1 mb-1">
-                            <Mail className="h-3 w-3 text-gray-400" />
-                            <p className="text-xs text-gray-600 dark:text-gray-500 truncate font-mono">
+                            <Mail className="h-3 w-3 text-muted-foreground/60" />
+                            <p className="text-xs text-muted-foreground dark:text-muted-foreground truncate font-mono">
                               {conversation.recipientEmail}
                             </p>
                           </div>
                           
-                          {/* Última mensagem e horário em linha única */}
+                          {/* Ãšltima mensagem e horário em linha única */}
                           <div className="flex items-center justify-between">
-                             <p className="text-xs text-gray-600 dark:text-gray-400 truncate flex-1 mr-2">
+                             <p className="text-xs text-muted-foreground dark:text-muted-foreground/60 truncate flex-1 mr-2">
                                {conversation.lastMessage ? 
                                  (conversation.lastMessage.length > 30 ? 
                                    conversation.lastMessage.substring(0, 30) + '...' : 
@@ -786,7 +786,7 @@ export default function CoordinatorChat() {
                                }
                              </p>
                              {conversation.lastMessageTime && (
-                               <p className="text-xs text-gray-400 whitespace-nowrap">
+                               <p className="text-xs text-muted-foreground/60 whitespace-nowrap">
                                  {formatDistanceToNow(new Date(conversation.lastMessageTime), { 
                                    addSuffix: true, 
                                    locale: ptBR 
@@ -808,20 +808,20 @@ export default function CoordinatorChat() {
             {selectedConversation ? (
               <>
                 {/* Header da conversa */}
-                <div className="p-4 border-b border-gray-200 bg-white shadow-sm">
+                <div className="p-4 border-b border-border bg-card shadow-sm">
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10 ring-2 ring-amber-100">
+                    <Avatar className="h-10 w-10 ring-2 ring-amber-500/20 dark:ring-amber-400/20">
                       <AvatarImage src={selectedConversation.recipientAvatar} />
                       <AvatarFallback className="bg-gradient-to-r from-amber-500 to-yellow-600 text-white text-sm font-semibold">
                         {selectedConversation.recipientName?.charAt(0) || "U"}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900">
+                      <h3 className="text-lg font-bold text-foreground">
                         {selectedConversation.recipientName || "Usuário"}
                       </h3>
                       <div className="flex items-center gap-2">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-muted-foreground">
                           {selectedConversation.recipientEmail}
                         </p>
                         {/* Status do usuário */}
@@ -838,19 +838,19 @@ export default function CoordinatorChat() {
                 </div>
 
                 {/* Mensagens */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 min-h-0">
+                <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-muted/50 min-h-0">
                   {isLoadingMessages ? (
                     <div className="flex items-center justify-center h-32">
                       <Loader2 className="h-6 w-6 animate-spin text-amber-500" />
-                      <span className="ml-2 text-gray-700">Carregando mensagens...</span>
+                      <span className="ml-2 text-foreground">Carregando mensagens...</span>
                     </div>
                   ) : messages.length === 0 ? (
-                    <div className="text-center text-gray-700 py-12">
-                      <div className="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-sm border border-gray-200">
+                    <div className="text-center text-foreground py-12">
+                      <div className="bg-card rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-sm border border-border">
                         <MessageCircle className="h-10 w-10 text-amber-500" />
                       </div>
-                      <h3 className="text-lg font-medium text-gray-800 mb-2">Nenhuma mensagem ainda</h3>
-                      <p className="text-sm text-gray-600">Inicie a conversa enviando uma mensagem!</p>
+                      <h3 className="text-lg font-medium text-foreground mb-2">Nenhuma mensagem ainda</h3>
+                      <p className="text-sm text-muted-foreground">Inicie a conversa enviando uma mensagem!</p>
                     </div>
                   ) : (
                    messages.map((message: any) => (
@@ -861,9 +861,9 @@ export default function CoordinatorChat() {
                        <div className={`max-w-xs lg:max-w-md ${
           message.senderId === user?.id 
             ? message.isOptimistic 
-              ? 'bg-amber-500 text-white shadow-md opacity-80' 
-              : 'bg-amber-500 text-white shadow-md'
-            : 'bg-white text-gray-800 shadow-sm border border-gray-200'
+              ? 'bg-amber-500/10 dark:bg-amber-500/150 text-white shadow-md opacity-80' 
+              : 'bg-amber-500/10 dark:bg-amber-500/150 text-white shadow-md'
+            : 'bg-card text-foreground shadow-sm border border-border'
         } rounded-lg px-4 py-3 ${message.isOptimistic ? 'animate-pulse' : ''}`}>
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex-1">
@@ -906,7 +906,7 @@ export default function CoordinatorChat() {
                                   {canDeleteMessage(message) && (
                                     <DropdownMenuItem 
                                       onClick={() => handleDeleteMessage(message.id)}
-                                      className="text-red-600 dark:text-red-400"
+                                      className="text-destructive"
                                     >
                                       <Trash2 className="h-3 w-3 mr-2" />
                                       Deletar
@@ -930,7 +930,7 @@ export default function CoordinatorChat() {
                 </div>
 
                 {/* Input de mensagem */}
-                <div className="p-4 border-t border-gray-200 bg-white shadow-sm">
+                <div className="p-4 border-t border-border bg-card shadow-sm">
                   <div className="flex gap-3">
                     <div className="flex-1 relative">
                       <Textarea
@@ -938,21 +938,21 @@ export default function CoordinatorChat() {
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        className="min-h-[40px] max-h-24 resize-none border-gray-300 focus:border-amber-500 focus:ring-amber-500 rounded-lg text-sm"
+                        className="min-h-[40px] max-h-24 resize-none border-border focus:border-amber-500 focus:ring-amber-500 rounded-lg text-sm"
                         rows={1}
                       />
                       <Button
                         size="sm"
                         variant="ghost"
-                        className="absolute right-2 top-2 h-6 w-6 p-0 hover:bg-gray-100 rounded-lg"
+                        className="absolute right-2 top-2 h-6 w-6 p-0 hover:bg-muted rounded-lg"
                       >
-                        <Paperclip className="h-3 w-3 text-gray-500" />
+                        <Paperclip className="h-3 w-3 text-muted-foreground" />
                       </Button>
                     </div>
                     <Button
                       onClick={handleSendMessage}
                       disabled={!newMessage.trim() || sendMessageMutation.isPending}
-                      className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg shadow-md text-sm"
+                      className="px-4 py-2 bg-amber-500/10 dark:bg-amber-500/150 hover:bg-amber-600 text-white rounded-lg shadow-md text-sm"
                     >
                       {sendMessageMutation.isPending ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
@@ -964,13 +964,13 @@ export default function CoordinatorChat() {
                 </div>
               </>
             ) : (
-                             <div className="flex-1 flex items-center justify-center bg-gray-50 h-full">
-                 <div className="text-center text-gray-600">
-                   <div className="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-sm border border-gray-200">
-                     <MessageCircle className="h-10 w-10 text-gray-400" />
+                             <div className="flex-1 flex items-center justify-center bg-muted/50 h-full">
+                 <div className="text-center text-muted-foreground">
+                   <div className="bg-card rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-sm border border-border">
+                     <MessageCircle className="h-10 w-10 text-muted-foreground/60" />
                    </div>
-                   <h3 className="text-xl font-semibold text-gray-800 mb-2">Bem-vindo ao Chat!</h3>
-                   <p className="text-sm text-gray-600">Escolha uma conversa da lista ou digite o nome de alguém para iniciar uma nova conversa</p>
+                   <h3 className="text-xl font-semibold text-foreground mb-2">Bem-vindo ao Chat!</h3>
+                   <p className="text-sm text-muted-foreground">Escolha uma conversa da lista ou digite o nome de alguém para iniciar uma nova conversa</p>
                   </div>
                 </div>
             )}
@@ -1023,3 +1023,5 @@ export default function CoordinatorChat() {
     </MainLayout>
   );
 }
+
+

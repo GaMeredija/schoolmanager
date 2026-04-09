@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -111,7 +111,7 @@ const DirectorAccess = () => {
       case 'user': return 'bg-blue-100 text-blue-800';
       case 'class': return 'bg-green-100 text-green-800';
       case 'subject': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -147,7 +147,7 @@ const DirectorAccess = () => {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Carregando solicitações...</p>
+            <p className="text-muted-foreground">Carregando solicitações...</p>
           </div>
         </div>
       </MainLayout>
@@ -173,15 +173,15 @@ const DirectorAccess = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+            <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
               <Crown className="h-8 w-8 text-orange-600" />
               Aprovações do Diretor
             </h1>
-            <p className="text-gray-600 mt-1">Gerencie solicitações de criação e modificações</p>
+            <p className="text-muted-foreground mt-1">Gerencie solicitações de criação e modificações</p>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 bg-orange-500 rounded-full animate-pulse"></div>
-            <span className="text-sm text-gray-600">Sistema Ativo</span>
+            <span className="text-sm text-muted-foreground">Sistema Ativo</span>
           </div>
         </div>
 
@@ -191,7 +191,7 @@ const DirectorAccess = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Pendentes</p>
+                  <p className="text-sm text-muted-foreground">Pendentes</p>
                   <p className="text-3xl font-bold text-orange-600">
                     {pendingRequests.length}
                   </p>
@@ -207,7 +207,7 @@ const DirectorAccess = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Aprovadas</p>
+                  <p className="text-sm text-muted-foreground">Aprovadas</p>
                   <p className="text-3xl font-bold text-green-600">
                     {requests?.data?.filter((req: ApprovalRequest) => req.status === 'approved').length || 0}
                   </p>
@@ -223,7 +223,7 @@ const DirectorAccess = () => {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-gray-600">Rejeitadas</p>
+                  <p className="text-sm text-muted-foreground">Rejeitadas</p>
                   <p className="text-3xl font-bold text-red-600">
                     {requests?.data?.filter((req: ApprovalRequest) => req.status === 'rejected').length || 0}
                   </p>
@@ -248,31 +248,31 @@ const DirectorAccess = () => {
             {pendingRequests.length === 0 ? (
               <div className="text-center py-12">
                 <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                <p className="text-gray-600">Nenhuma solicitação pendente</p>
-                <p className="text-sm text-gray-500">Todas as solicitações foram processadas</p>
+                <p className="text-muted-foreground">Nenhuma solicitação pendente</p>
+                <p className="text-sm text-muted-foreground">Todas as solicitações foram processadas</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {pendingRequests.map((request: ApprovalRequest) => (
                   <div
                     key={request.id}
-                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+                    className="flex items-center justify-between p-4 border border-border rounded-lg hover:shadow-md transition-shadow"
                   >
                     <div className="flex items-center gap-4">
                       <div className={`p-3 rounded-full ${getTypeColor(request.type)}`}>
                         {getTypeIcon(request.type)}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900">{request.title}</h3>
-                        <p className="text-sm text-gray-600">{request.description}</p>
+                        <h3 className="font-semibold text-foreground">{request.title}</h3>
+                        <p className="text-sm text-muted-foreground">{request.description}</p>
                         <div className="flex items-center gap-2 mt-2">
                           <Badge className={getTypeColor(request.type)}>
                             {getTypeLabel(request.type)}
                           </Badge>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-muted-foreground">
                             Solicitado por: {request.requestedBy}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-muted-foreground">
                             {new Date(request.createdAt).toLocaleDateString('pt-BR')}
                           </span>
                         </div>
@@ -298,7 +298,7 @@ const DirectorAccess = () => {
         {/* Modal de Detalhes */}
         {showDetails && selectedRequest && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
+            <div className="bg-card rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-semibold">Detalhes da Solicitação</h3>
                 <Button
@@ -312,28 +312,28 @@ const DirectorAccess = () => {
               
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-gray-900">{selectedRequest.title}</h4>
-                  <p className="text-gray-600">{selectedRequest.description}</p>
+                  <h4 className="font-medium text-foreground">{selectedRequest.title}</h4>
+                  <p className="text-muted-foreground">{selectedRequest.description}</p>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">Tipo</p>
+                    <p className="text-sm text-muted-foreground">Tipo</p>
                     <Badge className={getTypeColor(selectedRequest.type)}>
                       {getTypeLabel(selectedRequest.type)}
                     </Badge>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Solicitado por</p>
+                    <p className="text-sm text-muted-foreground">Solicitado por</p>
                     <p className="font-medium">{selectedRequest.requestedBy}</p>
                   </div>
                 </div>
 
                 {selectedRequest.details && (
                   <div>
-                    <p className="text-sm text-gray-500 mb-2">Detalhes</p>
-                    <div className="bg-gray-50 p-3 rounded-lg">
-                      <pre className="text-sm text-gray-700 whitespace-pre-wrap">
+                    <p className="text-sm text-muted-foreground mb-2">Detalhes</p>
+                    <div className="bg-muted/60 p-3 rounded-lg">
+                      <pre className="text-sm text-foreground whitespace-pre-wrap">
                         {JSON.stringify(selectedRequest.details, null, 2)}
                       </pre>
                     </div>
@@ -372,6 +372,7 @@ const DirectorAccess = () => {
 };
 
 export default DirectorAccess;
+
 
 
 

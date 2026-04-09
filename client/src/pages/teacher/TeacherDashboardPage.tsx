@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -76,7 +76,7 @@ function TeacherDashboardPage() {
       case 'active':
         return <Badge variant="outline" className="text-green-600 border-green-600">Ativa</Badge>;
       case 'inactive':
-        return <Badge variant="outline" className="text-gray-600 border-gray-600">Inativa</Badge>;
+        return <Badge variant="outline" className="text-muted-foreground border-border">Inativa</Badge>;
       default:
         return <Badge variant="outline">Desconhecido</Badge>;
     }
@@ -89,8 +89,8 @@ function TeacherDashboardPage() {
       
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-1">
+        <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+        <p className="mt-1 text-muted-foreground">
           Bem-vindo, {user?.firstName}! Aqui está um resumo das suas atividades.
         </p>
       </div>
@@ -104,8 +104,8 @@ function TeacherDashboardPage() {
                 <ClipboardList className="h-8 w-8 text-blue-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Total de Provas</p>
-                <p className="text-2xl font-semibold text-gray-900">{totalExams}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total de Provas</p>
+                <p className="text-2xl font-semibold text-foreground">{totalExams}</p>
                 <div className="flex items-center mt-1">
                   <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
                   <span className="text-sm text-green-600">{completedExams} concluídas</span>
@@ -122,8 +122,8 @@ function TeacherDashboardPage() {
                 <FileText className="h-8 w-8 text-green-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Atividades</p>
-                <p className="text-2xl font-semibold text-gray-900">{totalActivities}</p>
+                <p className="text-sm font-medium text-muted-foreground">Atividades</p>
+                <p className="text-2xl font-semibold text-foreground">{totalActivities}</p>
                 <div className="flex items-center mt-1">
                   <TrendingUp className="h-4 w-4 text-blue-500 mr-1" />
                   <span className="text-sm text-blue-600">{activeActivities} ativas</span>
@@ -140,8 +140,8 @@ function TeacherDashboardPage() {
                 <Library className="h-8 w-8 text-purple-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Materiais</p>
-                <p className="text-2xl font-semibold text-gray-900">{totalMaterials}</p>
+                <p className="text-sm font-medium text-muted-foreground">Materiais</p>
+                <p className="text-2xl font-semibold text-foreground">{totalMaterials}</p>
                 <div className="flex items-center mt-1">
                   <BookOpen className="h-4 w-4 text-purple-500 mr-1" />
                   <span className="text-sm text-purple-600">Didáticos</span>
@@ -158,8 +158,8 @@ function TeacherDashboardPage() {
                 <Users className="h-8 w-8 text-orange-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-500">Turmas</p>
-                <p className="text-2xl font-semibold text-gray-900">{totalClasses}</p>
+                <p className="text-sm font-medium text-muted-foreground">Turmas</p>
+                <p className="text-2xl font-semibold text-foreground">{totalClasses}</p>
                 <div className="flex items-center mt-1">
                   <BookOpen className="h-4 w-4 text-orange-500 mr-1" />
                   <span className="text-sm text-orange-600">{totalSubjects} disciplinas</span>
@@ -182,16 +182,16 @@ function TeacherDashboardPage() {
           <CardContent>
             {upcomingExams.length === 0 ? (
               <div className="text-center py-8">
-                <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500">Nenhuma prova agendada para os próximos 7 dias</p>
+                <Calendar className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+                <p className="text-muted-foreground">Nenhuma prova agendada para os próximos 7 dias</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {upcomingExams.map((exam: any) => (
-                  <div key={exam.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div key={exam.id} className="flex items-center justify-between rounded-lg border border-border p-3 transition-colors hover:bg-muted/40">
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900">{exam.title}</h4>
-                      <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                      <h4 className="font-medium text-foreground">{exam.title}</h4>
+                      <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <BookOpen className="h-3 w-3" />
                           {exam.subjectName}
@@ -203,10 +203,10 @@ function TeacherDashboardPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-foreground">
                         {format(new Date(exam.examDate), 'dd/MM', { locale: ptBR })}
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-muted-foreground">
                         {format(new Date(exam.examDate), 'EEEE', { locale: ptBR })}
                       </div>
                     </div>
@@ -228,16 +228,16 @@ function TeacherDashboardPage() {
           <CardContent>
             {recentActivities.length === 0 ? (
               <div className="text-center py-8">
-                <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-500">Nenhuma atividade criada ainda</p>
+                <FileText className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+                <p className="text-muted-foreground">Nenhuma atividade criada ainda</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {recentActivities.map((activity: any) => (
-                  <div key={activity.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div key={activity.id} className="flex items-center justify-between rounded-lg border border-border p-3 transition-colors hover:bg-muted/40">
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900">{activity.title}</h4>
-                      <div className="flex items-center gap-4 mt-1 text-sm text-gray-500">
+                      <h4 className="font-medium text-foreground">{activity.title}</h4>
+                      <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <BookOpen className="h-3 w-3" />
                           {activity.subjectName}
@@ -250,7 +250,7 @@ function TeacherDashboardPage() {
                     </div>
                     <div className="text-right">
                       {getStatusBadge(activity.status)}
-                      <div className="text-xs text-gray-500 mt-1">
+                      <div className="text-xs text-muted-foreground mt-1">
                         {format(new Date(activity.createdAt), 'dd/MM', { locale: ptBR })}
                       </div>
                     </div>
@@ -277,25 +277,25 @@ function TeacherDashboardPage() {
               const completedBimonthlyExams = bimonthlyExams.filter((exam: any) => exam.status === 'completed');
               
               return (
-                <div key={bimonthly} className="p-4 border rounded-lg">
+                <div key={bimonthly} className="rounded-lg border border-border p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-medium text-gray-900">{bimonthly}º Bimestre</h4>
+                    <h4 className="font-medium text-foreground">{bimonthly}º Bimestre</h4>
                     <Badge variant="outline" className="text-purple-600 border-purple-600">
                       {bimonthlyExams.length} provas
                     </Badge>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Concluídas:</span>
+                      <span className="text-muted-foreground">Concluídas:</span>
                       <span className="font-medium text-green-600">{completedBimonthlyExams.length}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Agendadas:</span>
+                      <span className="text-muted-foreground">Agendadas:</span>
                       <span className="font-medium text-blue-600">
                         {bimonthlyExams.filter((exam: any) => exam.status === 'scheduled').length}
                       </span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-muted rounded-full h-2">
                       <div 
                         className="bg-purple-600 h-2 rounded-full" 
                         style={{ 
@@ -315,3 +315,4 @@ function TeacherDashboardPage() {
 }
 
 export default TeacherDashboardPage;
+

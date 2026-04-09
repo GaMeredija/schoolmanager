@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+﻿import React, { useState, useMemo, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -165,8 +165,8 @@ const DirectorAnnouncements = () => {
       });
       if (!response.ok) throw new Error('Erro ao buscar eventos do calendário');
       const data = await response.json();
-      console.log('📊 Eventos carregados:', data.data);
-      console.log('🕐 Primeiro evento horários:', data.data?.[0] ? {
+      console.log('ðŸ“Š Eventos carregados:', data.data);
+      console.log('ðŸ• Primeiro evento horários:', data.data?.[0] ? {
         title: data.data[0].title,
         startTime: data.data[0].startTime,
         endTime: data.data[0].endTime
@@ -291,16 +291,16 @@ const DirectorAnnouncements = () => {
   const getEventTypeColor = (type: string) => {
     const colors: { [key: string]: string } = {
       'exam': 'bg-red-100 text-red-800',
-      'homework': 'bg-blue-100 text-blue-800',
+      'homework': 'bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200',
       'meeting': 'bg-green-100 text-green-800',
       'activity': 'bg-purple-100 text-purple-800',
       'holiday': 'bg-yellow-100 text-yellow-800',
-      'event': 'bg-gray-100 text-gray-800',
+      'event': 'bg-muted text-foreground',
       'presentation': 'bg-indigo-100 text-indigo-800',
-      'training': 'bg-orange-100 text-orange-800',
+      'training': 'bg-orange-100 text-orange-800 dark:bg-orange-950/40 dark:text-orange-200',
       'announcement': 'bg-pink-100 text-pink-800'
     };
-    return colors[type] || 'bg-gray-100 text-gray-800';
+    return colors[type] || 'bg-muted text-foreground';
   };
 
   const getEventTypeHexColor = (type: string) => {
@@ -332,7 +332,7 @@ const DirectorAnnouncements = () => {
   };
 
   const formatEventTime = (event: GlobalEvent) => {
-    console.log('🕐 formatEventTime chamada para:', event.title, {
+    console.log('ðŸ• formatEventTime chamada para:', event.title, {
       startTime: event.startTime,
       endTime: event.endTime
     });
@@ -341,7 +341,7 @@ const DirectorAnnouncements = () => {
     const start = (event.startTime && event.startTime.trim()) || '08:00';
     const end = (event.endTime && event.endTime.trim()) || start;
 
-    console.log('🕐 Horários processados:', { start, end });
+    console.log('ðŸ• Horários processados:', { start, end });
 
     if (end && end !== start) return `${start} - ${end}`;
     return start;
@@ -396,7 +396,7 @@ const DirectorAnnouncements = () => {
     
     // Debug log
     if (events.length > 0) {
-      console.log(`📅 Eventos para ${format(date, 'dd/MM/yyyy')}:`, events);
+      console.log(`ðŸ“… Eventos para ${format(date, 'dd/MM/yyyy')}:`, events);
     }
     
     return events;
@@ -483,11 +483,11 @@ const DirectorAnnouncements = () => {
       case 'sent':
         return 'bg-green-100 text-green-800 border-green-200';
       case 'scheduled':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200 border-blue-200';
       case 'draft':
         return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return 'bg-muted text-foreground border-border';
     }
   };
 
@@ -500,7 +500,7 @@ const DirectorAnnouncements = () => {
       case 'draft':
         return <FileText className="h-4 w-4 text-yellow-600" />;
       default:
-        return <AlertCircle className="h-4 w-4 text-gray-600" />;
+        return <AlertCircle className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -509,12 +509,12 @@ const DirectorAnnouncements = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Calendário de Eventos</h1>
-            <p className="text-gray-600 mt-1">Gerencie eventos do calendário e aprovações</p>
+            <h1 className="text-3xl font-bold text-foreground">Calendário de Eventos</h1>
+            <p className="text-muted-foreground mt-1">Gerencie eventos do calendário e aprovações</p>
           </div>
           <div className="flex items-center gap-3">
             {activeTab === 'calendar' && (
-              <Button className="bg-gray-800 hover:bg-gray-900" onClick={() => setShowCreateModal(true)}>
+              <Button className="bg-foreground text-background hover:bg-foreground/90" onClick={() => setShowCreateModal(true)}>
                 <Plus className="h-4 w-4 mr-2" />
                 Novo Evento
               </Button>
@@ -533,15 +533,15 @@ const DirectorAnnouncements = () => {
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-200">
+        <div className="border-b border-border">
           <nav className="-mb-px flex space-x-8">
             <button
               onClick={() => setActiveTab('calendar')}
               className={cn(
                 "py-2 px-1 border-b-2 font-medium text-sm",
                 activeTab === 'calendar'
-                  ? "border-gray-900 text-gray-900"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
               )}
             >
               <Calendar className="h-4 w-4 mr-2 inline" />
@@ -552,8 +552,8 @@ const DirectorAnnouncements = () => {
               className={cn(
                 "py-2 px-1 border-b-2 font-medium text-sm",
                 activeTab === 'approvals'
-                  ? "border-gray-900 text-gray-900"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  ? "border-foreground text-foreground"
+                  : "border-transparent text-muted-foreground hover:text-foreground hover:border-border"
               )}
             >
               <CheckCircle className="h-4 w-4 mr-2 inline" />
@@ -590,7 +590,7 @@ const DirectorAnnouncements = () => {
             <Card>
               <CardContent className="p-0">
                 {/* Days of week header */}
-                <div className="grid grid-cols-7 text-center text-sm font-semibold text-gray-700 mb-2 bg-gray-50 py-2 rounded-t-lg">
+                <div className="grid grid-cols-7 text-center text-sm font-semibold text-foreground mb-2 bg-muted/50 py-2 rounded-t-lg">
                   {['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'].map(day => (
                     <div key={day} className="p-2">{day}</div>
                   ))}
@@ -608,8 +608,8 @@ const DirectorAnnouncements = () => {
                       <div
                         key={index}
                         className={cn(
-                          "min-h-[100px] p-2 border border-gray-200 cursor-pointer transition-colors",
-                          isCurrentMonth ? "bg-white hover:bg-gray-50" : "bg-gray-50 text-gray-400",
+                          "min-h-[100px] p-2 border border-border cursor-pointer transition-colors",
+                          isCurrentMonth ? "bg-card hover:bg-muted/50" : "bg-muted/50 text-muted-foreground/60",
                           isToday && "bg-blue-100 border-blue-300",
                           isSelected && "ring-2 ring-offset-2 ring-orange-500"
                         )}
@@ -658,7 +658,7 @@ const DirectorAnnouncements = () => {
                               </div>
                             ))}
                             {events.length > 2 && (
-                              <div className="text-xs text-gray-500">
+                              <div className="text-xs text-muted-foreground">
                                 +{events.length - 2} mais
                               </div>
                             )}
@@ -687,34 +687,34 @@ const DirectorAnnouncements = () => {
                 <CardContent>
                   <div className="space-y-4">
                     {pendingEvents.map((event) => (
-                      <div key={event.id} className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                      <div key={event.id} className="p-4 border border-border rounded-lg hover:bg-muted/50">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-3 mb-2">
                               <Badge className={getEventTypeColor(event.type)}>
                                 {getEventTypeLabel(event.type)}
                               </Badge>
-                              <Badge variant="outline" className="bg-orange-100 text-orange-800">
+                              <Badge variant="outline" className="bg-orange-100 text-orange-800 dark:bg-orange-950/40 dark:text-orange-200">
                                 Pendente
                               </Badge>
                               {event.isGlobal && (
-                                <Badge variant="outline" className="bg-blue-100 text-blue-800">
+                                <Badge variant="outline" className="bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
                                   Global
                                 </Badge>
                               )}
                             </div>
 
-                            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                            <h3 className="text-lg font-semibold text-foreground mb-2">
                               {event.title}
                             </h3>
 
                             {event.description && (
-                              <p className="text-gray-600 mb-3 line-clamp-2">
+                              <p className="text-muted-foreground mb-3 line-clamp-2">
                                 {event.description}
                               </p>
                             )}
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-muted-foreground">
                               <div className="flex items-center gap-2">
                                 <Calendar className="h-4 w-4" />
                                 <span>
@@ -746,8 +746,8 @@ const DirectorAnnouncements = () => {
                             </div>
 
                             {(event.className || event.subjectName) && (
-                              <div className="mt-3 p-3 bg-gray-50 rounded-lg">
-                                <div className="text-sm text-gray-600">
+                              <div className="mt-3 p-3 bg-muted/50 rounded-lg">
+                                <div className="text-sm text-muted-foreground">
                                   {event.className && <span>Turma: {event.className}</span>}
                                   {event.className && event.subjectName && <span> • </span>}
                                   {event.subjectName && <span>Disciplina: {event.subjectName}</span>}
@@ -795,10 +795,10 @@ const DirectorAnnouncements = () => {
               <Card>
                 <CardContent className="text-center py-12">
                   <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
                     Nenhum evento pendente
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Todos os eventos foram aprovados ou não há solicitações pendentes.
                   </p>
                 </CardContent>
@@ -814,21 +814,21 @@ const DirectorAnnouncements = () => {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900">24</div>
-                <div className="text-sm text-gray-600">Total Enviados</div>
+              <div className="text-center p-4 bg-muted/50 rounded-lg">
+                <div className="text-2xl font-bold text-foreground">24</div>
+                <div className="text-sm text-muted-foreground">Total Enviados</div>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900">3</div>
-                <div className="text-sm text-gray-600">Agendados</div>
+              <div className="text-center p-4 bg-muted/50 rounded-lg">
+                <div className="text-2xl font-bold text-foreground">3</div>
+                <div className="text-sm text-muted-foreground">Agendados</div>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900">1</div>
-                <div className="text-sm text-gray-600">Rascunhos</div>
+              <div className="text-center p-4 bg-muted/50 rounded-lg">
+                <div className="text-2xl font-bold text-foreground">1</div>
+                <div className="text-sm text-muted-foreground">Rascunhos</div>
               </div>
-              <div className="text-center p-4 bg-gray-50 rounded-lg">
-                <div className="text-2xl font-bold text-gray-900">98%</div>
-                <div className="text-sm text-gray-600">Taxa de Leitura</div>
+              <div className="text-center p-4 bg-muted/50 rounded-lg">
+                <div className="text-2xl font-bold text-foreground">98%</div>
+                <div className="text-sm text-muted-foreground">Taxa de Leitura</div>
               </div>
             </div>
           </CardContent>
@@ -938,7 +938,7 @@ const DirectorAnnouncements = () => {
                 <Button variant="outline" onClick={() => setShowCreateModal(false)}>
                   Cancelar
                 </Button>
-                <Button onClick={handleCreateEvent} className="bg-gray-800 hover:bg-gray-900">
+                <Button onClick={handleCreateEvent} className="bg-foreground text-background hover:bg-foreground/90">
                   Criar Evento
                 </Button>
               </div>
@@ -962,8 +962,8 @@ const DirectorAnnouncements = () => {
                   
                   if (dayEvents.length === 0) {
                     return (
-                      <div className="text-center py-8 text-gray-500">
-                        <Calendar className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+                      <div className="text-center py-8 text-muted-foreground">
+                        <Calendar className="h-12 w-12 mx-auto mb-4 text-muted-foreground/40" />
                         <p>Nenhum evento agendado para este dia</p>
                       </div>
                     );
@@ -983,7 +983,7 @@ const DirectorAnnouncements = () => {
                                 {getEventTypeLabel(event.type)}
                               </Badge>
                               {event.isGlobal && (
-                                <Badge variant="outline" className="bg-blue-100 text-blue-800">
+                                <Badge variant="outline" className="bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
                                   Evento Global
                                 </Badge>
                               )}
@@ -1001,7 +1001,7 @@ const DirectorAnnouncements = () => {
                           <h3 className="text-lg font-bold">{event.title}</h3>
 
                           {event.description && (
-                            <p className="text-gray-600">{event.description}</p>
+                            <p className="text-muted-foreground">{event.description}</p>
                           )}
 
                           <div className="grid grid-cols-3 gap-4 text-sm">
@@ -1063,23 +1063,23 @@ const DirectorAnnouncements = () => {
                     <Badge className={getEventTypeColor(selectedEvent.type)}>
                       {getEventTypeLabel(selectedEvent.type)}
                     </Badge>
-                    <Badge variant="outline" className="bg-orange-100 text-orange-800">
+                    <Badge variant="outline" className="bg-orange-100 text-orange-800 dark:bg-orange-950/40 dark:text-orange-200">
                       Pendente de Aprovação
                     </Badge>
                     {selectedEvent.isGlobal && (
-                      <Badge variant="outline" className="bg-blue-100 text-blue-800">
+                      <Badge variant="outline" className="bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200">
                         Evento Global
                       </Badge>
                     )}
                   </div>
 
-                  <h3 className="text-2xl font-bold text-gray-900">
+                  <h3 className="text-2xl font-bold text-foreground">
                     {selectedEvent.title}
                   </h3>
 
                   {selectedEvent.description && (
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <p className="text-gray-700">{selectedEvent.description}</p>
+                    <div className="p-4 bg-muted/50 rounded-lg">
+                      <p className="text-foreground">{selectedEvent.description}</p>
                     </div>
                   )}
                 </div>
@@ -1088,9 +1088,9 @@ const DirectorAnnouncements = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <Calendar className="h-5 w-5 text-gray-500" />
+                      <Calendar className="h-5 w-5 text-muted-foreground" />
                       <div>
-                        <p className="text-sm text-gray-600">Data de Início</p>
+                        <p className="text-sm text-muted-foreground">Data de Início</p>
                         <p className="font-medium">
                           {format(new Date(selectedEvent.startDate), 'dd/MM/yyyy', { locale: ptBR })}
                         </p>
@@ -1099,9 +1099,9 @@ const DirectorAnnouncements = () => {
 
                     {selectedEvent.endDate && selectedEvent.endDate !== selectedEvent.startDate && (
                       <div className="flex items-center gap-2">
-                        <Calendar className="h-5 w-5 text-gray-500" />
+                        <Calendar className="h-5 w-5 text-muted-foreground" />
                         <div>
-                          <p className="text-sm text-gray-600">Data de Fim</p>
+                          <p className="text-sm text-muted-foreground">Data de Fim</p>
                           <p className="font-medium">
                             {format(new Date(selectedEvent.endDate), 'dd/MM/yyyy', { locale: ptBR })}
                           </p>
@@ -1111,9 +1111,9 @@ const DirectorAnnouncements = () => {
 
                     {selectedEvent.location && (
                       <div className="flex items-center gap-2">
-                        <MapPin className="h-5 w-5 text-gray-500" />
+                        <MapPin className="h-5 w-5 text-muted-foreground" />
                         <div>
-                          <p className="text-sm text-gray-600">Local</p>
+                          <p className="text-sm text-muted-foreground">Local</p>
                           <p className="font-medium">{selectedEvent.location}</p>
                         </div>
                       </div>
@@ -1122,17 +1122,17 @@ const DirectorAnnouncements = () => {
 
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <User className="h-5 w-5 text-gray-500" />
+                      <User className="h-5 w-5 text-muted-foreground" />
                       <div>
-                        <p className="text-sm text-gray-600">Criado por</p>
+                        <p className="text-sm text-muted-foreground">Criado por</p>
                         <p className="font-medium">{selectedEvent.creatorName}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <Clock className="h-5 w-5 text-gray-500" />
+                      <Clock className="h-5 w-5 text-muted-foreground" />
                       <div>
-                        <p className="text-sm text-gray-600">Criado em</p>
+                        <p className="text-sm text-muted-foreground">Criado em</p>
                         <p className="font-medium">
                           {format(new Date(selectedEvent.createdAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                         </p>
@@ -1141,9 +1141,9 @@ const DirectorAnnouncements = () => {
 
                     {(selectedEvent.className || selectedEvent.subjectName) && (
                       <div className="flex items-center gap-2">
-                        <Calendar className="h-5 w-5 text-gray-500" />
+                        <Calendar className="h-5 w-5 text-muted-foreground" />
                         <div>
-                          <p className="text-sm text-gray-600">Vinculação</p>
+                          <p className="text-sm text-muted-foreground">Vinculação</p>
                           <p className="font-medium">
                             {selectedEvent.className && `Turma: ${selectedEvent.className}`}
                             {selectedEvent.className && selectedEvent.subjectName && ' • '}
@@ -1193,10 +1193,10 @@ const DirectorAnnouncements = () => {
               <DialogTitle>Confirmar Exclusão</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Tem certeza que deseja excluir o evento <strong>"{eventToDelete?.title}"</strong>?
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 Esta ação não pode ser desfeita.
               </p>
             </div>
@@ -1223,3 +1223,5 @@ const DirectorAnnouncements = () => {
 };
 
 export default DirectorAnnouncements;
+
+

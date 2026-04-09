@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import { useTheme } from '@/components/ThemeProvider';
 
 // Register all Chart.js components
 Chart.register(...registerables);
@@ -8,7 +7,6 @@ Chart.register(...registerables);
 export function AttendanceChart({ labels: propLabels, values: propValues }: { labels?: string[]; values?: number[] }) {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
-  const { theme } = useTheme();
   
   useEffect(() => {
     if (chartRef.current) {
@@ -20,8 +18,7 @@ export function AttendanceChart({ labels: propLabels, values: propValues }: { la
           chartInstance.current.destroy();
         }
         
-        // Define colors based on theme
-        const textColor = theme === 'dark' ? '#e5e7eb' : '#4b5563';
+        const textColor = '#4b5563';
         
         const labels = propLabels && propLabels.length ? propLabels : ['6º Ano','7º Ano','8º Ano','9º Ano'];
         const values = propValues && propValues.length ? propValues : [95,88,85,90];
@@ -88,7 +85,7 @@ export function AttendanceChart({ labels: propLabels, values: propValues }: { la
         chartInstance.current.destroy();
       }
     };
-  }, [theme, propLabels, propValues]);
+  }, [propLabels, propValues]);
   
   return <canvas ref={chartRef} />;
 }

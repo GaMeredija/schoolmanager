@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -32,7 +32,7 @@ export default function StudentDashboardPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando informações...</p>
+          <p className="text-muted-foreground">Carregando informações...</p>
         </div>
       </div>
     );
@@ -54,21 +54,21 @@ export default function StudentDashboardPage() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <h3 className="font-semibold text-gray-900">Sua Turma</h3>
+              <h3 className="font-semibold text-foreground">Sua Turma</h3>
               <p className="text-2xl font-bold text-amber-600">
                 {classInfo?.class?.name || 'Não matriculado'}
               </p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 {classInfo?.teachers?.length || 0} professores • {classInfo?.totalStudents || 0} alunos
               </p>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900">Status</h3>
-              <Badge className="bg-green-100 text-green-800">
+              <h3 className="font-semibold text-foreground">Status</h3>
+              <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200">
                 <CheckCircle className="h-3 w-3 mr-1" />
                 Ativo
               </Badge>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-muted-foreground mt-1">
                 Matriculado desde {classInfo?.enrollmentDate ? 
                   new Date(classInfo.enrollmentDate).toLocaleDateString('pt-BR') : 
                   'Data não disponível'
@@ -88,8 +88,8 @@ export default function StudentDashboardPage() {
                 <Clock className="h-6 w-6 text-yellow-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Pendentes</p>
-                <p className="text-2xl font-bold text-gray-900">{pendingActivities}</p>
+                <p className="text-sm font-medium text-muted-foreground">Pendentes</p>
+                <p className="text-2xl font-bold text-foreground">{pendingActivities}</p>
               </div>
             </div>
           </CardContent>
@@ -102,8 +102,8 @@ export default function StudentDashboardPage() {
                 <FileText className="h-6 w-6 text-blue-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Enviadas</p>
-                <p className="text-2xl font-bold text-gray-900">{submittedActivities}</p>
+                <p className="text-sm font-medium text-muted-foreground">Enviadas</p>
+                <p className="text-2xl font-bold text-foreground">{submittedActivities}</p>
               </div>
             </div>
           </CardContent>
@@ -116,8 +116,8 @@ export default function StudentDashboardPage() {
                 <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Avaliadas</p>
-                <p className="text-2xl font-bold text-gray-900">{gradedActivities}</p>
+                <p className="text-sm font-medium text-muted-foreground">Avaliadas</p>
+                <p className="text-2xl font-bold text-foreground">{gradedActivities}</p>
               </div>
             </div>
           </CardContent>
@@ -135,38 +135,38 @@ export default function StudentDashboardPage() {
         <CardContent>
           {activities.length === 0 ? (
             <div className="text-center py-8">
-              <AlertCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <AlertCircle className="h-12 w-12 text-muted-foreground/40 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhuma atividade encontrada
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Sua turma ainda não possui atividades disponíveis.
               </p>
             </div>
           ) : (
             <div className="space-y-4">
               {activities.slice(0, 5).map((activity) => (
-                <div key={activity.id} className="flex items-center justify-between p-4 border rounded-lg">
+                <div key={activity.id} className="flex items-center justify-between rounded-lg border border-border p-4 transition-colors hover:bg-muted/40">
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">{activity.title}</h4>
-                    <p className="text-sm text-gray-600">{activity.subjectName}</p>
-                    <p className="text-xs text-gray-500">
+                    <h4 className="font-medium text-foreground">{activity.title}</h4>
+                    <p className="text-sm text-muted-foreground">{activity.subjectName}</p>
+                    <p className="text-xs text-muted-foreground">
                       Entrega: {new Date(activity.dueDate).toLocaleDateString('pt-BR')}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
                     {activity.submissionStatus === 'graded' ? (
-                      <Badge className="bg-green-100 text-green-800">
+                      <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200">
                         <CheckCircle className="h-3 w-3 mr-1" />
                         Avaliada
                       </Badge>
                     ) : activity.submissionStatus === 'submitted' ? (
-                      <Badge className="bg-blue-100 text-blue-800">
+                      <Badge className="border border-blue-200 bg-blue-50 text-blue-700 dark:border-blue-900 dark:bg-blue-950/40 dark:text-blue-200">
                         <FileText className="h-3 w-3 mr-1" />
                         Enviada
                       </Badge>
                     ) : (
-                      <Badge className="bg-yellow-100 text-yellow-800">
+                      <Badge className="border border-yellow-200 bg-yellow-50 text-yellow-700 dark:border-yellow-900 dark:bg-yellow-950/40 dark:text-yellow-200">
                         <Clock className="h-3 w-3 mr-1" />
                         Pendente
                       </Badge>

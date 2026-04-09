@@ -857,7 +857,7 @@ export default function UseCaseEditor() {
                   <g key={n.id} onMouseDown={(e) => onMouseDownNode(n.id, e)} cursor="move">
                     <rect x={x0} y={y0} width={w} height={calcH} rx={6} fill="#f8fafc" stroke="#0f172a" strokeWidth={2} />
                     <rect x={x0 + 8} y={y0 + 8} width={110} height={headerH} rx={4} fill="#e2e8f0" stroke="#0f172a" strokeWidth={2} />
-                    <text x={x0 + 14} y={y0 + 8 + 14} textAnchor="start" fontSize={12} fill="#0f172a" fontWeight={600}>{n.fragmentKind ?? n.label}</text>
+                    <text x={x0 + 14} y={y0 + 8 + 14} textAnchor="start" fontSize={12} fill="#0f172a" fontWeight={600}>{n.label}</text>
                     {ops.length > 1 && Array.from({ length: ops.length - 1 }).map((_, i) => (
                       <line key={`frag-div-${i}`} x1={x0 + 8} y1={y0 + headerH + 24 + (i + 1) * ((calcH - headerH - 32) / ops.length)} x2={x0 + w - 8} y2={y0 + headerH + 24 + (i + 1) * ((calcH - headerH - 32) / ops.length)} stroke="#0f172a" strokeWidth={1.5} />
                     ))}

@@ -60,9 +60,9 @@ const materialTypeIcons = {
 const materialTypeLabels = {
   slide: 'Slide',
   document: 'Documento',
-  video: 'VÃ­deo',
+  video: 'Vídeo',
   link: 'Link',
-  exercise: 'ExercÃ­cio',
+  exercise: 'Exercício',
   other: 'Outro',
   folder: 'Pasta'
 };
@@ -79,7 +79,7 @@ export function StudentMaterialsPage() {
   const subjects = Array.isArray(subjectsData) ? subjectsData : [];
   const { data: materials = [], isLoading: materialsLoading } = useStudentMaterials(selectedSubject?.id);
 
-  // FunÃ§Ãµes de navegaÃ§Ã£o de pastas
+  // Funções de navegação de pastas
   const navigateToFolder = (folderName: string) => {
     setCurrentFolder(folderName);
     setFolderPath([...folderPath, folderName]);
@@ -147,29 +147,29 @@ export function StudentMaterialsPage() {
     );
   }
 
-  // Se nÃ£o hÃ¡ disciplinas, mostrar mensagem
+  // Se não há disciplinas, mostrar mensagem
   if (subjects.length === 0) {
     return (
       <div className="space-y-6">
         <div className="text-center py-12">
-          <Library className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <Library className="w-16 h-16 text-muted-foreground/60 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-foreground mb-2">
             Nenhuma disciplina encontrada
           </h3>
-          <p className="text-gray-600">
-            VocÃª nÃ£o estÃ¡ matriculado em nenhuma turma com disciplinas ativas.
+          <p className="text-muted-foreground">
+            Você não está matriculado em nenhuma turma com disciplinas ativas.
           </p>
         </div>
       </div>
     );
   }
 
-  // Se uma disciplina estÃ¡ selecionada, mostrar materiais
+  // Se uma disciplina está selecionada, mostrar materiais
   if (selectedSubject) {
     return (
       <div>
         <div className="space-y-6">
-          {/* Header com botÃ£o voltar */}
+          {/* Header com botão voltar */}
           <div className="flex items-center gap-4">
             <Button
               variant="outline"
@@ -180,16 +180,16 @@ export function StudentMaterialsPage() {
               Voltar
             </Button>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold text-foreground">
                 {selectedSubject.name}
               </h1>
-              <p className="text-gray-600 mt-1">
-                Materiais e conteÃºdos da disciplina
+              <p className="text-muted-foreground mt-1">
+                Materiais e conteúdos da disciplina
               </p>
             </div>
           </div>
 
-          {/* NavegaÃ§Ã£o de pastas */}
+          {/* Navegação de pastas */}
           {(currentFolder || folderPath.length > 0) && (
             <Card>
               <CardContent className="p-4">
@@ -205,7 +205,7 @@ export function StudentMaterialsPage() {
                   </Button>
                   {folderPath.map((folder, index) => (
                     <React.Fragment key={index}>
-                      <span className="text-gray-400">/</span>
+                      <span className="text-muted-foreground/60">/</span>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -232,7 +232,7 @@ export function StudentMaterialsPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1">
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 w-4 h-4" />
                     <Input
                       placeholder="Buscar materiais..."
                       value={searchTerm}
@@ -248,14 +248,14 @@ export function StudentMaterialsPage() {
           {/* Interface do Explorador de Arquivos */}
           <Card>
             <CardContent className="p-0">
-              {/* CabeÃ§alho das Colunas */}
-              <div className="border-b bg-gray-50 px-4 py-2">
-                <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-600">
+              {/* Cabeçalho das Colunas */}
+              <div className="border-b border-border/70 bg-muted/60 px-4 py-2">
+                <div className="grid grid-cols-12 gap-4 text-sm font-medium text-muted-foreground">
                   <div className="col-span-5">Nome</div>
                   <div className="col-span-2">Tipo</div>
-                  <div className="col-span-2">Data de modificaÃ§Ã£o</div>
+                  <div className="col-span-2">Data de modificação</div>
                   <div className="col-span-2">Tamanho</div>
-                  <div className="col-span-1">AÃ§Ãµes</div>
+                  <div className="col-span-1">Ações</div>
                 </div>
               </div>
 
@@ -267,20 +267,20 @@ export function StudentMaterialsPage() {
                   </div>
                 ) : (Array.from(new Set(materials.map(m => m.folder).filter(Boolean))).length === 0 && filteredMaterials.length === 0) ? (
                   <div className="px-4 py-12 text-center">
-                    <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">
-                      {searchTerm ? 'Nenhum material encontrado' : 'Nenhum material disponÃ­vel'}
+                    <BookOpen className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-foreground mb-2">
+                      {searchTerm ? 'Nenhum material encontrado' : 'Nenhum material disponível'}
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-muted-foreground">
                       {searchTerm 
                         ? 'Tente ajustar os termos de busca'
-                        : 'Ainda nÃ£o hÃ¡ materiais postados para esta disciplina'
+                        : 'Ainda não há materiais postados para esta disciplina'
                       }
                     </p>
                   </div>
                 ) : (
                   <>
-                    {/* Mostrar pastas disponÃ­veis na pasta atual */}
+                    {/* Mostrar pastas disponíveis na pasta atual */}
                     {currentFolder === null && (
                       <>
                         {Array.from(new Set(materials.map(m => m.folder).filter(Boolean))).map((folderName) => {
@@ -288,25 +288,25 @@ export function StudentMaterialsPage() {
                           return (
                             <div
                               key={`folder-${folderName}`}
-                              className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-gray-50 transition-colors items-center cursor-pointer"
+                              className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-muted/60 transition-colors items-center cursor-pointer"
                               onClick={() => navigateToFolder(folderName!)}
                             >
                               <div className="col-span-5 flex items-center gap-3">
                                 <Folder className="w-5 h-5 text-blue-600" />
                                 <div className="flex-1">
-                                  <span className="font-medium text-gray-900">{folderName}</span>
-                                  <p className="text-sm text-gray-500 truncate">
+                                  <span className="font-medium text-foreground">{folderName}</span>
+                                  <p className="text-sm text-muted-foreground truncate">
                                     Pasta com {folderMaterials.length} material(is)
                                   </p>
                                 </div>
                               </div>
-                              <div className="col-span-2 text-sm text-gray-600">
+                              <div className="col-span-2 text-sm text-muted-foreground">
                                 Pasta
                               </div>
-                              <div className="col-span-2 text-sm text-gray-600">
+                              <div className="col-span-2 text-sm text-muted-foreground">
                                 -
                               </div>
-                              <div className="col-span-2 text-sm text-gray-600">
+                              <div className="col-span-2 text-sm text-muted-foreground">
                                 {folderMaterials.length} item(ns)
                               </div>
                               <div className="col-span-1 flex items-center gap-1">
@@ -336,24 +336,24 @@ export function StudentMaterialsPage() {
                       return (
                         <div
                           key={material.id}
-                          className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-gray-50 transition-colors items-center"
+                          className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-muted/60 transition-colors items-center"
                         >
                           <div className="col-span-5 flex items-center gap-3">
                             <IconComponent className="w-5 h-5 text-purple-600" />
                             <div className="flex-1">
-                              <span className="font-medium text-gray-900">{material.title}</span>
+                              <span className="font-medium text-foreground">{material.title}</span>
                               {material.description && (
-                                <p className="text-sm text-gray-500 truncate">{material.description}</p>
+                                <p className="text-sm text-muted-foreground truncate">{material.description}</p>
                               )}
                             </div>
                           </div>
-                          <div className="col-span-2 text-sm text-gray-600">
+                          <div className="col-span-2 text-sm text-muted-foreground">
                             {materialTypeLabels[material.materialType]}
                           </div>
-                          <div className="col-span-2 text-sm text-gray-600">
+                          <div className="col-span-2 text-sm text-muted-foreground">
                             {format(new Date(material.createdAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                           </div>
-                          <div className="col-span-2 text-sm text-gray-600">
+                          <div className="col-span-2 text-sm text-muted-foreground">
                             {material.filesCount > 0 ? `${material.filesCount} arquivo(s)` : '-'}
                           </div>
                           <div className="col-span-1 flex items-center gap-1">
@@ -390,7 +390,7 @@ export function StudentMaterialsPage() {
             </CardContent>
           </Card>
 
-          {/* EstatÃ­sticas */}
+          {/* Estatísticas */}
           {materials.length > 0 && (
             <Card>
               <CardContent className="pt-6">
@@ -399,13 +399,13 @@ export function StudentMaterialsPage() {
                     <div className="text-2xl font-bold text-purple-600">
                       {materials.length}
                     </div>
-                    <div className="text-sm text-gray-600">Total de Materiais</div>
+                    <div className="text-sm text-muted-foreground">Total de Materiais</div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-purple-600">
                       {materials.reduce((acc: number, m: Material) => acc + m.filesCount, 0)}
                     </div>
-                    <div className="text-sm text-gray-600">Arquivos</div>
+                    <div className="text-sm text-muted-foreground">Arquivos</div>
                   </div>
                 </div>
               </CardContent>
@@ -432,8 +432,8 @@ export function StudentMaterialsPage() {
       <div className="space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Materiais DidÃ¡ticos</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-bold text-foreground">Materiais Didáticos</h1>
+          <p className="text-muted-foreground mt-1">
             Selecione uma disciplina para acessar os materiais
           </p>
         </div>
@@ -454,8 +454,8 @@ export function StudentMaterialsPage() {
                   <div className="flex-1">
                     <CardTitle className="text-lg">{subject.name}</CardTitle>
                     {subject.code && (
-                      <p className="text-sm text-gray-500 mt-1">
-                        CÃ³digo: {subject.code}
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Código: {subject.code}
                       </p>
                     )}
                   </div>
@@ -463,7 +463,7 @@ export function StudentMaterialsPage() {
               </CardHeader>
               <CardContent>
                 {subject.description && (
-                  <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                  <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                     {subject.description}
                   </p>
                 )}
@@ -480,7 +480,7 @@ export function StudentMaterialsPage() {
           ))}
         </div>
 
-        {/* EstatÃ­sticas Gerais */}
+        {/* Estatísticas Gerais */}
         <Card>
           <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-center">
@@ -488,13 +488,13 @@ export function StudentMaterialsPage() {
                 <div className="text-2xl font-bold text-purple-600">
                   {subjects.length}
                 </div>
-                <div className="text-sm text-gray-600">Disciplinas DisponÃ­veis</div>
+                <div className="text-sm text-muted-foreground">Disciplinas Disponíveis</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-purple-600">
                   {subjects.length > 0 ? 'Ativo' : 'Inativo'}
                 </div>
-                <div className="text-sm text-gray-600">Status da MatrÃ­cula</div>
+                <div className="text-sm text-muted-foreground">Status da Matrícula</div>
               </div>
             </div>
           </CardContent>
@@ -505,3 +505,4 @@ export function StudentMaterialsPage() {
 }
 
 export default StudentMaterialsPage;
+

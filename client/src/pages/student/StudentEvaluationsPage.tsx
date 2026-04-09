@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -75,7 +75,7 @@ const StudentEvaluationsPage = () => {
       case 'pending':
         return 'bg-orange-100 text-orange-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-muted text-foreground';
     }
   };
 
@@ -106,7 +106,7 @@ const StudentEvaluationsPage = () => {
   };
 
   const getGradeColor = (grade: number | null, maxGrade: number) => {
-    if (grade === null) return 'text-gray-500';
+    if (grade === null) return 'text-muted-foreground';
     const percentage = (grade / maxGrade) * 100;
     if (percentage >= 80) return 'text-green-600';
     if (percentage >= 60) return 'text-yellow-600';
@@ -135,34 +135,34 @@ const StudentEvaluationsPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">🏆 Avaliações</h1>
-          <p className="text-gray-600 mt-1">Acompanhe suas avaliações e notas</p>
+          <h1 className="text-2xl font-bold text-foreground">ðŸ† Avaliações</h1>
+          <p className="text-muted-foreground mt-1">Acompanhe suas avaliações e notas</p>
         </div>
         <div className="text-right">
           <p className="text-2xl font-bold text-blue-600">{averageGrade}</p>
-          <p className="text-sm text-gray-600">Média Geral</p>
+          <p className="text-sm text-muted-foreground">Média Geral</p>
         </div>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total</p>
-                <p className="text-2xl font-bold text-gray-900">{evaluations.length}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total</p>
+                <p className="text-2xl font-bold text-foreground">{evaluations.length}</p>
               </div>
               <Award className="h-8 w-8 text-blue-500" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Concluídas</p>
+                <p className="text-sm font-medium text-muted-foreground">Concluídas</p>
                 <p className="text-2xl font-bold text-green-600">
                   {evaluations.filter(e => e.status === 'completed').length}
                 </p>
@@ -172,11 +172,11 @@ const StudentEvaluationsPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Agendadas</p>
+                <p className="text-sm font-medium text-muted-foreground">Agendadas</p>
                 <p className="text-2xl font-bold text-blue-600">
                   {evaluations.filter(e => e.status === 'scheduled').length}
                 </p>
@@ -186,11 +186,11 @@ const StudentEvaluationsPage = () => {
           </CardContent>
         </Card>
 
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Média</p>
+                <p className="text-sm font-medium text-muted-foreground">Média</p>
                 <p className="text-2xl font-bold text-purple-600">{averageGrade}</p>
               </div>
               <TrendingUp className="h-8 w-8 text-purple-500" />
@@ -200,7 +200,7 @@ const StudentEvaluationsPage = () => {
       </div>
 
       {/* Evaluations List */}
-      <Card className="border border-gray-200">
+      <Card className="border border-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Award className="h-5 w-5 text-blue-600" />
@@ -210,16 +210,16 @@ const StudentEvaluationsPage = () => {
         <CardContent>
           <div className="space-y-4">
             {evaluations.map((evaluation) => (
-              <div key={evaluation.id} className="p-4 rounded-lg border border-gray-100 hover:shadow-sm transition-shadow">
+              <div key={evaluation.id} className="p-4 rounded-lg border border-border/70 hover:shadow-sm transition-shadow">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 mt-1">
                       {getTypeIcon(evaluation.type)}
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 mb-1">{evaluation.title}</h3>
-                      <p className="text-sm text-gray-600 mb-2">{evaluation.description}</p>
-                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <h3 className="font-semibold text-foreground mb-1">{evaluation.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-2">{evaluation.description}</p>
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <BookOpen className="h-3 w-3" />
                           {evaluation.subject}
@@ -244,7 +244,7 @@ const StudentEvaluationsPage = () => {
                         <span className={`text-lg font-bold ${getGradeColor(evaluation.grade, evaluation.maxGrade)}`}>
                           {evaluation.grade}
                         </span>
-                        <span className="text-sm text-gray-500">/{evaluation.maxGrade}</span>
+                        <span className="text-sm text-muted-foreground">/{evaluation.maxGrade}</span>
                         {getGradeTrend(evaluation.grade)}
                       </div>
                     )}
@@ -254,8 +254,8 @@ const StudentEvaluationsPage = () => {
                 {evaluation.status === 'completed' && evaluation.grade !== null && (
                   <div className="mt-3">
                     <div className="flex items-center justify-between text-sm mb-1">
-                      <span className="text-gray-600">Desempenho</span>
-                      <span className="text-gray-900">
+                      <span className="text-muted-foreground">Desempenho</span>
+                      <span className="text-foreground">
                         {((evaluation.grade / evaluation.maxGrade) * 100).toFixed(0)}%
                       </span>
                     </div>
@@ -280,6 +280,7 @@ const StudentEvaluationsPage = () => {
 };
 
 export default StudentEvaluationsPage;
+
 
 
 

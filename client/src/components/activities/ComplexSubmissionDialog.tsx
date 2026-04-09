@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect } from "react";
 import { 
   Dialog, 
   DialogContent, 
@@ -214,17 +214,17 @@ export function ComplexSubmissionDialog({
   const getFileIcon = (fileName: string) => {
     const ext = fileName.split('.').pop()?.toLowerCase();
     switch (ext) {
-      case 'pdf': return '📄';
+      case 'pdf': return 'ðŸ“„';
       case 'doc':
-      case 'docx': return '📝';
+      case 'docx': return 'ðŸ“';
       case 'jpg':
       case 'jpeg':
-      case 'png': return '🖼️';
+      case 'png': return 'ðŸ–¼ï¸';
       case 'zip':
-      case 'rar': return '📦';
+      case 'rar': return 'ðŸ“¦';
       case 'ppt':
-      case 'pptx': return '📊';
-      default: return '📎';
+      case 'pptx': return 'ðŸ“Š';
+      default: return 'ðŸ“Ž';
     }
   };
 
@@ -236,7 +236,7 @@ export function ComplexSubmissionDialog({
             <div className="text-center">
               <BookOpen className="h-16 w-16 mx-auto text-blue-600 mb-4" />
               <h3 className="text-xl font-semibold mb-2">Revisar Atividade</h3>
-              <p className="text-gray-600">Confirme os detalhes antes de prosseguir</p>
+              <p className="text-muted-foreground">Confirme os detalhes antes de prosseguir</p>
             </div>
 
             <Card>
@@ -248,39 +248,39 @@ export function ComplexSubmissionDialog({
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Título</label>
-                  <p className="text-sm text-gray-900">{activity.title}</p>
+                  <label className="text-sm font-medium text-foreground">Título</label>
+                  <p className="text-sm text-foreground">{activity.title}</p>
                 </div>
                 
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Descrição</label>
-                  <p className="text-sm text-gray-900">{activity.description}</p>
+                  <label className="text-sm font-medium text-foreground">Descrição</label>
+                  <p className="text-sm text-foreground">{activity.description}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Matéria</label>
-                    <p className="text-sm text-gray-900">{activity.subject}</p>
+                    <label className="text-sm font-medium text-foreground">Matéria</label>
+                    <p className="text-sm text-foreground">{activity.subject}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Professor</label>
-                    <p className="text-sm text-gray-900">{activity.teacherName}</p>
+                    <label className="text-sm font-medium text-foreground">Professor</label>
+                    <p className="text-sm text-foreground">{activity.teacherName}</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Data de Entrega</label>
+                    <label className="text-sm font-medium text-foreground">Data de Entrega</label>
                     <div className="flex items-center space-x-2">
-                      <Calendar className="h-4 w-4 text-gray-400" />
-                      <p className={`text-sm ${isLate ? 'text-red-600 font-medium' : 'text-gray-900'}`}>
+                      <Calendar className="h-4 w-4 text-muted-foreground/60" />
+                      <p className={`text-sm ${isLate ? 'text-red-600 font-medium' : 'text-foreground'}`}>
                         {new Date(activity.dueDate).toLocaleDateString('pt-BR')}
                       </p>
                     </div>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Nota Máxima</label>
-                    <p className="text-sm text-gray-900">{activity.maxGrade}/10</p>
+                    <label className="text-sm font-medium text-foreground">Nota Máxima</label>
+                    <p className="text-sm text-foreground">{activity.maxGrade}/10</p>
                   </div>
                 </div>
 
@@ -289,7 +289,7 @@ export function ComplexSubmissionDialog({
                     <div className="flex items-center space-x-2">
                       <AlertTriangle className="h-5 w-5 text-red-600" />
                       <div>
-                        <p className="text-sm font-medium text-red-800">⚠️ Prazo Expirado</p>
+                        <p className="text-sm font-medium text-red-800">⚠️ï¸ Prazo Expirado</p>
                         <p className="text-sm text-red-700">
                           Penalidade por atraso: {activity.latePenalty} pontos por dia
                         </p>
@@ -300,8 +300,8 @@ export function ComplexSubmissionDialog({
 
                 {activity.instructions && (
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Instruções Específicas</label>
-                    <p className="text-sm text-gray-900 bg-blue-50 p-3 rounded-lg">
+                    <label className="text-sm font-medium text-foreground">Instruções Específicas</label>
+                    <p className="text-sm text-foreground bg-blue-50 p-3 rounded-lg">
                       {activity.instructions}
                     </p>
                   </div>
@@ -309,8 +309,8 @@ export function ComplexSubmissionDialog({
 
                 {activity.requirements && (
                   <div>
-                    <label className="text-sm font-medium text-gray-700">Requisitos</label>
-                    <p className="text-sm text-gray-900 bg-yellow-50 p-3 rounded-lg">
+                    <label className="text-sm font-medium text-foreground">Requisitos</label>
+                    <p className="text-sm text-foreground bg-yellow-50 p-3 rounded-lg">
                       {activity.requirements}
                     </p>
                   </div>
@@ -329,12 +329,12 @@ export function ComplexSubmissionDialog({
                 <CardContent>
                   <div className="space-y-2">
                     {activity.referenceFiles.map((file, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                      <div key={index} className="flex items-center justify-between p-2 bg-muted/60 rounded-lg">
                         <div className="flex items-center space-x-2">
                           <span className="text-lg">{getFileIcon(file.fileName)}</span>
                           <div>
                             <p className="text-sm font-medium">{file.originalFileName}</p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-muted-foreground">
                               {formatFileSize(file.fileSize)} • {file.fileType.toUpperCase()}
                             </p>
                           </div>
@@ -358,13 +358,13 @@ export function ComplexSubmissionDialog({
              <div className="space-y-6 text-center">
                <div className="text-center">
                  <CheckCircle className="h-20 w-20 mx-auto text-green-600 mb-6" />
-                 <h3 className="text-2xl font-bold text-green-800 mb-4">🎉 Atividade Entregue com Sucesso!</h3>
-                 <p className="text-lg text-gray-700 mb-6">
+                 <h3 className="text-2xl font-bold text-green-800 mb-4">ðŸŽ‰ Atividade Entregue com Sucesso!</h3>
+                 <p className="text-lg text-foreground mb-6">
                    Sua atividade foi enviada e está sendo processada pelo professor.
                  </p>
                  
                  <div className="bg-green-50 border border-green-200 rounded-lg p-6 max-w-md mx-auto">
-                   <h4 className="font-semibold text-green-800 mb-3">📋 Resumo da Entrega:</h4>
+                   <h4 className="font-semibold text-green-800 mb-3">ðŸ“‹ Resumo da Entrega:</h4>
                    <div className="text-left space-y-2 text-sm">
                      <p><span className="font-medium">Atividade:</span> {activity.title}</p>
                                             <p><span className="font-medium">Arquivos:</span> Temporariamente desabilitados</p>
@@ -388,12 +388,12 @@ export function ComplexSubmissionDialog({
              <div className="text-center">
                <Upload className="h-16 w-16 mx-auto text-green-600 mb-4" />
                <h3 className="text-xl font-semibold mb-2">Enviar Arquivos</h3>
-               <p className="text-gray-600">Selecione os arquivos da sua atividade</p>
+               <p className="text-muted-foreground">Selecione os arquivos da sua atividade</p>
              </div>
 
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-700">Comentário (opcional)</label>
+                <label className="text-sm font-medium text-foreground">Comentário (opcional)</label>
                 <Textarea
                   placeholder="Adicione observações sobre sua entrega, dificuldades encontradas, ou qualquer informação relevante..."
                   rows={4}
@@ -403,19 +403,19 @@ export function ComplexSubmissionDialog({
               </div>
 
                              <div>
-                 <label className="text-sm font-medium text-gray-700">
+                 <label className="text-sm font-medium text-foreground">
                    Arquivos da Atividade (temporariamente desabilitado)
                  </label>
-                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center bg-gray-50">
-                   <Upload className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                   <p className="text-lg font-medium text-gray-900 mb-2">
+                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center bg-muted/60">
+                   <Upload className="h-12 w-12 mx-auto text-muted-foreground/60 mb-4" />
+                   <p className="text-lg font-medium text-foreground mb-2">
                      Upload de arquivos temporariamente desabilitado
                    </p>
-                   <p className="text-sm text-gray-500 mb-4">
+                   <p className="text-sm text-muted-foreground mb-4">
                      Por enquanto, você pode entregar apenas com comentário
                    </p>
                    <p className="text-sm text-blue-600 font-medium">
-                     💡 Funcionalidade será restaurada em breve
+                     ðŸ’¡ Funcionalidade será restaurada em breve
                    </p>
                  </div>
                </div>
@@ -511,4 +511,5 @@ export function ComplexSubmissionDialog({
     </Dialog>
   );
 }
+
 

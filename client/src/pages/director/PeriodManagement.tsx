@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -169,7 +169,7 @@ const PeriodManagement: React.FC = () => {
       case 'pending': return 'bg-yellow-100 text-yellow-800';
       case 'completed': return 'bg-blue-100 text-blue-800';
       case 'cancelled': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -257,9 +257,9 @@ const PeriodManagement: React.FC = () => {
               <div className="p-2 bg-blue-100 rounded-lg">
                 <Calendar className="w-6 h-6 text-blue-600" />
               </div>
-              <h1 className="text-3xl font-bold text-gray-900">Gestão de Períodos Letivos</h1>
+              <h1 className="text-3xl font-bold text-foreground">Gestão de Períodos Letivos</h1>
             </div>
-            <p className="text-gray-600 ml-11">
+            <p className="text-muted-foreground ml-11">
               Controle e administre os períodos acadêmicos da instituição
             </p>
           </div>
@@ -357,7 +357,7 @@ const PeriodManagement: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+              <div className="flex justify-end gap-3 pt-4 border-t border-border">
                 <Button 
                   variant="outline" 
                   onClick={() => setShowCreateModal(false)}
@@ -412,23 +412,23 @@ const PeriodManagement: React.FC = () => {
                   <h3 className="text-2xl font-bold text-green-900 mb-2">{currentPeriod.name}</h3>
                   <p className="text-green-700 mb-4">{currentPeriod.description}</p>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                    <div className="bg-white/60 rounded-lg p-3">
+                    <div className="bg-card/70 rounded-lg p-3">
                       <div className="text-green-600 font-medium">Início</div>
                       <div className="text-green-900 font-semibold">
                         {format(parseISO(currentPeriod.startDate), 'dd/MM/yyyy', { locale: ptBR })}
                       </div>
                     </div>
-                    <div className="bg-white/60 rounded-lg p-3">
+                    <div className="bg-card/70 rounded-lg p-3">
                       <div className="text-green-600 font-medium">Término</div>
                       <div className="text-green-900 font-semibold">
                         {format(parseISO(currentPeriod.endDate), 'dd/MM/yyyy', { locale: ptBR })}
                       </div>
                     </div>
-                    <div className="bg-white/60 rounded-lg p-3">
+                    <div className="bg-card/70 rounded-lg p-3">
                       <div className="text-green-600 font-medium">Total de dias</div>
                       <div className="text-green-900 font-semibold">{currentPeriod.totalDays}</div>
                     </div>
-                    <div className="bg-white/60 rounded-lg p-3">
+                    <div className="bg-card/70 rounded-lg p-3">
                       <div className="text-green-600 font-medium">Dias restantes</div>
                       <div className="text-green-900 font-semibold text-lg">{currentPeriod.remainingDays}</div>
                     </div>
@@ -455,15 +455,15 @@ const PeriodManagement: React.FC = () => {
         )}
 
       {/* Todos os Períodos */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gray-100 rounded-lg">
-              <Calendar className="w-5 h-5 text-gray-600" />
+            <div className="p-2 bg-muted rounded-lg">
+              <Calendar className="w-5 h-5 text-muted-foreground" />
             </div>
-            <h2 className="text-xl font-semibold text-gray-900">Todos os Períodos</h2>
+            <h2 className="text-xl font-semibold text-foreground">Todos os Períodos</h2>
           </div>
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-muted-foreground">
             {periods.length} período{periods.length !== 1 ? 's' : ''} cadastrado{periods.length !== 1 ? 's' : ''}
           </div>
         </div>
@@ -472,7 +472,7 @@ const PeriodManagement: React.FC = () => {
           <div className="flex items-center justify-center p-12">
             <div className="text-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <span className="text-gray-600">Carregando períodos...</span>
+              <span className="text-muted-foreground">Carregando períodos...</span>
             </div>
           </div>
         ) : (
@@ -481,30 +481,30 @@ const PeriodManagement: React.FC = () => {
               <Card key={period.id} className="hover:shadow-lg transition-all duration-200 border-0 shadow-md">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between mb-2">
-                    <CardTitle className="text-lg font-semibold text-gray-900">{period.name}</CardTitle>
+                    <CardTitle className="text-lg font-semibold text-foreground">{period.name}</CardTitle>
                     <Badge className={`${getStatusColor(period.status)} px-3 py-1 text-xs font-medium`}>
                       {getStatusLabel(period.status)}
                     </Badge>
                   </div>
-                  <p className="text-sm text-gray-600 line-clamp-2">{period.description}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{period.description}</p>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="space-y-3 mb-4">
-                    <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
-                      <span className="text-sm text-gray-600 font-medium">Início:</span>
-                      <span className="text-sm font-semibold text-gray-900">
+                    <div className="flex items-center justify-between py-2 px-3 bg-muted/60 rounded-lg">
+                      <span className="text-sm text-muted-foreground font-medium">Início:</span>
+                      <span className="text-sm font-semibold text-foreground">
                         {format(parseISO(period.startDate), 'dd/MM/yyyy', { locale: ptBR })}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
-                      <span className="text-sm text-gray-600 font-medium">Término:</span>
-                      <span className="text-sm font-semibold text-gray-900">
+                    <div className="flex items-center justify-between py-2 px-3 bg-muted/60 rounded-lg">
+                      <span className="text-sm text-muted-foreground font-medium">Término:</span>
+                      <span className="text-sm font-semibold text-foreground">
                         {format(parseISO(period.endDate), 'dd/MM/yyyy', { locale: ptBR })}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
-                      <span className="text-sm text-gray-600 font-medium">Total de dias:</span>
-                      <span className="text-sm font-semibold text-gray-900">{period.totalDays}</span>
+                    <div className="flex items-center justify-between py-2 px-3 bg-muted/60 rounded-lg">
+                      <span className="text-sm text-muted-foreground font-medium">Total de dias:</span>
+                      <span className="text-sm font-semibold text-foreground">{period.totalDays}</span>
                     </div>
                     {period.status === 'active' && (
                       <div className="flex items-center justify-between py-2 px-3 bg-orange-50 rounded-lg border border-orange-200">
@@ -542,7 +542,7 @@ const PeriodManagement: React.FC = () => {
                       size="sm"
                       variant="outline"
                       onClick={() => openEditModal(period)}
-                      className="hover:bg-gray-50 transition-colors duration-200"
+                      className="hover:bg-muted/60 transition-colors duration-200"
                     >
                       <Edit className="w-4 h-4" />
                     </Button>
@@ -641,7 +641,7 @@ const PeriodManagement: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+            <div className="flex justify-end gap-3 pt-4 border-t border-border">
               <Button 
                 variant="outline" 
                 onClick={() => setShowEditModal(false)}

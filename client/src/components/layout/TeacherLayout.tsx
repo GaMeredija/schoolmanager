@@ -50,26 +50,26 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
           ]
         },
         {
-          title: 'ACADEMICO',
+          title: 'ACADÊMICO',
           items: [
             { icon: BookOpen, label: 'Minhas Turmas', path: '/teacher/classes' },
             { icon: Library, label: 'Materiais', path: '/teacher/materials' },
-            { icon: FileText, label: 'Relatorios', path: '/reports' }
+            { icon: FileText, label: 'Relatórios', path: '/reports' }
           ]
         },
         {
-          title: 'AVALIACOES',
+          title: 'AVALIAÇÕES',
           items: [
             { icon: FileText, label: 'Atividades', path: '/teacher/activities' },
             { icon: ClipboardList, label: 'Provas', path: '/teacher/exams' },
-            { icon: CheckSquare, label: 'Frequencia', path: '/teacher/attendance' }
+            { icon: CheckSquare, label: 'Frequência', path: '/teacher/attendance' }
           ]
         },
         {
-          title: 'COMUNICACAO',
+          title: 'COMUNICAÇÃO',
           items: [
             { icon: MessageSquare, label: 'Chat', path: '/chat' },
-            { icon: Calendar, label: 'Calendario', path: '/teacher/calendar' }
+            { icon: Calendar, label: 'Calendário', path: '/teacher/calendar' }
           ]
         },
         {
@@ -96,8 +96,8 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
   })();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="md:hidden sticky top-0 z-40 bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between">
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="md:hidden sticky top-0 z-40 bg-card border-b border-border px-3 py-2 flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={() => setMobileOpen(!mobileOpen)}>
           <span className="sr-only">Abrir menu</span>
           <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -105,7 +105,7 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
         <div className="flex items-center gap-2">
           <Avatar className="h-8 w-8">
             <AvatarImage src={user?.profileImageUrl} />
-            <AvatarFallback className="bg-blue-100 text-blue-700">
+            <AvatarFallback className="bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-200">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </AvatarFallback>
           </Avatar>
@@ -297,11 +297,11 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
       </div>
 
       <div className="md:pl-64">
-        <header className="bg-white shadow-sm border-b border-gray-200">
+        <header className="bg-card text-card-foreground shadow-sm border-b border-border">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-semibold text-gray-900">{pageTitle}</h1>
+                <h1 className="text-2xl font-semibold text-foreground">{pageTitle}</h1>
               </div>
               <div className="flex items-center gap-4">
                 <Button variant="ghost" size="sm" className="relative">
@@ -315,7 +315,7 @@ function TeacherLayout({ children }: TeacherLayoutProps) {
           </div>
         </header>
 
-        <main className="p-6">
+        <main className="min-h-screen bg-background p-6">
           {children}
         </main>
       </div>

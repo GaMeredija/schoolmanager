@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useTheme } from "@/components/ThemeProvider";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -8,8 +7,6 @@ import {
   Menu, 
   Bell, 
   Search, 
-  Moon, 
-  Sun, 
   User, 
   Settings, 
   LogOut,
@@ -26,15 +23,11 @@ interface HeaderProps {
 }
 
 export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
-  const { theme, setTheme } = useTheme();
   const { user, logout } = useAuth();
   const [location, navigate] = useLocation();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
 
   const handleLogout = () => {
     logout();
@@ -103,27 +96,13 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
             <input
               type="text"
               placeholder="Pesquisar no sistema..."
-              className="header-search w-full pl-12 pr-6 py-3 rounded-2xl text-gray-900 placeholder-slate-400 focus:outline-none transition-all duration-300 text-base font-medium"
+              className="header-search w-full pl-12 pr-6 py-3 rounded-2xl text-foreground placeholder-slate-400 focus:outline-none transition-all duration-300 text-base font-medium"
             />
           </div>
         </div>
 
         {/* Right side */}
         <div className="flex items-center space-x-6">
-          {/* Theme Toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={toggleTheme}
-            className="p-3 rounded-xl hover:bg-white/20 text-white hover:text-white transition-all duration-300"
-          >
-            {theme === 'dark' ? (
-              <Sun className="h-6 w-6 text-blue-300" />
-            ) : (
-              <Moon className="h-6 w-6 text-accent-header" />
-            )}
-          </Button>
-
           {/* Notifications */}
           <div className="relative">
             <Button
@@ -142,12 +121,12 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
 
             {/* Notifications Dropdown */}
             {showNotifications && (
-              <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 z-20">
-                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              <div className="absolute right-0 mt-2 w-80 bg-popover rounded-xl shadow-lg border border-border z-20">
+                <div className="p-4 border-b border-border">
+                  <h3 className="text-lg font-semibold text-foreground">
                     Notificações
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     {unreadCount} não lidas
                   </p>
                 </div>
@@ -155,7 +134,7 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
                   {notifications.map((notification) => (
                     <div
                       key={notification.id}
-                      className="p-4 border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+                      className="p-4 border-b border-border/70 hover:bg-muted/60 cursor-pointer transition-colors"
                     >
                       <div className="flex items-start space-x-3">
                         <div className="flex-shrink-0">
@@ -170,13 +149,13 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900 dark:text-white">
+                          <p className="text-sm font-medium text-foreground">
                             {notification.title}
                           </p>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                          <p className="text-sm text-muted-foreground">
                             {notification.message}
                           </p>
-                          <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                          <p className="text-xs text-muted-foreground/70 mt-1">
                             {notification.time}
                           </p>
                         </div>
@@ -184,7 +163,7 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
                     </div>
                   ))}
                 </div>
-                <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+                <div className="p-4 border-t border-border">
                   <Button
                     variant="outline"
                     size="sm"
@@ -230,12 +209,12 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
 
             {/* User Dropdown */}
             {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 z-20">
-                <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+              <div className="absolute right-0 mt-2 w-56 bg-popover rounded-xl shadow-lg border border-border z-20">
+                <div className="p-4 border-b border-border">
+                  <p className="text-sm font-medium text-foreground">
                     {user?.firstName ? `${user.firstName} ${user.lastName}` : user?.email}
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     {user?.email}
                   </p>
                 </div>
@@ -243,7 +222,7 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="w-full justify-start px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="w-full justify-start px-4 py-2 text-sm text-foreground hover:bg-muted"
                     onClick={() => {
                       setShowUserMenu(false);
                       navigate('/meu-perfil');
@@ -255,7 +234,7 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="w-full justify-start px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    className="w-full justify-start px-4 py-2 text-sm text-foreground hover:bg-muted"
                     onClick={() => {
                       setShowUserMenu(false);
                       navigate('/settings');
@@ -293,3 +272,4 @@ export function Header({ toggleSidebar, pageTitle }: HeaderProps) {
     </header>
   );
 }
+

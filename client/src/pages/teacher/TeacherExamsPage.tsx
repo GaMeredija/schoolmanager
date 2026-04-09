@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -186,14 +186,14 @@ export default function TeacherExamsPage() {
           }
           return acc;
         }, []);
-        console.log('🏫 Turmas processadas:', uniqueClasses);
+        console.log('ðŸ« Turmas processadas:', uniqueClasses);
         return uniqueClasses;
       }
       
-      console.log('🚨 Formato de dados não esperado:', data);
+      console.log('ðŸš¨ Formato de dados não esperado:', data);
       
       // FALLBACK: Dados temporários para teste
-      console.log('🔧 Usando dados temporários para teste...');
+      console.log('ðŸ”§ Usando dados temporários para teste...');
       return [
         { id: 'class1', name: '9º F', grade: '9' },
         { id: 'class2', name: '9º Ano A', grade: '9' },
@@ -238,14 +238,14 @@ export default function TeacherExamsPage() {
           return acc;
         }, []);
         
-        console.log('📚 Disciplinas processadas:', uniqueSubjects);
+        console.log('ðŸ“š Disciplinas processadas:', uniqueSubjects);
         return uniqueSubjects;
       }
       
-      console.log('🚨 Formato de dados de disciplinas não esperado:', data);
+      console.log('ðŸš¨ Formato de dados de disciplinas não esperado:', data);
       
       // FALLBACK: Dados temporários para teste
-      console.log('🔧 Usando dados temporários para disciplinas...');
+      console.log('ðŸ”§ Usando dados temporários para disciplinas...');
       return [
         { id: 'subj1', name: 'Matemática' },
         { id: 'subj2', name: 'Português' },
@@ -263,9 +263,9 @@ export default function TeacherExamsPage() {
 
   // Debug dos dados finais
   console.log('🔍 DADOS FINAIS - Professor ID:', user?.id);
-  console.log('🏫 Classes finais:', classes);
-  console.log('📚 Subjects finais:', subjects);
-  console.log('📋 Exams finais:', exams);
+  console.log('ðŸ« Classes finais:', classes);
+  console.log('ðŸ“š Subjects finais:', subjects);
+  console.log('ðŸ“‹ Exams finais:', exams);
 
   // Estados do formulário de criação
   const [formData, setFormData] = useState({
@@ -328,7 +328,7 @@ export default function TeacherExamsPage() {
   // Carregar notas quando o modal de notas abrir
   useEffect(() => {
     if (showGradesModal && selectedExam && examDetailsData?.grades) {
-      console.log('📊 Carregando notas da prova:', examDetailsData);
+      console.log('ðŸ“Š Carregando notas da prova:', examDetailsData);
       setExamGrades(examDetailsData.grades);
     }
   }, [showGradesModal, selectedExam, examDetailsData]);
@@ -380,7 +380,7 @@ export default function TeacherExamsPage() {
   };
 
   const handleCompleteExam = async (examId: string) => {
-    console.log('🎯 Tentando marcar prova como concluída:', examId);
+    console.log('ðŸŽ¯ Tentando marcar prova como concluída:', examId);
     try {
       await completeExamMutation.mutateAsync(examId);
     } catch (error) {
@@ -402,7 +402,7 @@ export default function TeacherExamsPage() {
         parseFloat(grade.grade) > 0
       );
 
-      console.log('📊 Notas para salvar:', gradesToSave);
+      console.log('ðŸ“Š Notas para salvar:', gradesToSave);
 
       if (gradesToSave.length === 0) {
         toast.error('Nenhuma nota válida para salvar');
@@ -449,11 +449,11 @@ export default function TeacherExamsPage() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'scheduled':
-        return <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200"><Clock className="w-3 h-3 mr-1" />Agendada</Badge>;
+        return <Badge variant="outline" className="border-blue-500/30 bg-blue-500/10 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200"><Clock className="w-3 h-3 mr-1" />Agendada</Badge>;
       case 'completed':
-        return <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200"><CheckCircle className="w-3 h-3 mr-1" />Concluída</Badge>;
+        return <Badge variant="outline" className="border-green-500/30 bg-green-500/10 text-green-700 dark:bg-green-500/15 dark:text-green-200"><CheckCircle className="w-3 h-3 mr-1" />Concluída</Badge>;
       case 'cancelled':
-        return <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200"><AlertCircle className="w-3 h-3 mr-1" />Cancelada</Badge>;
+        return <Badge variant="outline" className="border-red-500/30 bg-red-500/10 text-red-700 dark:bg-red-500/15 dark:text-red-200"><AlertCircle className="w-3 h-3 mr-1" />Cancelada</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -464,12 +464,12 @@ export default function TeacherExamsPage() {
       {/* Header com Estatísticas */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Sistema de Provas</h1>
-          <p className="text-gray-600 mt-1">
+          <h1 className="text-3xl font-bold text-foreground">Sistema de Provas</h1>
+          <p className="mt-1 text-muted-foreground">
             Gerencie provas, controle notas e acompanhe o desempenho por bimestre
           </p>
         </div>
-        <Button onClick={() => setShowCreateModal(true)} className="bg-blue-600 hover:bg-blue-700">
+        <Button onClick={() => setShowCreateModal(true)} className="bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400">
           <Plus className="w-4 h-4 mr-2" />
           Nova Prova
         </Button>
@@ -481,10 +481,10 @@ export default function TeacherExamsPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total de Provas</p>
-                <p className="text-2xl font-bold text-gray-900">{totalExams}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total de Provas</p>
+                <p className="text-2xl font-bold text-foreground">{totalExams}</p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500/10 dark:bg-blue-500/15">
                 <FileText className="w-6 h-6 text-blue-600" />
               </div>
             </div>
@@ -495,10 +495,10 @@ export default function TeacherExamsPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Concluídas</p>
+                <p className="text-sm font-medium text-muted-foreground">Concluídas</p>
                 <p className="text-2xl font-bold text-green-600">{completedExams}</p>
               </div>
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-green-500/10 dark:bg-green-500/15">
                 <CheckCircle className="w-6 h-6 text-green-600" />
               </div>
             </div>
@@ -509,10 +509,10 @@ export default function TeacherExamsPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Agendadas</p>
+                <p className="text-sm font-medium text-muted-foreground">Agendadas</p>
                 <p className="text-2xl font-bold text-orange-600">{scheduledExams}</p>
               </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-orange-500/10 dark:bg-orange-500/15">
                 <Clock className="w-6 h-6 text-orange-600" />
               </div>
             </div>
@@ -523,11 +523,11 @@ export default function TeacherExamsPage() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Pontuação Média</p>
-                <p className="text-2xl font-bold text-purple-600">{averagePoints.toFixed(1)}</p>
+                <p className="text-sm font-medium text-muted-foreground">Pontuação Média</p>
+                <p className="text-2xl font-bold text-violet-600 dark:text-violet-300">{averagePoints.toFixed(1)}</p>
               </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                <Target className="w-6 h-6 text-purple-600" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-violet-500/10 dark:bg-violet-500/15">
+                <Target className="w-6 h-6 text-violet-600 dark:text-violet-300" />
               </div>
             </div>
           </CardContent>
@@ -537,24 +537,24 @@ export default function TeacherExamsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Calendar className="w-4 h-4" />
-          <span className="font-medium text-gray-700">Período atual:</span>
+          <span className="font-medium text-foreground">Período atual:</span>
           <Badge variant="secondary" className="text-xs">
             {currentPeriod?.name || 'Nenhum período ativo'}
           </Badge>
         </div>
         <div className="flex items-center gap-4">
           <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60" />
             <Input
               placeholder="Buscar provas..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 w-64 border-gray-200 focus:border-blue-500 focus:ring-blue-500"
+              className="w-64 border-border pl-10 focus:border-primary focus:ring-primary"
             />
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="border-gray-200">
+              <Button variant="outline" size="sm" className="border-border">
                 <Filter className="w-4 h-4 mr-2" />
                 Filtros
               </Button>
@@ -601,13 +601,13 @@ export default function TeacherExamsPage() {
         <CardContent className="p-0">
           {filteredExams.length === 0 ? (
             <div className="text-center py-12">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <FileText className="w-8 h-8 text-gray-400" />
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+                <FileText className="w-8 h-8 text-muted-foreground/60" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhuma prova encontrada
               </h3>
-              <p className="text-gray-500 mb-4">
+              <p className="text-muted-foreground mb-4">
                 {searchTerm 
                   ? 'Tente ajustar os termos de busca'
                   : `Não há provas agendadas no período atual`
@@ -623,42 +623,42 @@ export default function TeacherExamsPage() {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 border-b">
+                <thead className="bg-muted/50 border-b border-border">
                   <tr>
-                    <th className="text-left p-4 font-semibold text-gray-900">Prova</th>
-                    <th className="text-left p-4 font-semibold text-gray-900">Disciplina</th>
-                    <th className="text-center p-4 font-semibold text-gray-900">Data</th>
-                    <th className="text-center p-4 font-semibold text-gray-900">Duração</th>
-                    <th className="text-center p-4 font-semibold text-gray-900">Pontos</th>
-                    <th className="text-center p-4 font-semibold text-gray-900">Status</th>
-                    <th className="text-center p-4 font-semibold text-gray-900">Ações</th>
+                    <th className="text-left p-4 font-semibold text-foreground">Prova</th>
+                    <th className="text-left p-4 font-semibold text-foreground">Disciplina</th>
+                    <th className="text-center p-4 font-semibold text-foreground">Data</th>
+                    <th className="text-center p-4 font-semibold text-foreground">Duração</th>
+                    <th className="text-center p-4 font-semibold text-foreground">Pontos</th>
+                    <th className="text-center p-4 font-semibold text-foreground">Status</th>
+                    <th className="text-center p-4 font-semibold text-foreground">Ações</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-border">
                   {filteredExams.map((exam: Exam) => (
-                    <tr key={exam.id} className="hover:bg-gray-50 transition-colors">
+                    <tr key={exam.id} className="transition-colors hover:bg-muted/40">
                       <td className="p-4">
                         <div>
-                          <h3 className="font-semibold text-gray-900 mb-1">{exam.title}</h3>
+                          <h3 className="font-semibold text-foreground mb-1">{exam.title}</h3>
                           {exam.description && (
-                            <p className="text-sm text-gray-500 line-clamp-2">{exam.description}</p>
+                            <p className="text-sm text-muted-foreground line-clamp-2">{exam.description}</p>
                           )}
                         </div>
                       </td>
                       <td className="p-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 dark:bg-blue-500/15">
                             <BookOpen className="w-4 h-4 text-blue-600" />
                           </div>
-                          <span className="font-medium text-gray-900">{exam.subjectName}</span>
+                          <span className="font-medium text-foreground">{exam.subjectName}</span>
                         </div>
                       </td>
                       <td className="p-4 text-center">
                         <div className="flex flex-col items-center">
-                          <span className="font-medium text-gray-900">
+                          <span className="font-medium text-foreground">
                             {format(new Date(exam.examDate), 'dd/MM', { locale: ptBR })}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-muted-foreground">
                             {format(new Date(exam.examDate), 'yyyy', { locale: ptBR })}
                           </span>
                         </div>
@@ -666,17 +666,17 @@ export default function TeacherExamsPage() {
                       <td className="p-4 text-center">
                         {exam.duration ? (
                           <div className="flex items-center justify-center gap-1">
-                            <Clock className="w-4 h-4 text-gray-400" />
-                            <span className="font-medium text-gray-900">{exam.duration}min</span>
+                            <Clock className="w-4 h-4 text-muted-foreground/60" />
+                            <span className="font-medium text-foreground">{exam.duration}min</span>
                           </div>
                         ) : (
-                          <span className="text-gray-400">-</span>
+                          <span className="text-muted-foreground/60">-</span>
                         )}
                       </td>
                       <td className="p-4 text-center">
                         <div className="flex items-center justify-center gap-1">
-                          <Target className="w-4 h-4 text-gray-400" />
-                          <span className="font-medium text-gray-900">{exam.totalPoints}</span>
+                          <Target className="w-4 h-4 text-muted-foreground/60" />
+                          <span className="font-medium text-foreground">{exam.totalPoints}</span>
                         </div>
                       </td>
                       <td className="p-4 text-center">
@@ -686,7 +686,7 @@ export default function TeacherExamsPage() {
                             <Button 
                               variant="outline" 
                               size="sm" 
-                              className="h-7 px-2 text-green-600 border-green-200 hover:bg-green-50 hover:border-green-300"
+                              className="h-7 border-green-500/30 px-2 text-green-700 hover:border-green-400 hover:bg-green-500/10 dark:text-green-200"
                               onClick={() => handleCompleteExam(exam.id)}
                               disabled={completeExamMutation.isPending}
                               title="Marcar como concluída"
@@ -714,7 +714,7 @@ export default function TeacherExamsPage() {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                            className="h-8 w-8 p-0 text-destructive hover:bg-destructive/10 hover:text-destructive"
                             onClick={() => {
                               setExamToDelete(exam.id);
                               setShowDeleteDialog(true);
@@ -734,8 +734,8 @@ export default function TeacherExamsPage() {
           
           {/* Footer da Tabela */}
           {filteredExams.length > 0 && (
-            <div className="border-t bg-gray-50 px-6 py-4">
-              <div className="flex items-center justify-between text-sm text-gray-600">
+            <div className="border-t border-border bg-muted/50 px-6 py-4">
+              <div className="flex items-center justify-between text-sm text-muted-foreground">
                 <div className="flex items-center gap-6">
                   <span>Total: {filteredExams.length} prova(s)</span>
                   <span>•</span>
@@ -748,8 +748,8 @@ export default function TeacherExamsPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-gray-500">
-                    Última atualização: {format(new Date(), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
+                  <span className="text-xs text-muted-foreground">
+                    Ãšltima atualização: {format(new Date(), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                   </span>
                 </div>
               </div>
@@ -921,7 +921,7 @@ export default function TeacherExamsPage() {
               <DialogTitle>Confirmar Exclusão</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-muted-foreground">
                 Tem certeza que deseja excluir esta prova? Esta ação não pode ser desfeita.
               </p>
               <div className="flex justify-end gap-2">
@@ -943,3 +943,4 @@ export default function TeacherExamsPage() {
     </div>
   );
 }
+

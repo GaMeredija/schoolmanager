@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useStudentExams } from '@/hooks/useApi';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -122,7 +122,7 @@ const StudentExamsPage: React.FC = () => {
 
   const getStatusIcon = (exam: Exam) => {
     if (!exam.grade) {
-      return <Clock className="h-4 w-4 text-gray-500" />;
+      return <Clock className="h-4 w-4 text-muted-foreground" />;
     }
     
     if (!exam.grade.isPresent) {
@@ -148,7 +148,7 @@ const StudentExamsPage: React.FC = () => {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Carregando provas...</p>
+          <p className="mt-2 text-muted-foreground">Carregando provas...</p>
         </div>
       </div>
     );
@@ -159,8 +159,8 @@ const StudentExamsPage: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Minhas Provas</h1>
-          <p className="text-gray-600">Acompanhe suas provas e notas no período atual</p>
+          <h1 className="text-2xl font-bold text-foreground">Minhas Provas</h1>
+          <p className="text-muted-foreground">Acompanhe suas provas e notas no período atual</p>
         </div>
         
       </div>
@@ -171,8 +171,8 @@ const StudentExamsPage: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total de Provas</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total de Provas</p>
+                <p className="text-2xl font-bold text-foreground">{stats.total}</p>
               </div>
               <BookOpen className="h-8 w-8 text-blue-500" />
             </div>
@@ -183,7 +183,7 @@ const StudentExamsPage: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Concluídas</p>
+                <p className="text-sm font-medium text-muted-foreground">Concluídas</p>
                 <p className="text-2xl font-bold text-green-600">{stats.completed}</p>
               </div>
               <CheckCircle className="h-8 w-8 text-green-500" />
@@ -195,7 +195,7 @@ const StudentExamsPage: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Pendentes</p>
+                <p className="text-sm font-medium text-muted-foreground">Pendentes</p>
                 <p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
               </div>
               <Clock className="h-8 w-8 text-yellow-500" />
@@ -207,7 +207,7 @@ const StudentExamsPage: React.FC = () => {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Média Geral</p>
+                <p className="text-sm font-medium text-muted-foreground">Média Geral</p>
                 <p className="text-2xl font-bold text-blue-600">{stats.average.toFixed(1)}</p>
               </div>
               <BookOpen className="h-8 w-8 text-blue-500" />
@@ -256,9 +256,9 @@ const StudentExamsPage: React.FC = () => {
           {filteredExams.length === 0 ? (
             <Card>
               <CardContent className="p-8 text-center">
-                <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma prova encontrada</h3>
-                <p className="text-gray-600">Não há provas agendadas no período atual com os filtros selecionados.</p>
+                <BookOpen className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-foreground mb-2">Nenhuma prova encontrada</h3>
+                <p className="text-muted-foreground">Não há provas agendadas no período atual com os filtros selecionados.</p>
               </CardContent>
             </Card>
           ) : (
@@ -270,11 +270,11 @@ const StudentExamsPage: React.FC = () => {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           {getStatusIcon(exam)}
-                          <h3 className="text-lg font-semibold text-gray-900">{exam.title}</h3>
+                          <h3 className="text-lg font-semibold text-foreground">{exam.title}</h3>
                           {getStatusBadge(exam)}
                         </div>
-                        <p className="text-gray-600 mb-2">{exam.description}</p>
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <p className="text-muted-foreground mb-2">{exam.description}</p>
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
                           <div className="flex items-center gap-1">
                             <BookOpen className="h-4 w-4" />
                             <span>{exam.subjectName}</span>
@@ -290,11 +290,11 @@ const StudentExamsPage: React.FC = () => {
                         {exam.grade && exam.grade.grade !== null && (
                           <div className="mt-2">
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-medium text-gray-700">Nota:</span>
+                              <span className="text-sm font-medium text-foreground">Nota:</span>
                               <span className="text-lg font-bold text-blue-600">
                                 {exam.grade.grade}/{exam.totalPoints}
                               </span>
-                              <span className="text-sm text-gray-500">
+                              <span className="text-sm text-muted-foreground">
                                 ({((exam.grade.grade / exam.totalPoints) * 100).toFixed(1)}%)
                               </span>
                             </div>
@@ -333,47 +333,47 @@ const StudentExamsPage: React.FC = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Disciplina</label>
-                  <p className="text-gray-900">{selectedExam.subjectName}</p>
+                  <label className="text-sm font-medium text-foreground">Disciplina</label>
+                  <p className="text-foreground">{selectedExam.subjectName}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Data da Prova</label>
-                  <p className="text-gray-900">
+                  <label className="text-sm font-medium text-foreground">Data da Prova</label>
+                  <p className="text-foreground">
                     {format(new Date(selectedExam.examDate), 'dd/MM/yyyy', { locale: ptBR })}
                   </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Bimestre</label>
-                  <p className="text-gray-900">{selectedExam.bimonthly}º Bimestre</p>
+                  <label className="text-sm font-medium text-foreground">Bimestre</label>
+                  <p className="text-foreground">{selectedExam.bimonthly}º Bimestre</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Pontuação Total</label>
-                  <p className="text-gray-900">{selectedExam.totalPoints} pontos</p>
+                  <label className="text-sm font-medium text-foreground">Pontuação Total</label>
+                  <p className="text-foreground">{selectedExam.totalPoints} pontos</p>
                 </div>
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-700">Descrição</label>
-                <p className="text-gray-900 mt-1">{selectedExam.description}</p>
+                <label className="text-sm font-medium text-foreground">Descrição</label>
+                <p className="text-foreground mt-1">{selectedExam.description}</p>
               </div>
 
               {selectedExam.grade && (
                 <div className="border-t pt-4">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-3">Resultado</h4>
+                  <h4 className="text-lg font-semibold text-foreground mb-3">Resultado</h4>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Status</label>
+                      <label className="text-sm font-medium text-foreground">Status</label>
                       <div className="mt-1">
                         {getStatusBadge(selectedExam)}
                       </div>
                     </div>
                     {selectedExam.grade.grade !== null && (
                       <div>
-                        <label className="text-sm font-medium text-gray-700">Nota</label>
+                        <label className="text-sm font-medium text-foreground">Nota</label>
                         <p className="text-2xl font-bold text-blue-600">
                           {selectedExam.grade.grade}/{selectedExam.totalPoints}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-muted-foreground">
                           ({((selectedExam.grade.grade / selectedExam.totalPoints) * 100).toFixed(1)}%)
                         </p>
                       </div>
@@ -382,8 +382,8 @@ const StudentExamsPage: React.FC = () => {
                   
                   {selectedExam.grade.observations && (
                     <div className="mt-4">
-                      <label className="text-sm font-medium text-gray-700">Observações</label>
-                      <p className="text-gray-900 mt-1 p-3 bg-gray-50 rounded-md">
+                      <label className="text-sm font-medium text-foreground">Observações</label>
+                      <p className="text-foreground mt-1 p-3 bg-muted/60 rounded-md">
                         {selectedExam.grade.observations}
                       </p>
                     </div>
@@ -391,8 +391,8 @@ const StudentExamsPage: React.FC = () => {
                   
                   {selectedExam.grade.gradedAt && (
                     <div className="mt-4">
-                      <label className="text-sm font-medium text-gray-700">Data da Avaliação</label>
-                      <p className="text-gray-900">
+                      <label className="text-sm font-medium text-foreground">Data da Avaliação</label>
+                      <p className="text-foreground">
                         {format(new Date(selectedExam.grade.gradedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                       </p>
                     </div>
@@ -408,4 +408,5 @@ const StudentExamsPage: React.FC = () => {
 };
 
 export default StudentExamsPage;
+
 

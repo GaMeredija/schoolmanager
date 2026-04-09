@@ -25,7 +25,7 @@ export function MainLayout({ children, pageTitle }: MainLayoutProps) {
   
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-700">
+      <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
       </div>
     );
@@ -46,7 +46,7 @@ export function MainLayout({ children, pageTitle }: MainLayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Sidebar Component */}
       <AppSidebar 
         isOpen={isSidebarOpen} 
@@ -58,7 +58,7 @@ export function MainLayout({ children, pageTitle }: MainLayoutProps) {
       <div className="lg:ml-64">
 
         {/* Page Content */}
-        <main className="p-6">
+        <main className="min-h-screen bg-background p-6">
           {children}
         </main>
       </div>

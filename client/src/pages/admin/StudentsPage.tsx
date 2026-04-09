@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CreateButton from '@/components/ui/create-button';
@@ -121,12 +121,12 @@ const StudentsPage = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'bg-green-100 text-green-800 border-green-200';
-      case 'pendente': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'inactive': return 'bg-gray-100 text-gray-800 border-gray-200';
-      case 'suspended': return 'bg-red-100 text-red-800 border-red-200';
-      case 'transferred': return 'bg-blue-100 text-blue-800 border-blue-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'active': return 'border-green-500/30 bg-green-500/10 text-green-700 dark:bg-green-500/15 dark:text-green-200';
+      case 'pendente': return 'border-yellow-500/30 bg-yellow-500/10 text-yellow-700 dark:bg-yellow-500/15 dark:text-yellow-200';
+      case 'inactive': return 'border-border bg-muted text-foreground';
+      case 'suspended': return 'border-red-500/30 bg-red-500/10 text-red-700 dark:bg-red-500/15 dark:text-red-200';
+      case 'transferred': return 'border-blue-500/30 bg-blue-500/10 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200';
+      default: return 'border-border bg-muted text-foreground';
     }
   };
 
@@ -184,8 +184,10 @@ const StudentsPage = () => {
     const matchesSearch = fullName.includes(searchTerm.toLowerCase());
     
     const matchesStatus = filterStatus === 'all' || student.status === filterStatus;
+    const studentClassId = student.classInfo?.id || student.classId || student.class?.id;
+    const matchesClass = filterClass === 'all' || studentClassId === filterClass;
     
-    return matchesSearch && matchesStatus;
+    return matchesSearch && matchesStatus && matchesClass;
   });
 
   const handleCreateStudent = async () => {
@@ -390,8 +392,8 @@ const StudentsPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gestão de Alunos</h1>
-          <p className="text-gray-600 mt-1">Gerencie todos os alunos da escola</p>
+          <h1 className="text-3xl font-bold text-foreground">Gestão de Alunos</h1>
+          <p className="mt-1 text-muted-foreground">Gerencie todos os alunos da escola</p>
         </div>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
@@ -460,18 +462,18 @@ const StudentsPage = () => {
                 </SelectContent>
               </Select>
               {classes.length === 0 && !classesLoading && (
-                <p className="text-xs text-red-500 mt-1">
-                  ⚠️ Nenhuma turma encontrada. Crie turmas primeiro em "Turmas".
+                <p className="mt-1 text-xs text-destructive dark:text-red-300">
+                  ⚠️ï¸ Nenhuma turma encontrada. Crie turmas primeiro em "Turmas".
                 </p>
               )}
               {classesError && (
-                <p className="text-xs text-red-500 mt-1">
+                <p className="mt-1 text-xs text-destructive dark:text-red-300">
                   ❌ Erro ao carregar turmas: {classesError}
                 </p>
               )}
               {classesLoading && (
-                <p className="text-xs text-blue-500 mt-1">
-                  🔄 Carregando turmas...
+                <p className="mt-1 text-xs text-blue-600 dark:text-blue-300">
+                  ðŸ”„ Carregando turmas...
                 </p>
               )}
             </div>
@@ -486,12 +488,12 @@ const StudentsPage = () => {
                 />
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="rounded-lg border border-blue-500/20 bg-blue-500/10 p-4 dark:border-blue-400/20 dark:bg-blue-500/15">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-sm font-medium text-blue-800">Informações de Acesso</span>
+                  <span className="text-sm font-medium text-blue-800 dark:text-blue-100">Informações de Acesso</span>
                 </div>
-                <p className="text-sm text-blue-700">
+                <p className="text-sm text-blue-700 dark:text-blue-200">
                   <strong>Senha padrão:</strong> 123<br/>
                   <strong>Email:</strong> Sempre termina com @escola.com<br/>
                   <strong>Matrícula:</strong> Gerada automaticamente (6 dígitos aleatórios únicos)
@@ -516,11 +518,11 @@ const StudentsPage = () => {
       </div>
 
       {/* Filters */}
-      <Card className="border border-gray-200">
+      <Card className="border border-border">
         <CardContent className="pt-6">
           <div className="flex items-center gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
               <Input 
                 placeholder="Buscar alunos..." 
                 className="pl-10"
@@ -557,11 +559,11 @@ const StudentsPage = () => {
 
       {/* Lista de alunos */}
       {filteredStudents.length === 0 ? (
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="p-12 text-center">
-            <User className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Nenhum aluno encontrado</h3>
-            <p className="text-gray-600 mb-4">
+            <User className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Nenhum aluno encontrado</h3>
+            <p className="text-muted-foreground mb-4">
               {searchTerm || filterStatus !== 'all' || filterClass !== 'all'
                 ? 'Tente ajustar os filtros de busca.' 
                 : 'Comece criando o primeiro aluno da escola.'}
@@ -569,7 +571,7 @@ const StudentsPage = () => {
             {!searchTerm && filterStatus === 'all' && filterClass === 'all' && (
               <Button 
                 onClick={() => setIsCreateDialogOpen(true)}
-                className="bg-purple-600 hover:bg-purple-700"
+                className="bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-400"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Criar Primeiro Aluno
@@ -580,27 +582,27 @@ const StudentsPage = () => {
       ) : (
         <div className="grid gap-4">
           {filteredStudents.map((student: any) => (
-            <Card key={student.id} className="border border-gray-200 hover:shadow-md transition-shadow">
+            <Card key={student.id} className="border border-border hover:shadow-md transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <Avatar className="h-12 w-12">
                       <AvatarImage src={student.avatar} />
-                      <AvatarFallback className="bg-green-100 text-green-600">
+                      <AvatarFallback className="bg-green-100 text-green-600 dark:text-green-300">
                         {getUserInitials(student.firstName, student.lastName)}
                       </AvatarFallback>
                     </Avatar>
                     
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">
+                      <h3 className="text-lg font-semibold text-foreground">
                         {student.firstName} {student.lastName}
                       </h3>
-                      <p className="text-gray-600">{student.email}</p>
+                      <p className="text-muted-foreground">{student.email}</p>
                       <div className="flex items-center space-x-4 mt-1">
                         <Badge className={getStatusColor(student.status)}>
                           {getStatusText(student.status)}
                         </Badge>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-muted-foreground">
                           Matrícula: {student.registrationNumber}
                         </span>
                       </div>
@@ -608,22 +610,22 @@ const StudentsPage = () => {
                       {/* Informações da Turma */}
                       <div className="mt-3">
                         {student.classInfo ? (
-                          <div className="p-3 bg-green-50 rounded-lg">
+                          <div className="rounded-lg bg-green-500/10 p-3 dark:bg-green-500/15">
                             <div className="flex items-center gap-2">
-                              <GraduationCap className="h-4 w-4 text-green-600" />
-                              <span className="text-sm font-medium text-green-800">
+                              <GraduationCap className="h-4 w-4 text-green-600 dark:text-green-300" />
+                              <span className="text-sm font-medium text-green-800 dark:text-green-100">
                                 {student.classInfo.classGrade}º {student.classInfo.classSection}
                               </span>
                             </div>
-                            <p className="text-xs text-green-600 mt-1">
+                            <p className="text-xs text-green-600 dark:text-green-300 mt-1">
                               Matriculado em: {new Date(student.classInfo.enrollmentDate).toLocaleDateString('pt-BR')}
                             </p>
                           </div>
                         ) : (
-                          <div className="p-3 bg-gray-50 rounded-lg">
+                          <div className="rounded-lg bg-muted/60 p-3">
                             <div className="flex items-center gap-2">
-                              <GraduationCap className="h-4 w-4 text-gray-400" />
-                              <span className="text-sm text-gray-500">Nenhuma turma atribuída</span>
+                              <GraduationCap className="h-4 w-4 text-muted-foreground/60" />
+                              <span className="text-sm text-muted-foreground">Nenhuma turma atribuída</span>
                             </div>
                           </div>
                         )}
@@ -654,7 +656,7 @@ const StudentsPage = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      className="text-destructive hover:bg-destructive/10 hover:text-destructive"
                       onClick={() => handleDeleteStudent(student)}
                     >
                       <Trash2 className="h-4 w-4 mr-1" />
@@ -777,7 +779,7 @@ const StudentsPage = () => {
               <Label className="text-base font-semibold">Disciplinas (Opcional)</Label>
               <div className="space-y-3">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 w-4 h-4" />
                   <Input
                     placeholder="Buscar disciplinas..."
                     value={subjectSearchTerm}
@@ -814,7 +816,7 @@ const StudentsPage = () => {
                         </div>
                       ))
                     ) : (
-                      <p className="text-gray-500 text-sm">Nenhuma disciplina encontrada</p>
+                      <p className="text-muted-foreground text-sm">Nenhuma disciplina encontrada</p>
                     )}
                   </div>
                 )}
@@ -836,7 +838,7 @@ const StudentsPage = () => {
                                   selectedSubjects: (prev.selectedSubjects || []).filter(id => id !== subjectId)
                                 }));
                               }}
-                              className="ml-1 hover:bg-gray-300 rounded-full w-4 h-4 flex items-center justify-center text-xs"
+                              className="ml-1 hover:bg-muted rounded-full w-4 h-4 flex items-center justify-center text-xs"
                             >
                               ×
                             </button>
@@ -856,7 +858,7 @@ const StudentsPage = () => {
             </Button>
             <Button 
               onClick={handleUpdateStudent}
-              className="bg-purple-600 hover:bg-purple-700"
+              className="bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-400"
               disabled={updateStudentMutation.isPending}
             >
               {updateStudentMutation.isPending ? 'Salvando...' : 'Salvar Alterações'}
@@ -870,7 +872,7 @@ const StudentsPage = () => {
         <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <User className="h-5 w-5 text-green-600" />
+              <User className="h-5 w-5 text-green-600 dark:text-green-300" />
               Detalhes do Aluno
             </DialogTitle>
           </DialogHeader>
@@ -880,15 +882,15 @@ const StudentsPage = () => {
               <div className="flex items-center space-x-4">
                 <Avatar className="h-16 w-16">
                   <AvatarImage src={selectedStudent.avatar} />
-                  <AvatarFallback className="bg-green-100 text-green-600 text-lg">
+                  <AvatarFallback className="bg-green-100 text-green-600 dark:text-green-300 text-lg">
                     {getUserInitials(selectedStudent.firstName, selectedStudent.lastName)}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900">
+                  <h3 className="text-xl font-semibold text-foreground">
                     {selectedStudent.firstName} {selectedStudent.lastName}
                   </h3>
-                  <p className="text-gray-600">{selectedStudent.email}</p>
+                  <p className="text-muted-foreground">{selectedStudent.email}</p>
                   <Badge className={getStatusColor(selectedStudent.status)}>
                     {getStatusText(selectedStudent.status)}
                   </Badge>
@@ -897,26 +899,26 @@ const StudentsPage = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Matrícula</Label>
-                  <p className="text-gray-900">{selectedStudent.registrationNumber}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Matrícula</Label>
+                  <p className="text-foreground">{selectedStudent.registrationNumber}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Telefone</Label>
-                  <p className="text-gray-900">{selectedStudent.phone || 'Não informado'}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Telefone</Label>
+                  <p className="text-foreground">{selectedStudent.phone || 'Não informado'}</p>
                 </div>
                 <div className="col-span-2">
-                  <Label className="text-sm font-medium text-gray-500">Endereço</Label>
-                  <p className="text-gray-900">{selectedStudent.address || 'Não informado'}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Endereço</Label>
+                  <p className="text-foreground">{selectedStudent.address || 'Não informado'}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Criado em</Label>
-                  <p className="text-gray-900">
+                  <Label className="text-sm font-medium text-muted-foreground">Criado em</Label>
+                  <p className="text-foreground">
                     {new Date(selectedStudent.createdAt).toLocaleDateString('pt-BR')}
                   </p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Atualizado em</Label>
-                  <p className="text-gray-900">
+                  <Label className="text-sm font-medium text-muted-foreground">Atualizado em</Label>
+                  <p className="text-foreground">
                     {selectedStudent.updatedAt ? new Date(selectedStudent.updatedAt).toLocaleDateString('pt-BR') : 'Não disponível'}
                   </p>
                 </div>
@@ -924,15 +926,15 @@ const StudentsPage = () => {
                 {/* Informações da Turma */}
                 {studentDetails?.class && (
                   <div>
-                    <Label className="text-sm font-medium text-gray-500">Turma</Label>
-                    <div className="p-3 bg-blue-50 rounded-lg">
+                    <Label className="text-sm font-medium text-muted-foreground">Turma</Label>
+                    <div className="rounded-lg bg-blue-500/10 p-3 dark:bg-blue-500/15">
                       <div className="flex items-center gap-2">
-                        <GraduationCap className="h-4 w-4 text-blue-600" />
-                        <span className="font-medium text-blue-800">
+                        <GraduationCap className="h-4 w-4 text-blue-600 dark:text-blue-200" />
+                        <span className="font-medium text-blue-800 dark:text-blue-100">
                           {studentDetails.class.classGrade}º {studentDetails.class.classSection}
                         </span>
                       </div>
-                      <p className="text-sm text-blue-600 mt-1">
+                      <p className="text-sm text-blue-600 dark:text-blue-200 mt-1">
                         Matriculado em: {new Date(studentDetails.class.enrollmentDate).toLocaleDateString('pt-BR')}
                       </p>
                     </div>
@@ -941,11 +943,11 @@ const StudentsPage = () => {
                 
                 {!studentDetails?.class && (
                   <div>
-                    <Label className="text-sm font-medium text-gray-500">Turma</Label>
-                    <div className="p-3 bg-gray-50 rounded-lg">
+                    <Label className="text-sm font-medium text-muted-foreground">Turma</Label>
+                    <div className="rounded-lg bg-muted/60 p-3">
                       <div className="flex items-center gap-2">
-                        <GraduationCap className="h-4 w-4 text-gray-400" />
-                        <span className="text-gray-500">Nenhuma turma atribuída</span>
+                        <GraduationCap className="h-4 w-4 text-muted-foreground/60" />
+                        <span className="text-muted-foreground">Nenhuma turma atribuída</span>
                       </div>
                     </div>
                   </div>
@@ -966,7 +968,7 @@ const StudentsPage = () => {
       <Dialog open={isDependenciesDialogOpen} onOpenChange={setIsDependenciesDialogOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-red-600">⚠️ Exclusão com Vínculos</DialogTitle>
+            <DialogTitle className="text-destructive">⚠️ï¸ Exclusão com Vínculos</DialogTitle>
             <DialogDescription>
               Este aluno possui vínculos no sistema que serão removidos:
             </DialogDescription>
@@ -1043,3 +1045,5 @@ const StudentsPage = () => {
 };
 
 export default StudentsPage;
+
+

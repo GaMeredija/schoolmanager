@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Dialog,
   DialogContent,
@@ -77,8 +77,8 @@ const AdminInstructionModal: React.FC<AdminInstructionModalProps> = ({ isOpen, o
               <CheckCircle2 className="h-5 w-5 text-white" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900">Controle total!</div>
-          <div className="text-gray-600">Gerencie toda a instituição</div>
+          <div className="text-2xl font-bold text-foreground">Controle total!</div>
+          <div className="text-muted-foreground">Gerencie toda a instituição</div>
         </div>
       ),
       keyPoints: [
@@ -137,23 +137,23 @@ const AdminInstructionModal: React.FC<AdminInstructionModalProps> = ({ isOpen, o
             </div>
           </div>
           <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
               <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                 <Users className="h-4 w-4 text-blue-600" />
               </div>
               <div className="flex-1">
-                <div className="font-medium text-gray-900">Criar Usuários</div>
-                <div className="text-xs text-gray-500">Professores, alunos, coordenadores</div>
+                <div className="font-medium text-foreground">Criar Usuários</div>
+                <div className="text-xs text-muted-foreground">Professores, alunos, coordenadores</div>
               </div>
               <Badge className="bg-blue-100 text-blue-800 text-xs">Ativo</Badge>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
               <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                 <Edit className="h-4 w-4 text-green-600" />
               </div>
               <div className="flex-1">
-                <div className="font-medium text-gray-900">Editar Perfis</div>
-                <div className="text-xs text-gray-500">Modificar informações</div>
+                <div className="font-medium text-foreground">Editar Perfis</div>
+                <div className="text-xs text-muted-foreground">Modificar informações</div>
               </div>
               <Badge className="bg-green-100 text-green-800 text-xs">Disponível</Badge>
             </div>
@@ -190,9 +190,9 @@ const AdminInstructionModal: React.FC<AdminInstructionModalProps> = ({ isOpen, o
               <div className="text-sm text-purple-600">Disciplinas</div>
             </div>
           </div>
-          <div className="p-3 bg-gray-50 rounded-lg">
+          <div className="p-3 bg-muted/60 rounded-lg">
             <div className="flex items-center gap-2">
-              <Settings className="h-4 w-4 text-gray-600" />
+              <Settings className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm font-medium">Configure estrutura</span>
             </div>
           </div>
@@ -209,38 +209,38 @@ const AdminInstructionModal: React.FC<AdminInstructionModalProps> = ({ isOpen, o
       id: 'system',
       title: 'Sistema',
       subtitle: 'Controle total do sistema',
-      icon: <Settings className="h-8 w-8 text-gray-600" />,
+      icon: <Settings className="h-8 w-8 text-muted-foreground" />,
       visual: (
         <div className="space-y-4">
           <div className="flex items-center justify-center">
-            <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl border-2 border-gray-200">
-              <Settings className="h-6 w-6 text-gray-600" />
-              <span className="font-medium text-gray-800">Controle do Sistema</span>
+            <div className="flex items-center gap-3 p-4 bg-muted/60 rounded-xl border-2 border-border">
+              <Settings className="h-6 w-6 text-muted-foreground" />
+              <span className="font-medium text-foreground">Controle do Sistema</span>
             </div>
           </div>
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                   <Database className="h-4 w-4 text-green-600" />
                 </div>
-                <span className="font-medium text-gray-900">Banco de Dados</span>
+                <span className="font-medium text-foreground">Banco de Dados</span>
               </div>
               <div className="text-right">
                 <div className="text-lg font-bold text-green-600">Online</div>
-                <div className="text-xs text-gray-500">Funcionando</div>
+                <div className="text-xs text-muted-foreground">Funcionando</div>
               </div>
             </div>
-            <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                   <Globe className="h-4 w-4 text-blue-600" />
                 </div>
-                <span className="font-medium text-gray-900">Servidor</span>
+                <span className="font-medium text-foreground">Servidor</span>
               </div>
               <div className="text-right">
                 <div className="text-lg font-bold text-blue-600">Ativo</div>
-                <div className="text-xs text-gray-500">Porta 3000</div>
+                <div className="text-xs text-muted-foreground">Porta 3000</div>
               </div>
             </div>
           </div>
@@ -315,10 +315,10 @@ const AdminInstructionModal: React.FC<AdminInstructionModalProps> = ({ isOpen, o
             <div className="flex items-center gap-3">
               {currentStepData.icon}
               <div>
-                <DialogTitle className="text-2xl font-bold text-gray-900">
+                <DialogTitle className="text-2xl font-bold text-foreground">
                   {currentStepData.title}
                 </DialogTitle>
-                <p className="text-gray-600 mt-1">{currentStepData.subtitle}</p>
+                <p className="text-muted-foreground mt-1">{currentStepData.subtitle}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -351,17 +351,17 @@ const AdminInstructionModal: React.FC<AdminInstructionModalProps> = ({ isOpen, o
               {/* Key Points Side */}
               <div className="space-y-6">
                 <div>
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                  <h4 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
                     <Target className="h-5 w-5 text-purple-600" />
                     Principais funcionalidades:
                   </h4>
                   <div className="space-y-3">
                     {currentStepData.keyPoints.map((point, index) => (
-                      <div key={index} className="flex items-center gap-3 p-4 bg-white rounded-xl border border-gray-200 hover:shadow-sm transition-all">
+                      <div key={index} className="flex items-center gap-3 p-4 bg-card rounded-xl border border-border hover:shadow-sm transition-all">
                         <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
                           <CheckCircle2 className="h-4 w-4 text-purple-600" />
                         </div>
-                        <span className="text-gray-800 font-medium">{point}</span>
+                        <span className="text-foreground font-medium">{point}</span>
                       </div>
                     ))}
                   </div>
@@ -371,7 +371,7 @@ const AdminInstructionModal: React.FC<AdminInstructionModalProps> = ({ isOpen, o
           </div>
 
           {/* Navigation */}
-          <div className="border-t border-gray-200 p-6">
+          <div className="border-t border-border p-6">
             <div className="flex items-center justify-between">
               <Button
                 variant="outline"

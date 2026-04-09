@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -79,7 +79,7 @@ export function TeacherActivityDetail() {
       case 'active':
         return <Badge variant="outline" className="text-green-600 border-green-600">Ativa</Badge>;
       case 'draft':
-        return <Badge variant="outline" className="text-gray-600 border-gray-600">Rascunho</Badge>;
+        return <Badge variant="outline" className="text-muted-foreground border-gray-600">Rascunho</Badge>;
       case 'archived':
         return <Badge variant="outline" className="text-red-600 border-red-600">Arquivada</Badge>;
       default:
@@ -119,8 +119,8 @@ export function TeacherActivityDetail() {
       <MainLayout>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Atividade não encontrada</h2>
-            <p className="text-gray-600 mb-4">A atividade solicitada não foi encontrada.</p>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Atividade não encontrada</h2>
+            <p className="text-muted-foreground mb-4">A atividade solicitada não foi encontrada.</p>
             <Button onClick={() => navigate('/teacher/activities')}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Voltar às Atividades
@@ -145,8 +145,8 @@ export function TeacherActivityDetail() {
               Voltar
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{activity.title}</h1>
-              <p className="text-gray-600">{getTypeLabel(activity.type)}</p>
+              <h1 className="text-2xl font-bold text-foreground">{activity.title}</h1>
+              <p className="text-muted-foreground">{getTypeLabel(activity.type)}</p>
             </div>
           </div>
           
@@ -173,12 +173,12 @@ export function TeacherActivityDetail() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <h3 className="font-medium text-gray-900 mb-2">Descrição</h3>
-                <p className="text-gray-700">{activity.description}</p>
+                <h3 className="font-medium text-foreground mb-2">Descrição</h3>
+                <p className="text-foreground">{activity.description}</p>
               </div>
               
               <div className="space-y-4">
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-muted-foreground">
                   <Calendar className="w-4 h-4 mr-2" />
                   <div>
                     <p className="text-sm">Prazo de Entrega</p>
@@ -188,7 +188,7 @@ export function TeacherActivityDetail() {
                   </div>
                 </div>
                 
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-muted-foreground">
                   <Clock className="w-4 h-4 mr-2" />
                   <div>
                     <p className="text-sm">Horário</p>
@@ -210,7 +210,7 @@ export function TeacherActivityDetail() {
               
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm text-gray-600">Pontuação Máxima</p>
+                  <p className="text-sm text-muted-foreground">Pontuação Máxima</p>
                   <div className="flex items-center">
                     <Star className="w-4 h-4 text-yellow-500 mr-1" />
                     <span className="font-medium">{activity.maxGrade} pontos</span>
@@ -218,7 +218,7 @@ export function TeacherActivityDetail() {
                 </div>
                 
                 <div>
-                  <p className="text-sm text-gray-600">Submissões em Atraso</p>
+                  <p className="text-sm text-muted-foreground">Submissões em Atraso</p>
                   <p className="font-medium">
                     {activity.allowLateSubmission ? (
                       <>Permitidas (penalidade: -{activity.latePenalty} pontos)</>
@@ -270,11 +270,11 @@ export function TeacherActivityDetail() {
               </CardHeader>
               <CardContent>
                 <div className="text-center py-8">
-                  <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <BarChart3 className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-foreground mb-2">
                     Análises em Desenvolvimento
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Em breve você poderá visualizar estatísticas detalhadas sobre o desempenho dos alunos.
                   </p>
                 </div>
@@ -294,20 +294,20 @@ export function TeacherActivityDetail() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Status</label>
+                      <label className="text-sm font-medium text-foreground">Status</label>
                       <p className="mt-1">{getStatusBadge(activity.status)}</p>
                     </div>
                     
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Criada em</label>
-                      <p className="mt-1 text-gray-900">
+                      <label className="text-sm font-medium text-foreground">Criada em</label>
+                      <p className="mt-1 text-foreground">
                         {format(new Date(activity.createdAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                       </p>
                     </div>
                     
                     <div>
-                      <label className="text-sm font-medium text-gray-700">Última atualização</label>
-                      <p className="mt-1 text-gray-900">
+                      <label className="text-sm font-medium text-foreground">Ãšltima atualização</label>
+                      <p className="mt-1 text-foreground">
                         {format(new Date(activity.updatedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                       </p>
                     </div>
@@ -343,4 +343,5 @@ export function TeacherActivityDetail() {
     </MainLayout>
   );
 }
+
 

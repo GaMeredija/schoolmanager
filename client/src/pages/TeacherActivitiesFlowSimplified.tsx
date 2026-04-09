@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -107,7 +107,7 @@ export default function TeacherActivitiesFlowSimplified() {
   const getStatusColor = (activity: Activity) => {
     if (activity.pendingCount > 0) return 'border-orange-200 bg-orange-50';
     if (activity.submissionCount > 0) return 'border-green-200 bg-green-50';
-    return 'border-gray-200 bg-gray-50';
+    return 'border-border bg-muted/60';
   };
 
   const getStatusBadge = (activity: Activity) => {
@@ -121,7 +121,7 @@ export default function TeacherActivitiesFlowSimplified() {
         {activity.gradedCount}/{activity.submissionCount} avaliadas
       </Badge>;
     }
-    return <Badge variant="outline" className="text-gray-600 border-gray-600">
+    return <Badge variant="outline" className="text-muted-foreground border-border">
       Sem submissões
     </Badge>;
   };
@@ -132,13 +132,13 @@ export default function TeacherActivitiesFlowSimplified() {
         <div className="flex justify-between items-start mb-4">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <h3 className="font-semibold text-lg text-gray-900">{activity.title}</h3>
+              <h3 className="font-semibold text-lg text-foreground">{activity.title}</h3>
               {getStatusBadge(activity)}
             </div>
             
-            <p className="text-gray-600 text-sm mb-3 line-clamp-2">{activity.description}</p>
+            <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{activity.description}</p>
             
-            <div className="flex items-center gap-4 text-sm text-gray-500">
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-1">
                 <FileText className="w-4 h-4" />
                 <span>{activity.subjectName}</span>
@@ -200,21 +200,21 @@ export default function TeacherActivitiesFlowSimplified() {
 
         {/* Estatísticas da atividade */}
         {activity.submissionCount > 0 && (
-          <div className="flex items-center gap-4 pt-3 border-t border-gray-200">
+          <div className="flex items-center gap-4 pt-3 border-t border-border">
             <div className="flex items-center gap-1 text-sm">
               <Users className="w-4 h-4 text-blue-600" />
-              <span className="text-gray-600">{activity.submissionCount} submissões</span>
+              <span className="text-muted-foreground">{activity.submissionCount} submissões</span>
             </div>
             {activity.gradedCount > 0 && (
               <div className="flex items-center gap-1 text-sm">
                 <CheckCircle className="w-4 h-4 text-green-600" />
-                <span className="text-gray-600">{activity.gradedCount} avaliadas</span>
+                <span className="text-muted-foreground">{activity.gradedCount} avaliadas</span>
               </div>
             )}
             {activity.pendingCount > 0 && (
               <div className="flex items-center gap-1 text-sm">
                 <Clock className="w-4 h-4 text-orange-600" />
-                <span className="text-gray-600">{activity.pendingCount} pendentes</span>
+                <span className="text-muted-foreground">{activity.pendingCount} pendentes</span>
               </div>
             )}
           </div>
@@ -242,8 +242,8 @@ export default function TeacherActivitiesFlowSimplified() {
         {/* Cabeçalho */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Minhas Atividades</h1>
-            <p className="text-gray-600 mt-1">Gerencie todas as suas atividades e avaliações</p>
+            <h1 className="text-3xl font-bold text-foreground">Minhas Atividades</h1>
+            <p className="text-muted-foreground mt-1">Gerencie todas as suas atividades e avaliações</p>
           </div>
           
           <Button 
@@ -259,29 +259,29 @@ export default function TeacherActivitiesFlowSimplified() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card>
             <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-gray-900">{stats.total}</div>
-              <div className="text-sm text-gray-600">Total</div>
+              <div className="text-2xl font-bold text-foreground">{stats.total}</div>
+              <div className="text-sm text-muted-foreground">Total</div>
             </CardContent>
           </Card>
           
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-orange-600">{stats.totalPending}</div>
-              <div className="text-sm text-gray-600">Para Avaliar</div>
+              <div className="text-sm text-muted-foreground">Para Avaliar</div>
             </CardContent>
           </Card>
           
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">{stats.totalSubmissions}</div>
-              <div className="text-sm text-gray-600">Submissões</div>
+              <div className="text-sm text-muted-foreground">Submissões</div>
             </CardContent>
           </Card>
           
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">{stats.completed}</div>
-              <div className="text-sm text-gray-600">Concluídas</div>
+              <div className="text-sm text-muted-foreground">Concluídas</div>
             </CardContent>
           </Card>
         </div>
@@ -307,11 +307,11 @@ export default function TeacherActivitiesFlowSimplified() {
             {allActivities.length === 0 ? (
               <Card>
                 <CardContent className="p-8 text-center">
-                  <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <FileText className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-foreground mb-2">
                     Nenhuma atividade ainda
                   </h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-muted-foreground mb-4">
                     Comece criando sua primeira atividade para os alunos.
                   </p>
                   <Button onClick={() => navigate('/create-activity')}>
@@ -332,10 +332,10 @@ export default function TeacherActivitiesFlowSimplified() {
               <Card>
                 <CardContent className="p-8 text-center">
                   <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
-                    Tudo em dia! 🎉
+                  <h3 className="text-lg font-medium text-foreground mb-2">
+                    Tudo em dia! ðŸŽ‰
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Não há submissões pendentes de avaliação no momento.
                   </p>
                 </CardContent>
@@ -351,11 +351,11 @@ export default function TeacherActivitiesFlowSimplified() {
             {completedActivities.length === 0 ? (
               <Card>
                 <CardContent className="p-8 text-center">
-                  <Star className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <Star className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-foreground mb-2">
                     Nenhuma atividade concluída
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     As atividades com todas as submissões avaliadas aparecerão aqui.
                   </p>
                 </CardContent>
@@ -382,3 +382,4 @@ export default function TeacherActivitiesFlowSimplified() {
     </MainLayout>
   );
 }
+

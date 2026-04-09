@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CreateButton from '@/components/ui/create-button';
@@ -251,8 +251,8 @@ const CoordinatorsPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gestão de Coordenadores</h1>
-          <p className="text-gray-600 mt-1">Gerencie todos os coordenadores da escola</p>
+          <h1 className="text-3xl font-bold text-foreground">Gestão de Coordenadores</h1>
+          <p className="text-muted-foreground mt-1">Gerencie todos os coordenadores da escola</p>
         </div>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
@@ -343,11 +343,11 @@ const CoordinatorsPage = () => {
       </div>
 
       {/* Filtros */}
-      <Card className="border border-gray-200">
+      <Card className="border border-border">
         <CardContent className="p-4">
           <div className="flex items-center space-x-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
               <Input 
                 placeholder="Buscar coordenadores..." 
                 className="pl-10"
@@ -371,11 +371,11 @@ const CoordinatorsPage = () => {
 
       {/* Lista de coordenadores */}
       {filteredCoordinators.length === 0 ? (
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="p-12 text-center">
-            <UserCheck className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Nenhum coordenador encontrado</h3>
-            <p className="text-gray-600 mb-4">
+            <UserCheck className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Nenhum coordenador encontrado</h3>
+            <p className="text-muted-foreground mb-4">
               {searchTerm || filterStatus !== 'all' 
                 ? 'Tente ajustar os filtros de busca.' 
                 : 'Comece criando o primeiro coordenador da escola.'}
@@ -394,7 +394,7 @@ const CoordinatorsPage = () => {
       ) : (
         <div className="grid gap-4">
           {filteredCoordinators.map((coordinator) => (
-            <Card key={coordinator.id} className="border border-gray-200 hover:shadow-md transition-shadow">
+            <Card key={coordinator.id} className="border border-border hover:shadow-md transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
@@ -405,10 +405,10 @@ const CoordinatorsPage = () => {
                     </Avatar>
                     
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">
+                      <h3 className="text-lg font-semibold text-foreground">
                         {coordinator.firstName} {coordinator.lastName}
                       </h3>
-                      <p className="text-gray-600">{coordinator.email}</p>
+                      <p className="text-muted-foreground">{coordinator.email}</p>
                       <div className="flex items-center space-x-4 mt-1">
                         <Badge className={
                           coordinator.status === 'active' ? 'bg-green-100 text-green-800' : 
@@ -419,7 +419,7 @@ const CoordinatorsPage = () => {
                            coordinator.status === 'pendente' ? 'Aprovar' : 
                            'Inativo'}
                         </Badge>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-muted-foreground">
                           Matrícula: {coordinator.registrationNumber}
                         </span>
                       </div>
@@ -479,10 +479,10 @@ const CoordinatorsPage = () => {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900">
+                  <h3 className="text-xl font-semibold text-foreground">
                     {selectedCoordinator.firstName} {selectedCoordinator.lastName}
                   </h3>
-                  <p className="text-gray-600">{selectedCoordinator.email}</p>
+                  <p className="text-muted-foreground">{selectedCoordinator.email}</p>
                   <Badge className={selectedCoordinator.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
                     {selectedCoordinator.status === 'active' ? 'Ativo' : 'Inativo'}
                   </Badge>
@@ -491,26 +491,26 @@ const CoordinatorsPage = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Matrícula</Label>
-                  <p className="text-gray-900">{selectedCoordinator.registrationNumber}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Matrícula</Label>
+                  <p className="text-foreground">{selectedCoordinator.registrationNumber}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Telefone</Label>
-                  <p className="text-gray-900">{selectedCoordinator.phone || 'Não informado'}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Telefone</Label>
+                  <p className="text-foreground">{selectedCoordinator.phone || 'Não informado'}</p>
                 </div>
                 <div className="col-span-2">
-                  <Label className="text-sm font-medium text-gray-500">Endereço</Label>
-                  <p className="text-gray-900">{selectedCoordinator.address || 'Não informado'}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Endereço</Label>
+                  <p className="text-foreground">{selectedCoordinator.address || 'Não informado'}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Criado em</Label>
-                  <p className="text-gray-900">
+                  <Label className="text-sm font-medium text-muted-foreground">Criado em</Label>
+                  <p className="text-foreground">
                     {new Date(selectedCoordinator.createdAt).toLocaleDateString('pt-BR')}
                   </p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Atualizado em</Label>
-                  <p className="text-gray-900">
+                  <Label className="text-sm font-medium text-muted-foreground">Atualizado em</Label>
+                  <p className="text-foreground">
                     {new Date(selectedCoordinator.updatedAt).toLocaleDateString('pt-BR')}
                   </p>
                 </div>
@@ -661,6 +661,7 @@ const CoordinatorsPage = () => {
 };
 
 export default CoordinatorsPage;
+
 
 
 

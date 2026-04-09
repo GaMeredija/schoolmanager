@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useRoute, useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -183,7 +183,7 @@ export default function ActivityDetailForTeacher() {
       case 'active':
         return <Badge variant="outline" className="text-green-600 border-green-600">Ativa</Badge>;
       case 'draft':
-        return <Badge variant="outline" className="text-gray-600 border-gray-600">Rascunho</Badge>;
+        return <Badge variant="outline" className="text-muted-foreground border-border">Rascunho</Badge>;
       case 'archived':
         return <Badge variant="outline" className="text-red-600 border-red-600">Arquivada</Badge>;
       default:
@@ -266,8 +266,8 @@ export default function ActivityDetailForTeacher() {
       <TeacherLayout>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Atividade não encontrada</h2>
-            <p className="text-gray-600 mb-4">A atividade solicitada não foi encontrada.</p>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Atividade não encontrada</h2>
+            <p className="text-muted-foreground mb-4">A atividade solicitada não foi encontrada.</p>
             <Button onClick={() => navigate('/teacher/activities')}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Voltar às Atividades
@@ -292,8 +292,8 @@ export default function ActivityDetailForTeacher() {
               Voltar
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{activity.title}</h1>
-              <p className="text-gray-600">{activity.type && getTypeLabel(activity.type)}</p>
+              <h1 className="text-2xl font-bold text-foreground">{activity.title}</h1>
+              <p className="text-muted-foreground">{activity.type && getTypeLabel(activity.type)}</p>
             </div>
           </div>
           
@@ -320,19 +320,19 @@ export default function ActivityDetailForTeacher() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <h3 className="font-medium text-gray-900 mb-2">Descrição</h3>
-                <p className="text-gray-700">{activity.description}</p>
+                <h3 className="font-medium text-foreground mb-2">Descrição</h3>
+                <p className="text-foreground">{activity.description}</p>
                 
                 {activity.instructions && (
                   <div className="mt-4">
-                    <h4 className="font-medium text-gray-900 mb-1">Instruções:</h4>
-                    <p className="text-gray-700 text-sm">{activity.instructions}</p>
+                    <h4 className="font-medium text-foreground mb-1">Instruções:</h4>
+                    <p className="text-foreground text-sm">{activity.instructions}</p>
                   </div>
                 )}
               </div>
               
               <div className="space-y-4">
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-muted-foreground">
                   <Calendar className="w-4 h-4 mr-2" />
                   <div>
                     <p className="text-sm">Prazo de Entrega</p>
@@ -342,7 +342,7 @@ export default function ActivityDetailForTeacher() {
                   </div>
                 </div>
                 
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-muted-foreground">
                   <Clock className="w-4 h-4 mr-2" />
                   <div>
                     <p className="text-sm">Horário</p>
@@ -364,7 +364,7 @@ export default function ActivityDetailForTeacher() {
               
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm text-gray-600">Pontuação Máxima</p>
+                  <p className="text-sm text-muted-foreground">Pontuação Máxima</p>
                   <div className="flex items-center">
                     <Star className="w-4 h-4 text-yellow-500 mr-1" />
                     <span className="font-medium">{activity.maxGrade} pontos</span>
@@ -372,7 +372,7 @@ export default function ActivityDetailForTeacher() {
                 </div>
                 
                 <div>
-                  <p className="text-sm text-gray-600">Submissões em Atraso</p>
+                  <p className="text-sm text-muted-foreground">Submissões em Atraso</p>
                   <p className="font-medium">
                     {activity.allowLateSubmission ? (
                       <>Permitidas (penalidade: -{activity.latePenalty} pontos)</>
@@ -387,19 +387,19 @@ export default function ActivityDetailForTeacher() {
             {/* Arquivos da Atividade */}
             {activity.files && activity.files.length > 0 && (
               <div className="mt-6 pt-6 border-t">
-                <h3 className="font-medium text-gray-900 mb-3">Arquivos da Atividade</h3>
+                <h3 className="font-medium text-foreground mb-3">Arquivos da Atividade</h3>
                 <div className="space-y-2">
                   {activity.files.map((file) => (
-                    <div key={file.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border">
+                    <div key={file.id} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg border">
                       <div className="flex items-center space-x-3">
                         {file.fileType.startsWith('image/') ? (
                           <Image className="w-4 h-4 text-blue-600" />
                         ) : (
-                          <FileText className="w-4 h-4 text-gray-600" />
+                          <FileText className="w-4 h-4 text-muted-foreground" />
                         )}
                         <div>
                           <p className="text-sm font-medium">{file.originalFileName}</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-muted-foreground">
                             {formatFileSize(file.fileSize)} • {file.fileCategory}
                           </p>
                         </div>
@@ -455,10 +455,10 @@ export default function ActivityDetailForTeacher() {
           <Card>
             <CardContent className="p-4 text-center">
               <div className="flex items-center justify-center mb-2">
-                <Users className="w-5 h-5 text-gray-600" />
+                <Users className="w-5 h-5 text-muted-foreground" />
               </div>
               <div className="text-2xl font-bold">{stats.total}</div>
-              <div className="text-sm text-gray-600">Total</div>
+              <div className="text-sm text-muted-foreground">Total</div>
             </CardContent>
           </Card>
           
@@ -468,7 +468,7 @@ export default function ActivityDetailForTeacher() {
                 <Send className="w-5 h-5 text-blue-600" />
               </div>
               <div className="text-2xl font-bold text-blue-600">{stats.submitted}</div>
-              <div className="text-sm text-gray-600">Entregues</div>
+              <div className="text-sm text-muted-foreground">Entregues</div>
             </CardContent>
           </Card>
           
@@ -478,7 +478,7 @@ export default function ActivityDetailForTeacher() {
                 <CheckCircle className="w-5 h-5 text-green-600" />
               </div>
               <div className="text-2xl font-bold text-green-600">{stats.graded}</div>
-              <div className="text-sm text-gray-600">Avaliadas</div>
+              <div className="text-sm text-muted-foreground">Avaliadas</div>
             </CardContent>
           </Card>
           
@@ -488,7 +488,7 @@ export default function ActivityDetailForTeacher() {
                 <AlertCircle className="w-5 h-5 text-red-600" />
               </div>
               <div className="text-2xl font-bold text-red-600">{stats.late}</div>
-              <div className="text-sm text-gray-600">Atrasadas</div>
+              <div className="text-sm text-muted-foreground">Atrasadas</div>
             </CardContent>
           </Card>
           
@@ -498,7 +498,7 @@ export default function ActivityDetailForTeacher() {
                 <Star className="w-5 h-5 text-yellow-600" />
               </div>
               <div className="text-2xl font-bold">{stats.averageGrade.toFixed(1)}</div>
-              <div className="text-sm text-gray-600">Média</div>
+              <div className="text-sm text-muted-foreground">Média</div>
             </CardContent>
           </Card>
         </div>
@@ -556,7 +556,7 @@ export default function ActivityDetailForTeacher() {
 
                   {stats.submitted > 0 && (
                     <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
-                      <h4 className="font-medium text-orange-900 mb-2">⚠️ Ação Necessária</h4>
+                      <h4 className="font-medium text-orange-900 mb-2">⚠️ï¸ Ação Necessária</h4>
                       <p className="text-orange-800 mb-3">
                         Há {stats.submitted} submissão(ões) aguardando sua avaliação.
                       </p>
@@ -578,11 +578,11 @@ export default function ActivityDetailForTeacher() {
             {submissions.length === 0 ? (
               <Card>
                 <CardContent className="p-8 text-center">
-                  <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <FileText className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-foreground mb-2">
                     Nenhuma submissão ainda
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Os alunos ainda não enviaram suas atividades. As submissões aparecerão aqui quando enviadas.
                   </p>
                 </CardContent>
@@ -611,3 +611,4 @@ export default function ActivityDetailForTeacher() {
       </TeacherLayout>
     );
   }
+

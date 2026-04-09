@@ -71,7 +71,7 @@ const CoordinatorLogs = () => {
     if (!searchTerm) return true;
     const searchLower = searchTerm.toLowerCase();
     
-    // Busca por nome do usuÃ¡rio (com ou sem @)
+    // Busca por nome do usuário (com ou sem @)
     const userNameMatch = log.userName?.toLowerCase().includes(searchLower) || 
                          (log.userName && `@${log.userName.toLowerCase()}`.includes(searchLower));
     
@@ -85,7 +85,7 @@ const CoordinatorLogs = () => {
       userNameMatch ||
       log.code?.toLowerCase().includes(searchLower) ||
       ipMatch ||
-      // Busca por palavras-chave especÃ­ficas
+      // Busca por palavras-chave específicas
       (searchLower.includes('login') && log.action === 'LOGIN') ||
       (searchLower.includes('logout') && log.action === 'LOGOUT') ||
       (searchLower.includes('mensagem') && log.action === 'MENSAGEM_ENVIADA') ||
@@ -180,14 +180,14 @@ const CoordinatorLogs = () => {
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Buscar por nome (@teste), aÃ§Ã£o (login), cÃ³digo (AUTH-001), IP (192.168)..."
+              placeholder="Buscar por nome (@teste), ação (login), código (AUTH-001), IP (192.168)..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10"
             />
           </div>
           
-          {/* EstatÃ­sticas da Busca */}
+          {/* Estatísticas da Busca */}
           {searchTerm && (
             <div className="mt-3 text-sm text-gray-600">
               {filteredLogs.length === 0 ? (
@@ -254,7 +254,7 @@ const CoordinatorLogs = () => {
                       {formatLogLine(log)}
                       <div className="mt-1 ml-0 text-xs text-gray-300 flex flex-wrap gap-2">
                         {/* Removido campo de Local para evitar exposição */}
-                        {/* ID do usuÃ¡rio (se houver) */}
+                        {/* ID do usuário (se houver) */}
                         {log.userId && (
                           <span className="bg-gray-800/80 text-gray-200 px-2 py-0.5 rounded">
                             ID: {log.userId}
@@ -291,10 +291,10 @@ const CoordinatorLogs = () => {
             <span>Última atualização: {format(new Date(), 'HH:mm:ss', { locale: ptBR })}</span>
           </div>
           <div className="flex items-center gap-1">
-            <span>UsuÃ¡rios ativos: {new Set(logs.map((l: LogEntry) => l.userId).filter(Boolean)).size}</span>
+            <span>Usuários ativos: {new Set(logs.map((l: LogEntry) => l.userId).filter(Boolean)).size}</span>
           </div>
           <div className="flex items-center gap-1">
-            <span>IPs Ãºnicos: {new Set(logs.map((l: LogEntry) => l.ipAddress).filter(Boolean)).size}</span>
+            <span>IPs únicos: {new Set(logs.map((l: LogEntry) => l.ipAddress).filter(Boolean)).size}</span>
           </div>
         </div>
         

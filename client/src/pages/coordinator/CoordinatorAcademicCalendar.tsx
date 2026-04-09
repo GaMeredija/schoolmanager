@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+﻿import React, { useState, useMemo, useEffect } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -87,7 +87,7 @@ export default function CoordinatorAcademicCalendar() {
       );
       if (!response.ok) throw new Error('Erro ao buscar eventos globais');
       const data = await response.json();
-      console.log('📅 Eventos globais recebidos:', data);
+      console.log('ðŸ“… Eventos globais recebidos:', data);
       return data.data || [];
     },
     enabled: !!user?.id,
@@ -96,7 +96,7 @@ export default function CoordinatorAcademicCalendar() {
   // Criar evento global
   const createEventMutation = useMutation({
     mutationFn: async (eventData: Partial<GlobalEvent>) => {
-      console.log('📤 Criando evento global:', eventData);
+      console.log('ðŸ“¤ Criando evento global:', eventData);
       const normalizedStartTime = (eventData.startTime || '').trim() || '08:00';
       const normalizedEndTime = (eventData.endTime || '').trim() || normalizedStartTime;
 
@@ -147,7 +147,7 @@ export default function CoordinatorAcademicCalendar() {
   // Deletar evento global
   const deleteEventMutation = useMutation({
     mutationFn: async (eventId: string) => {
-      console.log('🗑️ Deletando evento global:', eventId);
+      console.log('ðŸ—‘ï¸ Deletando evento global:', eventId);
       const response = await fetch(`/api/coordinator/global-events/${eventId}`, {
         method: 'DELETE',
         headers: {
@@ -214,7 +214,7 @@ export default function CoordinatorAcademicCalendar() {
       case 'holiday': return '#10B981'; // Verde sucesso
       case 'training': return '#6366F1'; // Índigo moderno
       case 'announcement': return '#EF4444'; // Vermelho alerta
-      case 'other': return '#F59E0B'; // Âmbar para eventos personalizados
+      case 'other': return '#F59E0B'; // ?mbar para eventos personalizados
       default: return '#6B7280'; // Cinza neutro
     }
   };
@@ -267,11 +267,11 @@ export default function CoordinatorAcademicCalendar() {
 
   // Organizar eventos por data
   const eventsByDate = useMemo(() => {
-    console.log('📅 Calculando eventsByDate com', globalEvents.length, 'eventos');
+    console.log('ðŸ“… Calculando eventsByDate com', globalEvents.length, 'eventos');
     const eventsMap: { [key: string]: GlobalEvent[] } = {};
     
     if (!globalEvents || globalEvents.length === 0) {
-      console.log('📅 Nenhum evento encontrado');
+      console.log('ðŸ“… Nenhum evento encontrado');
       return eventsMap;
     }
     
@@ -280,7 +280,7 @@ export default function CoordinatorAcademicCalendar() {
         const start = new Date(event.startDate);
         const end = event.endDate ? new Date(event.endDate) : start;
         
-        console.log(`📅 Processando evento "${event.title}" de ${format(start, 'yyyy-MM-dd')} até ${format(end, 'yyyy-MM-dd')}`);
+        console.log(`ðŸ“… Processando evento "${event.title}" de ${format(start, 'yyyy-MM-dd')} até ${format(end, 'yyyy-MM-dd')}`);
         
         eachDayOfInterval({ start, end }).forEach(day => {
           const dayStr = format(day, 'yyyy-MM-dd');
@@ -288,14 +288,14 @@ export default function CoordinatorAcademicCalendar() {
             eventsMap[dayStr] = [];
           }
           eventsMap[dayStr].push(event);
-          console.log(`📅 Adicionado evento "${event.title}" ao dia ${dayStr}`);
+          console.log(`ðŸ“… Adicionado evento "${event.title}" ao dia ${dayStr}`);
         });
       } catch (error) {
         console.error(`❌ Erro ao processar evento ${event.title}:`, error);
       }
     });
     
-    console.log('📅 EventsByDate final:', eventsMap);
+    console.log('ðŸ“… EventsByDate final:', eventsMap);
     return eventsMap;
   }, [globalEvents]);
 
@@ -306,18 +306,18 @@ export default function CoordinatorAcademicCalendar() {
 
   // Clique no dia
   const handleDayClick = (day: Date) => {
-    console.log('📅 Dia clicado:', format(day, 'yyyy-MM-dd'));
-    console.log('📅 Eventos disponíveis:', eventsByDate);
-    console.log('📅 Eventos para este dia:', eventsByDate[format(day, 'yyyy-MM-dd')]);
+    console.log('ðŸ“… Dia clicado:', format(day, 'yyyy-MM-dd'));
+    console.log('ðŸ“… Eventos disponíveis:', eventsByDate);
+    console.log('ðŸ“… Eventos para este dia:', eventsByDate[format(day, 'yyyy-MM-dd')]);
     
     setSelectedDate(day);
     const dayEvents = eventsByDate[format(day, 'yyyy-MM-dd')] || [];
     
     if (dayEvents.length > 0) {
-      console.log('📅 Abrindo modal de detalhes com', dayEvents.length, 'eventos');
+      console.log('ðŸ“… Abrindo modal de detalhes com', dayEvents.length, 'eventos');
       setShowEventDetailsModal(true);
     } else {
-      console.log('📅 Abrindo modal de criação');
+      console.log('ðŸ“… Abrindo modal de criação');
       setNewEvent(prev => ({
         ...prev,
         startDate: format(day, 'yyyy-MM-dd'),
@@ -353,8 +353,8 @@ export default function CoordinatorAcademicCalendar() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Calendário Acadêmico</h1>
-            <p className="text-gray-600 mt-2">
+            <h1 className="text-3xl font-bold text-foreground">Calendário Acadêmico</h1>
+            <p className="text-muted-foreground mt-2">
               Gerencie eventos globais que aparecem para todos os usuários da escola
             </p>
           </div>
@@ -387,7 +387,7 @@ export default function CoordinatorAcademicCalendar() {
             <CardContent className="p-0">
               {/* Legenda de Eventos */}
               <div className="mb-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg border">
-                <h4 className="text-sm font-semibold text-gray-700 mb-3">Legenda de Eventos</h4>
+                <h4 className="text-sm font-semibold text-foreground mb-3">Legenda de Eventos</h4>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-3">
                   {[
                     { type: 'event', label: 'Evento Geral' },
@@ -403,14 +403,14 @@ export default function CoordinatorAcademicCalendar() {
                         className="w-4 h-4 rounded-full shadow-sm border-2 border-white"
                         style={{ backgroundColor: getEventTypeColor(type) }}
                       />
-                      <span className="text-xs font-medium text-gray-600">{label}</span>
+                      <span className="text-xs font-medium text-muted-foreground">{label}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Dias da semana */}
-              <div className="grid grid-cols-7 text-center text-sm font-semibold text-gray-700 mb-2 bg-gray-50 py-2 rounded-t-lg">
+              <div className="grid grid-cols-7 text-center text-sm font-semibold text-foreground mb-2 bg-muted/60 py-2 rounded-t-lg">
                 {['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'].map(day => (
                   <div key={day} className="p-2">{day}</div>
                 ))}
@@ -428,8 +428,8 @@ export default function CoordinatorAcademicCalendar() {
                     <div
                       key={index}
                       className={cn(
-                        "min-h-[100px] p-2 border border-gray-200 cursor-pointer transition-colors",
-                        isCurrentMonth ? "bg-white hover:bg-gray-50" : "bg-gray-50 text-gray-400",
+                        "min-h-[100px] p-2 border border-border cursor-pointer transition-colors",
+                        isCurrentMonth ? "bg-card hover:bg-muted/60" : "bg-muted/60 text-muted-foreground/60",
                         isCurrentDay && "bg-blue-100 border-blue-300",
                         isSelected && "ring-2 ring-offset-2 ring-orange-500"
                       )}
@@ -488,7 +488,7 @@ export default function CoordinatorAcademicCalendar() {
                             </div>
                           ))}
                           {dayEvents.length > 2 && (
-                            <div className="text-xs text-gray-500 font-medium bg-gray-100 px-2 py-1 rounded-md text-center">
+                            <div className="text-xs text-muted-foreground font-medium bg-muted px-2 py-1 rounded-md text-center">
                               +{dayEvents.length - 2} mais
                             </div>
                           )}
@@ -514,7 +514,7 @@ export default function CoordinatorAcademicCalendar() {
                 {selectedDate && eventsByDate[format(selectedDate, 'yyyy-MM-dd')]?.length > 0 ? (
                   <div className="space-y-3">
                     {eventsByDate[format(selectedDate, 'yyyy-MM-dd')].map(event => (
-                      <div key={event.id} className="group relative overflow-hidden border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-200">
+                      <div key={event.id} className="group relative overflow-hidden border border-border rounded-xl bg-card shadow-sm hover:shadow-md transition-all duration-200">
                         <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: getEventTypeColor(event.type) }} />
                         <div className="p-4">
                           <div className="flex items-start justify-between">
@@ -525,7 +525,7 @@ export default function CoordinatorAcademicCalendar() {
                               />
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <h4 className="font-semibold text-gray-900 truncate">{event.title}</h4>
+                                  <h4 className="font-semibold text-foreground truncate">{event.title}</h4>
                                   <Badge 
                                     variant="outline" 
                                     className="text-xs px-2 py-0.5"
@@ -543,9 +543,9 @@ export default function CoordinatorAcademicCalendar() {
                                   )}
                                 </div>
                                 {event.description && (
-                                  <p className="text-sm text-gray-600 mb-2 line-clamp-2">{event.description}</p>
+                                  <p className="text-sm text-muted-foreground mb-2 line-clamp-2">{event.description}</p>
                                 )}
-                                <div className="flex items-center gap-4 text-xs text-gray-500">
+                                <div className="flex items-center gap-4 text-xs text-muted-foreground">
                                   {event.startTime && event.endTime && (
                                     <div className="flex items-center gap-1">
                                       <Clock className="w-3 h-3" />
@@ -576,7 +576,7 @@ export default function CoordinatorAcademicCalendar() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-500 text-center py-4">Nenhum evento neste dia</p>
+                  <p className="text-muted-foreground text-center py-4">Nenhum evento neste dia</p>
                 )}
               </CardContent>
             </Card>
@@ -590,7 +590,7 @@ export default function CoordinatorAcademicCalendar() {
                 {upcomingEvents.length > 0 ? (
                   <div className="space-y-3">
                     {upcomingEvents.map(event => (
-                      <div key={event.id} className="group relative overflow-hidden border border-gray-200 rounded-lg bg-white shadow-sm hover:shadow-md transition-all duration-200">
+                      <div key={event.id} className="group relative overflow-hidden border border-border rounded-lg bg-card shadow-sm hover:shadow-md transition-all duration-200">
                         <div className="absolute left-0 top-0 bottom-0 w-1" style={{ backgroundColor: getEventTypeColor(event.type) }} />
                         <div className="p-3">
                           <div className="flex items-start justify-between">
@@ -601,7 +601,7 @@ export default function CoordinatorAcademicCalendar() {
                               />
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                  <h4 className="font-semibold text-gray-900 text-sm truncate">{event.title}</h4>
+                                  <h4 className="font-semibold text-foreground text-sm truncate">{event.title}</h4>
                                   <Badge 
                                     variant="outline" 
                                     className="text-xs px-1.5 py-0.5"
@@ -618,7 +618,7 @@ export default function CoordinatorAcademicCalendar() {
                                     </Badge>
                                   )}
                                 </div>
-                                <div className="flex items-center gap-2 text-xs text-gray-500">
+                                <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                   <CalendarIcon className="w-3 h-3" />
                                   <span>{format(new Date(event.startDate), 'dd/MM/yyyy')}</span>
                                   {event.startTime && (
@@ -629,7 +629,7 @@ export default function CoordinatorAcademicCalendar() {
                                   )}
                                 </div>
                                 {event.location && (
-                                  <div className="flex items-center gap-1 text-xs text-gray-400 mt-1">
+                                  <div className="flex items-center gap-1 text-xs text-muted-foreground/60 mt-1">
                                     <MapPin className="w-3 h-3" />
                                     <span className="truncate">{event.location}</span>
                                   </div>
@@ -651,7 +651,7 @@ export default function CoordinatorAcademicCalendar() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-gray-500 text-center py-4">Nenhum evento próximo</p>
+                  <p className="text-muted-foreground text-center py-4">Nenhum evento próximo</p>
                 )}
               </CardContent>
             </Card>
@@ -769,7 +769,7 @@ export default function CoordinatorAcademicCalendar() {
                         }));
                       }}
                     />
-                    <Label htmlFor="all-classes">🌐 Enviar para todas as turmas</Label>
+                    <Label htmlFor="all-classes">ðŸŒ Enviar para todas as turmas</Label>
                   </div>
 
                   {!newEvent.isGlobal && (
@@ -904,7 +904,7 @@ export default function CoordinatorAcademicCalendar() {
                   <h3 className="text-lg font-bold">{event.title}</h3>
 
                   {event.description && (
-                    <p className="text-gray-600">{event.description}</p>
+                    <p className="text-muted-foreground">{event.description}</p>
                   )}
 
                   <div className="grid grid-cols-3 gap-4 text-sm">
@@ -961,10 +961,10 @@ export default function CoordinatorAcademicCalendar() {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               Tem certeza que deseja excluir o evento <strong>"{eventToDelete?.title}"</strong>?
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground">
               Esta ação não pode ser desfeita.
             </p>
             <div className="flex justify-end gap-2">
@@ -1013,8 +1013,8 @@ const StatCard = ({ title, value, icon: Icon, color = "blue" }: {
     <Card className="p-6">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-gray-600">{title}</p>
-          <p className="text-2xl font-bold text-gray-900">{value}</p>
+          <p className="text-sm font-medium text-muted-foreground">{title}</p>
+          <p className="text-2xl font-bold text-foreground">{value}</p>
         </div>
         <div className={`${colorClasses[color]} p-3 rounded-full`}>
           <Icon className="h-6 w-6" />
@@ -1023,3 +1023,4 @@ const StatCard = ({ title, value, icon: Icon, color = "blue" }: {
     </Card>
   );
 }
+

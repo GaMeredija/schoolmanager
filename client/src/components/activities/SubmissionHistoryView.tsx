@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -125,7 +125,7 @@ export function SubmissionHistoryView({
       case 'late_penalty_applied':
         return <AlertCircle className="w-4 h-4 text-red-600" />;
       default:
-        return <History className="w-4 h-4 text-gray-600" />;
+        return <History className="w-4 h-4 text-muted-foreground" />;
     }
   };
 
@@ -159,7 +159,7 @@ export function SubmissionHistoryView({
       case 'late_penalty_applied':
         return 'border-red-200 bg-red-50';
       default:
-        return 'border-gray-200 bg-gray-50';
+        return 'border-border bg-muted/60';
     }
   };
 
@@ -212,16 +212,16 @@ export function SubmissionHistoryView({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-hidden">
+      <div className="bg-card rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-hidden">
         <div className="flex items-center justify-between p-6 border-b">
           <div>
             <h2 className="text-xl font-semibold">Histórico da Submissão</h2>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               {activity.title} - {student.firstName} {student.lastName}
             </p>
           </div>
           <Button variant="outline" onClick={onClose}>
-            ✕
+            ?
           </Button>
         </div>
 
@@ -241,14 +241,14 @@ export function SubmissionHistoryView({
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <p className="text-sm text-gray-600">Data de Entrega</p>
+                    <p className="text-sm text-muted-foreground">Data de Entrega</p>
                     <p className="font-medium">
                       {format(new Date(submission.submittedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                     </p>
                   </div>
                   
                   <div>
-                    <p className="text-sm text-gray-600">Prazo</p>
+                    <p className="text-sm text-muted-foreground">Prazo</p>
                     <p className="font-medium">
                       {format(new Date(activity.dueDate), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                     </p>
@@ -256,7 +256,7 @@ export function SubmissionHistoryView({
                   
                   {submission.grade !== undefined && submission.grade !== null && (
                     <div>
-                      <p className="text-sm text-gray-600">Nota</p>
+                      <p className="text-sm text-muted-foreground">Nota</p>
                       <p className="font-medium text-lg">
                         {submission.finalGrade?.toFixed(1) || submission.grade.toFixed(1)}/{activity.maxGrade}
                       </p>
@@ -322,8 +322,8 @@ export function SubmissionHistoryView({
                   </div>
                 ) : history.length === 0 ? (
                   <div className="text-center py-8">
-                    <History className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">Nenhum histórico disponível ainda.</p>
+                    <History className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                    <p className="text-muted-foreground">Nenhum histórico disponível ainda.</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -341,24 +341,24 @@ export function SubmissionHistoryView({
                             
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between">
-                                <p className="font-medium text-gray-900">
+                                <p className="font-medium text-foreground">
                                   {getActionDescription(entry)}
                                 </p>
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-muted-foreground">
                                   {format(new Date(entry.performedAt), 'dd/MM HH:mm', { locale: ptBR })}
                                 </p>
                               </div>
                               
                               <div className="mt-1 flex items-center space-x-2">
-                                <User className="w-3 h-3 text-gray-400" />
-                                <span className="text-sm text-gray-600">
+                                <User className="w-3 h-3 text-muted-foreground/60" />
+                                <span className="text-sm text-muted-foreground">
                                   {entry.performerName || 'Sistema'}
                                   {entry.performerRole && ` (${entry.performerRole})`}
                                 </span>
                               </div>
                               
                               {showDetails && entry.details && (
-                                <div className="mt-2 p-2 bg-white rounded text-sm text-gray-700">
+                                <div className="mt-2 p-2 bg-card rounded text-sm text-foreground">
                                   {entry.details}
                                 </div>
                               )}
@@ -366,7 +366,7 @@ export function SubmissionHistoryView({
                               {showDetails && (entry.previousStatus || entry.newStatus) && (
                                 <div className="mt-2 flex items-center space-x-2 text-xs">
                                   {entry.previousStatus && (
-                                    <span className="px-2 py-1 bg-gray-100 rounded">
+                                    <span className="px-2 py-1 bg-muted rounded">
                                       De: {entry.previousStatus}
                                     </span>
                                   )}
@@ -402,12 +402,12 @@ export function SubmissionHistoryView({
                   <div className="space-y-6">
                     {/* Criação da Atividade */}
                     <div className="flex items-center space-x-4">
-                      <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                        <FileText className="w-4 h-4 text-gray-600" />
+                      <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                        <FileText className="w-4 h-4 text-muted-foreground" />
                       </div>
                       <div>
                         <p className="font-medium">Atividade Criada</p>
-                        <p className="text-sm text-gray-600">Prazo definido para {format(new Date(activity.dueDate), 'dd/MM/yyyy HH:mm', { locale: ptBR })}</p>
+                        <p className="text-sm text-muted-foreground">Prazo definido para {format(new Date(activity.dueDate), 'dd/MM/yyyy HH:mm', { locale: ptBR })}</p>
                       </div>
                     </div>
                     
@@ -420,7 +420,7 @@ export function SubmissionHistoryView({
                         <p className="font-medium">
                           {submission.isLate ? 'Submetida com Atraso' : 'Submetida'}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-muted-foreground">
                           {format(new Date(submission.submittedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                         </p>
                       </div>
@@ -434,7 +434,7 @@ export function SubmissionHistoryView({
                         </div>
                         <div>
                           <p className="font-medium">Avaliada</p>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-sm text-muted-foreground">
                             {format(new Date(submission.gradedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                           </p>
                           <p className="text-sm font-medium text-green-600">
@@ -453,4 +453,5 @@ export function SubmissionHistoryView({
     </div>
   );
 }
+
 

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { 
@@ -20,18 +20,18 @@ export default function SimpleAdminDashboard({ user }: SimpleAdminDashboardProps
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-muted/60">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-card shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-gray-900">
+              <h1 className="text-xl font-semibold text-foreground">
                 SchoolManager - Administração
               </h1>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-muted-foreground">
                 Olá, {user?.firstName}!
               </span>
               <Button variant="outline" size="sm" onClick={handleLogout}>
@@ -48,10 +48,10 @@ export default function SimpleAdminDashboard({ user }: SimpleAdminDashboardProps
         <div className="px-4 py-6 sm:px-0">
           {/* Welcome Section */}
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-foreground mb-2">
               Bem-vindo ao Painel Administrativo
             </h2>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               Gerencie todos os aspectos do sistema escolar
             </p>
           </div>
@@ -136,7 +136,7 @@ export default function SimpleAdminDashboard({ user }: SimpleAdminDashboardProps
                     Adicionar Usuário
                   </Button>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   Gerencie professores, alunos e coordenadores
                 </p>
               </CardContent>
@@ -157,7 +157,7 @@ export default function SimpleAdminDashboard({ user }: SimpleAdminDashboardProps
                     Relatórios
                   </Button>
                 </div>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   Configure o sistema e visualize relatórios
                 </p>
               </CardContent>
@@ -175,25 +175,25 @@ export default function SimpleAdminDashboard({ user }: SimpleAdminDashboardProps
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   <div className="flex-1">
                     <p className="text-sm font-medium">Novo usuário cadastrado</p>
-                    <p className="text-xs text-gray-500">João Silva - Professor</p>
+                    <p className="text-xs text-muted-foreground">João Silva - Professor</p>
                   </div>
-                  <span className="text-xs text-gray-500">2 min atrás</span>
+                  <span className="text-xs text-muted-foreground">2 min atrás</span>
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
                   <div className="flex-1">
                     <p className="text-sm font-medium">Turma criada</p>
-                    <p className="text-xs text-gray-500">9º Ano A</p>
+                    <p className="text-xs text-muted-foreground">9º Ano A</p>
                   </div>
-                  <span className="text-xs text-gray-500">1 hora atrás</span>
+                  <span className="text-xs text-muted-foreground">1 hora atrás</span>
                 </div>
                 <div className="flex items-center space-x-4">
                   <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
                   <div className="flex-1">
                     <p className="text-sm font-medium">Atividade publicada</p>
-                    <p className="text-xs text-gray-500">Matemática - 8º Ano</p>
+                    <p className="text-xs text-muted-foreground">Matemática - 8º Ano</p>
                   </div>
-                  <span className="text-xs text-gray-500">3 horas atrás</span>
+                  <span className="text-xs text-muted-foreground">3 horas atrás</span>
                 </div>
               </div>
             </CardContent>
@@ -203,4 +203,5 @@ export default function SimpleAdminDashboard({ user }: SimpleAdminDashboardProps
     </div>
   );
 }
+
 

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+﻿import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -219,7 +219,7 @@ const TeacherChatPage = () => {
       case 'parent': return 'bg-purple-100 text-purple-800';
       case 'coordinator': return 'bg-orange-100 text-orange-800';
       case 'admin': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -247,13 +247,13 @@ const TeacherChatPage = () => {
   };
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex bg-gray-50">
+    <div className="h-[calc(100vh-4rem)] flex bg-muted/50">
       {/* Lista de Conversas */}
-      <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
+      <div className="w-80 bg-card border-r border-border flex flex-col">
         {/* Header da Lista */}
-        <div className="p-4 border-b border-gray-200">
+        <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Mensagens</h2>
+            <h2 className="text-lg font-semibold text-foreground">Mensagens</h2>
             <Button size="sm" className="gap-2">
               <Plus className="h-4 w-4" />
               Nova
@@ -262,7 +262,7 @@ const TeacherChatPage = () => {
           
           {/* Busca */}
           <div className="relative mb-3">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
             <Input
               placeholder="Buscar conversas..."
               value={searchTerm}
@@ -293,7 +293,7 @@ const TeacherChatPage = () => {
             <div
               key={chat.id}
               onClick={() => setSelectedChat(chat.id)}
-              className={`p-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors ${
+              className={`p-4 border-b border-border/70 cursor-pointer hover:bg-muted/50 transition-colors ${
                 selectedChat === chat.id ? 'bg-blue-50 border-blue-200' : ''
               }`}
             >
@@ -301,7 +301,7 @@ const TeacherChatPage = () => {
                 <div className="relative">
                   <Avatar className="h-12 w-12">
                     <AvatarImage src={chat.avatar} />
-                    <AvatarFallback className="bg-gray-100 text-gray-600">
+                    <AvatarFallback className="bg-muted text-muted-foreground">
                       {chat.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
                     </AvatarFallback>
                   </Avatar>
@@ -313,14 +313,14 @@ const TeacherChatPage = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium text-gray-900 truncate">
+                      <p className="text-sm font-medium text-foreground truncate">
                         {chat.name}
                       </p>
                       {getRoleIcon(chat.role, chat.type)}
                     </div>
                     <div className="flex items-center gap-2">
                       {chat.timestamp && (
-                        <span className="text-xs text-gray-500">{chat.timestamp}</span>
+                        <span className="text-xs text-muted-foreground">{chat.timestamp}</span>
                       )}
                       {chat.unreadCount > 0 && (
                         <Badge className="bg-blue-600 text-white text-xs min-w-[20px] h-5 flex items-center justify-center">
@@ -331,13 +331,13 @@ const TeacherChatPage = () => {
                   </div>
                   
                   {chat.className && chat.subject && (
-                    <p className="text-xs text-gray-500 mb-1">
+                    <p className="text-xs text-muted-foreground mb-1">
                       {chat.className} • {chat.subject}
                     </p>
                   )}
                   
                   {chat.lastMessage && (
-                    <p className="text-sm text-gray-600 truncate">
+                    <p className="text-sm text-muted-foreground truncate">
                       {chat.lastMessage}
                     </p>
                   )}
@@ -353,19 +353,19 @@ const TeacherChatPage = () => {
         {selectedChat ? (
           <>
             {/* Header da Conversa */}
-            <div className="bg-white border-b border-gray-200 p-4">
+            <div className="bg-card border-b border-border p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={currentChat?.avatar} />
-                    <AvatarFallback className="bg-gray-100 text-gray-600">
+                    <AvatarFallback className="bg-muted text-muted-foreground">
                       {currentChat?.name.split(' ').map(n => n[0]).join('').substring(0, 2)}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h3 className="font-medium text-gray-900">{currentChat?.name}</h3>
+                    <h3 className="font-medium text-foreground">{currentChat?.name}</h3>
                     <div className="flex items-center gap-2">
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-muted-foreground">
                         {currentChat?.isOnline ? 'Online' : 'Offline'}
                       </p>
                       {currentChat?.className && currentChat?.subject && (
@@ -391,7 +391,7 @@ const TeacherChatPage = () => {
             </div>
 
             {/* Mensagens */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted/50">
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -400,7 +400,7 @@ const TeacherChatPage = () => {
                   <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                     message.senderId === user?.id
                       ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-900 border border-gray-200'
+                      : 'bg-card text-foreground border border-border'
                   }`}>
                     {message.senderId !== user?.id && (
                       <div className="flex items-center gap-2 mb-1">
@@ -430,7 +430,7 @@ const TeacherChatPage = () => {
             </div>
 
             {/* Input de Mensagem */}
-            <div className="bg-white border-t border-gray-200 p-4">
+            <div className="bg-card border-t border-border p-4">
               <div className="flex items-center space-x-2">
                 <Button variant="ghost" size="sm">
                   <Paperclip className="h-4 w-4" />
@@ -458,13 +458,13 @@ const TeacherChatPage = () => {
             </div>
           </>
         ) : (
-          <div className="flex-1 flex items-center justify-center bg-gray-50">
+          <div className="flex-1 flex items-center justify-center bg-muted/50">
             <div className="text-center">
-              <MessageSquare className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <MessageSquare className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Selecione uma conversa
               </h3>
-              <p className="text-gray-500">
+              <p className="text-muted-foreground">
                 Escolha uma conversa da lista para começar a trocar mensagens
               </p>
             </div>
@@ -476,3 +476,4 @@ const TeacherChatPage = () => {
 };
 
 export default TeacherChatPage;
+

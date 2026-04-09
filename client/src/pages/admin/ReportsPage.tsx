@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -121,7 +121,7 @@ const ReportsPage = () => {
   const getGrowthColor = (growth: number) => {
     if (growth > 0) return 'text-green-600';
     if (growth < 0) return 'text-red-600';
-    return 'text-gray-600';
+    return 'text-muted-foreground';
   };
 
   const getGrowthIcon = (growth: number) => {
@@ -138,12 +138,12 @@ const ReportsPage = () => {
         return (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Total de Usuários</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Total de Usuários</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">{data.total}</div>
+                  <div className="text-3xl font-bold text-foreground">{data.total}</div>
                   <div className={`flex items-center gap-1 text-sm mt-1 ${getGrowthColor(data.growth)}`}>
                     {getGrowthIcon(data.growth)}
                     <span>{data.growth > 0 ? '+' : ''}{data.growth}% este mês</span>
@@ -151,15 +151,15 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Função</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Função</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.byRole.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{item.role}</span>
+                        <span className="text-sm text-muted-foreground">{item.role}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.count}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -172,15 +172,15 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Status</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Status</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.status.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{item.status}</span>
+                        <span className="text-sm text-muted-foreground">{item.status}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.count}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -200,12 +200,12 @@ const ReportsPage = () => {
         return (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Total de Turmas</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Total de Turmas</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">{data.total}</div>
+                  <div className="text-3xl font-bold text-foreground">{data.total}</div>
                   <div className={`flex items-center gap-1 text-sm mt-1 ${getGrowthColor(data.growth)}`}>
                     {getGrowthIcon(data.growth)}
                     <span>{data.growth > 0 ? '+' : ''}{data.growth}% este mês</span>
@@ -213,37 +213,37 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Capacidade</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Capacidade</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Total</span>
+                      <span className="text-sm text-muted-foreground">Total</span>
                       <span className="text-sm font-medium">{data.capacity.total}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Ocupada</span>
+                      <span className="text-sm text-muted-foreground">Ocupada</span>
                       <span className="text-sm font-medium text-green-600">{data.capacity.occupied}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Disponível</span>
+                      <span className="text-sm text-muted-foreground">Disponível</span>
                       <span className="text-sm font-medium text-blue-600">{data.capacity.available}</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Série</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Série</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.byGrade.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{item.grade}</span>
+                        <span className="text-sm text-muted-foreground">{item.grade}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.count}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -263,12 +263,12 @@ const ReportsPage = () => {
         return (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Total de Disciplinas</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Total de Disciplinas</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">{data.total}</div>
+                  <div className="text-3xl font-bold text-foreground">{data.total}</div>
                   <div className={`flex items-center gap-1 text-sm mt-1 ${getGrowthColor(data.growth)}`}>
                     {getGrowthIcon(data.growth)}
                     <span>{data.growth > 0 ? '+' : ''}{data.growth}% este mês</span>
@@ -276,15 +276,15 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Série</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Série</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.byGrade.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{item.grade}</span>
+                        <span className="text-sm text-muted-foreground">{item.grade}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.count}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -297,15 +297,15 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Professor</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Professor</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.byTeacher.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600 truncate">{item.teacher}</span>
+                        <span className="text-sm text-muted-foreground truncate">{item.teacher}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.count}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -325,12 +325,12 @@ const ReportsPage = () => {
         return (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Média Geral</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Média Geral</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">{data.average}</div>
+                  <div className="text-3xl font-bold text-foreground">{data.average}</div>
                   <div className={`flex items-center gap-1 text-sm mt-1 ${getGrowthColor(data.growth)}`}>
                     {getGrowthIcon(data.growth)}
                     <span>{data.growth > 0 ? '+' : ''}{data.growth}% este mês</span>
@@ -338,15 +338,15 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Série</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Série</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.byGrade.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{item.grade}</span>
+                        <span className="text-sm text-muted-foreground">{item.grade}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.average}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -359,15 +359,15 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Disciplina</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Disciplina</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.bySubject.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{item.subject}</span>
+                        <span className="text-sm text-muted-foreground">{item.subject}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.average}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -387,12 +387,12 @@ const ReportsPage = () => {
         return (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Frequência Média</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Frequência Média</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">{data.average}%</div>
+                  <div className="text-3xl font-bold text-foreground">{data.average}%</div>
                   <div className={`flex items-center gap-1 text-sm mt-1 ${getGrowthColor(data.growth)}`}>
                     {getGrowthIcon(data.growth)}
                     <span>{data.growth > 0 ? '+' : ''}{data.growth}% este mês</span>
@@ -400,15 +400,15 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Série</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Série</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.byGrade.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{item.grade}</span>
+                        <span className="text-sm text-muted-foreground">{item.grade}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.average}%</span>
                           <Badge variant="secondary" className="text-xs">
@@ -421,15 +421,15 @@ const ReportsPage = () => {
                 </CardContent>
               </Card>
               
-              <Card className="border border-gray-200">
+              <Card className="border-border shadow-sm">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-sm font-medium text-gray-600">Por Turma</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Por Turma</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     {data.byClass.map((item, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-sm text-gray-600">{item.class}</span>
+                        <span className="text-sm text-muted-foreground">{item.class}</span>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">{item.average}%</span>
                           <Badge variant="secondary" className="text-xs">
@@ -455,15 +455,15 @@ const ReportsPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Relatórios</h1>
-          <p className="text-gray-600 mt-1">Visualize estatísticas e métricas do sistema</p>
+          <h1 className="text-3xl font-bold text-foreground">Relatórios</h1>
+          <p className="text-muted-foreground mt-1">Visualize estatísticas e métricas do sistema</p>
         </div>
         <div className="flex items-center gap-3">
           <Button variant="outline" className="flex items-center gap-2">
             <Filter className="h-4 w-4" />
             Filtros
           </Button>
-          <Button className="bg-purple-600 hover:bg-purple-700 flex items-center gap-2">
+          <Button className="bg-violet-600 hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-400 text-white flex items-center gap-2">
             <Download className="h-4 w-4" />
             Exportar
           </Button>
@@ -471,11 +471,11 @@ const ReportsPage = () => {
       </div>
 
       {/* Report Selection */}
-      <Card className="border border-gray-200">
+      <Card className="border-border shadow-sm">
         <CardContent className="pt-6">
           <div className="flex items-center gap-4">
             <div className="flex-1">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Tipo de Relatório</label>
+              <label className="text-sm font-medium text-foreground mb-2 block">Tipo de Relatório</label>
               <Select value={selectedReport} onValueChange={setSelectedReport}>
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione o tipo de relatório" />
@@ -493,7 +493,7 @@ const ReportsPage = () => {
               </Select>
             </div>
             <div className="flex-1">
-              <label className="text-sm font-medium text-gray-700 mb-2 block">Período</label>
+              <label className="text-sm font-medium text-foreground mb-2 block">Período</label>
               <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione o período" />
@@ -517,7 +517,7 @@ const ReportsPage = () => {
       </div>
 
       {/* Additional Actions */}
-      <Card className="border border-gray-200">
+      <Card className="border-border shadow-sm">
         <CardHeader>
           <CardTitle className="text-lg font-semibold">Ações Disponíveis</CardTitle>
         </CardHeader>
@@ -543,6 +543,7 @@ const ReportsPage = () => {
 };
 
 export default ReportsPage;
+
 
 
 

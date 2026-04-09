@@ -57,7 +57,7 @@ const DirectorDashboard: React.FC = () => {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{isLoading ? '...' : stats?.totals?.students ?? '--'}</div>
+            <div className="text-2xl font-bold">{isLoading ? '...' : (stats?.totals?.students ?? '--')}</div>
             <p className="text-xs text-muted-foreground">Total de alunos cadastrados</p>
           </CardContent>
         </Card>
@@ -68,7 +68,7 @@ const DirectorDashboard: React.FC = () => {
             <GraduationCap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{isLoading ? '...' : stats?.totals?.teachers ?? '--'}</div>
+            <div className="text-2xl font-bold">{isLoading ? '...' : (stats?.totals?.teachers ?? '--')}</div>
             <p className="text-xs text-muted-foreground">Total de professores ativos</p>
           </CardContent>
         </Card>
@@ -79,7 +79,7 @@ const DirectorDashboard: React.FC = () => {
             <BarChart3 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{isLoading ? '...' : stats?.totals?.classes ?? '--'}</div>
+            <div className="text-2xl font-bold">{isLoading ? '...' : (stats?.totals?.classes ?? '--')}</div>
             <p className="text-xs text-muted-foreground">Turmas no período atual</p>
           </CardContent>
         </Card>
@@ -90,7 +90,7 @@ const DirectorDashboard: React.FC = () => {
             <Calendar className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{isLoading ? '...' : stats?.upcomingEvents?.count ?? '--'}</div>
+            <div className="text-2xl font-bold">{isLoading ? '...' : (stats?.upcomingEvents?.count ?? '--')}</div>
             <p className="text-xs text-muted-foreground">Eventos próximos</p>
           </CardContent>
         </Card>

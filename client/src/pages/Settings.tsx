@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -63,9 +63,9 @@ export default function Settings() {
       subjects: [
         { time: "07:30", subject: "Matemática", teacher: "Prof. Silva", room: "Sala 101", color: "bg-blue-500" },
         { time: "08:20", subject: "Português", teacher: "Prof. Santos", room: "Sala 102", color: "bg-green-500" },
-        { time: "09:10", subject: "História", teacher: "Prof. Costa", room: "Sala 103", color: "bg-purple-500" },
+        { time: "09:10", subject: "História", teacher: "Prof. Costa", room: "Sala 103", color: "bg-violet-500" },
         { time: "10:00", subject: "Geografia", teacher: "Prof. Lima", room: "Sala 104", color: "bg-orange-500" },
-        { time: "10:50", subject: "Educação Física", teacher: "Prof. Oliveira", room: "Quadra", color: "bg-red-500" }
+        { time: "10:50", subject: "Educação Física", teacher: "Prof. Oliveira", room: "Quadra", color: "bg-rose-500" }
       ]
     },
     {
@@ -83,7 +83,7 @@ export default function Settings() {
       day: "Quarta-feira",
       shortDay: "QUA",
       subjects: [
-        { time: "07:30", subject: "História", teacher: "Prof. Costa", room: "Sala 103", color: "bg-purple-500" },
+        { time: "07:30", subject: "História", teacher: "Prof. Costa", room: "Sala 103", color: "bg-violet-500" },
         { time: "08:20", subject: "Geografia", teacher: "Prof. Lima", room: "Sala 104", color: "bg-orange-500" },
         { time: "09:10", subject: "Matemática", teacher: "Prof. Silva", room: "Sala 101", color: "bg-blue-500" },
         { time: "10:00", subject: "Português", teacher: "Prof. Santos", room: "Sala 102", color: "bg-green-500" },
@@ -94,7 +94,7 @@ export default function Settings() {
       day: "Quinta-feira",
       shortDay: "QUI",
       subjects: [
-        { time: "07:30", subject: "Educação Física", teacher: "Prof. Oliveira", room: "Quadra", color: "bg-red-500" },
+        { time: "07:30", subject: "Educação Física", teacher: "Prof. Oliveira", room: "Quadra", color: "bg-rose-500" },
         { time: "08:20", subject: "Matemática", teacher: "Prof. Silva", room: "Sala 101", color: "bg-blue-500" },
         { time: "09:10", subject: "Física", teacher: "Prof. Pereira", room: "Lab. Física", color: "bg-indigo-500" },
         { time: "10:00", subject: "Química", teacher: "Prof. Ferreira", room: "Lab. Química", color: "bg-pink-500" },
@@ -106,7 +106,7 @@ export default function Settings() {
       shortDay: "SEX",
       subjects: [
         { time: "07:30", subject: "Português", teacher: "Prof. Santos", room: "Sala 102", color: "bg-green-500" },
-        { time: "08:20", subject: "História", teacher: "Prof. Costa", room: "Sala 103", color: "bg-purple-500" },
+        { time: "08:20", subject: "História", teacher: "Prof. Costa", room: "Sala 103", color: "bg-violet-500" },
         { time: "09:10", subject: "Geografia", teacher: "Prof. Lima", room: "Sala 104", color: "bg-orange-500" },
         { time: "10:00", subject: "Matemática", teacher: "Prof. Silva", room: "Sala 101", color: "bg-blue-500" },
         { time: "10:50", subject: "Inglês", teacher: "Prof. Johnson", room: "Sala 105", color: "bg-cyan-500" }
@@ -125,14 +125,14 @@ export default function Settings() {
           <h1 className="text-4xl font-bold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent mb-2">
             Sistema Escolar
           </h1>
-          <p className="text-amber-600 text-lg">
+          <p className="text-amber-600 dark:text-amber-300 text-lg">
             Visualize informações sobre alunos e disciplinas
           </p>
         </div>
 
         {/* Tabs Principais */}
         <Tabs defaultValue="students" className="w-full">
-          <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1 shadow-lg">
+          <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-3 bg-card/80 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 rounded-xl p-1 shadow-lg">
             <TabsTrigger 
               value="students" 
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-500 data-[state=active]:to-orange-500 data-[state=active]:text-white data-[state=active]:shadow-lg transition-all duration-300 rounded-lg"
@@ -160,10 +160,10 @@ export default function Settings() {
           <TabsContent value="students" className="mt-8">
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {/* Estatísticas dos Alunos */}
-              <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+              <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-t-lg">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                       <Users className="w-6 h-6" />
                     </div>
                     <div>
@@ -177,26 +177,26 @@ export default function Settings() {
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3 p-3 bg-amber-50 rounded-lg">
-                      <Users className="w-5 h-5 text-amber-600" />
+                      <Users className="w-5 h-5 text-amber-600 dark:text-amber-300" />
                       <div>
-                        <p className="font-semibold text-gray-800">1.250</p>
-                        <p className="text-sm text-amber-600">Total de Alunos</p>
+                        <p className="font-semibold text-foreground">1.250</p>
+                        <p className="text-sm text-amber-600 dark:text-amber-300">Total de Alunos</p>
                       </div>
                     </div>
                     
                     <div className="flex items-center space-x-3 p-3 bg-amber-50 rounded-lg">
-                      <GraduationCap className="w-5 h-5 text-amber-600" />
+                      <GraduationCap className="w-5 h-5 text-amber-600 dark:text-amber-300" />
                       <div>
-                        <p className="font-semibold text-gray-800">45</p>
-                        <p className="text-sm text-amber-600">Turmas</p>
+                        <p className="font-semibold text-foreground">45</p>
+                        <p className="text-sm text-amber-600 dark:text-amber-300">Turmas</p>
                       </div>
                     </div>
                     
                     <div className="flex items-center space-x-3 p-3 bg-amber-50 rounded-lg">
-                      <BookOpen className="w-5 h-5 text-amber-600" />
+                      <BookOpen className="w-5 h-5 text-amber-600 dark:text-amber-300" />
                       <div>
-                        <p className="font-semibold text-gray-800">12</p>
-                        <p className="text-sm text-amber-600">Séries</p>
+                        <p className="font-semibold text-foreground">12</p>
+                        <p className="text-sm text-amber-600 dark:text-amber-300">Séries</p>
                       </div>
                     </div>
                   </div>
@@ -204,10 +204,10 @@ export default function Settings() {
               </Card>
 
               {/* Distribuição por Série */}
-              <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+              <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-t-lg">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                       <BarChart3 className="w-6 h-6" />
                     </div>
                     <div>
@@ -221,26 +221,26 @@ export default function Settings() {
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
-                      <span className="text-gray-700 font-medium">1º Ano</span>
-                      <span className="text-amber-600 font-semibold">120 alunos</span>
+                      <span className="text-foreground font-medium">1º Ano</span>
+                      <span className="text-amber-600 dark:text-amber-300 font-semibold">120 alunos</span>
                     </div>
                     <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
-                      <span className="text-gray-700 font-medium">2º Ano</span>
-                      <span className="text-amber-600 font-semibold">135 alunos</span>
+                      <span className="text-foreground font-medium">2º Ano</span>
+                      <span className="text-amber-600 dark:text-amber-300 font-semibold">135 alunos</span>
                     </div>
                     <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
-                      <span className="text-gray-700 font-medium">3º Ano</span>
-                      <span className="text-amber-600 font-semibold">142 alunos</span>
+                      <span className="text-foreground font-medium">3º Ano</span>
+                      <span className="text-amber-600 dark:text-amber-300 font-semibold">142 alunos</span>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Informações da Turma */}
-              <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+              <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-t-lg">
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                       <GraduationCap className="w-6 h-6" />
                     </div>
                     <div>
@@ -254,26 +254,26 @@ export default function Settings() {
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3 p-3 bg-amber-50 rounded-lg">
-                      <Users className="w-5 h-5 text-amber-600" />
+                      <Users className="w-5 h-5 text-amber-600 dark:text-amber-300" />
                       <div>
-                        <p className="font-semibold text-gray-800">Turma 3A</p>
-                        <p className="text-sm text-amber-600">Nome da Turma</p>
+                        <p className="font-semibold text-foreground">Turma 3A</p>
+                        <p className="text-sm text-amber-600 dark:text-amber-300">Nome da Turma</p>
                       </div>
                     </div>
                     
                     <div className="flex items-center space-x-3 p-3 bg-amber-50 rounded-lg">
-                      <BookOpen className="w-5 h-5 text-amber-600" />
+                      <BookOpen className="w-5 h-5 text-amber-600 dark:text-amber-300" />
                       <div>
-                        <p className="font-semibold text-gray-800">3º Ano</p>
-                        <p className="text-sm text-amber-600">Série</p>
+                        <p className="font-semibold text-foreground">3º Ano</p>
+                        <p className="text-sm text-amber-600 dark:text-amber-300">Série</p>
                       </div>
                     </div>
                     
                     <div className="flex items-center space-x-3 p-3 bg-amber-50 rounded-lg">
-                      <Users className="w-5 h-5 text-amber-600" />
+                      <Users className="w-5 h-5 text-amber-600 dark:text-amber-300" />
                       <div>
-                        <p className="font-semibold text-gray-800">28</p>
-                        <p className="text-sm text-amber-600">Total de Alunos</p>
+                        <p className="font-semibold text-foreground">28</p>
+                        <p className="text-sm text-amber-600 dark:text-amber-300">Total de Alunos</p>
                       </div>
                     </div>
                   </div>
@@ -287,17 +287,17 @@ export default function Settings() {
             <div className="space-y-6">
               {/* Header das Disciplinas */}
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-amber-800 mb-2">Disciplinas da Escola</h2>
-                <p className="text-amber-600">Informações sobre as disciplinas oferecidas</p>
+                <h2 className="text-2xl font-bold text-amber-800 dark:text-amber-100 mb-2">Disciplinas da Escola</h2>
+                <p className="text-amber-600 dark:text-amber-300">Informações sobre as disciplinas oferecidas</p>
               </div>
 
               {/* Lista de Disciplinas */}
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {weekSchedule[0].subjects.map((subject, index) => (
-                  <Card key={index} className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+                  <Card key={index} className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                     <CardHeader className={`${subject.color} text-white rounded-t-lg`}>
                       <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                        <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                           <BookOpen className="w-6 h-6" />
                         </div>
                         <div>
@@ -310,27 +310,27 @@ export default function Settings() {
                     </CardHeader>
                     <CardContent className="p-6">
                       <div className="space-y-3">
-                        <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                          <MapPinIcon className="w-5 h-5 text-gray-600" />
+                        <div className="flex items-center space-x-3 p-3 bg-muted/60 rounded-lg">
+                          <MapPinIcon className="w-5 h-5 text-muted-foreground" />
                           <div>
-                            <p className="font-semibold text-gray-800">{subject.room}</p>
-                            <p className="text-sm text-gray-600">Local das Aulas</p>
+                            <p className="font-semibold text-foreground">{subject.room}</p>
+                            <p className="text-sm text-muted-foreground">Local das Aulas</p>
                           </div>
                         </div>
                         
-                        <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                          <Clock className="w-5 h-5 text-gray-600" />
+                        <div className="flex items-center space-x-3 p-3 bg-muted/60 rounded-lg">
+                          <Clock className="w-5 h-5 text-muted-foreground" />
                           <div>
-                            <p className="font-semibold text-gray-800">50 min</p>
-                            <p className="text-sm text-gray-600">Duração da Aula</p>
+                            <p className="font-semibold text-foreground">50 min</p>
+                            <p className="text-sm text-muted-foreground">Duração da Aula</p>
                           </div>
                         </div>
                         
-                        <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                          <Users className="w-5 h-5 text-gray-600" />
+                        <div className="flex items-center space-x-3 p-3 bg-muted/60 rounded-lg">
+                          <Users className="w-5 h-5 text-muted-foreground" />
                           <div>
-                            <p className="font-semibold text-gray-800">30 alunos</p>
-                            <p className="text-sm text-gray-600">Capacidade da Turma</p>
+                            <p className="font-semibold text-foreground">30 alunos</p>
+                            <p className="text-sm text-muted-foreground">Capacidade da Turma</p>
                           </div>
                         </div>
                       </div>
@@ -342,10 +342,10 @@ export default function Settings() {
               {/* Informações Adicionais */}
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {/* Total de Disciplinas */}
-                <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-t-lg">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                         <BookOpen className="w-6 h-6" />
                       </div>
                       <div>
@@ -365,10 +365,10 @@ export default function Settings() {
                 </Card>
 
                 {/* Professores */}
-                <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-t-lg">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                         <Users className="w-6 h-6" />
                       </div>
                       <div>
@@ -388,15 +388,15 @@ export default function Settings() {
                 </Card>
 
                 {/* Carga Horária */}
-                <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
-                  <CardHeader className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-t-lg">
+                <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
+                  <CardHeader className="bg-gradient-to-r from-violet-500 to-pink-500 text-white rounded-t-lg">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                         <Clock className="w-6 h-6" />
                       </div>
                       <div>
                         <CardTitle className="text-xl">Carga Horária</CardTitle>
-                        <CardDescription className="text-purple-100">
+                        <CardDescription className="text-violet-100">
                           Horas semanais
                         </CardDescription>
                       </div>
@@ -404,8 +404,8 @@ export default function Settings() {
                   </CardHeader>
                   <CardContent className="p-6">
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-purple-600 mb-2">25</div>
-                      <p className="text-purple-600">Horas por Semana</p>
+                      <div className="text-4xl font-bold text-violet-600 dark:text-violet-300 mb-2">25</div>
+                      <p className="text-violet-600 dark:text-violet-300">Horas por Semana</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -418,12 +418,12 @@ export default function Settings() {
             <div className="space-y-6">
               {/* Header do Horário */}
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-amber-800 mb-2">Horário Semanal</h2>
-                <p className="text-amber-600">Grade de horários da semana</p>
+                <h2 className="text-2xl font-bold text-amber-800 dark:text-amber-100 mb-2">Horário Semanal</h2>
+                <p className="text-amber-600 dark:text-amber-300">Grade de horários da semana</p>
               </div>
 
               {/* Calendário Semanal Elegante */}
-              <div className="bg-white/90 backdrop-blur-sm border border-amber-200 rounded-2xl shadow-xl overflow-hidden">
+              <div className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 rounded-2xl shadow-xl overflow-hidden">
                 {/* Cabeçalho dos Dias */}
                 <div className="grid grid-cols-6 gap-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white p-4">
                   <div className="text-center font-semibold text-lg">Horário</div>
@@ -460,7 +460,7 @@ export default function Settings() {
                                 </div>
                               </div>
                             ) : (
-                              <div className="p-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl text-gray-400 text-center text-lg border border-gray-200">
+                              <div className="p-4 bg-gradient-to-br from-muted to-muted/70 rounded-xl text-muted-foreground/60 text-center text-lg border border-border">
                                 -
                               </div>
                         )}
@@ -474,10 +474,10 @@ export default function Settings() {
 
               {/* Informações do Horário */}
               <div className="grid gap-6 md:grid-cols-3">
-                <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-t-lg">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                         <Clock className="w-6 h-6" />
                       </div>
                       <div>
@@ -491,25 +491,25 @@ export default function Settings() {
                   <CardContent className="p-6">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
-                        <span className="text-gray-700 font-medium">Início</span>
-                        <span className="text-amber-600 font-semibold">07:30</span>
+                        <span className="text-foreground font-medium">Início</span>
+                        <span className="text-amber-600 dark:text-amber-300 font-semibold">07:30</span>
                       </div>
                       <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
-                        <span className="text-gray-700 font-medium">Fim</span>
-                        <span className="text-amber-600 font-semibold">11:10</span>
+                        <span className="text-foreground font-medium">Fim</span>
+                        <span className="text-amber-600 dark:text-amber-300 font-semibold">11:10</span>
                       </div>
                       <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
-                        <span className="text-gray-700 font-medium">Períodos</span>
-                        <span className="text-amber-600 font-semibold">5 aulas</span>
+                        <span className="text-foreground font-medium">Períodos</span>
+                        <span className="text-amber-600 dark:text-amber-300 font-semibold">5 aulas</span>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-t-lg">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                         <BookOpen className="w-6 h-6" />
                       </div>
                       <div>
@@ -528,10 +528,10 @@ export default function Settings() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-white/90 backdrop-blur-sm border-amber-200 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Card className="bg-card/90 backdrop-blur-sm border border-amber-200/70 dark:border-amber-500/20 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-t-lg">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                      <div className="w-12 h-12 bg-black/10 dark:bg-white/10 rounded-full flex items-center justify-center">
                         <Users className="w-6 h-6" />
                       </div>
                       <div>
@@ -557,3 +557,5 @@ export default function Settings() {
     </MainLayout>
   );
 }
+
+

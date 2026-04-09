@@ -1,4 +1,4 @@
-import { useLocation } from "wouter";
+﻿import { useLocation } from "wouter";
 import { BookOpen, Calendar, ChevronRight, GraduationCap, UserRound, TrendingUp, Award, Clock, Target, Zap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
@@ -120,7 +120,7 @@ export function StudentDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold">
-                Bem-vindo, {user?.firstName || 'Aluno'}! 👋
+                Bem-vindo, {user?.firstName || 'Aluno'}! ðŸ‘‹
               </h2>
               <p className="mt-2 text-blue-100">
                 Visão geral do seu desempenho - {currentDate}
@@ -178,11 +178,11 @@ export function StudentDashboard() {
             <Card className="dashboard-card">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-foreground">
                     Desempenho por Disciplina
                   </h3>
                   <Badge variant="outline" className="text-xs">
-                    Último Bimestre
+                    Ãšltimo Bimestre
                   </Badge>
                 </div>
                 <div className="h-80">
@@ -194,21 +194,21 @@ export function StudentDashboard() {
 
           {/* Upcoming Deadlines */}
           <Card className="dashboard-card">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-foreground">
                   Próximas Entregas
                 </h3>
-                <Clock className="h-5 w-5 text-gray-400" />
+                <Clock className="h-5 w-5 text-muted-foreground" />
               </div>
             </div>
             <div className="p-6 space-y-4">
               {upcomingDeadlines.map((deadline, index) => (
-                <div key={index} className="p-4 rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <div key={index} className="p-4 rounded-xl border border-border hover:bg-muted/40 transition-colors">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center space-x-2 mb-2">
-                        <h4 className="font-medium text-gray-900 dark:text-white">
+                        <h4 className="font-medium text-foreground">
                           {deadline.title}
                         </h4>
                         <Badge 
@@ -219,10 +219,10 @@ export function StudentDashboard() {
                           {deadline.priority}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <p className="text-sm text-muted-foreground mb-2">
                         {deadline.description}
                       </p>
-                      <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center text-sm text-muted-foreground">
                         <Calendar className="h-4 w-4 mr-1" />
                         {deadline.date}
                       </div>
@@ -247,16 +247,16 @@ export function StudentDashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Announcements */}
           <Card className="dashboard-card">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-foreground">
                   Recados
                 </h3>
                 <Button 
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate('/notifications')} 
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                  className="text-primary hover:text-primary/80"
                 >
                   Ver todos <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
@@ -264,7 +264,7 @@ export function StudentDashboard() {
             </div>
             <div className="p-6 space-y-4">
               {announcements.map((announcement, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <div key={index} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-muted/40 transition-colors">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback className={`text-xs font-medium ${
                       announcement.type === 'reminder' ? 'bg-blue-100 text-blue-600' :
@@ -275,13 +275,13 @@ export function StudentDashboard() {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">
+                    <p className="text-sm font-medium text-foreground">
                       {announcement.author}
                     </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       {announcement.message}
                     </p>
-                    <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+                    <p className="text-xs text-muted-foreground mt-2">
                       {announcement.time}
                     </p>
                   </div>
@@ -292,8 +292,8 @@ export function StudentDashboard() {
           
           {/* Attendance Record */}
           <Card className="dashboard-card">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <div className="p-6 border-b border-border">
+              <h3 className="text-lg font-semibold text-foreground">
                 Registro de Presença
               </h3>
             </div>
@@ -302,7 +302,7 @@ export function StudentDashboard() {
                 <div className="relative">
                   <svg viewBox="0 0 36 36" className="h-32 w-32">
                     <path 
-                      className="stroke-current text-gray-200 dark:text-gray-700" 
+                      className="stroke-current text-muted" 
                       fill="none" 
                       strokeWidth="3" 
                       d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" 
@@ -315,20 +315,20 @@ export function StudentDashboard() {
                       strokeDasharray="96, 100" 
                       d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" 
                     />
-                    <text x="18" y="20.5" className="text-3xl font-bold fill-current text-gray-700 dark:text-gray-300" textAnchor="middle">
+                    <text x="18" y="20.5" className="text-3xl font-bold fill-current text-foreground" textAnchor="middle">
                       96%
                     </text>
                   </svg>
                 </div>
               </div>
               <div className="space-y-2 text-center">
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   Total de aulas: <span className="font-semibold">125</span>
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   Presença: <span className="font-semibold text-green-600">120</span>
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   Faltas: <span className="font-semibold text-red-600">5</span>
                 </p>
               </div>
@@ -337,16 +337,16 @@ export function StudentDashboard() {
           
           {/* Upcoming Events */}
           <Card className="dashboard-card">
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+            <div className="p-6 border-b border-border">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-foreground">
                   Próximos Eventos
                 </h3>
                 <Button 
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate('/calendar')} 
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                  className="text-primary hover:text-primary/80"
                 >
                   Ver todos <ChevronRight className="h-4 w-4 ml-1" />
                 </Button>
@@ -354,13 +354,13 @@ export function StudentDashboard() {
             </div>
             <div className="p-6 space-y-4">
               {upcomingEvents.map((event, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <div key={index} className="flex items-start space-x-3 p-3 rounded-lg hover:bg-muted/40 transition-colors">
                   <div className={`${event.color} h-3 w-3 rounded-full mt-2 flex-shrink-0`}></div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-medium text-foreground">
                       {event.title}
                     </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-muted-foreground">
                       {event.date}
                     </p>
                     <Badge variant="outline" className="text-xs mt-1">
@@ -376,23 +376,23 @@ export function StudentDashboard() {
 
         {/* Achievements Section */}
         <Card className="dashboard-card">
-          <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Conquistas Recentes 🏆
+          <div className="p-6 border-b border-border">
+            <h3 className="text-lg font-semibold text-foreground">
+              Conquistas Recentes ðŸ†
             </h3>
           </div>
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {achievements.map((achievement, index) => (
-                <div key={index} className="flex items-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700">
-                  <div className={`p-2 rounded-lg bg-white dark:bg-gray-600 shadow-sm ${achievement.color}`}>
+                <div key={index} className="flex items-center space-x-3 p-4 rounded-xl bg-gradient-to-r from-muted/60 to-muted">
+                  <div className={`p-2 rounded-lg bg-background dark:bg-muted shadow-sm ${achievement.color}`}>
                     {achievement.icon}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-medium text-foreground">
                       {achievement.title}
                     </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <p className="text-sm text-muted-foreground">
                       {achievement.description}
                     </p>
                   </div>
@@ -404,3 +404,4 @@ export function StudentDashboard() {
       </div>
     );
 }
+

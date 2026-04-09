@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -88,7 +88,7 @@ export default function TeacherActivitiesFlow() {
     const isExpired = new Date(activity.dueDate) < new Date();
     
     if (activity.status === 'draft') {
-      return <Badge variant="outline" className="text-gray-600 border-gray-600">Rascunho</Badge>;
+      return <Badge variant="outline" className="text-muted-foreground border-gray-600">Rascunho</Badge>;
     }
     
     if (isExpired) {
@@ -101,7 +101,7 @@ export default function TeacherActivitiesFlow() {
   const getSubmissionStatus = (activity: Activity) => {
     if (activity.submissionCount === 0) {
       return (
-        <div className="flex items-center text-gray-500">
+        <div className="flex items-center text-muted-foreground">
           <Clock className="w-4 h-4 mr-1" />
           <span className="text-sm">Aguardando submissões</span>
         </div>
@@ -138,8 +138,8 @@ export default function TeacherActivitiesFlow() {
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <CardTitle className="text-lg mb-2">{activity.title}</CardTitle>
-            <p className="text-sm text-gray-600 mb-2">{activity.description}</p>
-            <div className="flex items-center space-x-4 text-sm text-gray-500">
+            <p className="text-sm text-muted-foreground mb-2">{activity.description}</p>
+            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center">
                 <BookOpen className="w-4 h-4 mr-1" />
                 {activity.subjectName}
@@ -244,11 +244,11 @@ export default function TeacherActivitiesFlow() {
               variant="outline"
               onClick={() => setShowSubmissionInterface(false)}
             >
-              ← Voltar
+              ? Voltar
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{selectedActivity.title}</h1>
-              <p className="text-gray-600">Gerenciar submissões e avaliações</p>
+              <h1 className="text-2xl font-bold text-foreground">{selectedActivity.title}</h1>
+              <p className="text-muted-foreground">Gerenciar submissões e avaliações</p>
             </div>
           </div>
           
@@ -264,8 +264,8 @@ export default function TeacherActivitiesFlow() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Fluxo de Atividades</h1>
-            <p className="text-gray-600">Gerencie o ciclo completo: criação → entrega → avaliação</p>
+            <h1 className="text-3xl font-bold text-foreground">Fluxo de Atividades</h1>
+            <p className="text-muted-foreground">Gerencie o ciclo completo: criação ? entrega ? avaliação</p>
           </div>
           <Button
             onClick={() => navigate('/teacher/activities/create')}
@@ -281,37 +281,37 @@ export default function TeacherActivitiesFlow() {
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-blue-600">{stats.total}</div>
-              <div className="text-sm text-gray-600">Total de Atividades</div>
+              <div className="text-sm text-muted-foreground">Total de Atividades</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-green-600">{stats.active}</div>
-              <div className="text-sm text-gray-600">Ativas</div>
+              <div className="text-sm text-muted-foreground">Ativas</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-red-600">{stats.expired}</div>
-              <div className="text-sm text-gray-600">Expiradas</div>
+              <div className="text-sm text-muted-foreground">Expiradas</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-purple-600">{stats.totalSubmissions}</div>
-              <div className="text-sm text-gray-600">Submissões</div>
+              <div className="text-sm text-muted-foreground">Submissões</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-orange-600">{stats.totalPending}</div>
-              <div className="text-sm text-gray-600">Para Avaliar</div>
+              <div className="text-sm text-muted-foreground">Para Avaliar</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="p-4 text-center">
               <div className="text-2xl font-bold text-teal-600">{stats.totalGraded}</div>
-              <div className="text-sm text-gray-600">Avaliadas</div>
+              <div className="text-sm text-muted-foreground">Avaliadas</div>
             </CardContent>
           </Card>
         </div>
@@ -350,7 +350,7 @@ export default function TeacherActivitiesFlow() {
                         <p className="text-sm font-medium">Professor Cria</p>
                       </div>
                       
-                      <ArrowRight className="w-6 h-6 text-gray-400" />
+                      <ArrowRight className="w-6 h-6 text-muted-foreground/60" />
                       
                       <div className="text-center">
                         <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mb-2">
@@ -359,7 +359,7 @@ export default function TeacherActivitiesFlow() {
                         <p className="text-sm font-medium">Aluno Recebe</p>
                       </div>
                       
-                      <ArrowRight className="w-6 h-6 text-gray-400" />
+                      <ArrowRight className="w-6 h-6 text-muted-foreground/60" />
                       
                       <div className="text-center">
                         <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mb-2">
@@ -368,7 +368,7 @@ export default function TeacherActivitiesFlow() {
                         <p className="text-sm font-medium">Aluno Entrega</p>
                       </div>
                       
-                      <ArrowRight className="w-6 h-6 text-gray-400" />
+                      <ArrowRight className="w-6 h-6 text-muted-foreground/60" />
                       
                       <div className="text-center">
                         <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mb-2">
@@ -377,7 +377,7 @@ export default function TeacherActivitiesFlow() {
                         <p className="text-sm font-medium">Professor Avalia</p>
                       </div>
                       
-                      <ArrowRight className="w-6 h-6 text-gray-400" />
+                      <ArrowRight className="w-6 h-6 text-muted-foreground/60" />
                       
                       <div className="text-center">
                         <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center mb-2">
@@ -395,16 +395,16 @@ export default function TeacherActivitiesFlow() {
                 <Card className="border-orange-200 bg-orange-50">
                   <CardHeader>
                     <CardTitle className="text-orange-800">
-                      🔔 Atividades Precisando de Avaliação
+                      ðŸ”” Atividades Precisando de Avaliação
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-2">
                       {needingGrading.slice(0, 3).map(activity => (
-                        <div key={activity.id} className="flex items-center justify-between p-3 bg-white rounded border">
+                        <div key={activity.id} className="flex items-center justify-between p-3 bg-card rounded border">
                           <div>
                             <p className="font-medium">{activity.title}</p>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-muted-foreground">
                               {activity.pendingCount} submissão(ões) pendente(s)
                             </p>
                           </div>
@@ -436,8 +436,8 @@ export default function TeacherActivitiesFlow() {
               {activeActivities.length === 0 ? (
                 <Card>
                   <CardContent className="p-8 text-center">
-                    <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">Nenhuma atividade ativa no momento</p>
+                    <BookOpen className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                    <p className="text-muted-foreground">Nenhuma atividade ativa no momento</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -455,7 +455,7 @@ export default function TeacherActivitiesFlow() {
                 <Card>
                   <CardContent className="p-8 text-center">
                     <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-                    <p className="text-gray-600">Todas as submissões foram avaliadas! 🎉</p>
+                    <p className="text-muted-foreground">Todas as submissões foram avaliadas! ðŸŽ‰</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -472,8 +472,8 @@ export default function TeacherActivitiesFlow() {
               {withSubmissions.length === 0 ? (
                 <Card>
                   <CardContent className="p-8 text-center">
-                    <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">Aguardando primeiras submissões</p>
+                    <FileText className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                    <p className="text-muted-foreground">Aguardando primeiras submissões</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -490,8 +490,8 @@ export default function TeacherActivitiesFlow() {
               {expiredActivities.length === 0 ? (
                 <Card>
                   <CardContent className="p-8 text-center">
-                    <Clock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600">Nenhuma atividade expirada</p>
+                    <Clock className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                    <p className="text-muted-foreground">Nenhuma atividade expirada</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -506,3 +506,4 @@ export default function TeacherActivitiesFlow() {
     </MainLayout>
   );
 }
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Dialog,
   DialogContent,
@@ -71,8 +71,8 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
               <CheckCircle2 className="h-5 w-5 text-white" />
             </div>
           </div>
-          <div className="text-2xl font-bold text-gray-900">Tudo configurado!</div>
-          <div className="text-gray-600">Você pode começar a estudar agora mesmo</div>
+          <div className="text-2xl font-bold text-foreground">Tudo configurado!</div>
+          <div className="text-muted-foreground">Você pode começar a estudar agora mesmo</div>
         </div>
       ),
       keyPoints: [
@@ -126,14 +126,14 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
             </div>
           </div>
           <div className="flex items-center justify-center space-x-2">
-            <ArrowDown className="h-5 w-5 text-gray-400" />
-            <div className="p-3 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
+            <ArrowDown className="h-5 w-5 text-muted-foreground/60" />
+            <div className="p-3 bg-muted/60 rounded-lg border-2 border-dashed border-gray-300">
               <div className="space-y-1">
                 <div className="h-2 bg-gray-300 rounded w-16"></div>
                 <div className="h-2 bg-gray-300 rounded w-12"></div>
               </div>
             </div>
-            <ArrowRight className="h-5 w-5 text-gray-400" />
+            <ArrowRight className="h-5 w-5 text-muted-foreground/60" />
             <div className="p-3 bg-green-100 rounded-lg">
               <CheckCircle2 className="h-5 w-5 text-green-600" />
             </div>
@@ -164,7 +164,7 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
               <FileText className="h-5 w-5 text-blue-600" />
               <div>
                 <div className="font-medium text-sm">Apostila Matemática</div>
-                <div className="text-xs text-gray-600">PDF • 2.5 MB</div>
+                <div className="text-xs text-muted-foreground">PDF • 2.5 MB</div>
               </div>
               <Download className="h-4 w-4 text-blue-600 ml-auto" />
             </div>
@@ -172,7 +172,7 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
               <FileText className="h-5 w-5 text-green-600" />
               <div>
                 <div className="font-medium text-sm">Exercícios Física</div>
-                <div className="text-xs text-gray-600">DOC • 1.2 MB</div>
+                <div className="text-xs text-muted-foreground">DOC • 1.2 MB</div>
               </div>
               <Download className="h-4 w-4 text-green-600 ml-auto" />
             </div>
@@ -204,14 +204,14 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
                 <div className="font-medium text-sm">Exercícios de Matemática</div>
                 <Badge variant="secondary" className="text-xs">Pendente</Badge>
               </div>
-              <div className="text-xs text-gray-600">Prazo: 15/10/2024</div>
+              <div className="text-xs text-muted-foreground">Prazo: 15/10/2024</div>
             </div>
             <div className="p-3 bg-green-50 rounded-lg border border-green-200">
               <div className="flex items-center justify-between mb-2">
                 <div className="font-medium text-sm">Redação de Português</div>
                 <Badge className="bg-green-100 text-green-800 text-xs">Entregue</Badge>
               </div>
-              <div className="text-xs text-gray-600">Nota: 8.5</div>
+              <div className="text-xs text-muted-foreground">Nota: 8.5</div>
             </div>
           </div>
         </div>
@@ -241,14 +241,14 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
                 <div className="font-medium text-sm">Prova de Física</div>
                 <Badge variant="destructive" className="text-xs">Amanhã</Badge>
               </div>
-              <div className="text-xs text-gray-600">15/10/2024 às 14:00</div>
+              <div className="text-xs text-muted-foreground">15/10/2024 às 14:00</div>
             </div>
             <div className="p-3 bg-green-50 rounded-lg border border-green-200">
               <div className="flex items-center justify-between mb-2">
                 <div className="font-medium text-sm">Prova de História</div>
                 <Badge className="bg-green-100 text-green-800 text-xs">Concluída</Badge>
               </div>
-              <div className="text-xs text-gray-600">Nota: 9.2</div>
+              <div className="text-xs text-muted-foreground">Nota: 9.2</div>
             </div>
           </div>
         </div>
@@ -310,14 +310,14 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
                 <div className="font-medium text-sm">Prof. João</div>
                 <Badge className="bg-blue-100 text-blue-800 text-xs ml-auto">Nova</Badge>
               </div>
-              <div className="text-xs text-gray-600">"Dúvida sobre o exercício 5..."</div>
+              <div className="text-xs text-muted-foreground">"Dúvida sobre o exercício 5..."</div>
             </div>
             <div className="p-3 bg-green-50 rounded-lg border border-green-200">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold">A</div>
                 <div className="font-medium text-sm">Ana Silva</div>
               </div>
-              <div className="text-xs text-gray-600">"Alguém tem a resposta da questão 3?"</div>
+              <div className="text-xs text-muted-foreground">"Alguém tem a resposta da questão 3?"</div>
             </div>
           </div>
         </div>
@@ -347,14 +347,14 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
                 <Calendar className="h-4 w-4 text-red-600" />
                 <div className="font-medium text-sm">Prova de Matemática</div>
               </div>
-              <div className="text-xs text-gray-600">15/10/2024</div>
+              <div className="text-xs text-muted-foreground">15/10/2024</div>
             </div>
             <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
               <div className="flex items-center gap-2 mb-1">
                 <Calendar className="h-4 w-4 text-blue-600" />
                 <div className="font-medium text-sm">Entrega de Trabalho</div>
               </div>
-              <div className="text-xs text-gray-600">20/10/2024</div>
+              <div className="text-xs text-muted-foreground">20/10/2024</div>
             </div>
           </div>
         </div>
@@ -383,21 +383,21 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
               <Badge variant="secondary" className="mt-0.5">1</Badge>
               <div>
                 <div className="font-medium text-sm">Mantenha-se Atualizado</div>
-                <div className="text-xs text-gray-600">Verifique regularmente o dashboard</div>
+                <div className="text-xs text-muted-foreground">Verifique regularmente o dashboard</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Badge variant="secondary" className="mt-0.5">2</Badge>
               <div>
                 <div className="font-medium text-sm">Respeite os Prazos</div>
-                <div className="text-xs text-gray-600">Entregue atividades no prazo</div>
+                <div className="text-xs text-muted-foreground">Entregue atividades no prazo</div>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <Badge variant="secondary" className="mt-0.5">3</Badge>
               <div>
                 <div className="font-medium text-sm">Comunique-se</div>
-                <div className="text-xs text-gray-600">Use o chat para tirar dúvidas</div>
+                <div className="text-xs text-muted-foreground">Use o chat para tirar dúvidas</div>
               </div>
             </div>
           </div>
@@ -433,7 +433,7 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
             {currentStepData.icon}
             <div>
               <div className="text-xl font-bold">{currentStepData.title}</div>
-              <div className="text-sm text-gray-600 font-normal">{currentStepData.subtitle}</div>
+              <div className="text-sm text-muted-foreground font-normal">{currentStepData.subtitle}</div>
             </div>
           </DialogTitle>
         </DialogHeader>
@@ -447,7 +447,7 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
 
             {/* Key Points */}
             <div className="space-y-3">
-              <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+              <h3 className="font-semibold text-foreground flex items-center gap-2">
                 <Target className="h-5 w-5 text-blue-600" />
                 O que você pode fazer:
               </h3>
@@ -455,7 +455,7 @@ const StudentInstructionModal: React.FC<StudentInstructionModalProps> = ({ isOpe
                 {currentStepData.keyPoints.map((point, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <CheckCircle2 className="h-4 w-4 text-green-500 flex-shrink-0" />
-                    <span className="text-gray-700">{point}</span>
+                    <span className="text-foreground">{point}</span>
                   </div>
                 ))}
               </div>

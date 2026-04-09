@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -104,7 +104,7 @@ export default function CoordinatorApprovals() {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Carregando atividades pendentes...</p>
+            <p className="text-muted-foreground">Carregando atividades pendentes...</p>
           </div>
         </div>
       </MainLayout>
@@ -117,13 +117,13 @@ export default function CoordinatorApprovals() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Aprovações Pedagógicas</h1>
-            <p className="text-gray-600 mt-2">
+            <h1 className="text-3xl font-bold text-foreground">Aprovações Pedagógicas</h1>
+            <p className="text-muted-foreground mt-2">
               Revise e acompanhe as atividades criadas pelos professores
             </p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-gray-600">Atividades pendentes</p>
+            <p className="text-sm text-muted-foreground">Atividades pendentes</p>
             <p className="text-3xl font-bold text-red-600">{pendingActivities.length}</p>
           </div>
         </div>
@@ -133,7 +133,7 @@ export default function CoordinatorApprovals() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total Pendentes</p>
+                <p className="text-sm text-muted-foreground">Total Pendentes</p>
                 <p className="text-2xl font-bold text-yellow-600">{pendingActivities.length}</p>
               </div>
               <Clock className="h-8 w-8 text-yellow-600" />
@@ -143,7 +143,7 @@ export default function CoordinatorApprovals() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Urgentes</p>
+                <p className="text-sm text-muted-foreground">Urgentes</p>
                 <p className="text-2xl font-bold text-red-600">
                   {pendingActivities.filter((a: any) => {
                     const dueDate = new Date(a.dueDate || a.createdAt);
@@ -160,7 +160,7 @@ export default function CoordinatorApprovals() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Materialias Diferentes</p>
+                <p className="text-sm text-muted-foreground">Materialias Diferentes</p>
                 <p className="text-2xl font-bold text-blue-600">
                   {new Set(pendingActivities.map((a: any) => a.subject?.name).filter(Boolean)).size}
                 </p>
@@ -172,7 +172,7 @@ export default function CoordinatorApprovals() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Professores</p>
+                <p className="text-sm text-muted-foreground">Professores</p>
                 <p className="text-2xl font-bold text-orange-600">
                   {new Set(pendingActivities.map((a: any) => a.teacher?.name).filter(Boolean)).size}
                 </p>
@@ -187,7 +187,7 @@ export default function CoordinatorApprovals() {
           <div className="flex flex-wrap gap-4 items-center">
             <div className="flex-1 min-w-[300px]">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 h-4 w-4" />
                 <Input
                   placeholder="Buscar atividades, professores ou matérias..."
                   value={searchTerm}
@@ -212,30 +212,30 @@ export default function CoordinatorApprovals() {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-semibold text-gray-900">{activity.title || 'Atividade sem título'}</h3>
+                      <h3 className="text-xl font-semibold text-foreground">{activity.title || 'Atividade sem título'}</h3>
                       {getPriorityBadge(activity.priority)}
                     </div>
                     
-                    <p className="text-gray-600 mb-3">{activity.description || 'Sem descrição'}</p>
+                    <p className="text-muted-foreground mb-3">{activity.description || 'Sem descrição'}</p>
                     
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4 text-gray-400" />
+                        <Users className="h-4 w-4 text-muted-foreground/60" />
                         <span className="font-medium">Professor:</span>
                         <span>{activity.teacher?.name || 'Não informado'}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-gray-400" />
+                        <BookOpen className="h-4 w-4 text-muted-foreground/60" />
                         <span className="font-medium">Matéria:</span>
                         <span>{activity.subject?.name || 'Não informado'}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4 text-gray-400" />
+                        <Users className="h-4 w-4 text-muted-foreground/60" />
                         <span className="font-medium">Turma:</span>
                         <span>{activity.class?.name || 'Não informado'}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Clock className="h-4 w-4 text-gray-400" />
+                        <Clock className="h-4 w-4 text-muted-foreground/60" />
                         <span className="font-medium">Prazo:</span>
                         <span>{activity.dueDate ? new Date(activity.dueDate).toLocaleDateString('pt-BR') : 'Não definido'}</span>
                       </div>
@@ -244,16 +244,16 @@ export default function CoordinatorApprovals() {
                     <div className="mt-4">
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                         <div>
-                          <span className="font-medium text-gray-700">Criada em:</span>
-                          <p className="text-gray-600">{new Date(activity.createdAt).toLocaleDateString('pt-BR')}</p>
+                          <span className="font-medium text-foreground">Criada em:</span>
+                          <p className="text-muted-foreground">{new Date(activity.createdAt).toLocaleDateString('pt-BR')}</p>
                         </div>
                         <div>
-                          <span className="font-medium text-gray-700">Status:</span>
-                          <p className="text-gray-600">{activity.status || 'Pendente'}</p>
+                          <span className="font-medium text-foreground">Status:</span>
+                          <p className="text-muted-foreground">{activity.status || 'Pendente'}</p>
                         </div>
                         <div>
-                          <span className="font-medium text-gray-700">Tipo:</span>
-                          <p className="text-gray-600">{activity.type || 'Atividade'}</p>
+                          <span className="font-medium text-foreground">Tipo:</span>
+                          <p className="text-muted-foreground">{activity.type || 'Atividade'}</p>
                         </div>
                       </div>
                     </div>
@@ -293,8 +293,8 @@ export default function CoordinatorApprovals() {
           ) : (
             <Card className="p-12 text-center">
               <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Todas as atividades foram revisadas!</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-medium text-foreground mb-2">Todas as atividades foram revisadas!</h3>
+              <p className="text-muted-foreground">
                 Parabéns! Não há atividades pendentes no momento.
               </p>
             </Card>
@@ -304,7 +304,7 @@ export default function CoordinatorApprovals() {
         {/* Activity Details Modal */}
         {selectedActivity && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-card rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-2xl-sans-serif-bold">{selectedActivity.title || 'Atividade sem título'}</h2>
                 <Button 
@@ -337,7 +337,7 @@ export default function CoordinatorApprovals() {
                 
                 <div>
                   <label className="font-medium">Descrição:</label>
-                  <p className="mt-1 p-3 bg-gray-50 rounded border">{selectedActivity.description || 'Sem descrição'}</p>
+                  <p className="mt-1 p-3 bg-muted/60 rounded border">{selectedActivity.description || 'Sem descrição'}</p>
                 </div>
               </div>
               

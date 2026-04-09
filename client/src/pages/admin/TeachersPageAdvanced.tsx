@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CreateButton from '@/components/ui/create-button';
@@ -184,8 +184,8 @@ const TeachersPageAdvanced: React.FC = () => {
       {/* Header com sistema avançado integrado */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gestão de Professores</h1>
-          <p className="text-gray-600 mt-1">Gerencie os professores da escola</p>
+          <h1 className="text-3xl font-bold text-foreground">Gestão de Professores</h1>
+          <p className="text-muted-foreground mt-1">Gerencie os professores da escola</p>
         </div>
         
         <div className="flex items-center space-x-3">
@@ -282,11 +282,11 @@ const TeachersPageAdvanced: React.FC = () => {
       </div>
 
       {/* Resto do componente permanece igual */}
-      <Card className="border border-gray-200">
+      <Card className="border border-border">
         <CardContent className="pt-6">
           <div className="flex items-center gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
               <Input 
                 placeholder="Buscar professores..." 
                 className="pl-10"
@@ -311,7 +311,7 @@ const TeachersPageAdvanced: React.FC = () => {
       {/* Lista de professores */}
       <div className="grid gap-4">
         {filteredTeachers.map((teacher) => (
-          <Card key={teacher.id} className="border border-gray-200 hover:shadow-md transition-shadow">
+          <Card key={teacher.id} className="border border-border hover:shadow-md transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -322,15 +322,15 @@ const TeachersPageAdvanced: React.FC = () => {
                   </Avatar>
                   
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-foreground">
                       {teacher.firstName} {teacher.lastName}
                     </h3>
-                    <p className="text-gray-600">{teacher.email}</p>
+                    <p className="text-muted-foreground">{teacher.email}</p>
                     <div className="flex items-center space-x-4 mt-1">
                       <Badge className={teacher.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
                         {teacher.status === 'active' ? 'Ativo' : 'Inativo'}
                       </Badge>
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-muted-foreground">
                         Matrícula: {teacher.registrationNumber}
                       </span>
                     </div>
@@ -382,13 +382,13 @@ const TeachersPageAdvanced: React.FC = () => {
       </div>
 
       {filteredTeachers.length === 0 && (
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="text-center py-12">
-            <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <GraduationCap className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">
               Nenhum professor encontrado
             </h3>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               {searchTerm || filterStatus !== 'all' 
                 ? 'Tente ajustar os filtros de busca.' 
                 : 'Comece criando seu primeiro professor.'}
@@ -408,30 +408,30 @@ const TeachersPageAdvanced: React.FC = () => {
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Nome Completo</Label>
-                  <p className="text-lg font-semibold text-gray-900">{selectedTeacher.firstName} {selectedTeacher.lastName}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Nome Completo</Label>
+                  <p className="text-lg font-semibold text-foreground">{selectedTeacher.firstName} {selectedTeacher.lastName}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Matrícula</Label>
-                  <p className="text-gray-900 font-mono">{selectedTeacher.registrationNumber}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Matrícula</Label>
+                  <p className="text-foreground font-mono">{selectedTeacher.registrationNumber}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Email</Label>
-                  <p className="text-gray-900">{selectedTeacher.email}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Email</Label>
+                  <p className="text-foreground">{selectedTeacher.email}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Telefone</Label>
-                  <p className="text-gray-900">{selectedTeacher.phone || 'Não informado'}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Telefone</Label>
+                  <p className="text-foreground">{selectedTeacher.phone || 'Não informado'}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Status</Label>
+                  <Label className="text-sm font-medium text-muted-foreground">Status</Label>
                   <Badge className={selectedTeacher.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>
                     {selectedTeacher.status === 'active' ? 'Ativo' : 'Inativo'}
                   </Badge>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Criado em</Label>
-                  <p className="text-gray-900">{new Date(selectedTeacher.createdAt).toLocaleDateString('pt-BR')}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Criado em</Label>
+                  <p className="text-foreground">{new Date(selectedTeacher.createdAt).toLocaleDateString('pt-BR')}</p>
                 </div>
               </div>
             </div>
@@ -485,4 +485,5 @@ export default TeachersPageAdvanced;
     const formatted = formatPhone(value);
     setFormData(prev => ({ ...prev, phone: formatted }));
   };
+
 

@@ -124,7 +124,7 @@ const AdminLogs = () => {
     const a = action?.toUpperCase() || '';
     const isError = level === 'ERROR';
 
-    // ConstrÃ³i frase: em erro usa "tentou ...", caso contrÃ¡rio usa passado
+    // Constrói frase: em erro usa "tentou ...", caso contrário usa passado
     const frase = (passado: string, infinitivo?: string) => (
       isError ? `tentou ${infinitivo ?? passado}` : passado
     );
@@ -141,7 +141,7 @@ const AdminLogs = () => {
     if (a.includes('NOTA') && a.includes('LANCADA')) return frase('lançou nota', 'lançar nota');
     if (a.includes('CHAT') && a.includes('ACESSADO')) return frase('acessou o chat', 'acessar o chat');
     if (a.includes('DASHBOARD') && a.includes('ACESSADO')) return frase('acessou o dashboard', 'acessar o dashboard');
-    // GenÃ©rico: usa "executou <aÃ§Ã£o>"
+    // Genérico: usa "executou <ação>"
     const base = `executou ${action?.toLowerCase()}`;
     return isError ? `tentou ${base}` : base;
   };
@@ -261,7 +261,7 @@ const AdminLogs = () => {
               </div>
               <Select value={levelFilter} onValueChange={setLevelFilter}>
                 <SelectTrigger className="w-[150px]">
-                  <SelectValue placeholder="NÃ­vel" />
+                  <SelectValue placeholder="Nível" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Todos</SelectItem>
@@ -356,7 +356,7 @@ const AdminLogs = () => {
                                 </button>
                               </span>
                             )}
-                            {/* 2) ID do usuÃ¡rio */}
+                            {/* 2) ID do usuário */}
                             {log.userId && (
                               <span className="bg-gray-800/80 text-gray-200 px-2 py-0.5 rounded flex items-center gap-1">
                                 ID: {log.userId}

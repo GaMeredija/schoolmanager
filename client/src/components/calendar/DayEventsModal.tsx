@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -85,7 +85,7 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
       case 'activity': return 'bg-blue-100';
       case 'presentation': return 'bg-purple-100';
       case 'meeting': return 'bg-green-100';
-      default: return 'bg-gray-100';
+      default: return 'bg-muted';
     }
   };
 
@@ -95,7 +95,7 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
       case 'activity': return 'text-blue-800';
       case 'presentation': return 'text-purple-800';
       case 'meeting': return 'text-green-800';
-      default: return 'text-gray-800';
+      default: return 'text-foreground';
     }
   };
 
@@ -152,7 +152,7 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
           {events.length > 0 ? (
             <div className="space-y-6">
               {/* Evento atual */}
-              <div className="p-6 rounded-xl border-2 border-gray-200 bg-gradient-to-br from-white to-gray-50 shadow-lg">
+              <div className="p-6 rounded-xl border-2 border-border bg-gradient-to-br from-white to-gray-50 shadow-lg">
                 <div className="flex items-start gap-4">
                   {/* Ícone do evento */}
                   <div className={cn(
@@ -161,14 +161,14 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
                       ? 'bg-gradient-to-br from-orange-600 to-orange-700' 
                       : getEventTypeColor(currentEvent.type)
                   )}>
-                    {currentEvent.isGlobal ? '🌐' : currentEvent.icon}
+                    {currentEvent.isGlobal ? 'ðŸŒ' : currentEvent.icon}
                   </div>
                   
                   {/* Conteúdo do evento */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-900 mb-3">
+                        <h3 className="text-xl font-bold text-foreground mb-3">
                           {currentEvent.title}
                         </h3>
                         
@@ -182,16 +182,16 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
                                 : getEventTypeColor(currentEvent.type)
                             )}
                           >
-                            {currentEvent.isGlobal ? '🌐 Evento Global' : getEventTypeLabel(currentEvent.type)}
+                            {currentEvent.isGlobal ? 'ðŸŒ Evento Global' : getEventTypeLabel(currentEvent.type)}
                           </Badge>
                         </div>
                         
                         {/* Descrição */}
                         {currentEvent.description && (
-                          <div className="mb-4 p-4 bg-gray-50 rounded-lg border">
+                          <div className="mb-4 p-4 bg-muted/60 rounded-lg border">
                             <div className="flex items-start gap-2">
-                              <FileText className="h-5 w-5 text-gray-500 mt-0.5" />
-                              <p className="text-gray-700 leading-relaxed">
+                              <FileText className="h-5 w-5 text-muted-foreground mt-0.5" />
+                              <p className="text-foreground leading-relaxed">
                                 {currentEvent.description}
                               </p>
                             </div>
@@ -202,7 +202,7 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {/* Data e Horário */}
                           <div className="space-y-2">
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
                               <CalendarIcon className="h-4 w-4" />
                               <span className="font-medium">
                                 {format(new Date(currentEvent.date), 'dd/MM/yyyy', { locale: ptBR })}
@@ -210,7 +210,7 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
                             </div>
                             
                             {(currentEvent.startTime || currentEvent.endTime) && (
-                              <div className="flex items-center gap-2 text-sm text-gray-600">
+                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <Clock className="h-4 w-4" />
                                 <span className="font-medium">
                                   {currentEvent.startTime || 'Todo o dia'}
@@ -223,14 +223,14 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
                           {/* Turma e Disciplina */}
                           <div className="space-y-2">
                             {currentEvent.className && (
-                              <div className="flex items-center gap-2 text-sm text-gray-600">
+                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <Users className="h-4 w-4" />
                                 <span className="font-medium">{currentEvent.className}</span>
                               </div>
                             )}
                             
                             {currentEvent.subjectName && (
-                              <div className="flex items-center gap-2 text-sm text-gray-600">
+                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <BookOpen className="h-4 w-4" />
                                 <span className="font-medium">{currentEvent.subjectName}</span>
                               </div>
@@ -242,19 +242,19 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
                         <div className="flex flex-wrap gap-2 mt-4">
                           {currentEvent.totalPoints && (
                             <Badge variant="outline" className="text-sm px-3 py-1 bg-blue-50 text-blue-700 border-blue-200">
-                              🎯 {currentEvent.totalPoints} pontos
+                              ðŸŽ¯ {currentEvent.totalPoints} pontos
                             </Badge>
                           )}
                           
                           {currentEvent.duration && (
                             <Badge variant="outline" className="text-sm px-3 py-1 bg-green-50 text-green-700 border-green-200">
-                              ⏱️ {currentEvent.duration}min
+                              ?? {currentEvent.duration}min
                             </Badge>
                           )}
                           
                           {currentEvent.bimonthly && (
                             <Badge variant="outline" className="text-sm px-3 py-1 bg-purple-50 text-purple-700 border-purple-200">
-                              📊 {currentEvent.bimonthly}º Bimestre
+                              ðŸ“Š {currentEvent.bimonthly}º Bimestre
                             </Badge>
                           )}
                         </div>
@@ -267,7 +267,7 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
               {/* Lista de todos os eventos para referência */}
               {events.length > 1 && (
                 <div className="border-t pt-4">
-                  <h4 className="text-sm font-semibold text-gray-700 mb-3">Todos os eventos do dia:</h4>
+                  <h4 className="text-sm font-semibold text-foreground mb-3">Todos os eventos do dia:</h4>
                   <div className="space-y-2">
                     {events.map((event, index) => (
                       <div
@@ -276,7 +276,7 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
                           "p-3 rounded-lg border cursor-pointer transition-all duration-200",
                           index === currentEventIndex
                             ? "border-blue-400 bg-blue-50 shadow-md"
-                            : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                            : "border-border hover:border-gray-300 hover:bg-muted/60"
                         )}
                         onClick={() => setCurrentEventIndex(index)}
                       >
@@ -285,7 +285,7 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
                             "w-3 h-3 rounded-full",
                             event.isGlobal ? 'bg-orange-500' : getEventTypeColor(event.type)
                           )} />
-                          <span className="text-sm font-medium text-gray-900">{event.title}</span>
+                          <span className="text-sm font-medium text-foreground">{event.title}</span>
                           <Badge variant="outline" className="text-xs">
                             {event.isGlobal ? 'Global' : getEventTypeLabel(event.type)}
                           </Badge>
@@ -299,10 +299,10 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
           ) : (
             <div className="text-center py-12">
               <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
-                <CalendarIcon className="h-10 w-10 text-gray-400" />
+                <CalendarIcon className="h-10 w-10 text-muted-foreground/60" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Nenhum evento agendado</h3>
-              <p className="text-gray-500">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Nenhum evento agendado</h3>
+              <p className="text-muted-foreground">
                 {format(selectedDate, 'dd/MM/yyyy')} está livre de compromissos
               </p>
             </div>
@@ -312,3 +312,4 @@ export const DayEventsModal: React.FC<DayEventsModalProps> = ({
     </Dialog>
   );
 };
+

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -21,7 +21,7 @@ export default function StudentClassPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando informações da turma...</p>
+          <p className="text-muted-foreground">Carregando informações da turma...</p>
         </div>
       </div>
     );
@@ -31,8 +31,8 @@ export default function StudentClassPage() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="text-red-500 text-lg mb-2">Erro ao carregar informações</div>
-          <p className="text-gray-600">Tente novamente mais tarde</p>
+          <div className="text-destructive text-lg mb-2">Erro ao carregar informações</div>
+          <p className="text-muted-foreground">Tente novamente mais tarde</p>
         </div>
       </div>
     );
@@ -44,11 +44,11 @@ export default function StudentClassPage() {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <BookOpen className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <BookOpen className="h-16 w-16 text-muted-foreground/40 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-foreground mb-2">
             Não matriculado em nenhuma turma
           </h3>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Entre em contato com a administração para ser matriculado.
           </p>
         </div>
@@ -69,49 +69,49 @@ export default function StudentClassPage() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Informações Básicas</h3>
+              <h3 className="font-semibold text-foreground mb-2">Informações Básicas</h3>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <GraduationCap className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Série: {classInfo.class.grade}</span>
+                  <GraduationCap className="h-4 w-4 text-muted-foreground/60" />
+                  <span className="text-sm text-muted-foreground">Série: {classInfo.class.grade}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Seção: {classInfo.class.section}</span>
+                  <Users className="h-4 w-4 text-muted-foreground/60" />
+                  <span className="text-sm text-muted-foreground">Seção: {classInfo.class.section}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Ano Letivo: {classInfo.class.academicYear}</span>
+                  <Calendar className="h-4 w-4 text-muted-foreground/60" />
+                  <span className="text-sm text-muted-foreground">Ano Letivo: {classInfo.class.academicYear}</span>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Estatísticas</h3>
+              <h3 className="font-semibold text-foreground mb-2">Estatísticas</h3>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Total de alunos: {classInfo.totalStudents}</span>
+                  <Users className="h-4 w-4 text-muted-foreground/60" />
+                  <span className="text-sm text-muted-foreground">Total de alunos: {classInfo.totalStudents}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <BookOpen className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Professores: {classInfo.teachers.length}</span>
+                  <BookOpen className="h-4 w-4 text-muted-foreground/60" />
+                  <span className="text-sm text-muted-foreground">Professores: {classInfo.teachers.length}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Capacidade: {classInfo.class.capacity}</span>
+                  <Calendar className="h-4 w-4 text-muted-foreground/60" />
+                  <span className="text-sm text-muted-foreground">Capacidade: {classInfo.class.capacity}</span>
                 </div>
               </div>
             </div>
 
             <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Sua Matrícula</h3>
+              <h3 className="font-semibold text-foreground mb-2">Sua Matrícula</h3>
               <div className="space-y-2">
-                <Badge className="bg-green-100 text-green-800">
+                <Badge className="border-green-500/30 bg-green-500/10 text-green-700 dark:bg-green-500/15 dark:text-green-200">
                   <User className="h-3 w-3 mr-1" />
                   Ativo
                 </Badge>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   Matriculado desde: {classInfo.enrollmentDate ? 
                     new Date(classInfo.enrollmentDate).toLocaleDateString('pt-BR') : 
                     'Data não disponível'
@@ -134,11 +134,11 @@ export default function StudentClassPage() {
         <CardContent>
           {classInfo.teachers.length === 0 ? (
             <div className="text-center py-8">
-              <GraduationCap className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <GraduationCap className="h-12 w-12 text-muted-foreground/40 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhum professor vinculado
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Ainda não há professores vinculados a esta turma.
               </p>
             </div>
@@ -153,18 +153,18 @@ export default function StudentClassPage() {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-foreground">
                       {teacher.firstName} {teacher.lastName}
                     </p>
-                    <p className="text-sm text-gray-600">{teacher.subjectName}</p>
+                    <p className="text-sm text-muted-foreground">{teacher.subjectName}</p>
                     <div className="flex items-center gap-2 mt-1">
-                      <Mail className="h-3 w-3 text-gray-400" />
-                      <span className="text-xs text-gray-500">{teacher.email}</span>
+                      <Mail className="h-3 w-3 text-muted-foreground/60" />
+                      <span className="text-xs text-muted-foreground/60">{teacher.email}</span>
                     </div>
                     {teacher.phone && (
                       <div className="flex items-center gap-2 mt-1">
-                        <Phone className="h-3 w-3 text-gray-400" />
-                        <span className="text-xs text-gray-500">{teacher.phone}</span>
+                        <Phone className="h-3 w-3 text-muted-foreground/60" />
+                        <span className="text-xs text-muted-foreground/60">{teacher.phone}</span>
                       </div>
                     )}
                   </div>
@@ -186,11 +186,11 @@ export default function StudentClassPage() {
         <CardContent>
           {classInfo.classmates.length === 0 ? (
             <div className="text-center py-8">
-              <Users className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <Users className="h-12 w-12 text-muted-foreground/40 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Você é o único aluno da turma
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Não há outros alunos matriculados nesta turma.
               </p>
             </div>
@@ -205,12 +205,12 @@ export default function StudentClassPage() {
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-foreground">
                       {classmate.firstName} {classmate.lastName}
                     </p>
-                    <p className="text-xs text-gray-500">{classmate.email}</p>
+                    <p className="text-xs text-muted-foreground/60">{classmate.email}</p>
                     {classmate.registrationNumber && (
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-muted-foreground/60">
                         Matrícula: {classmate.registrationNumber}
                       </p>
                     )}
@@ -224,3 +224,4 @@ export default function StudentClassPage() {
     </div>
   );
 }
+

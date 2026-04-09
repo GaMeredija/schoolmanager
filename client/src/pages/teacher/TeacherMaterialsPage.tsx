@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -172,8 +172,8 @@ export function TeacherMaterialsPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Materiais Didáticos</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-3xl font-bold text-foreground">Materiais Didáticos</h1>
+            <p className="text-muted-foreground mt-1">
               Gerencie slides, documentos e conteúdos de aula
             </p>
           </div>
@@ -196,7 +196,7 @@ export function TeacherMaterialsPage() {
               </button>
               {folderPath.map((folder, index) => (
                 <React.Fragment key={index}>
-                  <span className="text-gray-400">&gt;</span>
+                  <span className="text-muted-foreground/60">&gt;</span>
                   <button
                     onClick={() => {
                       const newPath = folderPath.slice(0, index + 1);
@@ -211,8 +211,8 @@ export function TeacherMaterialsPage() {
               ))}
               {currentFolder && (
                 <>
-                  <span className="text-gray-400">&gt;</span>
-                  <span className="text-gray-900 font-medium px-2 py-1">{currentFolder}</span>
+                  <span className="text-muted-foreground/60">&gt;</span>
+                  <span className="text-foreground font-medium px-2 py-1">{currentFolder}</span>
                 </>
               )}
             </div>
@@ -225,7 +225,7 @@ export function TeacherMaterialsPage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1">
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 w-4 h-4" />
                   <Input
                     placeholder="Buscar materiais..."
                     value={searchTerm}
@@ -235,7 +235,7 @@ export function TeacherMaterialsPage() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-gray-500" />
+                <Filter className="w-4 h-4 text-muted-foreground" />
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
@@ -258,8 +258,8 @@ export function TeacherMaterialsPage() {
         <Card>
           <CardContent className="p-0">
             {/* Cabeçalho das Colunas */}
-            <div className="border-b bg-gray-50 px-4 py-2">
-              <div className="grid grid-cols-12 gap-4 text-sm font-medium text-gray-600">
+            <div className="border-b bg-muted/60 px-4 py-2">
+              <div className="grid grid-cols-12 gap-4 text-sm font-medium text-muted-foreground">
                 <div className="col-span-5">Nome</div>
                 <div className="col-span-2">Tipo</div>
                 <div className="col-span-2">Data de modificação</div>
@@ -279,11 +279,11 @@ export function TeacherMaterialsPage() {
                 >
                   <div className="col-span-5 flex items-center gap-3">
                     <Folder className="w-5 h-5 text-blue-600" />
-                    <span className="font-medium text-gray-900">{folder.folder}</span>
+                    <span className="font-medium text-foreground">{folder.folder}</span>
                   </div>
-                  <div className="col-span-2 text-sm text-gray-600">Pasta de arquivos</div>
-                  <div className="col-span-2 text-sm text-gray-600">-</div>
-                  <div className="col-span-2 text-sm text-gray-600">{folder.count} itens</div>
+                  <div className="col-span-2 text-sm text-muted-foreground">Pasta de arquivos</div>
+                  <div className="col-span-2 text-sm text-muted-foreground">-</div>
+                  <div className="col-span-2 text-sm text-muted-foreground">{folder.count} itens</div>
                   <div className="col-span-1"></div>
                 </div>
               ))}
@@ -302,7 +302,7 @@ export function TeacherMaterialsPage() {
                 return (
                   <div
                     key={material.id}
-                    className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-gray-50 transition-colors items-center"
+                    className="grid grid-cols-12 gap-4 px-4 py-3 hover:bg-muted/60 transition-colors items-center"
                   >
                     <div className="col-span-5 flex items-center gap-3">
                       <IconComponent className="w-5 h-5 text-purple-600" />
@@ -319,20 +319,20 @@ export function TeacherMaterialsPage() {
                             {material.title}
                           </button>
                         ) : (
-                          <span className="font-medium text-gray-900">{material.title}</span>
+                          <span className="font-medium text-foreground">{material.title}</span>
                         )}
                         {material.description && (
-                          <p className="text-sm text-gray-500 truncate">{material.description}</p>
+                          <p className="text-sm text-muted-foreground truncate">{material.description}</p>
                         )}
                       </div>
                     </div>
-                    <div className="col-span-2 text-sm text-gray-600">
+                    <div className="col-span-2 text-sm text-muted-foreground">
                       {materialTypeLabels[material.materialType]}
                     </div>
-                    <div className="col-span-2 text-sm text-gray-600">
+                    <div className="col-span-2 text-sm text-muted-foreground">
                       {format(new Date(material.createdAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                     </div>
-                    <div className="col-span-2 text-sm text-gray-600">
+                    <div className="col-span-2 text-sm text-muted-foreground">
                       {material.filesCount > 0 ? formatFileSize(material.totalSize || 0) : '-'}
                     </div>
                     <div className="col-span-1 flex items-center gap-1">
@@ -366,11 +366,11 @@ export function TeacherMaterialsPage() {
               {/* Estado vazio */}
               {filteredMaterials.length === 0 && folders.length === 0 && (
                 <div className="px-4 py-12 text-center">
-                  <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <BookOpen className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-foreground mb-2">
                     Nenhum material encontrado
                   </h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-muted-foreground mb-4">
                     {searchTerm || selectedType !== 'all' 
                       ? 'Tente ajustar os filtros de busca'
                       : 'Comece criando seu primeiro material didático'
@@ -430,5 +430,6 @@ export function TeacherMaterialsPage() {
     </div>
   );
 }
+
 
 

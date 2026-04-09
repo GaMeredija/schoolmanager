@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
@@ -80,7 +80,7 @@ const CoordinatorPerformance = () => {
     switch (trend) {
       case 'up': return <ArrowUpRight className="h-4 w-4 text-green-600" />;
       case 'down': return <ArrowDownRight className="h-4 w-4 text-red-600" />;
-      default: return <Minus className="h-4 w-4 text-gray-600" />;
+      default: return <Minus className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -96,7 +96,7 @@ const CoordinatorPerformance = () => {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Carregando performance...</p>
+            <p className="text-muted-foreground">Carregando performance...</p>
           </div>
         </div>
       </MainLayout>
@@ -126,13 +126,13 @@ const CoordinatorPerformance = () => {
         {/* Header Simplificado */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Performance Institucional</h1>
-            <p className="text-gray-600 mt-1">Visão estratégica do desempenho da escola</p>
+            <h1 className="text-3xl font-bold text-foreground">Performance Institucional</h1>
+            <p className="text-muted-foreground mt-1">Visão estratégica do desempenho da escola</p>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-amber-600" />
-              <span className="text-sm text-gray-600">Período</span>
+              <span className="text-sm text-muted-foreground">Período</span>
             </div>
             <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
               <SelectTrigger className="w-64">
@@ -198,11 +198,11 @@ const CoordinatorPerformance = () => {
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Performance Geral</p>
+                <p className="text-sm text-muted-foreground">Performance Geral</p>
                 <p className={`text-3xl font-bold ${performanceStatus.color}`}>
                   {data.summary.avgPerformance.toFixed(1)}
                 </p>
-                <p className="text-xs text-gray-500">{performanceStatus.status}</p>
+                <p className="text-xs text-muted-foreground">{performanceStatus.status}</p>
               </div>
               <div className="p-3 bg-orange-100 rounded-full">
                 <BarChart3 className="h-6 w-6 text-orange-600" />
@@ -214,11 +214,11 @@ const CoordinatorPerformance = () => {
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Frequência</p>
+                <p className="text-sm text-muted-foreground">Frequência</p>
                 <p className="text-3xl font-bold text-green-600">
                   {data.summary.attendanceRate.toFixed(1)}%
                 </p>
-                <p className="text-xs text-gray-500">Alunos presentes</p>
+                <p className="text-xs text-muted-foreground">Alunos presentes</p>
               </div>
               <div className="p-3 bg-green-100 rounded-full">
                 <Users className="h-6 w-6 text-green-600" />
@@ -230,11 +230,11 @@ const CoordinatorPerformance = () => {
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Conclusão</p>
+                <p className="text-sm text-muted-foreground">Conclusão</p>
                 <p className="text-3xl font-bold text-blue-600">
                   {data.summary.completionRate.toFixed(1)}%
                 </p>
-                <p className="text-xs text-gray-500">Tarefas concluídas</p>
+                <p className="text-xs text-muted-foreground">Tarefas concluídas</p>
               </div>
               <div className="p-3 bg-blue-100 rounded-full">
                 <CheckCircle2 className="h-6 w-6 text-blue-600" />
@@ -246,11 +246,11 @@ const CoordinatorPerformance = () => {
           <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Atenção</p>
+                <p className="text-sm text-muted-foreground">Atenção</p>
                 <p className="text-3xl font-bold text-red-600">
                   {data.keyMetrics.needsAttention}
                 </p>
-                <p className="text-xs text-gray-500">Requerem ação</p>
+                <p className="text-xs text-muted-foreground">Requerem ação</p>
               </div>
               <div className="p-3 bg-red-100 rounded-full">
                 <AlertTriangle className="h-6 w-6 text-red-600" />
@@ -264,20 +264,20 @@ const CoordinatorPerformance = () => {
           {/* Tendência Geral */}
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Tendência Geral</h3>
+              <h3 className="text-lg font-semibold text-foreground">Tendência Geral</h3>
               {getTrendIcon(data.keyMetrics.overallTrend)}
             </div>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Total de Alunos</span>
+                <span className="text-sm text-muted-foreground">Total de Alunos</span>
                 <span className="font-semibold">{data.summary.totalStudents}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Total de Professores</span>
+                <span className="text-sm text-muted-foreground">Total de Professores</span>
                 <span className="font-semibold">{data.summary.totalTeachers}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Turma Destaque</span>
+                <span className="text-sm text-muted-foreground">Turma Destaque</span>
                 <span className="font-semibold text-green-600">{data.keyMetrics.topPerformingClass}</span>
               </div>
             </div>
@@ -286,7 +286,7 @@ const CoordinatorPerformance = () => {
           {/* Ações Estratégicas */}
           <Card className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Ações Estratégicas</h3>
+              <h3 className="text-lg font-semibold text-foreground">Ações Estratégicas</h3>
               <Target className="h-5 w-5 text-orange-600" />
             </div>
             <div className="space-y-3">
@@ -332,3 +332,4 @@ const CoordinatorPerformance = () => {
 };
 
 export default CoordinatorPerformance;
+

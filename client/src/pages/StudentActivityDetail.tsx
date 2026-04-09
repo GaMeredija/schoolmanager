@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -146,7 +146,7 @@ export function StudentActivityDetail() {
       case 'active':
         return <Badge variant="outline" className="text-green-600 border-green-600">Disponível</Badge>;
       case 'draft':
-        return <Badge variant="outline" className="text-gray-600 border-gray-600">Rascunho</Badge>;
+        return <Badge variant="outline" className="text-muted-foreground border-gray-600">Rascunho</Badge>;
       case 'archived':
         return <Badge variant="outline" className="text-red-600 border-red-600">Arquivada</Badge>;
       default:
@@ -187,8 +187,8 @@ export function StudentActivityDetail() {
       <MainLayout>
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Atividade não encontrada</h2>
-            <p className="text-gray-600 mb-4">A atividade solicitada não foi encontrada.</p>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Atividade não encontrada</h2>
+            <p className="text-muted-foreground mb-4">A atividade solicitada não foi encontrada.</p>
             <Button onClick={() => navigate('/activities')}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Voltar às Atividades
@@ -214,8 +214,8 @@ export function StudentActivityDetail() {
               Voltar
             </Button>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">{activity.title}</h1>
-              <p className="text-gray-600">{getTypeLabel(activity.type)}</p>
+              <h1 className="text-2xl font-bold text-foreground">{activity.title}</h1>
+              <p className="text-muted-foreground">{getTypeLabel(activity.type)}</p>
             </div>
           </div>
           
@@ -261,8 +261,8 @@ export function StudentActivityDetail() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <h3 className="font-medium text-gray-900 mb-2">Descrição</h3>
-                <p className="text-gray-700 mb-4">{activity.description}</p>
+                <h3 className="font-medium text-foreground mb-2">Descrição</h3>
+                <p className="text-foreground mb-4">{activity.description}</p>
                 
                 {activity.instructions && (
                   <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
@@ -274,9 +274,9 @@ export function StudentActivityDetail() {
               
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <Calendar className="w-5 h-5 text-gray-400 mr-3" />
+                  <Calendar className="w-5 h-5 text-muted-foreground/60 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Prazo de Entrega</p>
+                    <p className="text-sm text-muted-foreground">Prazo de Entrega</p>
                     <p className="font-medium">
                       {format(new Date(activity.dueDate), 'dd/MM/yyyy', { locale: ptBR })} às{' '}
                       {format(new Date(activity.dueDate), 'HH:mm', { locale: ptBR })}
@@ -290,15 +290,15 @@ export function StudentActivityDetail() {
                 <div className="flex items-center">
                   <Star className="w-5 h-5 text-yellow-500 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Pontuação</p>
+                    <p className="text-sm text-muted-foreground">Pontuação</p>
                     <p className="font-medium">{activity.maxGrade} pontos</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center">
-                  <Clock className="w-5 h-5 text-gray-400 mr-3" />
+                  <Clock className="w-5 h-5 text-muted-foreground/60 mr-3" />
                   <div>
-                    <p className="text-sm text-gray-600">Submissões em Atraso</p>
+                    <p className="text-sm text-muted-foreground">Submissões em Atraso</p>
                     <p className="font-medium">
                       {activity.allowLateSubmission ? (
                         <span className="text-orange-600">
@@ -327,12 +327,12 @@ export function StudentActivityDetail() {
             <CardContent>
               <div className="space-y-3">
                 {activityFiles.map((file: any) => (
-                  <div key={file.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                  <div key={file.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/60">
                     <div className="flex items-center space-x-3">
-                      <FileText className="w-5 h-5 text-gray-600" />
+                      <FileText className="w-5 h-5 text-muted-foreground" />
                       <div>
                         <p className="font-medium">{file.originalName || file.fileName}</p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-muted-foreground">
                           {file.fileSize && `${(file.fileSize / 1024 / 1024).toFixed(2)} MB`}
                         </p>
                       </div>
@@ -394,7 +394,7 @@ export function StudentActivityDetail() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <p className="text-sm text-gray-600">Status</p>
+                  <p className="text-sm text-muted-foreground">Status</p>
                   <div className="mt-1">
                     {submission.status === 'graded' ? (
                       <Badge variant="outline" className="text-green-600 border-green-600">
@@ -416,7 +416,7 @@ export function StudentActivityDetail() {
                 </div>
                 
                 <div>
-                  <p className="text-sm text-gray-600">Entregue em</p>
+                  <p className="text-sm text-muted-foreground">Entregue em</p>
                   <p className="font-medium">
                     {format(new Date(submission.submittedAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                   </p>
@@ -424,12 +424,12 @@ export function StudentActivityDetail() {
                 
                 {submission.grade !== undefined && submission.grade !== null && (
                   <div>
-                    <p className="text-sm text-gray-600">Nota</p>
+                    <p className="text-sm text-muted-foreground">Nota</p>
                     <div className="flex items-center">
                       <span className="text-2xl font-bold text-green-600">
                         {submission.finalGrade?.toFixed(1) || submission.grade.toFixed(1)}
                       </span>
-                      <span className="text-sm text-gray-600 ml-1">/{activity.maxGrade}</span>
+                      <span className="text-sm text-muted-foreground ml-1">/{activity.maxGrade}</span>
                     </div>
                     {submission.latePenaltyApplied > 0 && (
                       <p className="text-xs text-red-600">
@@ -463,11 +463,11 @@ export function StudentActivityDetail() {
         {!canSubmit && !submission && (
           <Card>
             <CardContent className="p-8 text-center">
-              <AlertCircle className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <AlertCircle className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Submissão não disponível
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 {activity.status !== 'active' 
                   ? 'Esta atividade não está mais disponível para submissão.'
                   : 'O prazo para esta atividade expirou e submissões em atraso não são permitidas.'
@@ -480,3 +480,4 @@ export function StudentActivityDetail() {
     </MainLayout>
   );
 }
+

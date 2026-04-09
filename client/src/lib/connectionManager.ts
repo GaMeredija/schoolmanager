@@ -74,11 +74,11 @@ export class ConnectionManager {
       clearTimeout(timeoutId);
 
       if (response.ok) {
-        console.log(`Conexao bem-sucedida com: ${url}`);
+        console.log(`Conexão bem-sucedida com: ${url}`);
         return true;
       }
 
-      console.log(`Falha na conexao com: ${url} (Status: ${response.status})`);
+      console.log(`Falha na conexão com: ${url} (Status: ${response.status})`);
       return false;
     } catch (error) {
       console.log(`Erro ao conectar com: ${url}`, error);

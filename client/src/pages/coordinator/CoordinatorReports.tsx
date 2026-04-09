@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { MainLayout } from '../../components/layout/MainLayout';
 import { Card } from '../../components/ui/card';
@@ -171,7 +171,7 @@ export default function CoordinatorReports() {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Carregando relatórios...</p>
+            <p className="text-muted-foreground">Carregando relatórios...</p>
           </div>
         </div>
       </MainLayout>
@@ -203,7 +203,7 @@ export default function CoordinatorReports() {
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
-            <p className="text-gray-600">Carregando relatórios...</p>
+            <p className="text-muted-foreground">Carregando relatórios...</p>
           </div>
         </div>
       </MainLayout>
@@ -217,10 +217,10 @@ export default function CoordinatorReports() {
         <Card className="p-6 bg-gradient-to-r from-orange-50 to-amber-50 border-orange-200">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                📊 Análise Pedagógica das Turmas
+              <h1 className="text-3xl font-bold text-foreground mb-2">
+                ðŸ“Š Análise Pedagógica das Turmas
               </h1>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 {statsType === 'activities' 
                   ? 'Performance baseada em atividades criadas e submissões feitas'
                   : 'Performance baseada em notas e taxa de aprovação'
@@ -240,18 +240,18 @@ export default function CoordinatorReports() {
             <div className="flex gap-4">
               {/* Seletor de Tipo de Estatística */}
               <Select value={statsType} onValueChange={(value: any) => setStatsType(value)}>
-                <SelectTrigger className="w-48 bg-white">
+                <SelectTrigger className="w-48 bg-card">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="activities">📚 Baseado em Atividades</SelectItem>
-                  <SelectItem value="grades">📝 Baseado em Notas</SelectItem>
+                  <SelectItem value="activities">ðŸ“š Baseado em Atividades</SelectItem>
+                  <SelectItem value="grades">ðŸ“ Baseado em Notas</SelectItem>
                 </SelectContent>
               </Select>
 
               {/* Seletor de Ano */}
               <Select value={selectedYear.toString()} onValueChange={(value) => setSelectedYear(parseInt(value))}>
-                <SelectTrigger className="w-24 bg-white">
+                <SelectTrigger className="w-24 bg-card">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -285,7 +285,7 @@ export default function CoordinatorReports() {
                   }
                 }}
               >
-                <SelectTrigger className="w-48 bg-white">
+                <SelectTrigger className="w-48 bg-card">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -368,15 +368,15 @@ export default function CoordinatorReports() {
         {/* Gráfico Principal - Profissional e Simples */}
         <Card className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              📊 {statsType === 'activities' 
+            <h2 className="text-2xl font-bold text-foreground">
+              ðŸ“Š {statsType === 'activities' 
                 ? 'Performance das Turmas (Atividades + Submissões)' 
                 : 'Performance das Turmas (Notas + Aprovação)'
               }
             </h2>
             <div className="flex gap-2">
               <Select value={chartType} onValueChange={(value: any) => setChartType(value)}>
-                <SelectTrigger className="w-32 bg-white">
+                <SelectTrigger className="w-32 bg-card">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -497,9 +497,9 @@ export default function CoordinatorReports() {
           
           {/* Legenda Simples */}
           <div className="mt-4 flex justify-center">
-            <div className="flex items-center space-x-2 px-4 py-2 bg-gray-50 rounded-lg">
+            <div className="flex items-center space-x-2 px-4 py-2 bg-muted/60 rounded-lg">
               <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-              <span className="text-sm text-gray-700">Performance das Turmas</span>
+              <span className="text-sm text-foreground">Performance das Turmas</span>
             </div>
           </div>
         </Card>

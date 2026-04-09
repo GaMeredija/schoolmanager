@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -222,20 +222,20 @@ export function MaterialDetailModal({ material, onClose, onDelete, showDeleteBut
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-center gap-2">
-                  <BookOpen className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Disciplina:</span>
+                  <BookOpen className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">Disciplina:</span>
                   <span className="font-medium">{material.subjectName}</span>
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  <User className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Turma:</span>
+                  <User className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">Turma:</span>
                   <span className="font-medium">{material.className}</span>
                 </div>
                 
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-gray-500" />
-                  <span className="text-sm text-gray-600">Criado em:</span>
+                  <Calendar className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-sm text-muted-foreground">Criado em:</span>
                   <span className="font-medium">
                     {format(new Date(material.createdAt), 'dd/MM/yyyy HH:mm', { locale: ptBR })}
                   </span>
@@ -247,7 +247,7 @@ export function MaterialDetailModal({ material, onClose, onDelete, showDeleteBut
                   ) : (
                     <Lock className="w-4 h-4 text-red-500" />
                   )}
-                  <span className="text-sm text-gray-600">Visibilidade:</span>
+                  <span className="text-sm text-muted-foreground">Visibilidade:</span>
                   <span className="font-medium">
                     {material.isPublic ? 'Público' : 'Privado'}
                   </span>
@@ -256,8 +256,8 @@ export function MaterialDetailModal({ material, onClose, onDelete, showDeleteBut
 
               {material.description && (
                 <div>
-                  <h4 className="font-medium text-gray-900 mb-2">Descrição:</h4>
-                  <p className="text-gray-700 whitespace-pre-wrap">{material.description}</p>
+                  <h4 className="font-medium text-foreground mb-2">Descrição:</h4>
+                  <p className="text-foreground whitespace-pre-wrap">{material.description}</p>
                 </div>
               )}
             </CardContent>
@@ -271,7 +271,7 @@ export function MaterialDetailModal({ material, onClose, onDelete, showDeleteBut
               </CardHeader>
               <CardContent>
                 <div className="prose max-w-none">
-                  <p className="whitespace-pre-wrap text-gray-700">
+                  <p className="whitespace-pre-wrap text-foreground">
                     {materialDetail.content}
                   </p>
                 </div>
@@ -321,11 +321,11 @@ export function MaterialDetailModal({ material, onClose, onDelete, showDeleteBut
                   onDragLeave={handleDragLeave}
                   onDrop={handleDrop}
                 >
-                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600">
+                  <Upload className="w-8 h-8 text-muted-foreground/60 mx-auto mb-2" />
+                  <p className="text-sm text-muted-foreground">
                     Arraste arquivos aqui ou clique em "Adicionar Arquivos"
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-muted-foreground mt-1">
                     PDF, DOC, DOCX, TXT, PPT, PPTX, JPG, PNG, GIF (máx. 10MB cada)
                   </p>
                 </div>
@@ -335,12 +335,12 @@ export function MaterialDetailModal({ material, onClose, onDelete, showDeleteBut
               {materialDetail?.files && materialDetail.files.length > 0 ? (
                 <div className="space-y-3">
                   {materialDetail.files.map((file: any) => (
-                    <div key={file.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50">
+                    <div key={file.id} className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/60">
                       <div className="flex items-center space-x-3">
-                        <FileText className="w-5 h-5 text-gray-600" />
+                        <FileText className="w-5 h-5 text-muted-foreground" />
                         <div>
                           <p className="font-medium">{file.originalFileName}</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-xs text-muted-foreground">
                             {formatFileSize(file.fileSize)} • {file.fileCategory}
                           </p>
                         </div>
@@ -364,7 +364,7 @@ export function MaterialDetailModal({ material, onClose, onDelete, showDeleteBut
                   ))}
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-muted-foreground">
                   <FileText className="w-12 h-12 text-gray-300 mx-auto mb-2" />
                   <p>Nenhum arquivo anexado</p>
                   {user?.role === 'teacher' && (
@@ -394,6 +394,7 @@ export function MaterialDetailModal({ material, onClose, onDelete, showDeleteBut
     </Dialog>
   );
 }
+
 
 
 

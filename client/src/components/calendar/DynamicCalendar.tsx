@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -60,7 +60,7 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
       case 'activity': return 'bg-blue-500';
       case 'presentation': return 'bg-purple-500';
       case 'meeting': return 'bg-green-500';
-      default: return 'bg-gray-500';
+      default: return 'bg-muted/600';
     }
   };
 
@@ -77,11 +77,11 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
 
   const getEventTypeIcon = (type: string) => {
     switch (type) {
-      case 'exam': return '📝';
-      case 'activity': return '📋';
-      case 'presentation': return '🎤';
-      case 'meeting': return '👥';
-      default: return '📅';
+      case 'exam': return 'ðŸ“';
+      case 'activity': return 'ðŸ“‹';
+      case 'presentation': return 'ðŸŽ¤';
+      case 'meeting': return 'ðŸ‘¥';
+      default: return 'ðŸ“…';
     }
   };
 
@@ -138,7 +138,7 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
         subjectName: event.subjectName || (isGlobalEvent ? 'Coordenador' : 'Disciplina não definida'),
         type: eventType,
         color: isGlobalEvent ? 'bg-orange-500' : getEventTypeColor(eventType),
-        icon: isGlobalEvent ? '🌐' : getEventTypeIcon(eventType),
+        icon: isGlobalEvent ? 'ðŸŒ' : getEventTypeIcon(eventType),
         isGlobal: isGlobalEvent
       });
     });
@@ -212,7 +212,7 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
             </Button>
           </div>
         </div>
-          <div className="text-lg font-medium text-gray-800">
+          <div className="text-lg font-medium text-foreground">
             {format(currentDate, 'MMMM yyyy', { locale: ptBR })}
         </div>
       </CardHeader>
@@ -220,27 +220,27 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
       <CardContent>
           {/* Legenda dos tipos de eventos */}
           <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg">
-            <h3 className="text-sm font-medium text-gray-700 mb-3">Legenda de Eventos</h3>
+            <h3 className="text-sm font-medium text-foreground mb-3">Legenda de Eventos</h3>
             <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-sm">
+              <div className="flex items-center gap-2 bg-card px-3 py-2 rounded-lg shadow-sm">
                 <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <span className="text-sm text-gray-700 font-medium">Provas</span>
+                <span className="text-sm text-foreground font-medium">Provas</span>
               </div>
-              <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-sm">
+              <div className="flex items-center gap-2 bg-card px-3 py-2 rounded-lg shadow-sm">
                 <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <span className="text-sm text-gray-700 font-medium">Atividades</span>
+                <span className="text-sm text-foreground font-medium">Atividades</span>
               </div>
-              <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-sm">
+              <div className="flex items-center gap-2 bg-card px-3 py-2 rounded-lg shadow-sm">
                 <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                <span className="text-sm text-gray-700 font-medium">Apresentações</span>
+                <span className="text-sm text-foreground font-medium">Apresentações</span>
               </div>
-              <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-sm">
+              <div className="flex items-center gap-2 bg-card px-3 py-2 rounded-lg shadow-sm">
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="text-sm text-gray-700 font-medium">Reuniões</span>
+                <span className="text-sm text-foreground font-medium">Reuniões</span>
               </div>
-              <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-sm">
+              <div className="flex items-center gap-2 bg-card px-3 py-2 rounded-lg shadow-sm">
                 <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                <span className="text-sm text-gray-700 font-medium">Eventos Globais</span>
+                <span className="text-sm text-foreground font-medium">Eventos Globais</span>
               </div>
             </div>
           </div>
@@ -249,7 +249,7 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
           <div className="grid grid-cols-7 gap-px bg-gray-200 rounded-lg overflow-hidden">
             {/* Cabeçalhos dos dias da semana */}
             {weekDays.map((day) => (
-              <div key={day} className="bg-gray-50 p-3 text-center text-sm font-medium text-gray-700">
+              <div key={day} className="bg-muted/60 p-3 text-center text-sm font-medium text-foreground">
               {day}
             </div>
           ))}
@@ -291,9 +291,9 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
               <div
                   key={date.toISOString()}
                   className={cn(
-                    "p-2 min-h-[60px] border-r border-b border-gray-200 hover:shadow-md cursor-pointer relative transition-all duration-200",
-                    !isCurrentMonth && "bg-gray-50 text-gray-400",
-                    isCurrentMonth && events.length === 0 && "bg-white hover:bg-gray-50",
+                    "p-2 min-h-[60px] border-r border-b border-border hover:shadow-md cursor-pointer relative transition-all duration-200",
+                    !isCurrentMonth && "bg-muted/60 text-muted-foreground/60",
+                    isCurrentMonth && events.length === 0 && "bg-card hover:bg-muted/60",
                     isCurrentMonth && events.length > 0 && getDayBackgroundColor()
                   )}
                   onClick={() => {
@@ -304,7 +304,7 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
                   <div className="flex items-center justify-center">
                     <div className={cn(
                       "text-sm font-bold",
-                      isTodayDate ? "text-white bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center" : "text-gray-900"
+                      isTodayDate ? "text-white bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center" : "text-foreground"
                     )}>
                       {format(date, 'd')}
                     </div>
@@ -352,7 +352,7 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
               getEventsForDate(selectedDate).map((event) => (
                 <div
                   key={event.id}
-                  className="group p-6 rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-white to-gray-50"
+                  className="group p-6 rounded-xl border border-border hover:border-gray-300 hover:shadow-lg transition-all duration-300 bg-gradient-to-r from-white to-gray-50"
                 >
                   <div className="flex items-start gap-4">
                     {/* Ícone do evento */}
@@ -360,19 +360,19 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
                       "flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg",
                       event.isGlobal ? 'bg-gradient-to-br from-orange-500 to-orange-600' : 'bg-gradient-to-br from-blue-500 to-blue-600'
                     )}>
-                      {event.isGlobal ? '🌐' : event.icon}
+                      {event.isGlobal ? 'ðŸŒ' : event.icon}
                 </div>
                     
                     {/* Conteúdo do evento */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
-                          <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                          <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-blue-600 transition-colors">
                             {event.title}
                           </h3>
                           
                           {event.description && (
-                            <p className="text-gray-600 mb-3 leading-relaxed">
+                            <p className="text-muted-foreground mb-3 leading-relaxed">
                               {event.description}
                             </p>
                           )}
@@ -393,29 +393,29 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
                                     ? "bg-purple-100 text-purple-800 border-purple-200"
                                     : event.type === 'meeting'
                                     ? "bg-green-100 text-green-800 border-green-200"
-                                    : "bg-gray-100 text-gray-800 border-gray-200"
+                                    : "bg-muted text-foreground border-border"
                               )}
                             >
-                              {event.isGlobal ? '🌐 Evento Global' : getEventTypeLabel(event.type)}
+                              {event.isGlobal ? 'ðŸŒ Evento Global' : getEventTypeLabel(event.type)}
                             </Badge>
                             
                             {/* Mostrar turma e disciplina apenas para eventos globais */}
                             {event.isGlobal && event.className && (
                               <Badge variant="outline" className="text-sm px-3 py-1">
-                                🏫 {event.className}
+                                ðŸ« {event.className}
                               </Badge>
                             )}
                             
                             {event.isGlobal && event.subjectName && (
                               <Badge variant="outline" className="text-sm px-3 py-1">
-                                📚 {event.subjectName}
+                                ðŸ“š {event.subjectName}
                               </Badge>
                             )}
                             </div>
                           
                           {/* Horário */}
                           {(event.startTime || event.endTime) && (
-                            <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
                               <Clock className="h-4 w-4" />
                               <span className="font-medium">
                                 {event.startTime}
@@ -438,10 +438,10 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
             ) : (
               <div className="text-center py-12">
                 <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
-                  <CalendarIcon className="h-10 w-10 text-gray-400" />
+                  <CalendarIcon className="h-10 w-10 text-muted-foreground/60" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Nenhum evento agendado</h3>
-                <p className="text-gray-500">
+                <h3 className="text-lg font-semibold text-foreground mb-2">Nenhum evento agendado</h3>
+                <p className="text-muted-foreground">
                   {selectedDate && format(selectedDate, 'dd/MM/yyyy')} está livre de compromissos
                 </p>
                 </div>
@@ -454,3 +454,4 @@ const DynamicCalendar: React.FC<DynamicCalendarProps> = ({ className }) => {
 };
 
 export default DynamicCalendar;
+

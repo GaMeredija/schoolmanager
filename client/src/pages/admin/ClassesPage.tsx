@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CreateButton from '@/components/ui/create-button';
@@ -69,8 +69,8 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
 
   if (!classDetails) {
     return (
-      <div className="text-center py-12 text-gray-500">
-        <AlertCircle className="h-12 w-12 mx-auto mb-3 text-gray-400" />
+      <div className="text-center py-12 text-muted-foreground">
+        <AlertCircle className="h-12 w-12 mx-auto mb-3 text-muted-foreground/60" />
         <p>Erro ao carregar detalhes da turma</p>
       </div>
     );
@@ -84,10 +84,10 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
       <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-2xl font-bold text-gray-900">{classInfo.name}</h3>
-            <p className="text-gray-600">Ano Letivo {classInfo.academicYear}</p>
+            <h3 className="text-2xl font-bold text-foreground">{classInfo.name}</h3>
+            <p className="text-muted-foreground">Ano Letivo {classInfo.academicYear}</p>
           </div>
-          <Badge className={classInfo.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}>
+          <Badge className={classInfo.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-muted text-foreground'}>
             {classInfo.status === 'active' ? 'Ativa' : 'Inativa'}
           </Badge>
         </div>
@@ -95,27 +95,27 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">
             <div className="text-2xl font-bold text-purple-600">{stats.totalStudents}</div>
-            <div className="text-sm text-gray-600">Alunos</div>
+            <div className="text-sm text-muted-foreground">Alunos</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-blue-600">{stats.totalTeachers}</div>
-            <div className="text-sm text-gray-600">Professores</div>
+            <div className="text-sm text-muted-foreground">Professores</div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-green-600">{stats.totalSubjects}</div>
-            <div className="text-sm text-gray-600">Disciplinas</div>
+            <div className="text-sm text-muted-foreground">Disciplinas</div>
           </div>
         </div>
       </div>
 
       {/* Seletor de Tabs */}
-      <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
+      <div className="flex space-x-1 bg-muted p-1 rounded-lg">
         <button
           onClick={() => setActiveTab('students')}
           className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'students'
-              ? 'bg-white text-purple-600 shadow-sm'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'bg-card text-purple-600 shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
           <Users className="h-4 w-4 inline mr-2" />
@@ -125,8 +125,8 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
           onClick={() => setActiveTab('teachers')}
           className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'teachers'
-              ? 'bg-white text-blue-600 shadow-sm'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'bg-card text-blue-600 shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
           <User className="h-4 w-4 inline mr-2" />
@@ -136,8 +136,8 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
           onClick={() => setActiveTab('subjects')}
           className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
             activeTab === 'subjects'
-              ? 'bg-white text-green-600 shadow-sm'
-              : 'text-gray-600 hover:text-gray-900'
+              ? 'bg-card text-green-600 shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
           }`}
         >
           <BookOpen className="h-4 w-4 inline mr-2" />
@@ -150,7 +150,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
         {activeTab === 'students' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <h4 className="text-lg font-semibold text-foreground flex items-center gap-2">
                 <Users className="h-5 w-5 text-purple-600" />
                 Lista de Alunos
               </h4>
@@ -162,7 +162,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
             {students.length > 0 ? (
               <div className="grid gap-3 max-h-96 overflow-y-auto">
                 {students.map((student: any) => (
-                  <div key={student.id} className="group relative overflow-hidden border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-200">
+                  <div key={student.id} className="group relative overflow-hidden border border-border rounded-xl bg-card shadow-sm hover:shadow-md transition-all duration-200">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-500 to-purple-600" />
                     <div className="p-4">
                       <div className="flex items-center justify-between">
@@ -172,14 +172,14 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
-                              <h5 className="font-semibold text-gray-900 truncate">
+                              <h5 className="font-semibold text-foreground truncate">
                                 {student.firstName} {student.lastName}
                               </h5>
                               <Badge className="bg-green-100 text-green-800 text-xs">
                                 {student.status === 'active' ? 'Ativo' : 'Inativo'}
                               </Badge>
                             </div>
-                            <div className="flex items-center gap-4 text-sm text-gray-600">
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground">
                               <div className="flex items-center gap-1">
                                 <Mail className="w-3 h-3" />
                                 <span className="truncate">{student.email}</span>
@@ -189,7 +189,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
                                 <span>Matrícula: {student.registrationNumber}</span>
                               </div>
                             </div>
-                            <div className="text-xs text-gray-500 mt-1">
+                            <div className="text-xs text-muted-foreground mt-1">
                               Matriculado em: {new Date(student.enrollmentDate).toLocaleDateString('pt-BR')}
                             </div>
                           </div>
@@ -200,10 +200,10 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 text-gray-500">
-                <Users className="h-12 w-12 mx-auto mb-3 text-gray-400" />
+              <div className="text-center py-12 text-muted-foreground">
+                <Users className="h-12 w-12 mx-auto mb-3 text-muted-foreground/60" />
                 <p className="text-sm font-medium">Nenhum aluno matriculado</p>
-                <p className="text-xs text-gray-400 mt-1">Os alunos aparecerão aqui quando forem matriculados na turma</p>
+                <p className="text-xs text-muted-foreground/60 mt-1">Os alunos aparecerão aqui quando forem matriculados na turma</p>
               </div>
             )}
           </div>
@@ -212,7 +212,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
         {activeTab === 'teachers' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <h4 className="text-lg font-semibold text-foreground flex items-center gap-2">
                 <User className="h-5 w-5 text-blue-600" />
                 Professores da Turma
               </h4>
@@ -224,7 +224,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
             {teachers.length > 0 ? (
               <div className="grid gap-3 max-h-96 overflow-y-auto">
                 {teachers.map((teacher: any) => (
-                  <div key={teacher.id} className="group relative overflow-hidden border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-200">
+                  <div key={teacher.id} className="group relative overflow-hidden border border-border rounded-xl bg-card shadow-sm hover:shadow-md transition-all duration-200">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-blue-600" />
                     <div className="p-4">
                       <div className="flex items-center justify-between">
@@ -234,14 +234,14 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
-                              <h5 className="font-semibold text-gray-900 truncate">
+                              <h5 className="font-semibold text-foreground truncate">
                                 {teacher.firstName} {teacher.lastName}
                               </h5>
                               <Badge className="bg-green-100 text-green-800 text-xs">
                                 {teacher.status === 'active' ? 'Ativo' : 'Inativo'}
                               </Badge>
                             </div>
-                            <div className="flex items-center gap-1 text-sm text-gray-600">
+                            <div className="flex items-center gap-1 text-sm text-muted-foreground">
                               <Mail className="w-3 h-3" />
                               <span className="truncate">{teacher.email}</span>
                             </div>
@@ -256,10 +256,10 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 text-gray-500">
-                <User className="h-12 w-12 mx-auto mb-3 text-gray-400" />
+              <div className="text-center py-12 text-muted-foreground">
+                <User className="h-12 w-12 mx-auto mb-3 text-muted-foreground/60" />
                 <p className="text-sm font-medium">Nenhum professor atribuído</p>
-                <p className="text-xs text-gray-400 mt-1">Os professores aparecerão aqui quando forem atribuídos às disciplinas</p>
+                <p className="text-xs text-muted-foreground/60 mt-1">Os professores aparecerão aqui quando forem atribuídos às disciplinas</p>
               </div>
             )}
           </div>
@@ -268,7 +268,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
         {activeTab === 'subjects' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <h4 className="text-lg font-semibold text-foreground flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-green-600" />
                 Disciplinas da Turma
               </h4>
@@ -280,7 +280,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
             {subjects.length > 0 ? (
               <div className="grid gap-3 max-h-96 overflow-y-auto">
                 {subjects.map((subject: any) => (
-                  <div key={subject.subjectId} className="group relative overflow-hidden border border-gray-200 rounded-xl bg-white shadow-sm hover:shadow-md transition-all duration-200">
+                  <div key={subject.subjectId} className="group relative overflow-hidden border border-border rounded-xl bg-card shadow-sm hover:shadow-md transition-all duration-200">
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-green-500 to-green-600" />
                     <div className="p-4">
                       <div className="flex items-center justify-between">
@@ -290,7 +290,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1">
-                              <h5 className="font-semibold text-gray-900 truncate">
+                              <h5 className="font-semibold text-foreground truncate">
                                 {subject.subjectName}
                               </h5>
                               <Badge variant="secondary" className="text-xs">
@@ -298,7 +298,7 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
                               </Badge>
                             </div>
                             {subject.teacherEmail ? (
-                              <div className="flex items-center gap-1 text-sm text-gray-600">
+                              <div className="flex items-center gap-1 text-sm text-muted-foreground">
                                 <Mail className="w-3 h-3" />
                                 <span className="truncate">{subject.teacherEmail}</span>
                               </div>
@@ -323,10 +323,10 @@ const ClassDetailsContent = ({ classId }: { classId: string }) => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 text-gray-500">
-                <BookOpen className="h-12 w-12 mx-auto mb-3 text-gray-400" />
+              <div className="text-center py-12 text-muted-foreground">
+                <BookOpen className="h-12 w-12 mx-auto mb-3 text-muted-foreground/60" />
                 <p className="text-sm font-medium">Nenhuma disciplina vinculada</p>
-                <p className="text-xs text-gray-400 mt-1">As disciplinas aparecerão aqui quando forem criadas e vinculadas à turma</p>
+                <p className="text-xs text-muted-foreground/60 mt-1">As disciplinas aparecerão aqui quando forem criadas e vinculadas à turma</p>
               </div>
             )}
           </div>
@@ -415,7 +415,7 @@ const ClassesPage = () => {
   // Escutar notificações de atualização de professores
   useEffect(() => {
     const handleTeacherUpdate = () => {
-      console.log('🔄 Professor criado/atualizado, atualizando turmas...');
+      console.log('ðŸ”„ Professor criado/atualizado, atualizando turmas...');
       // Invalidar cache do React Query para forçar refresh
       window.location.reload();
     };
@@ -431,7 +431,7 @@ const ClassesPage = () => {
         const now = Date.now();
         // Se a atualização foi feita nos últimos 30 segundos, atualizar
         if (now - updateTime < 30000) {
-          console.log('🔄 Atualização de professor detectada, atualizando turmas...');
+          console.log('ðŸ”„ Atualização de professor detectada, atualizando turmas...');
           window.location.reload();
         }
       }
@@ -454,7 +454,7 @@ const ClassesPage = () => {
       case 'active': return 'bg-green-100 text-green-800 border-green-200';
       case 'inactive': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'closed': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      default: return 'bg-muted text-foreground border-border';
     }
   };
 
@@ -609,8 +609,8 @@ const ClassesPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gestão de Turmas</h1>
-          <p className="text-gray-600 mt-1">Crie e gerencie turmas da escola</p>
+          <h1 className="text-3xl font-bold text-foreground">Gestão de Turmas</h1>
+          <p className="text-muted-foreground mt-1">Crie e gerencie turmas da escola</p>
         </div>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
@@ -666,11 +666,11 @@ const ClassesPage = () => {
       </div>
 
       {/* Filters */}
-      <Card className="border border-gray-200">
+      <Card className="border border-border">
         <CardContent className="pt-6">
           <div className="flex items-center gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
               <Input 
                 placeholder="Buscar turmas..." 
                 className="pl-10"
@@ -695,11 +695,11 @@ const ClassesPage = () => {
 
       {/* Loading State */}
       {isLoading && (
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Carregando turmas...</h3>
-            <p className="text-gray-600">Aguarde enquanto buscamos as turmas do sistema.</p>
+            <h3 className="text-lg font-semibold text-foreground mb-2">Carregando turmas...</h3>
+            <p className="text-muted-foreground">Aguarde enquanto buscamos as turmas do sistema.</p>
           </CardContent>
         </Card>
       )}
@@ -727,12 +727,12 @@ const ClassesPage = () => {
       {!isLoading && !error && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredClasses.map((classItem) => (
-          <Card key={classItem.id} className="border border-gray-200 hover:shadow-md transition-shadow">
+          <Card key={classItem.id} className="border border-border hover:shadow-md transition-shadow">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-lg">{classItem.name}</CardTitle>
-                  <p className="text-sm text-gray-500">{classItem.grade} • {classItem.section}</p>
+                  <p className="text-sm text-muted-foreground">{classItem.grade} • {classItem.section}</p>
                 </div>
                 <Badge className={getStatusColor(classItem.status)}>
                   {getStatusText(classItem.status)}
@@ -743,21 +743,21 @@ const ClassesPage = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center p-3 bg-blue-50 rounded-lg">
                   <Users className="h-5 w-5 text-blue-600 mx-auto mb-1" />
-                  <div className="text-lg font-semibold text-blue-600">{(accurateCounts[classItem.id]?.students ?? classItem.currentStudents ?? 0)}</div>
+                  <div className="text-lg font-semibold text-blue-600">{accurateCounts[classItem.id]?.students ?? classItem.currentStudents ?? 0}</div>
                   <div className="text-xs text-blue-600">alunos</div>
                 </div>
                 <div className="text-center p-3 bg-green-50 rounded-lg">
                   <BookOpen className="h-5 w-5 text-green-600 mx-auto mb-1" />
-                  <div className="text-lg font-semibold text-green-600">{(accurateCounts[classItem.id]?.subjects ?? classItem.subjectsCount ?? 0)}</div>
+                  <div className="text-lg font-semibold text-green-600">{accurateCounts[classItem.id]?.subjects ?? classItem.subjectsCount ?? 0}</div>
                   <div className="text-xs text-green-600">disciplinas</div>
                 </div>
               </div>
 
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-muted-foreground">
                 <strong>Ano Letivo:</strong> {classItem.academicYear}
               </div>
 
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-muted-foreground">
                 <strong>Criada em:</strong> {classItem.createdAt ? new Date(classItem.createdAt).toLocaleDateString('pt-BR') : 'Data não disponível'}
               </div>
 
@@ -797,11 +797,11 @@ const ClassesPage = () => {
 
       {/* Empty State */}
       {!isLoading && !error && filteredClasses.length === 0 && (
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="text-center py-12">
-            <GraduationCap className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Nenhuma turma encontrada</h3>
-            <p className="text-gray-600 mb-4">
+            <GraduationCap className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Nenhuma turma encontrada</h3>
+            <p className="text-muted-foreground mb-4">
               {searchTerm || filterStatus !== 'all' 
                 ? 'Tente ajustar os filtros de busca'
                 : 'Comece criando sua primeira turma'
@@ -929,7 +929,7 @@ const ClassesPage = () => {
       <Dialog open={isDependenciesDialogOpen} onOpenChange={setIsDependenciesDialogOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-red-600">⚠️ Exclusão com Vínculos</DialogTitle>
+            <DialogTitle className="text-red-600">⚠️ï¸ Exclusão com Vínculos</DialogTitle>
             <DialogDescription>
               Esta turma possui vínculos no sistema que serão removidos:
             </DialogDescription>
@@ -1019,3 +1019,4 @@ const ClassesPage = () => {
 };
 
 export default ClassesPage;
+

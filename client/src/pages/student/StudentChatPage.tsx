@@ -197,11 +197,11 @@ const StudentChatPage = () => {
 
   const getRoleColor = (role: string) => {
     switch (role) {
-      case 'admin': return 'bg-red-100 text-red-800';
-      case 'teacher': return 'bg-blue-100 text-blue-800';
-      case 'coordinator': return 'bg-purple-100 text-purple-800';
-      case 'student': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'admin': return 'bg-red-500/10 text-red-700 dark:bg-red-500/15 dark:text-red-200';
+      case 'teacher': return 'bg-blue-500/10 text-blue-700 dark:bg-blue-500/15 dark:text-blue-200';
+      case 'coordinator': return 'bg-violet-500/10 text-violet-700 dark:bg-violet-500/15 dark:text-violet-200';
+      case 'student': return 'bg-green-500/10 text-green-700 dark:bg-green-500/15 dark:text-green-200';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -214,7 +214,7 @@ const StudentChatPage = () => {
       <div className="h-[calc(100vh-120px)] flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Carregando conversas...</p>
+          <p className="text-muted-foreground">Carregando conversas...</p>
         </div>
       </div>
     );
@@ -222,22 +222,22 @@ const StudentChatPage = () => {
 
   return (
     <div className="h-[calc(100vh-120px)] w-full">
-      <div className="flex h-full gap-1 bg-gray-50 overflow-hidden rounded-lg border border-gray-200">
+      <div className="flex h-full gap-1 overflow-hidden rounded-lg border border-border bg-muted/50">
         {/* Sidebar - Lista de conversas */}
-        <div className={`flex-col bg-white border-r border-gray-200 h-full shadow-sm
+        <div className={`h-full flex-col border-r border-border bg-card shadow-sm
           ${isMobileChatOpen ? 'hidden lg:flex w-64' : 'flex w-full lg:w-64'}`}>
-          <div className="p-2 border-b border-gray-200 bg-white">
+          <div className="border-b border-border bg-card p-2">
             <div className="mb-2">
-              <h2 className="text-base font-semibold text-gray-900">💬 Chat</h2>
-              <p className="text-xs text-gray-600">Converse com professores e colegas</p>
+              <h2 className="text-base font-semibold text-foreground">💬 Chat</h2>
+              <p className="text-xs text-muted-foreground">Converse com professores e colegas</p>
             </div>
             
             {/* Barra de pesquisa */}
             <div className="relative">
-              <Search className="absolute left-2 top-2.5 h-3 w-3 text-gray-400" />
+              <Search className="absolute left-2 top-2.5 h-3 w-3 text-muted-foreground/60" />
               <Input
                 placeholder="Buscar conversas ou usuários..."
-                className="pl-7 pr-3 py-1.5 text-sm bg-white border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                className="border-border bg-background py-1.5 pl-7 pr-3 text-sm focus:border-blue-500 focus:ring-blue-500"
                 value={searchTerm}
                 onChange={(e) => {
                   setSearchTerm(e.target.value);
@@ -250,11 +250,11 @@ const StudentChatPage = () => {
               
               {/* Dropdown de busca de usuários */}
               {showUserSearch && searchTerm.length >= 2 && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 z-50 mt-1 max-h-60 overflow-y-auto rounded-lg border border-border bg-popover shadow-lg">
                   {isLoadingUsers ? (
                     <div className="p-3 text-center">
                       <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
-                      <p className="text-xs text-gray-500">Buscando usuários...</p>
+                      <p className="text-xs text-muted-foreground">Buscando usuários...</p>
                     </div>
                   ) : searchError ? (
                     <div className="p-3 text-center text-red-500">
@@ -268,7 +268,7 @@ const StudentChatPage = () => {
                         <div
                           key={searchUser.id}
                           onClick={() => handleStartChat(searchUser)}
-                          className="flex items-center gap-2 p-2 hover:bg-gray-50 cursor-pointer"
+                          className="flex cursor-pointer items-center gap-2 p-2 hover:bg-muted/60"
                         >
                           <Avatar className="h-6 w-6">
                             <AvatarImage src={searchUser.profileImageUrl} />
@@ -280,7 +280,7 @@ const StudentChatPage = () => {
                             <p className="text-xs font-medium truncate">
                               {searchUser.firstName} {searchUser.lastName}
                             </p>
-                            <p className="text-xs text-gray-500 truncate">{searchUser.email}</p>
+                            <p className="truncate text-xs text-muted-foreground">{searchUser.email}</p>
                           </div>
                           <Badge className={`text-xs ${getRoleColor(searchUser.role)}`}>
                             {searchUser.role}
@@ -290,7 +290,7 @@ const StudentChatPage = () => {
                     </div>
                   ) : (
                     <div className="p-3 text-center">
-                      <p className="text-xs text-gray-500">Nenhum usuário encontrado</p>
+                      <p className="text-xs text-muted-foreground">Nenhum usuário encontrado</p>
                     </div>
                   )}
                 </div>
@@ -301,7 +301,7 @@ const StudentChatPage = () => {
           {/* Lista de conversas */}
           <div className="flex-1 overflow-y-auto">
             {filteredChats.length === 0 ? (
-              <div className="p-3 text-center text-gray-500 text-sm">
+              <div className="p-3 text-center text-sm text-muted-foreground">
                 {searchTerm ? 'Nenhuma conversa encontrada' : 'Nenhuma conversa ainda'}
               </div>
             ) : (
@@ -315,8 +315,8 @@ const StudentChatPage = () => {
                     }}
                     className={`p-2 rounded-lg cursor-pointer transition-colors ${
                       selectedChat === chat.id
-                        ? 'bg-blue-50 border border-blue-200'
-                        : 'hover:bg-gray-100'
+                        ? 'border border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/15'
+                        : 'hover:bg-muted'
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -328,12 +328,12 @@ const StudentChatPage = () => {
                           </AvatarFallback>
                         </Avatar>
                         {chat.isOnline && (
-                          <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border border-white"></div>
+                          <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border border-background bg-green-500"></div>
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <p className="text-xs font-medium text-gray-900 truncate">
+                          <p className="truncate text-xs font-medium text-foreground">
                             {chat.name}
                           </p>
                           {chat.unreadCount > 0 && (
@@ -343,7 +343,7 @@ const StudentChatPage = () => {
                           )}
                         </div>
                         {chat.lastMessage && (
-                          <p className="text-xs text-gray-500 truncate">
+                          <p className="truncate text-xs text-muted-foreground">
                             {chat.lastMessage}
                           </p>
                         )}
@@ -361,7 +361,7 @@ const StudentChatPage = () => {
           {selectedChat ? (
             <>
               {/* Header da conversa */}
-              <div className="p-3 border-b border-gray-200 bg-white flex items-center justify-between">
+              <div className="flex items-center justify-between border-b border-border bg-card p-3">
                   <div className="flex items-center gap-2">
                   <Button
                     variant="ghost"
@@ -378,10 +378,10 @@ const StudentChatPage = () => {
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="text-base font-medium text-gray-900">
+                      <h3 className="text-base font-medium text-foreground">
                       {currentHeader?.name || 'Usuário'}
                       </h3>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-muted-foreground">
                         {currentChat?.isOnline ? 'Online' : 'Offline'}
                       </p>
                     </div>
@@ -400,7 +400,7 @@ const StudentChatPage = () => {
               </div>
 
               {/* Mensagens */}
-              <div className="flex-1 overflow-y-auto p-3 space-y-2">
+              <div className="flex-1 space-y-2 overflow-y-auto bg-muted/20 p-3">
                 {messagesData?.data?.map((message: any) => (
                   <div
                     key={message.id}
@@ -409,7 +409,7 @@ const StudentChatPage = () => {
                     <div className={`max-w-xs lg:max-w-md px-3 py-2 rounded-lg ${
                       message.senderId === user?.id
                         ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                        : 'border border-border bg-card text-foreground'
                     }`}>
                       {message.senderId !== user?.id && (
                         <div className="flex items-center gap-1 mb-1">
@@ -439,7 +439,7 @@ const StudentChatPage = () => {
               </div>
 
               {/* Input de mensagem */}
-              <div className="p-3 border-t border-gray-200 bg-white">
+              <div className="border-t border-border bg-card p-3">
                 <div className="flex gap-1.5">
                   <Button variant="ghost" size="sm">
                     <Paperclip className="h-4 w-4" />
@@ -468,11 +468,11 @@ const StudentChatPage = () => {
             </>
           ) : (
             /* Estado vazio */
-            <div className="flex-1 flex items-center justify-center bg-gray-50">
+            <div className="flex flex-1 items-center justify-center bg-muted/50">
               <div className="text-center">
-                <MessageSquare className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Bem-vindo ao Chat!</h3>
-                <p className="text-gray-500">
+                <MessageSquare className="mx-auto mb-4 h-16 w-16 text-muted-foreground/60" />
+                <h3 className="mb-2 text-lg font-medium text-foreground">Bem-vindo ao Chat!</h3>
+                <p className="text-muted-foreground">
                   Escolha uma conversa da lista ou digite o nome de alguém para iniciar uma nova conversa.
                 </p>
               </div>

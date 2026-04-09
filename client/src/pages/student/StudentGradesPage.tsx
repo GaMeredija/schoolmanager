@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -19,7 +19,7 @@ export default function StudentGradesPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando notas...</p>
+          <p className="text-muted-foreground">Carregando notas...</p>
         </div>
       </div>
     );
@@ -30,8 +30,8 @@ export default function StudentGradesPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Erro ao carregar notas</h3>
-          <p className="text-gray-600">Tente novamente mais tarde</p>
+          <h3 className="text-lg font-medium text-foreground mb-2">Erro ao carregar notas</h3>
+          <p className="text-muted-foreground">Tente novamente mais tarde</p>
         </div>
       </div>
     );
@@ -87,10 +87,10 @@ export default function StudentGradesPage() {
         </CardHeader>
         <CardContent>
           <div className="text-center">
-            <div className="text-4xl font-bold text-gray-900 mb-2">
+            <div className="text-4xl font-bold text-foreground mb-2">
               {averageGrade.toFixed(1)}
             </div>
-            <p className="text-gray-600">
+            <p className="text-muted-foreground">
               Baseado em {gradedActivities.length} atividade{gradedActivities.length !== 1 ? 's' : ''} avaliada{gradedActivities.length !== 1 ? 's' : ''}
             </p>
             <div className="mt-4">
@@ -114,10 +114,10 @@ export default function StudentGradesPage() {
           {subjectAverages.length === 0 ? (
             <div className="text-center py-8">
               <BookOpen className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhuma nota disponível
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Ainda não há atividades avaliadas pelo professor.
               </p>
             </div>
@@ -126,12 +126,12 @@ export default function StudentGradesPage() {
               {subjectAverages.map(({ subject, average, count }) => (
                 <div key={subject} className="p-4 border rounded-lg">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-medium text-gray-900">{subject}</h3>
+                    <h3 className="font-medium text-foreground">{subject}</h3>
                     <Badge className={getGradeBadge(average, 10)}>
                       {average.toFixed(1)}
                     </Badge>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-muted-foreground">
                     {count} atividade{count !== 1 ? 's' : ''} avaliada{count !== 1 ? 's' : ''}
                   </p>
                 </div>
@@ -153,10 +153,10 @@ export default function StudentGradesPage() {
           {gradedActivities.length === 0 ? (
             <div className="text-center py-8">
               <Star className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-lg font-medium text-foreground mb-2">
                 Nenhuma atividade avaliada
               </h3>
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Aguarde as avaliações dos professores.
               </p>
             </div>
@@ -167,13 +167,13 @@ export default function StudentGradesPage() {
                 .map((activity) => (
                 <div key={activity.id} className="flex items-center justify-between p-4 border rounded-lg">
                   <div className="flex-1">
-                    <h4 className="font-medium text-gray-900">{activity.title}</h4>
+                    <h4 className="font-medium text-foreground">{activity.title}</h4>
                     <div className="flex items-center gap-2 mt-1">
-                      <BookOpen className="h-3 w-3 text-gray-400" />
-                      <span className="text-sm text-gray-600">{activity.subjectName}</span>
-                      <span className="text-sm text-gray-400">•</span>
-                      <Calendar className="h-3 w-3 text-gray-400" />
-                      <span className="text-sm text-gray-600">
+                      <BookOpen className="h-3 w-3 text-muted-foreground/60" />
+                      <span className="text-sm text-muted-foreground">{activity.subjectName}</span>
+                      <span className="text-sm text-muted-foreground/60">•</span>
+                      <Calendar className="h-3 w-3 text-muted-foreground/60" />
+                      <span className="text-sm text-muted-foreground">
                         {activity.submissionDate ? 
                           new Date(activity.submissionDate).toLocaleDateString('pt-BR') : 
                           'Data não disponível'
@@ -181,7 +181,7 @@ export default function StudentGradesPage() {
                       </span>
                     </div>
                     {activity.submissionFeedback && (
-                      <p className="text-sm text-gray-600 mt-2 italic">
+                      <p className="text-sm text-muted-foreground mt-2 italic">
                         "{activity.submissionFeedback}"
                       </p>
                     )}

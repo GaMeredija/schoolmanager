@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -82,12 +82,12 @@ const StudentSchedulePage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">📅 Horários</h1>
-          <p className="text-gray-600 mt-1">Seu cronograma semanal de aulas</p>
+          <h1 className="text-2xl font-bold text-foreground">ðŸ“… Horários</h1>
+          <p className="text-muted-foreground mt-1">Seu cronograma semanal de aulas</p>
         </div>
         <div className="text-right">
-          <p className="text-lg font-semibold text-gray-900">{getCurrentDay()}</p>
-          <p className="text-sm text-gray-600">{getCurrentTime()}</p>
+          <p className="text-lg font-semibold text-foreground">{getCurrentDay()}</p>
+          <p className="text-sm text-muted-foreground">{getCurrentTime()}</p>
         </div>
       </div>
 
@@ -178,13 +178,13 @@ const StudentSchedulePage = () => {
       )}
 
       {!currentClass && !nextClass && (
-        <Card className="border border-gray-200 bg-gray-50">
+        <Card className="border border-border bg-muted/60">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <Calendar className="h-6 w-6 text-gray-600" />
+              <Calendar className="h-6 w-6 text-muted-foreground" />
               <div>
-                <h3 className="font-semibold text-gray-900">Status Atual</h3>
-                <p className="text-gray-700">Não há aulas no momento. Aproveite seu tempo livre!</p>
+                <h3 className="font-semibold text-foreground">Status Atual</h3>
+                <p className="text-foreground">Não há aulas no momento. Aproveite seu tempo livre!</p>
               </div>
             </div>
           </CardContent>
@@ -194,7 +194,7 @@ const StudentSchedulePage = () => {
       {/* Weekly Schedule */}
       <div className="space-y-4">
         {schedule.map((daySchedule, index) => (
-          <Card key={index} className="border border-gray-200">
+          <Card key={index} className="border border-border">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-blue-600" />
@@ -207,18 +207,18 @@ const StudentSchedulePage = () => {
             <CardContent>
               <div className="space-y-3">
                 {daySchedule.classes.map((classItem, classIndex) => (
-                  <div key={classIndex} className="flex items-center justify-between p-3 rounded-lg border border-gray-100 hover:shadow-sm transition-shadow">
+                  <div key={classIndex} className="flex items-center justify-between p-3 rounded-lg border border-border/70 hover:shadow-sm transition-shadow">
                     <div className="flex items-center gap-4">
                       <div className="w-16 text-center">
-                        <p className="text-sm font-medium text-gray-900">{classItem.time}</p>
+                        <p className="text-sm font-medium text-foreground">{classItem.time}</p>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">{classItem.subject}</h4>
-                        <p className="text-sm text-gray-600">{classItem.teacher}</p>
+                        <h4 className="font-medium text-foreground">{classItem.subject}</h4>
+                        <p className="text-sm text-muted-foreground">{classItem.teacher}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1 text-sm text-gray-500">
+                      <div className="flex items-center gap-1 text-sm text-muted-foreground">
                         <MapPin className="h-4 w-4" />
                         <span>{classItem.room}</span>
                       </div>
@@ -232,7 +232,7 @@ const StudentSchedulePage = () => {
       </div>
 
       {/* Quick Actions */}
-      <Card className="border border-gray-200">
+      <Card className="border border-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5 text-orange-600" />
@@ -261,6 +261,7 @@ const StudentSchedulePage = () => {
 };
 
 export default StudentSchedulePage;
+
 
 
 

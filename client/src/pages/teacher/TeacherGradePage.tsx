@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -118,7 +118,7 @@ const TeacherGradePage = () => {
   const selectedSubmissionData = submissions.find(s => s.id === selectedSubmission);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-muted/60 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6">
@@ -131,12 +131,12 @@ const TeacherGradePage = () => {
             </Link>
           </div>
           
-          <div className="bg-white rounded-lg shadow-sm border p-6">
+          <div className="bg-card rounded-lg shadow-sm border p-6">
             <div className="flex items-start justify-between">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">{activity.title}</h1>
-                <p className="text-gray-600 mb-4">{activity.description}</p>
-                <div className="flex items-center gap-6 text-sm text-gray-500">
+                <h1 className="text-2xl font-bold text-foreground mb-2">{activity.title}</h1>
+                <p className="text-muted-foreground mb-4">{activity.description}</p>
+                <div className="flex items-center gap-6 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <FileText className="h-4 w-4" />
                     {activity.subject}
@@ -153,7 +153,7 @@ const TeacherGradePage = () => {
               </div>
               <div className="text-right">
                 <div className="text-2xl font-bold text-blue-600">{activity.maxGrade}</div>
-                <div className="text-sm text-gray-500">Nota máxima</div>
+                <div className="text-sm text-muted-foreground">Nota máxima</div>
               </div>
             </div>
           </div>
@@ -165,8 +165,8 @@ const TeacherGradePage = () => {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Total de Submissões</p>
-                  <p className="text-2xl font-bold text-gray-900">{activity.totalSubmissions}</p>
+                  <p className="text-sm font-medium text-muted-foreground">Total de Submissões</p>
+                  <p className="text-2xl font-bold text-foreground">{activity.totalSubmissions}</p>
                 </div>
                 <FileText className="h-8 w-8 text-blue-500" />
               </div>
@@ -177,7 +177,7 @@ const TeacherGradePage = () => {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Avaliadas</p>
+                  <p className="text-sm font-medium text-muted-foreground">Avaliadas</p>
                   <p className="text-2xl font-bold text-green-600">{activity.gradedSubmissions}</p>
                 </div>
                 <CheckCircle className="h-8 w-8 text-green-500" />
@@ -189,7 +189,7 @@ const TeacherGradePage = () => {
             <CardContent className="pt-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Pendentes</p>
+                  <p className="text-sm font-medium text-muted-foreground">Pendentes</p>
                   <p className="text-2xl font-bold text-orange-600">{activity.pendingSubmissions}</p>
                 </div>
                 <AlertCircle className="h-8 w-8 text-orange-500" />
@@ -212,19 +212,19 @@ const TeacherGradePage = () => {
                     className={`p-4 border rounded-lg cursor-pointer transition-colors ${
                       selectedSubmission === submission.id
                         ? 'border-blue-500 bg-blue-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-border hover:border-gray-300'
                     }`}
                     onClick={() => setSelectedSubmission(submission.id)}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div>
-                        <h4 className="font-medium text-gray-900">{submission.studentName}</h4>
-                        <p className="text-sm text-gray-500">ID: {submission.studentId}</p>
+                        <h4 className="font-medium text-foreground">{submission.studentName}</h4>
+                        <p className="text-sm text-muted-foreground">ID: {submission.studentId}</p>
                       </div>
                       {getStatusBadge(submission.status, submission.isLate)}
                     </div>
                     
-                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-2">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
                       <span className="flex items-center gap-1">
                         <Clock className="h-3 w-3" />
                         {new Date(submission.submittedAt).toLocaleString('pt-BR')}
@@ -235,7 +235,7 @@ const TeacherGradePage = () => {
                     {submission.grade && (
                       <div className="flex items-center gap-2">
                         <Star className="h-4 w-4 text-yellow-500" />
-                        <span className="font-medium text-gray-900">
+                        <span className="font-medium text-foreground">
                           Nota: {submission.grade}/{activity.maxGrade}
                         </span>
                       </div>
@@ -258,16 +258,16 @@ const TeacherGradePage = () => {
                 <div className="space-y-6">
                   {/* Arquivos */}
                   <div>
-                    <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                    <Label className="text-sm font-medium text-foreground mb-2 block">
                       Arquivos Enviados
                     </Label>
                     <div className="space-y-2">
                       {selectedSubmissionData.files.map((file, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={index} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg">
                           <div className="flex items-center gap-2">
-                            <FileText className="h-4 w-4 text-gray-500" />
+                            <FileText className="h-4 w-4 text-muted-foreground" />
                             <span className="text-sm font-medium">{file.name}</span>
-                            <span className="text-xs text-gray-500">({file.size})</span>
+                            <span className="text-xs text-muted-foreground">({file.size})</span>
                           </div>
                           <Button size="sm" variant="ghost">
                             <Download className="h-4 w-4" />
@@ -280,7 +280,7 @@ const TeacherGradePage = () => {
                   {/* Avaliação */}
                   <div className="space-y-4">
                     <div>
-                      <Label htmlFor="grade" className="text-sm font-medium text-gray-700">
+                      <Label htmlFor="grade" className="text-sm font-medium text-foreground">
                         Nota (0 a {activity.maxGrade})
                       </Label>
                       <Input
@@ -296,7 +296,7 @@ const TeacherGradePage = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="feedback" className="text-sm font-medium text-gray-700">
+                      <Label htmlFor="feedback" className="text-sm font-medium text-foreground">
                         Feedback
                       </Label>
                       <Textarea
@@ -332,7 +332,7 @@ const TeacherGradePage = () => {
                   </div>
                 </div>
               ) : (
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-muted-foreground">
                   <FileText className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                   <p>Selecione uma submissão para avaliar</p>
                 </div>

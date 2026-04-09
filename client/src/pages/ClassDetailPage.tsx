@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+﻿import { useState, useEffect } from "react";
 import { useLocation, useParams } from "wouter";
 import { ArrowLeft, Users, Calendar, BookOpen, UserCheck, UserX, Clock, Save, Check, X, BarChart3, TrendingUp, Award, FileText, Download, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -136,8 +136,8 @@ export default function ClassDetailPage() {
   const { data: generalAverages } = useGeneralAverages(classId || '');
   
   // Log das queries
-  console.log('📊 Query classGrades:', { classId, selectedQuarter, data: classGrades?.data, isLoading: isLoadingGrades });
-  console.log('📊 Query generalAverages:', { classId, data: generalAverages?.data });
+  console.log('ðŸ“Š Query classGrades:', { classId, selectedQuarter, data: classGrades?.data, isLoading: isLoadingGrades });
+  console.log('ðŸ“Š Query generalAverages:', { classId, data: generalAverages?.data });
    
 
   // Atualizar aba quando URL mudar
@@ -266,7 +266,7 @@ export default function ClassDetailPage() {
 
     // Teste direto com fetch
     try {
-      console.log('📤 Enviando dados para o servidor...');
+      console.log('ðŸ“¤ Enviando dados para o servidor...');
       
       const response = await fetch(`/api/classes/${classId}/grades`, {
         method: 'POST',
@@ -283,7 +283,7 @@ export default function ClassDetailPage() {
         })
       });
       
-      console.log('📊 Status da resposta:', response.status);
+      console.log('ðŸ“Š Status da resposta:', response.status);
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -295,7 +295,7 @@ export default function ClassDetailPage() {
       console.log('✅ Resposta do servidor:', result);
       
       // Invalidar queries de todos os bimestres para atualizar o painel de notas
-      console.log('🔄 Invalidando queries...');
+      console.log('ðŸ”„ Invalidando queries...');
       await queryClient.invalidateQueries({ queryKey: ['class-grades', classId, 1] });
       await queryClient.invalidateQueries({ queryKey: ['class-grades', classId, 2] });
       await queryClient.invalidateQueries({ queryKey: ['class-grades', classId, 3] });
@@ -307,7 +307,7 @@ export default function ClassDetailPage() {
       await queryClient.invalidateQueries({ queryKey: ['general-averages', classId] });
       
       // Forçar refetch das queries
-      console.log('🔄 Forçando refetch das queries...');
+      console.log('ðŸ”„ Forçando refetch das queries...');
       await queryClient.refetchQueries({ queryKey: ['class-grades', classId, selectedQuarter] });
       await queryClient.refetchQueries({ queryKey: ['class-averages', classId, selectedQuarter] });
       await queryClient.refetchQueries({ queryKey: ['general-averages', classId] });
@@ -315,10 +315,10 @@ export default function ClassDetailPage() {
       // Não limpar os inputs - eles serão recarregados pelo useEffect
       console.log('✅ Nota salva - inputs serão recarregados automaticamente');
       
-      console.log('🎉 Nota salva com sucesso!');
+      console.log('ðŸŽ‰ Nota salva com sucesso!');
       toast.success('Nota salva com sucesso!');
     } catch (error) {
-      console.error('💥 Erro ao salvar nota:', error);
+      console.error('ðŸ’¥ Erro ao salvar nota:', error);
       toast.error('Erro ao salvar nota');
     }
   };
@@ -333,20 +333,20 @@ export default function ClassDetailPage() {
 
   // Carregar notas existentes nos inputs quando os dados chegarem
   useEffect(() => {
-    console.log('🔄 useEffect executado - classGrades:', classGrades?.data);
-    console.log('🔄 useEffect executado - students:', students.length);
-    console.log('🔄 useEffect executado - selectedQuarter:', selectedQuarter);
+    console.log('ðŸ”„ useEffect executado - classGrades:', classGrades?.data);
+    console.log('ðŸ”„ useEffect executado - students:', students.length);
+    console.log('ðŸ”„ useEffect executado - selectedQuarter:', selectedQuarter);
     
     if (classGrades?.data && students.length > 0) {
-      console.log('📊 Carregando notas existentes nos inputs...');
-      console.log('📊 Dados das notas:', classGrades.data);
+      console.log('ðŸ“Š Carregando notas existentes nos inputs...');
+      console.log('ðŸ“Š Dados das notas:', classGrades.data);
       const newInputs: any = {};
       
       students.forEach(student => {
         const examGrade = getExistingGrade(student.id, 'exam');
         const homeworkGrade = getExistingGrade(student.id, 'homework');
         
-        console.log(`📊 ${student.firstName} ${student.lastName}: exam=${examGrade}, homework=${homeworkGrade}`);
+        console.log(`ðŸ“Š ${student.firstName} ${student.lastName}: exam=${examGrade}, homework=${homeworkGrade}`);
         
         // Sempre definir os inputs, mesmo que sejam vazios
         newInputs[student.id] = {
@@ -359,7 +359,7 @@ export default function ClassDetailPage() {
       setGradeInputs(newInputs); // Substituir completamente ao invés de mesclar
     } else if (students.length > 0) {
       // Se não há notas, limpar os inputs
-      console.log('🧹 Limpando inputs - nenhuma nota encontrada');
+      console.log('ðŸ§¹ Limpando inputs - nenhuma nota encontrada');
       const emptyInputs: any = {};
       students.forEach(student => {
         emptyInputs[student.id] = {
@@ -373,9 +373,9 @@ export default function ClassDetailPage() {
 
   // Limpar inputs quando trocar de bimestre
   useEffect(() => {
-    console.log('🔄 ===== BIMESTRE MUDOU =====');
-    console.log('🔄 Novo bimestre:', selectedQuarter);
-    console.log('🧹 Limpando inputs para novo bimestre');
+    console.log('ðŸ”„ ===== BIMESTRE MUDOU =====');
+    console.log('ðŸ”„ Novo bimestre:', selectedQuarter);
+    console.log('ðŸ§¹ Limpando inputs para novo bimestre');
     
     if (students.length > 0) {
       const emptyInputs: any = {};
@@ -396,7 +396,7 @@ export default function ClassDetailPage() {
     const averages = classAverages?.data || [];
     const studentAverage = averages.find((avg: any) => avg.studentId === studentId);
     if (studentAverage?.average) {
-      console.log(`📈 Média do bimestre ${selectedQuarter} para ${studentId}:`, studentAverage.average);
+      console.log(`ðŸ“ˆ Média do bimestre ${selectedQuarter} para ${studentId}:`, studentAverage.average);
       return studentAverage.average;
     }
     
@@ -409,7 +409,7 @@ export default function ClassDetailPage() {
       const homework = parseFloat(homeworkGrade);
       if (!isNaN(exam) && !isNaN(homework)) {
         const average = (exam + homework) / 2;
-        console.log(`🧮 Média calculada para ${studentId}:`, average, `(${exam} + ${homework}) / 2`);
+        console.log(`ðŸ§® Média calculada para ${studentId}:`, average, `(${exam} + ${homework}) / 2`);
         return average;
       }
     }
@@ -542,37 +542,37 @@ export default function ClassDetailPage() {
 
           <TabsContent value="attendance" className="space-y-6">
             {/* Header Simples de Presença */}
-            <div className="bg-white border rounded-lg p-5 shadow-sm">
+            <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
               <div className="flex justify-between items-center">
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-800 mb-1">Registro de Presença</h2>
-                  <p className="text-gray-600 text-sm">{classData?.data?.name} • {students.length} alunos</p>
+                  <h2 className="text-xl font-semibold text-foreground mb-1">Registro de Presença</h2>
+                  <p className="text-muted-foreground text-sm">{classData?.data?.name} • {students.length} alunos</p>
                 </div>
                 <div className="flex gap-6 text-sm">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-green-600">{presentCount}</div>
-                    <div className="text-gray-500">Presentes</div>
+                    <div className="text-muted-foreground">Presentes</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-red-500">{absentCount}</div>
-                    <div className="text-gray-500">Faltas</div>
+                    <div className="text-muted-foreground">Faltas</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Controles Simples */}
-            <div className="bg-white border rounded-lg p-4 shadow-sm">
+            <div className="bg-card rounded-lg border border-border p-4 shadow-sm">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <label className="text-sm font-medium text-gray-700">Data:</label>
+                  <label className="text-sm font-medium text-foreground">Data:</label>
                   <Input
                     type="date"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
                     className="w-auto border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-muted-foreground">
                     {format(new Date(selectedDate), "dd/MM/yyyy", { locale: ptBR })}
                   </span>
                 </div>
@@ -618,7 +618,7 @@ export default function ClassDetailPage() {
             </div>
 
              {/* Lista de Alunos Compacta */}
-             <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+             <div className="bg-card overflow-hidden rounded-lg border border-border shadow-md">
                <div className="bg-gradient-to-r from-slate-700 to-slate-800 px-4 py-3">
                  <div className="flex items-center justify-between">
                    <h3 className="text-lg font-semibold text-white">Registro de Presença</h3>
@@ -637,12 +637,12 @@ export default function ClassDetailPage() {
                        const currentStatus = attendanceData[student.id]?.status || 'present';
                        
                        return (
-                         <div key={student.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                         <div key={student.id} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg hover:bg-muted transition-colors">
                            <div className="flex items-center gap-3">
                              <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-bold">
                                {index + 1}
                              </div>
-                             <span className="font-medium text-gray-900">
+                             <span className="font-medium text-foreground">
                                {student.firstName} {student.lastName}
                              </span>
                            </div>
@@ -656,7 +656,7 @@ export default function ClassDetailPage() {
                                  onChange={() => handleAttendanceChange(student.id, 'present')}
                                  className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
                                />
-                               <span className="text-sm text-gray-700">Presente</span>
+                               <span className="text-sm text-foreground">Presente</span>
                              </label>
                              
                              <label className="flex items-center gap-2 cursor-pointer">
@@ -667,7 +667,7 @@ export default function ClassDetailPage() {
                                  onChange={() => handleAttendanceChange(student.id, 'absent')}
                                  className="w-4 h-4 text-red-600 border-gray-300 focus:ring-red-500"
                                />
-                               <span className="text-sm text-gray-700">Falta</span>
+                               <span className="text-sm text-foreground">Falta</span>
                              </label>
                            </div>
                          </div>
@@ -678,7 +678,7 @@ export default function ClassDetailPage() {
              </div>
 
             {/* Painel de Total de Presenças e Faltas Compacto */}
-            <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+            <div className="bg-card overflow-hidden rounded-lg border border-border shadow-md">
               <div className="bg-gradient-to-r from-indigo-600 to-purple-700 px-4 py-3">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold text-white">Relatório de Frequência</h3>
@@ -711,12 +711,12 @@ export default function ClassDetailPage() {
                       const attendanceRate = ((totalPresent / totalClasses) * 100).toFixed(1);
                       
                       return (
-                        <div key={student.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                        <div key={student.id} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg hover:bg-muted transition-colors">
                           <div className="flex items-center gap-3">
                             <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white text-xs font-bold">
                               {index + 1}
                             </div>
-                            <span className="font-medium text-gray-900">
+                            <span className="font-medium text-foreground">
                               {student.firstName} {student.lastName}
                             </span>
                           </div>
@@ -724,11 +724,11 @@ export default function ClassDetailPage() {
                           <div className="flex items-center gap-6 text-sm">
                             <div className="text-center">
                               <div className="text-lg font-bold text-green-600">{totalPresent}</div>
-                              <div className="text-xs text-gray-500">Presenças</div>
+                              <div className="text-xs text-muted-foreground">Presenças</div>
                             </div>
                             <div className="text-center">
                               <div className="text-lg font-bold text-red-500">{totalAbsent}</div>
-                              <div className="text-xs text-gray-500">Faltas</div>
+                              <div className="text-xs text-muted-foreground">Faltas</div>
                             </div>
                             <div className="text-center">
                               <div className={`text-lg font-bold ${
@@ -737,7 +737,7 @@ export default function ClassDetailPage() {
                               }`}>
                                 {attendanceRate}%
                               </div>
-                              <div className="text-xs text-gray-500">Frequência</div>
+                              <div className="text-xs text-muted-foreground">Frequência</div>
                             </div>
                             <div className={`px-2 py-1 rounded text-xs font-medium ${
                               parseFloat(attendanceRate) >= 85 
@@ -760,11 +760,11 @@ export default function ClassDetailPage() {
 
           <TabsContent value="grades" className="space-y-6">
             {/* Header Simples de Notas */}
-            <div className="bg-white border rounded-lg p-5 shadow-sm">
+            <div className="bg-card rounded-lg border border-border p-5 shadow-sm">
               <div className="flex justify-between items-center">
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-800 mb-1">Sistema de Notas</h2>
-                  <p className="text-gray-600 text-sm">Bimestre {selectedQuarter} • {students.length} alunos</p>
+                  <h2 className="text-xl font-semibold text-foreground mb-1">Sistema de Notas</h2>
+                  <p className="text-muted-foreground text-sm">Bimestre {selectedQuarter} • {students.length} alunos</p>
                 </div>
                 <div className="flex gap-2">
                   {[1, 2, 3, 4].map((quarter) => (
@@ -783,9 +783,9 @@ export default function ClassDetailPage() {
             </div>
 
             {/* Lista de Alunos com Notas */}
-            <div className="bg-white border rounded-lg shadow-sm">
-              <div className="bg-gray-50 border-b p-4">
-                <h3 className="font-medium text-gray-800">Lançamento de Notas</h3>
+            <div className="bg-card rounded-lg border border-border shadow-sm">
+              <div className="bg-muted/60 border-b p-4">
+                <h3 className="font-medium text-foreground">Lançamento de Notas</h3>
               </div>
               <div className="p-4">
                 <div className="space-y-3">
@@ -796,25 +796,25 @@ export default function ClassDetailPage() {
                     const generalAverage = getGeneralAverage(student.id);
                     const status = getStudentStatus(student.id);
                     return (
-                      <div key={student.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div key={student.id} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium text-gray-700">
+                          <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center text-sm font-medium text-foreground">
                             {index + 1}
                           </div>
                           <Avatar className="h-10 w-10">
                             <AvatarImage src={student.profileImageUrl} />
-                            <AvatarFallback className="bg-gray-300 text-gray-700 text-sm">
+                            <AvatarFallback className="bg-muted/80 text-foreground text-sm">
                               {getUserInitials(student.firstName + ' ' + student.lastName)}
                             </AvatarFallback>
                           </Avatar>
                           <div>
-                            <div className="font-medium text-gray-900">
+                            <div className="font-medium text-foreground">
                               {student.firstName} {student.lastName}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-muted-foreground">
                               Média Geral: {generalAverage > 0 ? generalAverage.toFixed(1) : '--'}
                             </div>
-                            <div className="text-xs text-gray-400">
+                            <div className="text-xs text-muted-foreground/70">
                               {selectedQuarter}º Bimestre: {quarterAverage ? quarterAverage.toFixed(1) : '--'}
                             </div>
                             <div className="mt-1">
@@ -830,7 +830,7 @@ export default function ClassDetailPage() {
                         
                         <div className="flex items-center gap-3">
                           <div className="flex items-center gap-2">
-                            <label className="text-sm text-gray-600">Prova:</label>
+                            <label className="text-sm text-muted-foreground">Prova:</label>
                             <Input 
                               type="number" 
                               className="w-16 h-8 text-center text-sm" 
@@ -848,12 +848,12 @@ export default function ClassDetailPage() {
                               onClick={() => handleSaveGrade(student.id, 'exam')}
                               disabled={!gradeInputs[student.id]?.exam || gradeInputs[student.id]?.exam === ''}
                             >
-                              ✓
+                              ?
                             </Button>
                           </div>
                           
                           <div className="flex items-center gap-2">
-                            <label className="text-sm text-gray-600">Trabalho:</label>
+                            <label className="text-sm text-muted-foreground">Trabalho:</label>
                             <Input 
                               type="number" 
                               className="w-16 h-8 text-center text-sm" 
@@ -871,7 +871,7 @@ export default function ClassDetailPage() {
                               onClick={() => handleSaveGrade(student.id, 'homework')}
                               disabled={!gradeInputs[student.id]?.homework || gradeInputs[student.id]?.homework === ''}
                             >
-                              ✓
+                              ?
                             </Button>
                           </div>
                         </div>
@@ -888,3 +888,4 @@ export default function ClassDetailPage() {
      </MainLayout>
    );
  }
+

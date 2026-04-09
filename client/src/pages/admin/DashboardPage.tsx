@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -77,7 +77,7 @@ const DashboardPage = () => {
   if (error) {
     return (
       <div className="text-center py-12">
-        <p className="text-red-600">Erro ao carregar dashboard</p>
+        <p className="text-red-600 dark:text-red-400">Erro ao carregar dashboard</p>
       </div>
     );
   }
@@ -92,12 +92,12 @@ const DashboardPage = () => {
   const recentUsers = dashboardData?.data?.recentUsers || [];
   
   // Debug: verificar dados dos usuários
-  console.log('📊 Dashboard data:', dashboardData?.data);
-  console.log('👥 Recent users:', recentUsers);
+  console.log('ðŸ“Š Dashboard data:', dashboardData?.data);
+  console.log('ðŸ‘¥ Recent users:', recentUsers);
   if (recentUsers.length > 0) {
     console.log('🔍 Primeiro usuário:', recentUsers[0]);
-    console.log('📱 Telefone do primeiro:', recentUsers[0].phone);
-    console.log('🏠 Endereço do primeiro:', recentUsers[0].address);
+    console.log('ðŸ“± Telefone do primeiro:', recentUsers[0].phone);
+    console.log('ðŸ  Endereço do primeiro:', recentUsers[0].address);
     console.log('🎓 Matrícula do primeiro:', recentUsers[0].registrationNumber);
   }
   
@@ -110,18 +110,18 @@ const DashboardPage = () => {
 
   const getRoleColor = (role: string) => {
     switch (role) {
-      case 'Administrador': return 'bg-red-100 text-red-800 border-red-200';
-      case 'Coordenador': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'Professor': return 'bg-green-100 text-green-800 border-green-200';
-      case 'Aluno': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'Administrador': return 'border border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200';
+      case 'Coordenador': return 'border border-orange-200 bg-orange-50 text-orange-700 dark:border-orange-900 dark:bg-orange-950/40 dark:text-orange-200';
+      case 'Professor': return 'border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200';
+      case 'Aluno': return 'border border-violet-200 bg-violet-50 text-violet-700 dark:border-violet-900 dark:bg-violet-950/40 dark:text-violet-200';
+      default: return 'border border-border bg-muted text-muted-foreground';
     }
   };
 
   const getStatusColor = (status: string) => {
     return status === 'Ativo' 
-      ? 'bg-green-100 text-green-800 border-green-200' 
-      : 'bg-red-100 text-red-800 border-red-200';
+      ? 'border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200'
+      : 'border border-red-200 bg-red-50 text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-200';
   };
 
   const getUserInitials = (firstName: string, lastName: string) => {
@@ -207,7 +207,7 @@ const DashboardPage = () => {
       address: formData.address || undefined,
       status: formData.status
     };
-    console.log('📤 Dados sendo enviados:', userData);
+    console.log('ðŸ“¤ Dados sendo enviados:', userData);
     
     try {
       const response = await fetch(`/api/admin/users/${userToEdit.id}`, {
@@ -246,7 +246,7 @@ const DashboardPage = () => {
 
   const handleCreateUserSubmit = () => {
     console.log('🔍 handleCreateUserSubmit chamado');
-    console.log('📝 formData:', formData);
+    console.log('ðŸ“ formData:', formData);
     
     if (!formData.firstName || !formData.lastName) {
       console.log('❌ Nome ou sobrenome vazio');
@@ -264,7 +264,7 @@ const DashboardPage = () => {
       address: formData.address || undefined,
       status: formData.status
     };
-    console.log('📤 Dados sendo enviados:', userData);
+    console.log('ðŸ“¤ Dados sendo enviados:', userData);
     
     createUserMutation.mutate(userData, {
       onSuccess: () => {
@@ -315,9 +315,9 @@ const DashboardPage = () => {
   };
 
   const handleViewUser = (user: any) => {
-    console.log('👁️ Visualizando usuário:', user);
-    console.log('📱 Telefone:', user.phone);
-    console.log('🏠 Endereço:', user.address);
+    console.log('👁ï¸ Visualizando usuário:', user);
+    console.log('ðŸ“± Telefone:', user.phone);
+    console.log('ðŸ  Endereço:', user.address);
     console.log('🎓 Matrícula:', user.registrationNumber);
     setUserDetails(user);
     setIsViewDetailsOpen(true);
@@ -392,12 +392,12 @@ const DashboardPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard Administrativo</h1>
-          <p className="text-gray-600 mt-1">Gerencie usuários, turmas e disciplinas</p>
+          <h1 className="text-3xl font-bold text-foreground">Dashboard Administrativo</h1>
+          <p className="mt-1 text-muted-foreground">Gerencie usuários, turmas e disciplinas</p>
         </div>
         <div className="flex gap-3">
           <Button 
-            className="bg-purple-600 hover:bg-purple-700"
+            className="bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-400"
             onClick={handleCreateClass}
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -408,59 +408,59 @@ const DashboardPage = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="border border-gray-200">
+        <Card className="border-border shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Total de Usuários</CardTitle>
-            <Users className="h-4 w-4 text-gray-400" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total de Usuários</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">{stats.totalUsers}</div>
-            <p className="text-xs text-green-600 mt-1">+12% este mês</p>
+            <div className="text-2xl font-bold text-foreground">{stats.totalUsers}</div>
+            <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1">+12% este mês</p>
           </CardContent>
         </Card>
 
-        <Card className="border border-gray-200">
+        <Card className="border-border shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Total de Turmas</CardTitle>
-            <GraduationCap className="h-4 w-4 text-gray-400" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total de Turmas</CardTitle>
+            <GraduationCap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">{stats.totalClasses}</div>
-            <p className="text-xs text-red-600 mt-1">-5% este mês</p>
+            <div className="text-2xl font-bold text-foreground">{stats.totalClasses}</div>
+            <p className="mt-1 text-xs text-red-600 dark:text-red-400">-5% este mês</p>
           </CardContent>
         </Card>
 
-        <Card className="border border-gray-200">
+        <Card className="border-border shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Total de Disciplinas</CardTitle>
-            <BookOpen className="h-4 w-4 text-gray-400" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total de Disciplinas</CardTitle>
+            <BookOpen className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">{stats.totalSubjects}</div>
-            <p className="text-xs text-green-600 mt-1">+8% este mês</p>
+            <div className="text-2xl font-bold text-foreground">{stats.totalSubjects}</div>
+            <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1">+8% este mês</p>
           </CardContent>
         </Card>
 
-        <Card className="border border-gray-200">
+        <Card className="border-border shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-gray-600">Sistema Ativo</CardTitle>
-            <Activity className="h-4 w-4 text-gray-400" />
+            <CardTitle className="text-sm font-medium text-muted-foreground">Sistema Ativo</CardTitle>
+            <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-gray-900">{stats.systemStatus}</div>
-            <p className="text-xs text-green-600 mt-1">Online</p>
+            <div className="text-2xl font-bold text-foreground">{stats.systemStatus}</div>
+            <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-1">Online</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Recent Users Section */}
-      <Card className="border border-gray-200">
+      <Card className="border-border shadow-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold">Usuários Recentes</CardTitle>
             <div className="flex items-center gap-3">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input 
                   placeholder="Buscar usuários..." 
                   className="pl-10 w-64"
@@ -479,17 +479,17 @@ const DashboardPage = () => {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Nome</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Email</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Função</th>
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Status</th>
+                <tr className="border-b border-border">
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Nome</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Email</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Função</th>
+                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
                   
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.map((user: any) => (
-                  <tr key={user.id} className="border-b border-gray-100 hover:bg-gray-50">
+                  <tr key={user.id} className="border-b border-border hover:bg-muted/40">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-3">
                         <Avatar className="h-8 w-8">
@@ -499,12 +499,12 @@ const DashboardPage = () => {
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <div className="font-medium text-gray-900">{user.firstName} {user.lastName}</div>
-                          <div className="text-sm text-gray-500">{user.id}</div>
+                          <div className="font-medium text-foreground">{user.firstName} {user.lastName}</div>
+                          <div className="text-sm text-muted-foreground">{user.id}</div>
                         </div>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-gray-600">{user.email || 'Pendente'}</td>
+                    <td className="py-3 px-4 text-muted-foreground">{user.email || 'Pendente'}</td>
                     <td className="py-3 px-4">
                       <Badge className={getRoleColor(user.role)}>
                         {user.role}
@@ -524,21 +524,21 @@ const DashboardPage = () => {
       </Card>
 
       {/* Ações Rápidas */}
-      <Card className="border border-gray-200">
+      <Card className="border-border shadow-sm">
         <CardHeader>
           <CardTitle className="text-lg font-semibold">Ações Rápidas</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
             <Button 
-              className="w-full bg-purple-600 hover:bg-purple-700"
+              className="w-full bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-400"
               onClick={handleCreateClass}
             >
               <GraduationCap className="h-4 w-4 mr-2" />
               + Nova Turma
             </Button>
             <Button 
-              className="w-full bg-purple-600 hover:bg-purple-700"
+              className="w-full bg-violet-600 text-white hover:bg-violet-700 dark:bg-violet-500 dark:hover:bg-violet-400"
               onClick={handleCreateSubject}
             >
               <BookOpen className="h-4 w-4 mr-2" />
@@ -681,12 +681,12 @@ const DashboardPage = () => {
               </Select>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-900 rounded-lg p-4">
               <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span className="text-sm font-medium text-blue-800">Informações de Acesso</span>
+                <div className="h-2 w-2 rounded-full bg-sky-500"></div>
+                <span className="text-sm font-medium text-sky-800 dark:text-sky-200">Informações de Acesso</span>
               </div>
-              <p className="text-sm text-blue-700">
+              <p className="text-sm text-sky-700 dark:text-sky-300">
                 <strong>Senha padrão:</strong> 123<br/>
                 <strong>Email:</strong> Sempre termina com @escola.com<br/>
                 <strong>Matrícula:</strong> Gerada automaticamente (6 dígitos aleatórios)
@@ -724,38 +724,38 @@ const DashboardPage = () => {
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Nome Completo</Label>
-                  <p className="text-sm text-gray-900">{userDetails.firstName} {userDetails.lastName}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Nome Completo</Label>
+                  <p className="text-sm text-foreground">{userDetails.firstName} {userDetails.lastName}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Email</Label>
-                  <p className="text-sm text-gray-900">{userDetails.email}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Email</Label>
+                  <p className="text-sm text-foreground">{userDetails.email}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Função</Label>
-                  <p className="text-sm text-gray-900 capitalize">{userDetails.role}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Função</Label>
+                  <p className="text-sm text-foreground capitalize">{userDetails.role}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Status</Label>
+                  <Label className="text-sm font-medium text-muted-foreground">Status</Label>
                   <Badge className={getStatusColor(userDetails.status)}>
                     {userDetails.status}
                   </Badge>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Telefone</Label>
-                  <p className="text-sm text-gray-900">{userDetails.phone || 'Não informado'}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Telefone</Label>
+                  <p className="text-sm text-foreground">{userDetails.phone || 'Não informado'}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Endereço</Label>
-                  <p className="text-sm text-gray-900">{userDetails.address || 'Não informado'}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Endereço</Label>
+                  <p className="text-sm text-foreground">{userDetails.address || 'Não informado'}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Matrícula</Label>
-                  <p className="text-sm text-gray-900">{userDetails.registrationNumber || 'Não informado'}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Matrícula</Label>
+                  <p className="text-sm text-foreground">{userDetails.registrationNumber || 'Não informado'}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Data de Criação</Label>
-                  <p className="text-sm text-gray-900">
+                  <Label className="text-sm font-medium text-muted-foreground">Data de Criação</Label>
+                  <p className="text-sm text-foreground">
                     {userDetails.createdAt ? new Date(userDetails.createdAt).toLocaleDateString('pt-BR') : 'Não informado'}
                   </p>
                 </div>
@@ -875,3 +875,4 @@ const DashboardPage = () => {
 };
 
 export default DashboardPage;
+

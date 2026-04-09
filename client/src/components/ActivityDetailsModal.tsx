@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
@@ -203,7 +203,7 @@ export function ActivityDetailsModal({
     }
     
     if (isLate()) {
-      return <AlertCircle className="h-4 w-4 text-red-600" />;
+      return <AlertCircle className="h-4 w-4 text-destructive" />;
     }
     
     return <Clock className="h-4 w-4 text-amber-600" />;
@@ -235,7 +235,7 @@ export function ActivityDetailsModal({
                 {getStatusBadge()}
               </div>
               <div className="text-right">
-                <div className="text-sm text-gray-600">Nota Máxima</div>
+                <div className="text-sm text-muted-foreground">Nota Máxima</div>
                 <div className="text-lg font-semibold text-amber-600">{activity.maxGrade}</div>
               </div>
             </div>
@@ -249,8 +249,8 @@ export function ActivityDetailsModal({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {activity.subject && (
                     <div className="flex items-center gap-2">
-                      <BookOpen className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">Disciplina:</span>
+                      <BookOpen className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">Disciplina:</span>
                       <Badge 
                         style={{ backgroundColor: activity.subject.color + '20', color: activity.subject.color }}
                       >
@@ -261,17 +261,17 @@ export function ActivityDetailsModal({
                   
                   {activity.teacher && (
                     <div className="flex items-center gap-2">
-                      <User className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">Professor:</span>
+                      <User className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">Professor:</span>
                       <span className="text-sm font-medium">{activity.teacher.name}</span>
                     </div>
                   )}
                   
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">Prazo:</span>
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">Prazo:</span>
                     <span className={`text-sm font-medium ${
-                      isLate() ? 'text-red-600' : 'text-gray-900'
+                      isLate() ? 'text-destructive' : 'text-foreground'
                     }`}>
                       {formatDate(activity.dueDate)}
                     </span>
@@ -279,8 +279,8 @@ export function ActivityDetailsModal({
                   
                   {activity.class && (
                     <div className="flex items-center gap-2">
-                      <BookOpen className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">Turma:</span>
+                      <BookOpen className="h-4 w-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">Turma:</span>
                       <span className="text-sm font-medium">{activity.class.name}</span>
                     </div>
                   )}
@@ -288,13 +288,13 @@ export function ActivityDetailsModal({
                 
                 {isLate() && !submission && (
                   <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                    <AlertCircle className="h-4 w-4 text-red-600" />
+                    <AlertCircle className="h-4 w-4 text-destructive" />
                     <div className="text-sm">
                       <span className="font-medium text-red-800">
                         Atividade atrasada em {getDaysLate()} {getDaysLate() === 1 ? 'dia' : 'dias'}
                       </span>
                       {activity.allowLateSubmission && activity.lateSubmissionPenalty && (
-                        <p className="text-red-600">
+                        <p className="text-destructive">
                           Penalidade por atraso: -{activity.lateSubmissionPenalty}% da nota
                         </p>
                       )}
@@ -303,27 +303,27 @@ export function ActivityDetailsModal({
                 )}
                 
                 <div>
-                  <h4 className="font-medium text-gray-900 mb-2">Descrição:</h4>
-                  <p className="text-sm text-gray-700 whitespace-pre-wrap">{activity.description}</p>
+                  <h4 className="font-medium text-foreground mb-2">Descrição:</h4>
+                  <p className="text-sm text-foreground whitespace-pre-wrap">{activity.description}</p>
                 </div>
                 
                 {activity.instructions && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Instruções:</h4>
-                    <p className="text-sm text-gray-700 whitespace-pre-wrap">{activity.instructions}</p>
+                    <h4 className="font-medium text-foreground mb-2">Instruções:</h4>
+                    <p className="text-sm text-foreground whitespace-pre-wrap">{activity.instructions}</p>
                   </div>
                 )}
                 
                 {activity.requirements && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Requisitos:</h4>
-                    <p className="text-sm text-gray-700 whitespace-pre-wrap">{activity.requirements}</p>
+                    <h4 className="font-medium text-foreground mb-2">Requisitos:</h4>
+                    <p className="text-sm text-foreground whitespace-pre-wrap">{activity.requirements}</p>
                   </div>
                 )}
 
                 {/* Arquivos da Atividade */}
                 <div>
-                  <h4 className="font-medium text-gray-900 mb-2">Arquivos da Atividade:</h4>
+                  <h4 className="font-medium text-foreground mb-2">Arquivos da Atividade:</h4>
                   {activityFiles && activityFiles.length > 0 ? (
                     <div className="space-y-2">
                       {activityFiles.map((file: any) => (
@@ -379,8 +379,8 @@ export function ActivityDetailsModal({
                       ))}
                     </div>
                   ) : (
-                    <div className="p-3 border border-gray-200 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600">Nenhum arquivo anexado pelo professor</p>
+                    <div className="p-3 border border-border bg-muted/60 rounded-lg">
+                      <p className="text-sm text-muted-foreground">Nenhum arquivo anexado pelo professor</p>
                     </div>
                   )}
                 </div>
@@ -399,13 +399,13 @@ export function ActivityDetailsModal({
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <span className="text-sm text-gray-600">Enviada em:</span>
+                      <span className="text-sm text-muted-foreground">Enviada em:</span>
                       <p className="font-medium">{formatDate(submission.submittedAt)}</p>
                     </div>
                     
                     {submission.grade !== undefined && (
                       <div>
-                        <span className="text-sm text-gray-600">Nota:</span>
+                        <span className="text-sm text-muted-foreground">Nota:</span>
                         <div className="flex items-center gap-2">
                           <span className="text-lg font-bold text-amber-600">
                             {submission.grade}/{activity.maxGrade}
@@ -428,19 +428,19 @@ export function ActivityDetailsModal({
                   </div>
                   
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Seu Trabalho:</h4>
-                    <p className="text-sm text-gray-700 whitespace-pre-wrap bg-gray-50 p-3 rounded">
+                    <h4 className="font-medium text-foreground mb-2">Seu Trabalho:</h4>
+                    <p className="text-sm text-foreground whitespace-pre-wrap bg-muted/60 p-3 rounded">
                       {submission.comment}
                     </p>
                   </div>
                   
                   {submission.feedback && (
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                         <MessageSquare className="h-4 w-4" />
                         Feedback do Professor:
                       </h4>
-                      <p className="text-sm text-gray-700 whitespace-pre-wrap bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                      <p className="text-sm text-foreground whitespace-pre-wrap bg-blue-500/10 dark:bg-blue-500/15 p-3 rounded border-l-4 border-blue-400 dark:border-blue-300">
                         {submission.feedback}
                       </p>
                     </div>
@@ -448,13 +448,13 @@ export function ActivityDetailsModal({
                   
                   {submission.attachments && submission.attachments.length > 0 && (
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Anexos ({submission.attachments.length}):</h4>
+                      <h4 className="font-medium text-foreground mb-2">Anexos ({submission.attachments.length}):</h4>
                       <div className="space-y-2">
                         {submission.attachments.map((attachment, index) => (
-                          <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-colors">
+                          <div key={index} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg border hover:bg-muted transition-colors">
                             <div className="flex items-center gap-2">
                               <FileText className="h-4 w-4 text-blue-600" />
-                              <span className="text-sm font-medium text-gray-700">{attachment}</span>
+                              <span className="text-sm font-medium text-foreground">{attachment}</span>
                             </div>
                             <Button
                               variant="ghost"
@@ -484,9 +484,9 @@ export function ActivityDetailsModal({
                   <CardContent className="p-6 text-center">
                     <div className="space-y-4">
                       <div>
-                        <FileText className="h-12 w-12 text-gray-400 mx-auto mb-2" />
-                        <h3 className="text-lg font-medium text-gray-900">Atividade Pendente</h3>
-                        <p className="text-sm text-gray-600">
+                        <FileText className="h-12 w-12 text-muted-foreground/60 mx-auto mb-2" />
+                        <h3 className="text-lg font-medium text-foreground">Atividade Pendente</h3>
+                        <p className="text-sm text-muted-foreground">
                           Você ainda não enviou esta atividade.
                         </p>
                       </div>

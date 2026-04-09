@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -117,9 +117,9 @@ const CoordinatorStudents = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active': return 'bg-green-100 text-green-800';
-      case 'inactive': return 'bg-gray-100 text-gray-800';
+      case 'inactive': return 'bg-muted text-foreground';
       case 'suspended': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -172,8 +172,8 @@ const CoordinatorStudents = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gerenciar Alunos</h1>
-          <p className="text-gray-600 mt-1">Gerencie frequência, notas e informações dos alunos</p>
+          <h1 className="text-3xl font-bold text-foreground">Gerenciar Alunos</h1>
+          <p className="text-muted-foreground mt-1">Gerencie frequência, notas e informações dos alunos</p>
         </div>
         <div className="flex items-center gap-3">
           <Button 
@@ -202,7 +202,7 @@ const CoordinatorStudents = () => {
             <div>
               <Label htmlFor="search">Buscar aluno</Label>
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 w-4 h-4" />
                 <Input
                   id="search"
                   placeholder="Nome, sobrenome ou email..."
@@ -277,10 +277,10 @@ const CoordinatorStudents = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-foreground">
                       {student.firstName} {student.lastName}
                     </h3>
-                    <p className="text-sm text-gray-500">{student.email}</p>
+                    <p className="text-sm text-muted-foreground">{student.email}</p>
                   </div>
                 </div>
                 <Badge className={getStatusColor(student.status)}>
@@ -292,7 +292,7 @@ const CoordinatorStudents = () => {
             <CardContent className="space-y-4">
               {/* Informações da Turma */}
               {student.classInfo && (
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <GraduationCap className="w-4 h-4" />
                   <span>{student.classInfo.grade}º {student.classInfo.section}</span>
                 </div>
@@ -354,9 +354,9 @@ const CoordinatorStudents = () => {
 
       {filteredStudents.length === 0 && (
         <div className="text-center py-12">
-          <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum aluno encontrado</h3>
-          <p className="text-gray-500">Tente ajustar os filtros de busca</p>
+          <Users className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-foreground mb-2">Nenhum aluno encontrado</h3>
+          <p className="text-muted-foreground">Tente ajustar os filtros de busca</p>
         </div>
       )}
 
@@ -375,23 +375,23 @@ const CoordinatorStudents = () => {
               {/* Informações Básicas */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Nome Completo</Label>
-                  <p className="text-gray-900">{selectedStudent.firstName} {selectedStudent.lastName}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Nome Completo</Label>
+                  <p className="text-foreground">{selectedStudent.firstName} {selectedStudent.lastName}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Email</Label>
-                  <p className="text-gray-900">{selectedStudent.email}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Email</Label>
+                  <p className="text-foreground">{selectedStudent.email}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Status</Label>
+                  <Label className="text-sm font-medium text-muted-foreground">Status</Label>
                   <Badge className={getStatusColor(selectedStudent.status)}>
                     {getStatusLabel(selectedStudent.status)}
                   </Badge>
                 </div>
                 {selectedStudent.classInfo && (
                   <div>
-                    <Label className="text-sm font-medium text-gray-500">Turma</Label>
-                    <p className="text-gray-900">
+                    <Label className="text-sm font-medium text-muted-foreground">Turma</Label>
+                    <p className="text-foreground">
                       {selectedStudent.classInfo.grade}º {selectedStudent.classInfo.section}
                     </p>
                   </div>
@@ -423,7 +423,7 @@ const CoordinatorStudents = () => {
                         <span className="text-sm text-blue-900">{selectedStudent.attendanceStats.absentCount}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-blue-700">Última Presença</span>
+                        <span className="text-sm text-blue-700">Ãšltima Presença</span>
                         <span className="text-sm text-blue-900">
                           {selectedStudent.attendanceStats.lastAttendanceDate 
                             ? new Date(selectedStudent.attendanceStats.lastAttendanceDate).toLocaleDateString('pt-BR')
@@ -450,7 +450,7 @@ const CoordinatorStudents = () => {
                         <span className="text-sm text-green-900">{selectedStudent.gradeStats.totalGrades}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-sm text-green-700">Última Nota</span>
+                        <span className="text-sm text-green-700">Ãšltima Nota</span>
                         <span className="text-sm text-green-900">
                           {new Date(selectedStudent.gradeStats.lastGradeDate).toLocaleDateString('pt-BR')}
                         </span>
@@ -476,3 +476,4 @@ const CoordinatorStudents = () => {
 };
 
 export default CoordinatorStudents;
+

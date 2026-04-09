@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -185,7 +185,7 @@ const TestProfilePage = () => {
       case 'coordinator': return 'bg-orange-100 text-orange-800 border-orange-200';
       case 'teacher': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
       case 'student': return 'bg-amber-100 text-amber-800 border-amber-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      default: return 'bg-muted text-foreground border-border';
     }
   };
 
@@ -202,9 +202,9 @@ const TestProfilePage = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'active': return 'bg-amber-100 text-amber-800 border-amber-200';
-      case 'inactive': return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'inactive': return 'bg-muted text-foreground border-border';
       case 'pending': return 'bg-orange-100 text-orange-800 border-orange-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      default: return 'bg-muted text-foreground border-border';
     }
   };
 
@@ -255,8 +255,8 @@ const TestProfilePage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Meu Perfil</h1>
-          <p className="text-gray-600">Gerencie suas informações pessoais e configurações</p>
+          <h1 className="text-3xl font-bold text-foreground">Meu Perfil</h1>
+          <p className="text-muted-foreground">Gerencie suas informações pessoais e configurações</p>
         </div>
         <div className="flex gap-2">
           {isEditing ? (
@@ -322,7 +322,7 @@ const TestProfilePage = () => {
                       )}
                     </div>
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900">
+                      <h2 className="text-2xl font-bold text-foreground">
                         {user?.firstName} {user?.lastName}
                       </h2>
                       <Badge className={getRoleColor(user?.role || '')}>
@@ -342,7 +342,7 @@ const TestProfilePage = () => {
                         value={formData.firstName}
                         onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                         disabled={!isEditing}
-                        className={!isEditing ? 'bg-gray-50' : ''}
+                        className={!isEditing ? 'bg-muted/60' : ''}
                       />
                     </div>
                     <div>
@@ -352,7 +352,7 @@ const TestProfilePage = () => {
                         value={formData.lastName}
                         onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
                         disabled={!isEditing}
-                        className={!isEditing ? 'bg-gray-50' : ''}
+                        className={!isEditing ? 'bg-muted/60' : ''}
                       />
                     </div>
                     <div>
@@ -363,7 +363,7 @@ const TestProfilePage = () => {
                         value={formData.email}
                         onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                         disabled={!isEditing}
-                        className={!isEditing ? 'bg-gray-50' : ''}
+                        className={!isEditing ? 'bg-muted/60' : ''}
                       />
                     </div>
                     <div>
@@ -373,7 +373,7 @@ const TestProfilePage = () => {
                         value={formatPhone(formData.phone)}
                         onChange={handlePhoneChange}
                         disabled={!isEditing}
-                        className={!isEditing ? 'bg-gray-50' : ''}
+                        className={!isEditing ? 'bg-muted/60' : ''}
                         placeholder="(11) 99999-9999"
                         maxLength={15}
                       />
@@ -396,20 +396,20 @@ const TestProfilePage = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Status</span>
+                    <span className="text-sm text-muted-foreground">Status</span>
                     <Badge className={getStatusColor(user?.status || '')}>
                       {getStatusText(user?.status || '')}
                     </Badge>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Função</span>
+                    <span className="text-sm text-muted-foreground">Função</span>
                     <Badge className={getRoleColor(user?.role || '')}>
                       {getRoleText(user?.role || '')}
                     </Badge>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-600">Último Acesso</span>
-                    <span className="text-sm text-gray-900">
+                    <span className="text-sm text-muted-foreground">Ãšltimo Acesso</span>
+                    <span className="text-sm text-foreground">
                       {user?.lastSeen ? formatDateTime(user.lastSeen) : 'Agora'}
                     </span>
                   </div>
@@ -425,20 +425,20 @@ const TestProfilePage = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Hash className="h-4 w-4" />
                     <span>ID: {user?.id?.slice(0, 8)}...</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="h-4 w-4" />
                     <span>Criado em: {formatDateTime(user?.createdAt || '')}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Clock className="h-4 w-4" />
                     <span>Atualizado em: {formatDateTime(user?.updatedAt || '')}</span>
                   </div>
                   {user?.registrationNumber && (
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <Hash className="h-4 w-4" />
                       <span>Matrícula: {user.registrationNumber}</span>
                     </div>
@@ -452,9 +452,9 @@ const TestProfilePage = () => {
       {/* Modal de Alteração de Senha */}
       {showPasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+          <div className="bg-card rounded-lg p-6 w-full max-w-md">
             <h2 className="text-xl font-bold mb-4">Alterar Senha</h2>
-            <p className="text-gray-600 mb-4">Para sua segurança, digite sua senha atual antes de definir uma nova</p>
+            <p className="text-muted-foreground mb-4">Para sua segurança, digite sua senha atual antes de definir uma nova</p>
             
             <div className="space-y-4">
               <div>
@@ -521,3 +521,4 @@ const TestProfilePage = () => {
 };
 
 export default TestProfilePage;
+

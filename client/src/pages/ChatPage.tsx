@@ -648,21 +648,21 @@ export default function ChatPage() {
     <>
       <div className="flex h-[calc(100vh-200px)] gap-4 bg-transparent">
          {/* Lista de conversas - Integrada no layout principal */}
-         <div className="w-80 flex flex-col bg-white rounded-lg border border-gray-200 shadow-sm">
-           <div className="p-4 border-b border-gray-200 bg-white rounded-t-lg">
+         <div className="w-80 flex flex-col rounded-lg border border-border bg-card shadow-sm">
+           <div className="rounded-t-lg border-b border-border bg-card p-4">
              <div className="mb-3">
-               <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+               <h2 className="flex items-center gap-2 text-lg font-semibold text-foreground">
                  <MessageSquare className="h-5 w-5 text-amber-600" />
                  Chat
                </h2>
-               <p className="text-sm text-gray-600">Converse com professores e colegas</p>
+               <p className="text-sm text-muted-foreground">Converse com professores e colegas</p>
              </div>
                
                <div className="relative">
-                 <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                 <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground/60" />
                  <Input
                    placeholder="Buscar conversas ou usuários..."
-                   className="pl-9 pr-3 py-2 text-sm bg-gray-50 border-gray-300 focus:border-amber-500 focus:ring-amber-500 rounded-lg"
+                   className="rounded-lg border-border bg-muted/40 py-2 pl-9 pr-3 text-sm focus:border-amber-500 focus:ring-amber-500"
                    value={searchTerm}
                    onChange={(e) => {
                      setSearchTerm(e.target.value);
@@ -674,19 +674,19 @@ export default function ChatPage() {
                
                {/* Dropdown de busca de usuários */}
                {showUserSearch && searchTerm.length >= 2 && (
-                 <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+                  <div className="absolute top-full left-0 right-0 z-50 mt-1 max-h-60 overflow-y-auto rounded-lg border border-border bg-popover shadow-lg">
                    {isLoadingUsers ? (
-                     <div className="p-3 text-center text-gray-500">
+                      <div className="p-3 text-center text-muted-foreground">
                        <Loader2 className="h-4 w-4 animate-spin mx-auto mb-2" />
                        Buscando...
                      </div>
                    ) : searchError ? (
-                     <div className="p-3 text-center text-red-500">
+                      <div className="p-3 text-center text-destructive">
                        Erro ao buscar usuários
                      </div>
                    ) : searchResults?.data && searchResults.data.length > 0 ? (
                      <div>
-                       <div className="p-2 text-xs font-medium text-gray-500 bg-gray-50 border-b">
+                        <div className="border-b border-border/70 bg-muted/60 p-2 text-xs font-medium text-muted-foreground">
                          Usuários encontrados ({searchResults.data.length})
                        </div>
                          {searchResults.data.map((user: any) => (
@@ -734,7 +734,7 @@ export default function ChatPage() {
                                  description: `Chat iniciado com ${user.firstName} ${user.lastName}`
                                });
                              }}
-                             className="w-full p-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0 flex items-center gap-3"
+                              className="flex w-full items-center gap-3 border-b border-border/70 p-3 text-left last:border-b-0 hover:bg-muted/60"
                            >
                              <Avatar className="h-8 w-8">
                                <AvatarImage src={user.profileImageUrl} />
@@ -743,14 +743,14 @@ export default function ChatPage() {
                                </AvatarFallback>
                              </Avatar>
                              <div className="flex-1 min-w-0">
-                               <p className="text-sm font-medium text-gray-900 truncate">
+                                <p className="truncate text-sm font-medium text-foreground">
                                  {user.firstName} {user.lastName}
                                </p>
-                               <p className="text-xs text-gray-500 truncate">
+                                <p className="truncate text-xs text-muted-foreground">
                                  {user.email}
                                </p>
                                                             <div className="flex items-center justify-between">
-                               <p className="text-xs text-gray-400 capitalize">
+                                <p className="text-xs capitalize text-muted-foreground/70">
                                  {user.role === 'admin' && 'Administrador'}
                                  {user.role === 'coordinator' && 'Coordenador'}
                                  {user.role === 'teacher' && 'Professor'}
@@ -764,7 +764,7 @@ export default function ChatPage() {
                          ))}
                        </div>
                      ) : (
-                       <div className="p-3 text-center text-gray-500">
+                        <div className="p-3 text-center text-muted-foreground">
                          Nenhum usuário encontrado
                        </div>
                      )}
@@ -775,7 +775,7 @@ export default function ChatPage() {
             
             <div className="flex-1 overflow-y-auto">
               {filteredConversations.length === 0 ? (
-                <div className="p-4 text-center text-gray-500 text-sm">
+                <div className="p-4 text-center text-sm text-muted-foreground">
                   {searchTerm ? "Nenhuma conversa encontrada" : "Nenhuma conversa ainda"}
                 </div>
               ) : (
@@ -783,9 +783,9 @@ export default function ChatPage() {
                   {filteredConversations.map((conversation: any) => (
                     <div
                       key={conversation.conversationId}
-                      className={`p-3 cursor-pointer hover:bg-gray-50 transition-all duration-200 border-l-4 rounded-r-lg ${
+                      className={`cursor-pointer rounded-r-lg border-l-4 p-3 transition-all duration-200 hover:bg-muted/60 ${
                         selectedConversation?.otherUserId === conversation.otherUserId 
-                          ? "bg-amber-50 border-l-amber-500 shadow-sm" 
+                          ? "border-l-amber-500 bg-amber-500/10 shadow-sm dark:bg-amber-500/15" 
                           : "border-l-transparent hover:border-l-amber-300"
                       }`}
                       onClick={() => setSelectedConversation(conversation)}
@@ -800,7 +800,7 @@ export default function ChatPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-1">
                             <div className="flex items-center gap-2">
-                              <h4 className="font-semibold text-gray-900 dark:text-gray-100 truncate text-sm">
+                              <h4 className="truncate text-sm font-semibold text-foreground">
                                 {conversation.otherUserFirstName} {conversation.otherUserLastName}
                               </h4>
                               {/* Status do usuário */}
@@ -820,15 +820,15 @@ export default function ChatPage() {
                           
                           {/* Email do usuário */}
                           <div className="flex items-center gap-1 mb-1">
-                            <Mail className="h-3 w-3 text-gray-400" />
-                            <p className="text-xs text-gray-600 dark:text-gray-500 truncate font-mono">
+                            <Mail className="h-3 w-3 text-muted-foreground/60" />
+                            <p className="truncate font-mono text-xs text-muted-foreground">
                               {conversation.recipientEmail}
                             </p>
                           </div>
                           
                           {/* Última mensagem e horário em linha única */}
                           <div className="flex items-center justify-between">
-                             <p className="text-xs text-gray-600 dark:text-gray-400 truncate flex-1 mr-2">
+                             <p className="mr-2 flex-1 truncate text-xs text-muted-foreground">
                                {conversation.lastMessage ? 
                                  (conversation.lastMessage.length > 30 ? 
                                    conversation.lastMessage.substring(0, 30) + '...' : 
@@ -838,7 +838,7 @@ export default function ChatPage() {
                                }
                              </p>
                              {conversation.lastMessageTime && (
-                               <p className="text-xs text-gray-400 whitespace-nowrap">
+                               <p className="whitespace-nowrap text-xs text-muted-foreground/70">
                                  {formatDistanceToNow(new Date(conversation.lastMessageTime), { 
                                    addSuffix: true, 
                                    locale: ptBR 
@@ -860,7 +860,7 @@ export default function ChatPage() {
             {selectedConversation ? (
               <>
                 {/* Header da conversa */}
-                <div className="p-4 border-b border-gray-200 bg-white shadow-sm">
+                <div className="border-b border-border bg-card p-4 shadow-sm">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-10 w-10 ring-2 ring-amber-100">
                       <AvatarImage src={selectedConversation.recipientAvatar} />
@@ -869,11 +869,11 @@ export default function ChatPage() {
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900">
+                      <h3 className="text-lg font-bold text-foreground">
                         {selectedConversation.recipientName || "Usuário"}
                       </h3>
                       <div className="flex items-center gap-2">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-muted-foreground">
                           {selectedConversation.recipientEmail}
                         </p>
                         {/* Status do usuário */}
@@ -890,28 +890,28 @@ export default function ChatPage() {
                 </div>
 
                 {/* Mensagens */}
-                <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50 min-h-0">
+                <div className="min-h-0 flex-1 space-y-3 overflow-y-auto bg-muted/50 p-4">
                   {isLoadingMessages ? (
                     <div className="flex items-center justify-center h-32">
                       <Loader2 className="h-6 w-6 animate-spin text-amber-500" />
-                      <span className="ml-2 text-gray-700">Carregando mensagens...</span>
+                      <span className="ml-2 text-muted-foreground">Carregando mensagens...</span>
                     </div>
                   ) : messages.length === 0 ? (
-                    <div className="text-center text-gray-700 py-12">
-                      <div className="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-sm border border-gray-200">
+                    <div className="py-12 text-center text-foreground">
+                      <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full border border-border bg-card shadow-sm">
                         <MessageCircle className="h-10 w-10 text-amber-500" />
                       </div>
-                      <h3 className="text-lg font-medium text-gray-800 mb-2">Nenhuma mensagem ainda</h3>
-                      <p className="text-sm text-gray-600">Inicie a conversa enviando uma mensagem!</p>
+                      <h3 className="mb-2 text-lg font-medium text-foreground">Nenhuma mensagem ainda</h3>
+                      <p className="text-sm text-muted-foreground">Inicie a conversa enviando uma mensagem!</p>
                     </div>
                   ) : (
                    messages.map((message: any, idx: number) => (
                      <div key={message.id}>
                        {firstNewIndex === idx && (
                          <div className="flex items-center my-3">
-                           <div className="flex-1 h-px bg-gray-200" />
+                           <div className="h-px flex-1 bg-border" />
                            <span className="mx-2 text-[11px] font-medium text-amber-600">novo</span>
-                           <div className="flex-1 h-px bg-gray-200" />
+                           <div className="h-px flex-1 bg-border" />
                          </div>
                        )}
                        <div
@@ -922,7 +922,7 @@ export default function ChatPage() {
             ? message.isOptimistic 
               ? 'bg-amber-500 text-white shadow-md opacity-80' 
               : 'bg-amber-500 text-white shadow-md'
-            : 'bg-white text-gray-800 shadow-sm border border-gray-200'
+            : 'border border-border bg-card text-foreground shadow-sm'
         } rounded-lg px-4 py-3 ${message.isOptimistic ? 'animate-pulse' : ''}`}>
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex-1">
@@ -965,7 +965,7 @@ export default function ChatPage() {
                                   {canDeleteMessage(message) && (
                                     <DropdownMenuItem 
                                       onClick={() => handleDeleteMessage(message.id)}
-                                      className="text-red-600 dark:text-red-400"
+                                      className="text-destructive"
                                     >
                                       <Trash2 className="h-3 w-3 mr-2" />
                                       Deletar
@@ -990,7 +990,7 @@ export default function ChatPage() {
                 </div>
 
                 {/* Input de mensagem */}
-                <div className="p-4 border-t border-gray-200 bg-white shadow-sm">
+                <div className="border-t border-border bg-card p-4 shadow-sm">
                   <div className="flex gap-3">
                     <div className="flex-1 relative">
                       <Textarea
@@ -998,15 +998,15 @@ export default function ChatPage() {
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                         onKeyPress={handleKeyPress}
-                        className="min-h-[40px] max-h-24 resize-none border-gray-300 focus:border-amber-500 focus:ring-amber-500 rounded-lg text-sm"
+                        className="min-h-[40px] max-h-24 resize-none rounded-lg border-border bg-background text-sm focus:border-amber-500 focus:ring-amber-500"
                         rows={1}
                       />
                       <Button
                         size="sm"
                         variant="ghost"
-                        className="absolute right-2 top-2 h-6 w-6 p-0 hover:bg-gray-100 rounded-lg"
+                        className="absolute right-2 top-2 h-6 w-6 rounded-lg p-0 hover:bg-muted"
                       >
-                        <Paperclip className="h-3 w-3 text-gray-500" />
+                        <Paperclip className="h-3 w-3 text-muted-foreground" />
                       </Button>
                     </div>
                     <Button
@@ -1024,13 +1024,13 @@ export default function ChatPage() {
                 </div>
               </>
             ) : (
-                             <div className="flex-1 flex items-center justify-center bg-gray-50 h-full">
-                 <div className="text-center text-gray-600">
-                   <div className="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-sm border border-gray-200">
-                     <MessageCircle className="h-10 w-10 text-gray-400" />
+                             <div className="flex h-full flex-1 items-center justify-center bg-muted/50">
+                 <div className="text-center text-muted-foreground">
+                   <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full border border-border bg-card shadow-sm">
+                     <MessageCircle className="h-10 w-10 text-muted-foreground/60" />
                    </div>
-                   <h3 className="text-xl font-semibold text-gray-800 mb-2">Bem-vindo ao Chat!</h3>
-                   <p className="text-sm text-gray-600">Escolha uma conversa da lista ou digite o nome de alguém para iniciar uma nova conversa</p>
+                   <h3 className="mb-2 text-xl font-semibold text-foreground">Bem-vindo ao Chat!</h3>
+                   <p className="text-sm text-muted-foreground">Escolha uma conversa da lista ou digite o nome de alguém para iniciar uma nova conversa</p>
                   </div>
                 </div>
             )}

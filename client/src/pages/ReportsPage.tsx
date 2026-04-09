@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+﻿import { useState, useMemo, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import TeacherLayout from "@/components/layout/TeacherLayout";
 import { Button } from "@/components/ui/button";
@@ -877,7 +877,7 @@ export default function ReportsPage() {
   const content = (
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Relatórios e Análises</h1>
+          <h1 className="text-2xl font-bold text-foreground">Relatórios e Análises</h1>
           
           <Button 
             variant="outline" 
@@ -956,8 +956,8 @@ export default function ReportsPage() {
                 <Users className="h-6 w-6 text-blue-500 dark:text-blue-300" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total de Alunos</p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{summaryData.totalStudents}</h3>
+                <p className="text-sm font-medium text-muted-foreground">Total de Alunos</p>
+                <h3 className="text-2xl font-bold text-foreground">{summaryData.totalStudents}</h3>
               </div>
             </CardContent>
           </Card>
@@ -968,8 +968,8 @@ export default function ReportsPage() {
                 <GraduationCap className="h-6 w-6 text-green-500 dark:text-green-300" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Média Geral</p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{summaryData.avgPerformance}</h3>
+                <p className="text-sm font-medium text-muted-foreground">Média Geral</p>
+                <h3 className="text-2xl font-bold text-foreground">{summaryData.avgPerformance}</h3>
               </div>
             </CardContent>
           </Card>
@@ -980,8 +980,8 @@ export default function ReportsPage() {
                 <UserRound className="h-6 w-6 text-yellow-500 dark:text-yellow-300" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Taxa de Frequência</p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{summaryData.attendanceRate}%</h3>
+                <p className="text-sm font-medium text-muted-foreground">Taxa de Frequência</p>
+                <h3 className="text-2xl font-bold text-foreground">{summaryData.attendanceRate}%</h3>
               </div>
             </CardContent>
           </Card>
@@ -992,8 +992,8 @@ export default function ReportsPage() {
                 <BookOpen className="h-6 w-6 text-purple-500 dark:text-purple-300" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Taxa de Aprovação</p>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{summaryData.approvalRate}%</h3>
+                <p className="text-sm font-medium text-muted-foreground">Taxa de Aprovação</p>
+                <h3 className="text-2xl font-bold text-foreground">{summaryData.approvalRate}%</h3>
               </div>
             </CardContent>
           </Card>
@@ -1107,7 +1107,7 @@ export default function ReportsPage() {
                       <TableBody>
                         {bimonthlySummaryRows.length === 0 ? (
                           <TableRow>
-                            <TableCell colSpan={5} className="text-center text-sm text-gray-500">Sem dados</TableCell>
+                            <TableCell colSpan={5} className="text-center text-sm text-muted-foreground">Sem dados</TableCell>
                           </TableRow>
                         ) : (
                           bimonthlySummaryRows.map((r: any, idx: number) => (
@@ -1142,7 +1142,7 @@ export default function ReportsPage() {
                       <TableBody>
                         {Object.keys(bimonthlyDetail).length === 0 ? (
                           <TableRow>
-                            <TableCell colSpan={5} className="text-center text-sm text-gray-500">Sem dados</TableCell>
+                            <TableCell colSpan={5} className="text-center text-sm text-muted-foreground">Sem dados</TableCell>
                           </TableRow>
                         ) : (
                           ['1','2','3','4'].flatMap((b) => ((bimonthlyDetail[b] || []).slice().sort((a: any, b2: any) => String(a.date).localeCompare(String(b2.date))).map((e: any, idx: number) => (
@@ -1191,7 +1191,7 @@ export default function ReportsPage() {
                     </SelectContent>
                   </Select>
                   {!selectedClass && (
-                    <p className="text-xs text-gray-500 mt-1">Selecione a turma para carregar as disciplinas</p>
+                    <p className="text-xs text-muted-foreground mt-1">Selecione a turma para carregar as disciplinas</p>
                   )}
                 </div>
                 <div>
@@ -1237,7 +1237,7 @@ export default function ReportsPage() {
                       </SelectContent>
                     </Select>
                     {!selectedClass && (
-                      <p className="text-xs text-gray-500 mt-1">Selecione a turma para carregar as disciplinas</p>
+                      <p className="text-xs text-muted-foreground mt-1">Selecione a turma para carregar as disciplinas</p>
                     )}
                   </div>
                 )}
@@ -1263,7 +1263,7 @@ export default function ReportsPage() {
                       <TableBody>
                         {attendanceSummaryRows.length === 0 ? (
                           <TableRow>
-                            <TableCell colSpan={4} className="text-center text-sm text-gray-500">Sem dados</TableCell>
+                            <TableCell colSpan={4} className="text-center text-sm text-muted-foreground">Sem dados</TableCell>
                           </TableRow>
                         ) : (
                           attendanceSummaryRows.map((r: any, idx: number) => (
@@ -1290,7 +1290,7 @@ export default function ReportsPage() {
                       <TableBody>
                         {attendanceDetailRows.length === 0 ? (
                           <TableRow>
-                            <TableCell colSpan={2} className="text-center text-sm text-gray-500">Sem dados</TableCell>
+                            <TableCell colSpan={2} className="text-center text-sm text-muted-foreground">Sem dados</TableCell>
                           </TableRow>
                         ) : (
                           attendanceDetailRows.map((r: any, idx: number) => (
@@ -1334,7 +1334,7 @@ export default function ReportsPage() {
                           <TableHead>Turma</TableHead>
                           <TableHead>Frequência</TableHead>
                           <TableHead>Faltas Consecutivas</TableHead>
-                          <TableHead>Último Comparecimento</TableHead>
+                          <TableHead>Ãšltimo Comparecimento</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
@@ -1437,7 +1437,7 @@ export default function ReportsPage() {
                   </div>
                   <div className="space-y-3">
                     {bestSubjects.length === 0 ? (
-                      <div className="text-sm text-gray-500">Sem dados</div>
+                      <div className="text-sm text-muted-foreground">Sem dados</div>
                     ) : (
                       bestSubjects.map((s: any, idx: number) => (
                         <div key={idx} className="flex justify-between items-center">
@@ -1497,7 +1497,7 @@ export default function ReportsPage() {
                   </div>
                   <div className="space-y-3">
                     {criticalSubjects.length === 0 ? (
-                      <div className="text-sm text-gray-500">Sem dados</div>
+                      <div className="text-sm text-muted-foreground">Sem dados</div>
                     ) : (
                       criticalSubjects.map((s: any, idx: number) => (
                         <div key={idx} className="flex justify-between items-center">
@@ -1562,8 +1562,8 @@ export default function ReportsPage() {
                   <CardContent className="p-6">
                     <div className="space-y-4">
                       <div className="p-4 border rounded-lg">
-                        <h4 className="font-medium text-gray-900 dark:text-white mb-2">Áreas de Atenção</h4>
-                        <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-400 text-sm">
+                        <h4 className="font-medium text-foreground mb-2">Áreas de Atenção</h4>
+                        <ul className="list-disc pl-5 space-y-1 text-muted-foreground text-sm">
                           <li>Matemática apresenta o menor desempenho geral, com média de 6.5.</li>
                           <li>A turma 8º Ano C apresenta a menor frequência (80%) e taxa de aprovação (75%).</li>
                           <li>14 alunos estão com frequência abaixo de 75% e precisam de atenção imediata.</li>
@@ -1572,8 +1572,8 @@ export default function ReportsPage() {
                       </div>
                       
                       <div className="p-4 border rounded-lg">
-                        <h4 className="font-medium text-gray-900 dark:text-white mb-2">Recomendações</h4>
-                        <ul className="list-disc pl-5 space-y-1 text-gray-600 dark:text-gray-400 text-sm">
+                        <h4 className="font-medium text-foreground mb-2">Recomendações</h4>
+                        <ul className="list-disc pl-5 space-y-1 text-muted-foreground text-sm">
                           <li>Implementar reforço escolar para alunos com baixo desempenho em Matemática e Física.</li>
                           <li>Realizar reunião específica com responsáveis de alunos com baixa frequência.</li>
                           <li>Desenvolver estratégias para manter o engajamento dos alunos no 4º bimestre.</li>
@@ -1591,7 +1591,7 @@ export default function ReportsPage() {
                   <CardContent className="p-6">
                     <div className="space-y-6">
                       <div>
-                        <h4 className="font-medium text-gray-900 dark:text-white mb-2">Média Geral</h4>
+                        <h4 className="font-medium text-foreground mb-2">Média Geral</h4>
                         <div className="space-y-2">
                           <div className="flex justify-between items-center text-sm">
                             <span>2023</span>
@@ -1620,7 +1620,7 @@ export default function ReportsPage() {
                       </div>
                       
                       <div>
-                        <h4 className="font-medium text-gray-900 dark:text-white mb-2">Taxa de Aprovação</h4>
+                        <h4 className="font-medium text-foreground mb-2">Taxa de Aprovação</h4>
                         <div className="space-y-2">
                           <div className="flex justify-between items-center text-sm">
                             <span>2023</span>
@@ -1679,3 +1679,4 @@ export default function ReportsPage() {
     </MainLayout>
   );
 }
+

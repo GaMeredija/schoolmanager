@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -127,7 +127,7 @@ export default function MyActivitiesPage() {
       case 'late':
         return <XCircle className="h-4 w-4 text-red-500" />;
       default:
-        return <ClipboardList className="h-4 w-4 text-gray-500" />;
+        return <ClipboardList className="h-4 w-4 text-muted-foreground" />;
     }
   };
 
@@ -157,7 +157,7 @@ export default function MyActivitiesPage() {
       case 'late':
         return 'bg-red-100 text-red-800';
       default:
-        return 'bg-gray-100 text-gray-800';
+        return 'bg-muted text-foreground';
     }
   };
 
@@ -225,7 +225,7 @@ export default function MyActivitiesPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando suas atividades...</p>
+          <p className="text-muted-foreground">Carregando suas atividades...</p>
         </div>
       </div>
     );
@@ -234,8 +234,8 @@ export default function MyActivitiesPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Minhas Atividades</h1>
-        <p className="text-gray-600">Acompanhe todas as suas atividades e trabalhos escolares</p>
+        <h1 className="text-3xl font-bold text-foreground mb-2">Minhas Atividades</h1>
+        <p className="text-muted-foreground">Acompanhe todas as suas atividades e trabalhos escolares</p>
       </div>
 
       {error && (
@@ -250,7 +250,7 @@ export default function MyActivitiesPage() {
         <div className="flex flex-wrap gap-4">
           {/* Filtro por Matéria */}
           <div className="flex items-center gap-2">
-            <BookOpen className="h-4 w-4 text-gray-500" />
+            <BookOpen className="h-4 w-4 text-muted-foreground" />
             <select 
               value={filterSubject} 
               onChange={(e) => setFilterSubject(e.target.value)}
@@ -266,7 +266,7 @@ export default function MyActivitiesPage() {
 
         {/* Ordenação */}
         <div className="flex items-center gap-2">
-          <SortAsc className="h-4 w-4 text-gray-500" />
+          <SortAsc className="h-4 w-4 text-muted-foreground" />
           <select 
             value={sortBy} 
             onChange={(e) => setSortBy(e.target.value)}
@@ -332,18 +332,18 @@ export default function MyActivitiesPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <Calendar className="h-4 w-4" />
                       <span>Entrega: {formatDate(activity.dueDate)}</span>
                     </div>
                     
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <FileText className="h-4 w-4" />
                       <span>Nota máxima: {activity.maxGrade}</span>
                     </div>
                     
                     {activity.teacherName && (
-                      <div className="flex items-center space-x-2 text-sm text-gray-600">
+                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <span>Professor: {activity.teacherName}</span>
                       </div>
                     )}
@@ -424,8 +424,8 @@ export default function MyActivitiesPage() {
           ) : (
             <div className="text-center py-12">
               <AlertCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma atividade pendente</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-medium text-foreground mb-2">Nenhuma atividade pendente</h3>
+              <p className="text-muted-foreground">
                 Você não possui atividades pendentes no momento.
               </p>
             </div>
@@ -459,18 +459,18 @@ export default function MyActivitiesPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <Calendar className="h-4 w-4" />
                       <span>Entrega: {formatDate(activity.dueDate)}</span>
                     </div>
                     
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <FileText className="h-4 w-4" />
                       <span>Nota máxima: {activity.maxGrade}</span>
                     </div>
                     
                     {activity.teacherName && (
-                      <div className="flex items-center space-x-2 text-sm text-gray-600">
+                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <span>Professor: {activity.teacherName}</span>
                       </div>
                     )}
@@ -480,7 +480,7 @@ export default function MyActivitiesPage() {
                         <p className="text-sm font-medium text-blue-800">Entregue em:</p>
                         <p className="text-sm text-blue-700">{formatDate(activity.submittedAt)}</p>
                         {activity.isLate && activity.submittedAt && new Date(activity.submittedAt) > new Date(activity.dueDate) && (
-                          <p className="text-sm text-red-600 mt-1">⚠️ Entregue com atraso</p>
+                          <p className="text-sm text-red-600 mt-1">⚠️ï¸ Entregue com atraso</p>
                         )}
                       </div>
                     )}
@@ -503,8 +503,8 @@ export default function MyActivitiesPage() {
           ) : (
             <div className="text-center py-12">
               <Clock className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma atividade enviada</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-medium text-foreground mb-2">Nenhuma atividade enviada</h3>
+              <p className="text-muted-foreground">
                 Você não possui atividades enviadas aguardando avaliação.
               </p>
             </div>
@@ -538,18 +538,18 @@ export default function MyActivitiesPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <Calendar className="h-4 w-4" />
                       <span>Entrega: {formatDate(activity.dueDate)}</span>
                     </div>
                     
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                       <FileText className="h-4 w-4" />
                       <span>Nota máxima: {activity.maxGrade}</span>
                     </div>
                     
                     {activity.teacherName && (
-                      <div className="flex items-center space-x-2 text-sm text-gray-600">
+                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <span>Professor: {activity.teacherName}</span>
                       </div>
                     )}
@@ -559,7 +559,7 @@ export default function MyActivitiesPage() {
                         <p className="text-sm font-medium text-blue-800">Entregue em:</p>
                         <p className="text-sm text-blue-700">{formatDate(activity.submittedAt)}</p>
                         {activity.isLate && (
-                          <p className="text-sm text-red-600 mt-1">⚠️ Entregue com atraso</p>
+                          <p className="text-sm text-red-600 mt-1">⚠️ï¸ Entregue com atraso</p>
                         )}
                       </div>
                     )}
@@ -591,8 +591,8 @@ export default function MyActivitiesPage() {
           ) : (
             <div className="text-center py-12">
               <CheckCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma atividade avaliada</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-medium text-foreground mb-2">Nenhuma atividade avaliada</h3>
+              <p className="text-muted-foreground">
                 Você não possui atividades avaliadas no momento.
               </p>
             </div>
@@ -604,8 +604,8 @@ export default function MyActivitiesPage() {
       {finalActivities.length === 0 && (
         <div className="text-center py-12">
           <ClipboardList className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma atividade encontrada</h3>
-          <p className="text-gray-600">
+          <h3 className="text-lg font-medium text-foreground mb-2">Nenhuma atividade encontrada</h3>
+          <p className="text-muted-foreground">
             Você não possui atividades no momento.
           </p>
         </div>

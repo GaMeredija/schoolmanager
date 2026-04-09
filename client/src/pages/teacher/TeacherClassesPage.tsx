@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -110,7 +110,7 @@ export function TeacherClassesPage() {
       case 'active':
         return <Badge variant="outline" className="text-green-600 border-green-600">Ativo</Badge>;
       case 'inactive':
-        return <Badge variant="outline" className="text-gray-600 border-gray-600">Inativo</Badge>;
+        return <Badge variant="outline" className="text-muted-foreground border-border">Inativo</Badge>;
       case 'suspended':
         return <Badge variant="outline" className="text-red-600 border-red-600">Suspenso</Badge>;
       default:
@@ -123,7 +123,7 @@ export function TeacherClassesPage() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando turmas...</p>
+          <p className="text-muted-foreground">Carregando turmas...</p>
         </div>
       </div>
     );
@@ -135,8 +135,8 @@ export function TeacherClassesPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Minhas Turmas</h1>
-            <p className="text-gray-600 mt-1">
+            <h1 className="text-3xl font-bold text-foreground">Minhas Turmas</h1>
+            <p className="text-muted-foreground mt-1">
               Gerencie as turmas e disciplinas que você leciona
             </p>
           </div>
@@ -147,7 +147,7 @@ export function TeacherClassesPage() {
           <CardContent className="pt-6">
             <div className="flex items-center gap-4">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 w-4 h-4" />
                 <Input
                   placeholder="Buscar por nome da turma ou série..."
                   value={searchTerm}
@@ -164,11 +164,11 @@ export function TeacherClassesPage() {
           <CardContent className="p-0">
             {filteredClasses.length === 0 ? (
               <div className="px-4 py-12 text-center">
-                <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                <Users className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-foreground mb-2">
                   {searchTerm ? 'Nenhuma turma encontrada' : 'Nenhuma turma atribuída'}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-muted-foreground">
                   {searchTerm 
                     ? 'Tente ajustar os termos de busca'
                     : 'Você ainda não foi atribuído a nenhuma turma'
@@ -198,8 +198,8 @@ export function TeacherClassesPage() {
                             </div>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-900">{classItem.name}</div>
-                            <div className="text-sm text-gray-500">ID: {classItem.id.slice(0, 8)}...</div>
+                            <div className="font-medium text-foreground">{classItem.name}</div>
+                            <div className="text-sm text-muted-foreground">ID: {classItem.id.slice(0, 8)}...</div>
                           </div>
                         </div>
                       </TableCell>
@@ -209,23 +209,23 @@ export function TeacherClassesPage() {
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        <div className="text-sm text-gray-600">{classItem.schoolYear}</div>
+                        <div className="text-sm text-muted-foreground">{classItem.schoolYear}</div>
                       </TableCell>
                       <TableCell>
                         <div className="space-y-1">
                           {classItem.subjects.map((subject: any) => (
                             <div key={subject.id} className="flex items-center gap-2">
-                              <BookOpen className="w-3 h-3 text-gray-400" />
-                              <span className="text-sm text-gray-600">{subject.name}</span>
+                              <BookOpen className="w-3 h-3 text-muted-foreground/60" />
+                              <span className="text-sm text-muted-foreground">{subject.name}</span>
                             </div>
                           ))}
                         </div>
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4 text-gray-400" />
+                          <Users className="w-4 h-4 text-muted-foreground/60" />
                           <span className="font-medium">{classItem.studentCount || 0}</span>
-                          <span className="text-sm text-gray-500">alunos</span>
+                          <span className="text-sm text-muted-foreground">alunos</span>
                         </div>
                       </TableCell>
                       <TableCell>
@@ -260,18 +260,18 @@ export function TeacherClassesPage() {
             </DialogHeader>
             <div className="space-y-4">
               {/* Informações da Turma */}
-              <div className="grid grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg">
+              <div className="grid grid-cols-3 gap-4 p-4 bg-muted/60 rounded-lg">
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Série</Label>
-                  <p className="text-sm text-gray-900">{selectedClass.grade}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Série</Label>
+                  <p className="text-sm text-foreground">{selectedClass.grade}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Ano Letivo</Label>
-                  <p className="text-sm text-gray-900">{selectedClass.schoolYear}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Ano Letivo</Label>
+                  <p className="text-sm text-foreground">{selectedClass.schoolYear}</p>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-500">Total de Alunos</Label>
-                  <p className="text-sm text-gray-900">{students.length}</p>
+                  <Label className="text-sm font-medium text-muted-foreground">Total de Alunos</Label>
+                  <p className="text-sm text-foreground">{students.length}</p>
                 </div>
               </div>
 
@@ -293,11 +293,11 @@ export function TeacherClassesPage() {
                         <TableRow key={student.id}>
                           <TableCell>
                             <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                                <User className="w-4 h-4 text-gray-600" />
+                              <div className="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                                <User className="w-4 h-4 text-muted-foreground" />
                               </div>
                               <div>
-                                <div className="font-medium text-gray-900">
+                                <div className="font-medium text-foreground">
                                   {student.firstName} {student.lastName}
                                 </div>
                               </div>
@@ -305,22 +305,22 @@ export function TeacherClassesPage() {
                           </TableCell>
                           <TableCell>
                             <div className="flex items-center gap-2">
-                              <Mail className="w-3 h-3 text-gray-400" />
-                              <span className="text-sm text-gray-600">{student.email}</span>
+                              <Mail className="w-3 h-3 text-muted-foreground/60" />
+                              <span className="text-sm text-muted-foreground">{student.email}</span>
                             </div>
                           </TableCell>
                           <TableCell>
                             {student.phone ? (
                               <div className="flex items-center gap-2">
-                                <Phone className="w-3 h-3 text-gray-400" />
-                                <span className="text-sm text-gray-600">{student.phone}</span>
+                                <Phone className="w-3 h-3 text-muted-foreground/60" />
+                                <span className="text-sm text-muted-foreground">{student.phone}</span>
                               </div>
                             ) : (
-                              <span className="text-sm text-gray-400">Não informado</span>
+                              <span className="text-sm text-muted-foreground/60">Não informado</span>
                             )}
                           </TableCell>
                           <TableCell>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-muted-foreground">
                               {format(new Date(student.enrollmentDate), 'dd/MM/yyyy', { locale: ptBR })}
                             </div>
                           </TableCell>
@@ -333,8 +333,8 @@ export function TeacherClassesPage() {
                   </Table>
                 ) : (
                   <div className="text-center py-8">
-                    <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500">Nenhum aluno encontrado nesta turma</p>
+                    <Users className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+                    <p className="text-muted-foreground">Nenhum aluno encontrado nesta turma</p>
                   </div>
                 )}
               </div>

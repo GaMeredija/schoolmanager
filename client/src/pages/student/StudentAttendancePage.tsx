@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -127,8 +127,8 @@ const StudentAttendancePage: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Minha Frequência</h1>
-          <p className="text-gray-600 mt-1">Acompanhe seu histórico de presença e ausência</p>
+          <h1 className="text-3xl font-bold text-foreground">Minha Frequência</h1>
+          <p className="text-muted-foreground mt-1">Acompanhe seu histórico de presença e ausência</p>
         </div>
       </div>
 
@@ -142,7 +142,7 @@ const StudentAttendancePage: React.FC = () => {
         </CardHeader>
         <CardContent>
           <div className="max-w-sm">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-foreground mb-2">
               Disciplina
             </label>
             <Select value={selectedSubject} onValueChange={setSelectedSubject}>
@@ -168,7 +168,7 @@ const StudentAttendancePage: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Frequência Geral</p>
+                <p className="text-sm font-medium text-muted-foreground">Frequência Geral</p>
                 <p className={`text-3xl font-bold ${getAttendanceRateColor(generalStats.attendanceRate)}`}>
                   {generalStats.attendanceRate.toFixed(1)}%
                 </p>
@@ -182,8 +182,8 @@ const StudentAttendancePage: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total de Aulas</p>
-                <p className="text-3xl font-bold text-gray-900">{generalStats.totalClasses}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total de Aulas</p>
+                <p className="text-3xl font-bold text-foreground">{generalStats.totalClasses}</p>
               </div>
               <Calendar className="w-8 h-8 text-purple-600" />
             </div>
@@ -194,7 +194,7 @@ const StudentAttendancePage: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Presenças</p>
+                <p className="text-sm font-medium text-muted-foreground">Presenças</p>
                 <p className="text-3xl font-bold text-green-600">{generalStats.presentCount}</p>
               </div>
               <CheckCircle className="w-8 h-8 text-green-600" />
@@ -206,7 +206,7 @@ const StudentAttendancePage: React.FC = () => {
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Faltas</p>
+                <p className="text-sm font-medium text-muted-foreground">Faltas</p>
                 <p className="text-3xl font-bold text-red-600">{generalStats.absentCount}</p>
               </div>
               <XCircle className="w-8 h-8 text-red-600" />
@@ -227,7 +227,7 @@ const StudentAttendancePage: React.FC = () => {
           <CardContent>
             <div className="text-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-2 text-gray-600">Carregando disciplinas...</p>
+              <p className="mt-2 text-muted-foreground">Carregando disciplinas...</p>
             </div>
           </CardContent>
         </Card>
@@ -249,14 +249,14 @@ const StudentAttendancePage: React.FC = () => {
                 return (
                   <div key={subject.subjectId} className="p-4 border rounded-lg">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-semibold text-gray-900">{subject.subjectName}</h3>
+                      <h3 className="font-semibold text-foreground">{subject.subjectName}</h3>
                       <Badge className={getAttendanceRateColor(attendanceRate) === 'text-green-600' ? 'bg-green-100 text-green-800' : 
                                       getAttendanceRateColor(attendanceRate) === 'text-yellow-600' ? 'bg-yellow-100 text-yellow-800' : 
                                       'bg-red-100 text-red-800'}>
                         {attendanceRate.toFixed(1)}%
                       </Badge>
                     </div>
-                    <div className="space-y-1 text-sm text-gray-600">
+                    <div className="space-y-1 text-sm text-muted-foreground">
                       <div className="flex justify-between">
                         <span>Total:</span>
                         <span>{subject.totalClasses}</span>
@@ -297,7 +297,7 @@ const StudentAttendancePage: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
               <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-2" />
               <p>Nenhum registro de frequência encontrado</p>
               <p className="text-sm mt-1">Os registros aparecerão aqui conforme as aulas forem registradas</p>
@@ -313,7 +313,7 @@ const StudentAttendancePage: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
               <BookOpen className="w-12 h-12 text-gray-300 mx-auto mb-2" />
               <p>Nenhuma disciplina encontrada</p>
               <p className="text-sm mt-1">Entre em contato com a administração para verificar sua matrícula</p>
@@ -334,28 +334,28 @@ const StudentAttendancePage: React.FC = () => {
           {isLoading ? (
             <div className="text-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-2 text-gray-600">Carregando frequência...</p>
+              <p className="mt-2 text-muted-foreground">Carregando frequência...</p>
             </div>
           ) : attendance.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-muted-foreground">
               <Calendar className="w-12 h-12 text-gray-300 mx-auto mb-2" />
               <p>Nenhum registro de frequência encontrado</p>
             </div>
           ) : (
             <div className="space-y-3">
               {attendance.map((record) => (
-                <div key={record.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
+                <div key={record.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/60">
                   <div className="flex items-center gap-4">
                     {getStatusIcon(record.status)}
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-foreground">
                         {format(new Date(record.date), 'dd/MM/yyyy', { locale: ptBR })}
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-muted-foreground">
                         {record.subjectName} - {record.className}
                       </p>
                       {record.notes && (
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-muted-foreground mt-1">
                           Observação: {record.notes}
                         </p>
                       )}

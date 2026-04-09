@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -61,7 +61,7 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
       case 'activity': return 'bg-blue-500';
       case 'presentation': return 'bg-purple-500';
       case 'meeting': return 'bg-green-500';
-      default: return 'bg-gray-500';
+      default: return 'bg-muted/600';
     }
   };
 
@@ -78,8 +78,8 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
               {event.icon}
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">{event.title}</h2>
-              <p className="text-sm text-gray-500 font-normal">
+              <h2 className="text-xl font-bold text-foreground">{event.title}</h2>
+              <p className="text-sm text-muted-foreground font-normal">
                 {event.isGlobal ? 'Comunicado Geral' : `Evento para ${event.className}`}
               </p>
             </div>
@@ -100,20 +100,20 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
                   : "border-blue-200 text-blue-700 bg-blue-50"
               }`}
             >
-              {event.isGlobal ? "🌐 Evento Global" : `🏫 ${event.className}`}
+              {event.isGlobal ? "ðŸŒ Evento Global" : `ðŸ« ${event.className}`}
             </Badge>
           </div>
 
           {/* Data */}
-          <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-3 p-3 bg-muted/60 rounded-lg">
             <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-600">
               <CalendarIcon className="h-4 w-4" />
             </div>
             <div>
-              <p className="font-medium text-gray-900">
+              <p className="font-medium text-foreground">
                 {format(new Date(event.startDate || event.date || new Date()), 'EEEE, dd/MM/yyyy', { locale: ptBR })}
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 {event.startTime || format(new Date(event.startDate || event.date || new Date()), 'HH:mm')}
                 {event.endTime && ` - ${event.endTime}`}
               </p>
@@ -129,8 +129,8 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
                     <Target className="h-4 w-4" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{event.totalPoints} pontos</p>
-                    <p className="text-sm text-gray-500">Total de pontos</p>
+                    <p className="font-medium text-foreground">{event.totalPoints} pontos</p>
+                    <p className="text-sm text-muted-foreground">Total de pontos</p>
                   </div>
                 </div>
               )}
@@ -140,8 +140,8 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
                     <Clock className="h-4 w-4" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{event.duration} min</p>
-                    <p className="text-sm text-gray-500">Duração</p>
+                    <p className="font-medium text-foreground">{event.duration} min</p>
+                    <p className="text-sm text-muted-foreground">Duração</p>
                   </div>
                 </div>
               )}
@@ -150,12 +150,12 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
 
           {/* Descrição */}
           {event.description && (
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium mb-3 text-gray-900 flex items-center gap-2">
+            <div className="p-4 bg-muted/60 rounded-lg">
+              <h4 className="font-medium mb-3 text-foreground flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                 Descrição
               </h4>
-              <p className="text-sm leading-relaxed text-gray-700">{event.description}</p>
+              <p className="text-sm leading-relaxed text-foreground">{event.description}</p>
             </div>
           )}
 
@@ -166,8 +166,8 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
                 <BookOpen className="h-4 w-4" />
               </div>
               <div>
-                <p className="font-medium text-gray-900">{event.subjectName}</p>
-                <p className="text-sm text-gray-500">Disciplina</p>
+                <p className="font-medium text-foreground">{event.subjectName}</p>
+                <p className="text-sm text-muted-foreground">Disciplina</p>
               </div>
             </div>
           )}
@@ -180,8 +180,8 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
                 <span className="text-sm font-bold">{event.bimonthly}º</span>
               </div>
               <div>
-                <p className="font-medium text-gray-900">{event.bimonthly}º Bimestre</p>
-                <p className="text-sm text-gray-500">Período letivo</p>
+                <p className="font-medium text-foreground">{event.bimonthly}º Bimestre</p>
+                <p className="text-sm text-muted-foreground">Período letivo</p>
               </div>
             </div>
           )}
@@ -192,10 +192,10 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
               <Users className="h-4 w-4" />
             </div>
             <div>
-              <p className="font-medium text-gray-900">
+              <p className="font-medium text-foreground">
                 {event.isGlobal ? 'Coordenador' : 'Professor'}
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 {event.isGlobal ? 'Comunicado oficial' : 'Evento da disciplina'}
               </p>
             </div>
@@ -222,3 +222,4 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
     </Dialog>
   );
 };
+

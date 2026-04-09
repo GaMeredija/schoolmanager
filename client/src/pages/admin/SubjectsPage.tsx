@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CreateButton from '@/components/ui/create-button';
@@ -97,7 +97,7 @@ const SubjectsPage = () => {
   };
 
   const getStatusColor = (status: string) => {
-    return status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800';
+    return status === 'active' ? 'bg-green-100 text-green-800' : 'bg-muted text-foreground';
   };
 
   const getStatusText = (status: string) => {
@@ -265,8 +265,8 @@ const SubjectsPage = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gestão de Disciplinas</h1>
-          <p className="text-gray-600 mt-1">Configure as disciplinas da escola</p>
+          <h1 className="text-3xl font-bold text-foreground">Gestão de Disciplinas</h1>
+          <p className="text-muted-foreground mt-1">Configure as disciplinas da escola</p>
         </div>
         <div className="flex items-center gap-3">
           <Button
@@ -355,7 +355,7 @@ const SubjectsPage = () => {
                 <div>
                   <Label htmlFor="classes">Turmas *</Label>
                   <div className="space-y-2">
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-muted-foreground">
                       Selecione as turmas onde esta disciplina será ministrada:
                     </div>
                     <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border rounded-md p-2">
@@ -408,11 +408,11 @@ const SubjectsPage = () => {
       </div>
 
       {/* Filters */}
-      <Card className="border border-gray-200">
+      <Card className="border border-border">
         <CardContent className="pt-6">
           <div className="flex items-center gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground/60" />
               <Input 
                 placeholder="Buscar disciplinas..." 
                 className="pl-10"
@@ -437,12 +437,12 @@ const SubjectsPage = () => {
       {/* Subjects List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredSubjects.map((subject) => (
-          <Card key={subject.id} className="border border-gray-200 hover:shadow-md transition-shadow flex flex-col h-full">
+          <Card key={subject.id} className="border border-border hover:shadow-md transition-shadow flex flex-col h-full">
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <div>
                   <CardTitle className="text-lg">{subject.name}</CardTitle>
-                  <p className="text-sm text-gray-500">{subject.code}</p>
+                  <p className="text-sm text-muted-foreground">{subject.code}</p>
                 </div>
                 <Badge className={getStatusColor(subject.status)}>
                   {getStatusText(subject.status)}
@@ -465,10 +465,10 @@ const SubjectsPage = () => {
                   )}
                 </div>
               ) : (
-                <div className="p-3 bg-gray-50 rounded-lg">
+                <div className="p-3 bg-muted/60 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <User className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-gray-500">Nenhum professor atribuído</span>
+                    <User className="h-4 w-4 text-muted-foreground/60" />
+                    <span className="text-sm text-muted-foreground">Nenhum professor atribuído</span>
                   </div>
                 </div>
               )}
@@ -489,27 +489,27 @@ const SubjectsPage = () => {
                   </div>
                 </div>
               ) : (
-                <div className="p-3 bg-gray-50 rounded-lg">
+                <div className="p-3 bg-muted/60 rounded-lg">
                   <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-gray-400" />
-                    <span className="text-sm text-gray-500">Nenhuma turma vinculada</span>
+                    <Users className="h-4 w-4 text-muted-foreground/60" />
+                    <span className="text-sm text-muted-foreground">Nenhuma turma vinculada</span>
                   </div>
                 </div>
               )}
 
               {subject.description && (
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-muted-foreground">
                   <strong>Descrição:</strong> {subject.description}
                 </div>
               )}
 
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-muted-foreground">
                 <strong>Criada em:</strong> {subject.createdAt ? new Date(subject.createdAt).toLocaleDateString('pt-BR') : 'Data não disponível'}
               </div>
             </CardContent>
             
             {/* Botões sempre na parte inferior */}
-            <div className="p-4 pt-0 border-t border-gray-100 mt-auto">
+            <div className="p-4 pt-0 border-t border-border/70 mt-auto">
               <div className="flex items-center gap-2">
                 <Button 
                   variant="ghost" 
@@ -535,11 +535,11 @@ const SubjectsPage = () => {
       </div>
 
       {filteredSubjects.length === 0 && (
-        <Card className="border border-gray-200">
+        <Card className="border border-border">
           <CardContent className="text-center py-12">
-            <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Nenhuma disciplina encontrada</h3>
-            <p className="text-gray-600 mb-4">
+            <BookOpen className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-foreground mb-2">Nenhuma disciplina encontrada</h3>
+            <p className="text-muted-foreground mb-4">
               {searchTerm || filterStatus !== 'all'
                 ? 'Tente ajustar os filtros de busca'
                 : 'Comece criando sua primeira disciplina'
@@ -593,16 +593,16 @@ const SubjectsPage = () => {
             <div>
               <Label htmlFor="edit-classes">Turmas *</Label>
               <div className="space-y-2">
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-muted-foreground">
                   Selecione as turmas onde esta disciplina será ministrada:
                 </div>
                 <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto border rounded-md p-2">
                   {classesLoading ? (
-                    <div className="col-span-2 text-center text-sm text-gray-500">Carregando turmas...</div>
+                    <div className="col-span-2 text-center text-sm text-muted-foreground">Carregando turmas...</div>
                   ) : classesError ? (
                     <div className="col-span-2 text-center text-sm text-red-500">Erro ao carregar turmas</div>
                   ) : classes.length === 0 ? (
-                    <div className="col-span-2 text-center text-sm text-gray-500">Nenhuma turma disponível</div>
+                    <div className="col-span-2 text-center text-sm text-muted-foreground">Nenhuma turma disponível</div>
                   ) : (
                     classes.map(cls => (
                       <label key={cls.id} className="flex items-center space-x-2 cursor-pointer">
@@ -759,4 +759,5 @@ const SubjectsPage = () => {
 };
 
 export default SubjectsPage;
+
 

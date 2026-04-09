@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -35,7 +35,7 @@ export default function CoordinatorClasses() {
   });
 
   const classes = classesData?.data || [];
-  console.log('📊 Turmas recebidas:', classes);
+  console.log('ðŸ“Š Turmas recebidas:', classes);
 
   // Buscar alunos para calcular estatísticas
   const { data: students = [] } = useQuery({
@@ -44,10 +44,10 @@ export default function CoordinatorClasses() {
       const response = await fetch('/api/users?role=student');
       if (!response.ok) throw new Error('Erro ao buscar alunos');
       const data = await response.json();
-      console.log('📊 Dados dos alunos:', data);
-      console.log('📊 Total de alunos:', data.length);
+      console.log('ðŸ“Š Dados dos alunos:', data);
+      console.log('ðŸ“Š Total de alunos:', data.length);
       if (data.length > 0) {
-        console.log('📊 Exemplo de aluno:', data[0]);
+        console.log('ðŸ“Š Exemplo de aluno:', data[0]);
       }
       return data;
     }
@@ -77,12 +77,12 @@ export default function CoordinatorClasses() {
     switch (status?.toLowerCase()) {
       case 'ativo':
       case 'active':
-        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100"><CheckCircle2 className="w-3 h-3 mr-1" />Ativa</Badge>;
+        return <Badge className="border-green-500/30 bg-green-500/10 text-green-700 hover:bg-green-500/10 dark:bg-green-500/15 dark:text-green-200"><CheckCircle2 className="w-3 h-3 mr-1" />Ativa</Badge>;
       case 'inativo':
       case 'inactive':
-        return <Badge className="bg-red-100 text-red-800 hover:bg-red-100"><AlertTriangle className="w-3 h-3 mr-1" />Inativa</Badge>;
+        return <Badge className="border-red-500/30 bg-red-500/10 text-red-700 hover:bg-red-500/10 dark:bg-red-500/15 dark:text-red-200"><AlertTriangle className="w-3 h-3 mr-1" />Inativa</Badge>;
       default:
-        return <Badge className="bg-green-100 text-green-800 hover:bg-green-100"><CheckCircle2 className="w-3 h-3 mr-1" />Ativa</Badge>;
+        return <Badge className="border-green-500/30 bg-green-500/10 text-green-700 hover:bg-green-500/10 dark:bg-green-500/15 dark:text-green-200"><CheckCircle2 className="w-3 h-3 mr-1" />Ativa</Badge>;
     }
   };
 
@@ -102,17 +102,17 @@ export default function CoordinatorClasses() {
   };
 
   const getGradeStatus = (avgGrade: number, totalGrades: number) => {
-    if (totalGrades === 0) return { status: 'no-data', emoji: '📊', text: 'Sem notas' };
+    if (totalGrades === 0) return { status: 'no-data', emoji: 'ðŸ“Š', text: 'Sem notas' };
     if (avgGrade >= 7.0) return { status: 'good', emoji: '✅', text: 'Boa' };
-    if (avgGrade >= 5.0) return { status: 'warning', emoji: '⚠️', text: 'Atenção' };
-    return { status: 'danger', emoji: '🚨', text: 'Crítica' };
+    if (avgGrade >= 5.0) return { status: 'warning', emoji: '⚠️ï¸', text: 'Atenção' };
+    return { status: 'danger', emoji: 'ðŸš¨', text: 'Crítica' };
   };
 
   const getAttendanceStatus = (attendanceRate: number, totalRecords: number) => {
-    if (totalRecords === 0) return { status: 'no-data', emoji: '📊', text: 'Sem dados' };
+    if (totalRecords === 0) return { status: 'no-data', emoji: 'ðŸ“Š', text: 'Sem dados' };
     if (attendanceRate >= 85) return { status: 'good', emoji: '✅', text: 'Boa' };
-    if (attendanceRate >= 50) return { status: 'warning', emoji: '⚠️', text: 'Atenção' };
-    return { status: 'danger', emoji: '🚨', text: 'Crítica' };
+    if (attendanceRate >= 50) return { status: 'warning', emoji: '⚠️ï¸', text: 'Atenção' };
+    return { status: 'danger', emoji: 'ðŸš¨', text: 'Crítica' };
   };
 
   const filteredClasses = classes.filter((classItem: any) => {
@@ -158,7 +158,7 @@ export default function CoordinatorClasses() {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Carregando turmas...</p>
+            <p className="text-muted-foreground">Carregando turmas...</p>
           </div>
         </div>
       </MainLayout>
@@ -171,8 +171,8 @@ export default function CoordinatorClasses() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Monitoramento de Turmas</h1>
-            <p className="text-gray-600 mt-2">
+            <h1 className="text-3xl font-bold text-foreground">Monitoramento de Turmas</h1>
+            <p className="text-muted-foreground mt-2">
               Acompanhe o desempenho e atividades das turmas
             </p>
           </div>
@@ -187,7 +187,7 @@ export default function CoordinatorClasses() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total de Turmas</p>
+                <p className="text-sm text-muted-foreground">Total de Turmas</p>
                 <p className="text-2xl font-bold">{classes.length}</p>
               </div>
               <Users className="h-8 w-8 text-blue-600" />
@@ -197,7 +197,7 @@ export default function CoordinatorClasses() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total de Alunos</p>
+                <p className="text-sm text-muted-foreground">Total de Alunos</p>
                 <p className="text-2xl font-bold text-green-600">{totalStudents}</p>
               </div>
               <Users className="h-8 w-8 text-green-600" />
@@ -207,17 +207,17 @@ export default function CoordinatorClasses() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Atividades Ativas</p>
-                <p className="text-2xl font-bold text-purple-600">{totalActivities}</p>
+                <p className="text-sm text-muted-foreground">Atividades Ativas</p>
+                <p className="text-2xl font-bold text-violet-600 dark:text-violet-300">{totalActivities}</p>
               </div>
-              <BookOpen className="h-8 w-8 text-purple-600" />
+              <BookOpen className="h-8 w-8 text-violet-600 dark:text-violet-300" />
             </div>
           </Card>
 
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Provas Agendadas</p>
+                <p className="text-sm text-muted-foreground">Provas Agendadas</p>
                 <p className="text-2xl font-bold text-orange-600">{totalExams}</p>
               </div>
               <TrendingUp className="h-8 w-8 text-orange-600" />
@@ -230,7 +230,7 @@ export default function CoordinatorClasses() {
           <div className="flex items-center">
             <div className="flex-1 max-w-md">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 h-4 w-4" />
                 <Input
                   placeholder="Buscar turmas, professores ou matérias..."
                   value={searchTerm}
@@ -261,7 +261,7 @@ export default function CoordinatorClasses() {
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <p className="text-gray-600">
+                      <p className="text-muted-foreground">
                         Professores: <span className="font-medium">
                           {stats.teachers.length > 0 
                             ? `${stats.teachers.length} professor(es)`
@@ -273,7 +273,7 @@ export default function CoordinatorClasses() {
                         variant="outline"
                         size="sm"
                         onClick={() => handleViewDetails(classItem)}
-                        className="text-blue-600 hover:text-blue-700"
+                        className="text-blue-600 hover:text-blue-500 dark:text-blue-300 dark:hover:text-blue-200"
                       >
                         <Eye className="w-4 h-4 mr-1" />
                         Ver Detalhes
@@ -283,23 +283,23 @@ export default function CoordinatorClasses() {
 
                   {/* Statistics */}
                   <div className="grid grid-cols-2 gap-4 mb-4">
-                    <div className="text-center p-3 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-gray-600">Alunos</p>
+                    <div className="text-center p-3 bg-blue-500/10 dark:bg-blue-500/15 rounded-lg">
+                      <p className="text-sm text-muted-foreground">Alunos</p>
                       <p className="text-xl font-bold text-blue-600">{stats.studentsCount}</p>
-                      <p className="text-xs text-gray-500">cadastrados</p>
+                      <p className="text-xs text-muted-foreground">cadastrados</p>
                     </div>
                     <div className={`text-center p-3 rounded-lg ${
-                      getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'good' ? 'bg-green-50' :
-                      getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'warning' ? 'bg-yellow-50' :
-                      getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'danger' ? 'bg-red-50' : 'bg-gray-50'
+                      getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'good' ? 'bg-green-500/10 dark:bg-green-500/15' :
+                      getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'warning' ? 'bg-yellow-500/10 dark:bg-yellow-500/15' :
+                      getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'danger' ? 'bg-red-500/10 dark:bg-red-500/15' : 'bg-muted/60'
                     }`}>
-                      <p className="text-sm text-gray-600">Nota Média</p>
+                      <p className="text-sm text-muted-foreground">Nota Média</p>
                       <div className="flex items-center justify-center gap-1">
                         <span className="text-lg">{getGradeStatus(stats.avgGrade, stats.totalGrades).emoji}</span>
                         <p className={`text-xl font-bold ${
                           getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'good' ? 'text-green-600' :
                           getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'warning' ? 'text-yellow-600' :
-                          getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'danger' ? 'text-red-600' : 'text-gray-600'
+                          getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'danger' ? 'text-red-600 dark:text-red-300' : 'text-muted-foreground'
                         }`}>
                           {stats.avgGrade > 0 ? stats.avgGrade.toFixed(1) : 'N/A'}
                         </p>
@@ -307,7 +307,7 @@ export default function CoordinatorClasses() {
                       <p className={`text-xs ${
                         getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'good' ? 'text-green-600' :
                         getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'warning' ? 'text-yellow-600' :
-                        getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'danger' ? 'text-red-600' : 'text-gray-500'
+                        getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'danger' ? 'text-red-600 dark:text-red-300' : 'text-muted-foreground'
                       }`}>
                         {getGradeStatus(stats.avgGrade, stats.totalGrades).text}
                       </p>
@@ -316,28 +316,28 @@ export default function CoordinatorClasses() {
 
                   <div className="grid grid-cols-3 gap-2 mb-4 text-sm">
                     <div className={`text-center p-2 rounded-lg ${
-                      getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'good' ? 'bg-green-50' :
-                      getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'warning' ? 'bg-yellow-50' :
-                      getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'danger' ? 'bg-red-50' : 'bg-gray-50'
+                      getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'good' ? 'bg-green-500/10 dark:bg-green-500/15' :
+                      getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'warning' ? 'bg-yellow-500/10 dark:bg-yellow-500/15' :
+                      getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'danger' ? 'bg-red-500/10 dark:bg-red-500/15' : 'bg-muted/60'
                     }`}>
                       <div className="flex items-center justify-center gap-1">
                         <span className="text-sm">{getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).emoji}</span>
-                        <p className="text-gray-600">Presença</p>
+                        <p className="text-muted-foreground">Presença</p>
                       </div>
                       <p className={`font-bold ${
                         getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'good' ? 'text-green-600' :
                         getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'warning' ? 'text-yellow-600' :
-                        getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'danger' ? 'text-red-600' : 'text-gray-600'
+                        getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'danger' ? 'text-red-600 dark:text-red-300' : 'text-muted-foreground'
                       }`}>
                         {stats.attendanceRate > 0 ? `${stats.attendanceRate}%` : 'N/A'}
                       </p>
                     </div>
                     <div className="text-center">
-                      <p className="text-gray-600">Atividades</p>
-                      <p className="font-bold text-purple-600">{stats.activitiesCount}</p>
+                      <p className="text-muted-foreground">Atividades</p>
+                      <p className="font-bold text-violet-600 dark:text-violet-300">{stats.activitiesCount}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-gray-600">Provas</p>
+                      <p className="text-muted-foreground">Provas</p>
                       <p className="font-bold text-blue-600">{stats.examsCount}</p>
                     </div>
                   </div>
@@ -345,12 +345,12 @@ export default function CoordinatorClasses() {
                   {/* Additional Info */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
-                      <p className="font-medium text-gray-700">Criada em:</p>
-                      <p className="text-gray-600">{classItem.createdAt ? new Date(classItem.createdAt).toLocaleDateString('pt-BR') : 'Não informado'}</p>
+                      <p className="font-medium text-foreground">Criada em:</p>
+                      <p className="text-muted-foreground">{classItem.createdAt ? new Date(classItem.createdAt).toLocaleDateString('pt-BR') : 'Não informado'}</p>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-700">Última atividade:</p>
-                      <p className="text-gray-600">
+                      <p className="font-medium text-foreground">Ãšltima atividade:</p>
+                      <p className="text-muted-foreground">
                         {stats.lastActivity 
                           ? `${stats.lastActivity.title} (${new Date(stats.lastActivity.createdAt).toLocaleDateString('pt-BR')})`
                           : 'Sem atividades'
@@ -362,45 +362,45 @@ export default function CoordinatorClasses() {
                   {/* Alerts */}
                   <div className="mt-4 space-y-2">
                     {stats.studentsCount === 0 && (
-                      <div className="flex items-center gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                      <div className="flex items-center gap-2 p-3 bg-yellow-500/10 dark:bg-yellow-500/15 border border-yellow-500/30 rounded-lg">
                         <AlertTriangle className="h-4 w-4 text-yellow-600" />
-                        <span className="text-sm text-yellow-800">
+                        <span className="text-sm text-yellow-800 dark:text-yellow-100">
                           Atenção: Nenhum aluno cadastrado nesta turma
                         </span>
                       </div>
                     )}
                     
                     {getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'danger' && (
-                      <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <span className="text-lg">🚨</span>
-                        <span className="text-sm text-red-800">
+                      <div className="flex items-center gap-2 p-3 bg-red-500/10 dark:bg-red-500/15 border border-red-500/30 rounded-lg">
+                        <span className="text-lg">ðŸš¨</span>
+                        <span className="text-sm text-red-800 dark:text-red-100">
                           Nota média crítica: {stats.avgGrade.toFixed(1)} - Necessária intervenção pedagógica
                         </span>
                       </div>
                     )}
                     
                     {getGradeStatus(stats.avgGrade, stats.totalGrades).status === 'warning' && (
-                      <div className="flex items-center gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                        <span className="text-lg">⚠️</span>
-                        <span className="text-sm text-yellow-800">
+                      <div className="flex items-center gap-2 p-3 bg-yellow-500/10 dark:bg-yellow-500/15 border border-yellow-500/30 rounded-lg">
+                        <span className="text-lg">⚠️ï¸</span>
+                        <span className="text-sm text-yellow-800 dark:text-yellow-100">
                           Nota média baixa: {stats.avgGrade.toFixed(1)} - Acompanhamento necessário
                         </span>
                       </div>
                     )}
                     
                     {getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'danger' && (
-                      <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                        <span className="text-lg">🚨</span>
-                        <span className="text-sm text-red-800">
+                      <div className="flex items-center gap-2 p-3 bg-red-500/10 dark:bg-red-500/15 border border-red-500/30 rounded-lg">
+                        <span className="text-lg">ðŸš¨</span>
+                        <span className="text-sm text-red-800 dark:text-red-100">
                           Presença crítica: {stats.attendanceRate}% - Necessária intervenção
                         </span>
                       </div>
                     )}
                     
                     {getAttendanceStatus(stats.attendanceRate, stats.totalAttendanceRecords).status === 'warning' && (
-                      <div className="flex items-center gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                        <span className="text-lg">⚠️</span>
-                        <span className="text-sm text-yellow-800">
+                      <div className="flex items-center gap-2 p-3 bg-yellow-500/10 dark:bg-yellow-500/15 border border-yellow-500/30 rounded-lg">
+                        <span className="text-lg">⚠️ï¸</span>
+                        <span className="text-sm text-yellow-800 dark:text-yellow-100">
                           Presença baixa: {stats.attendanceRate}% - Acompanhamento necessário
                         </span>
                       </div>
@@ -412,9 +412,9 @@ export default function CoordinatorClasses() {
           ) : (
             <div className="col-span-2">
               <Card className="p-12 text-center">
-                <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma turma encontrada</h3>
-                <p className="text-gray-600">
+                <Users className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-foreground mb-2">Nenhuma turma encontrada</h3>
+                <p className="text-muted-foreground">
                   Não há turmas que correspondam aos filtros selecionados.
                 </p>
               </Card>
@@ -424,7 +424,7 @@ export default function CoordinatorClasses() {
 
         {/* Summary Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Card className="p-4 bg-gradient-to-r from-blue-50 to-blue-100">
+          <Card className="bg-gradient-to-r from-blue-500/10 to-blue-500/20 p-4 dark:from-blue-500/15 dark:to-blue-500/25">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-blue-600 font-medium">Turma com Mais Alunos</p>
@@ -453,7 +453,7 @@ export default function CoordinatorClasses() {
             </div>
           </Card>
 
-          <Card className="p-4 bg-gradient-to-r from-green-50 to-green-100">
+          <Card className="bg-gradient-to-r from-green-500/10 to-green-500/20 p-4 dark:from-green-500/15 dark:to-green-500/25">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-green-600 font-medium">Turma Mais Ativa</p>
@@ -485,11 +485,11 @@ export default function CoordinatorClasses() {
           <Card className="p-4 bg-gradient-to-r from-purple-50 to-purple-100">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-purple-600 font-medium">Total de Provas</p>
-                <p className="text-xl font-bold text-purple-800">{totalExams}</p>
-                <p className="text-sm text-purple-600">agendadas</p>
+                <p className="text-sm text-violet-600 dark:text-violet-300 font-medium">Total de Provas</p>
+                <p className="text-xl font-bold text-violet-800 dark:text-violet-100">{totalExams}</p>
+                <p className="text-sm text-violet-600 dark:text-violet-300">agendadas</p>
               </div>
-              <BookOpen className="h-8 w-8 text-purple-600" />
+              <BookOpen className="h-8 w-8 text-violet-600 dark:text-violet-300" />
             </div>
           </Card>
         </div>
@@ -510,7 +510,7 @@ export default function CoordinatorClasses() {
                   <Card className="p-4">
                     <div className="text-center">
                       <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">Total de Alunos</p>
+                      <p className="text-sm text-muted-foreground">Total de Alunos</p>
                       <p className="text-2xl font-bold text-blue-600">
                         {getClassStats(selectedClass).studentsCount}
                       </p>
@@ -520,7 +520,7 @@ export default function CoordinatorClasses() {
                   <Card className="p-4">
                     <div className="text-center">
                       <BookOpen className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">Professores</p>
+                      <p className="text-sm text-muted-foreground">Professores</p>
                       <p className="text-2xl font-bold text-green-600">
                         {getClassStats(selectedClass).teachers.length}
                       </p>
@@ -529,9 +529,9 @@ export default function CoordinatorClasses() {
                   
                   <Card className="p-4">
                     <div className="text-center">
-                      <Calendar className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">Disciplinas</p>
-                      <p className="text-2xl font-bold text-purple-600">
+                      <Calendar className="h-8 w-8 text-violet-600 dark:text-violet-300 mx-auto mb-2" />
+                      <p className="text-sm text-muted-foreground">Disciplinas</p>
+                      <p className="text-2xl font-bold text-violet-600 dark:text-violet-300">
                         {new Set(getClassStats(selectedClass).teachers.map((t: any) => t.subject)).size}
                       </p>
                     </div>
@@ -547,25 +547,25 @@ export default function CoordinatorClasses() {
                   <div className="space-y-3">
                     {getClassStats(selectedClass).teachers.length > 0 ? (
                       getClassStats(selectedClass).teachers.map((teacher: any, index: number) => (
-                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={index} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/10 dark:bg-blue-500/15">
                               <span className="text-sm font-medium text-blue-600">
                                 {teacher.name?.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
                               </span>
                             </div>
                             <div>
-                              <p className="font-medium text-gray-900">{teacher.name}</p>
-                              <p className="text-sm text-gray-600">{teacher.subject}</p>
+                              <p className="font-medium text-foreground">{teacher.name}</p>
+                              <p className="text-sm text-muted-foreground">{teacher.subject}</p>
                             </div>
                           </div>
-                          <Badge className="bg-green-100 text-green-800">
+                          <Badge className="border-green-500/30 bg-green-500/10 text-green-700 dark:bg-green-500/15 dark:text-green-200">
                             Ativo
                           </Badge>
                         </div>
                       ))
                     ) : (
-                      <p className="text-gray-500 text-center py-4">Nenhum professor vinculado</p>
+                      <p className="text-muted-foreground text-center py-4">Nenhum professor vinculado</p>
                     )}
                   </div>
                 </Card>
@@ -579,27 +579,27 @@ export default function CoordinatorClasses() {
                   <div className="space-y-3">
                     {classStudents.length > 0 ? (
                       classStudents.map((student: any, index: number) => (
-                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={index} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-500/10 dark:bg-green-500/15">
                               <span className="text-sm font-medium text-green-600">
                                 {student.firstName?.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
                               </span>
                             </div>
                             <div>
-                              <p className="font-medium text-gray-900">
+                              <p className="font-medium text-foreground">
                                 {student.firstName} {student.lastName}
                               </p>
-                              <p className="text-sm text-gray-600">{student.email}</p>
+                              <p className="text-sm text-muted-foreground">{student.email}</p>
                             </div>
                           </div>
-                          <Badge className="bg-green-100 text-green-800">
+                          <Badge className="border-green-500/30 bg-green-500/10 text-green-700 dark:bg-green-500/15 dark:text-green-200">
                             Ativo
                           </Badge>
                         </div>
                       ))
                     ) : (
-                      <p className="text-gray-500 text-center py-4">Nenhum aluno matriculado</p>
+                      <p className="text-muted-foreground text-center py-4">Nenhum aluno matriculado</p>
                     )}
                   </div>
                 </Card>
@@ -612,3 +612,5 @@ export default function CoordinatorClasses() {
     </MainLayout>
   );
 }
+
+

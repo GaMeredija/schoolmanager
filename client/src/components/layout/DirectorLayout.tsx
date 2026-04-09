@@ -50,7 +50,7 @@ const DirectorLayout: React.FC<DirectorLayoutProps> = ({ children }) => {
       ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background text-foreground">
       <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? 'block' : 'hidden'}`}>
         <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
         <div className="fixed inset-y-0 left-0 flex w-64 flex-col director-sidebar shadow-xl overflow-y-auto max-h-screen">
@@ -89,7 +89,7 @@ const DirectorLayout: React.FC<DirectorLayoutProps> = ({ children }) => {
         </div>
       </div>
 
-      <div className="lg:hidden sticky top-0 z-40 bg-white border-b border-gray-200 px-3 py-2 flex items-center justify-between">
+      <div className="lg:hidden sticky top-0 z-40 bg-card border-b border-border px-3 py-2 flex items-center justify-between">
         <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(true)}>
           <span className="sr-only">Abrir menu</span>
           <Menu className="h-5 w-5" />
@@ -97,7 +97,7 @@ const DirectorLayout: React.FC<DirectorLayoutProps> = ({ children }) => {
         <div className="flex items-center gap-2">
           <Avatar className="h-8 w-8">
             <AvatarImage src={user?.profileImageUrl || ''} />
-            <AvatarFallback className="bg-gray-100 text-gray-700">
+            <AvatarFallback className="bg-muted text-foreground">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </AvatarFallback>
           </Avatar>
@@ -238,7 +238,7 @@ const DirectorLayout: React.FC<DirectorLayoutProps> = ({ children }) => {
       </div>
 
       <div className="lg:pl-64">
-        <main className="flex-1">
+        <main className="flex-1 min-h-screen bg-background">
           {children}
         </main>
       </div>

@@ -84,7 +84,7 @@ export function TeacherDashboard() {
       title: "Total de Alunos", 
       value: classesData?.data?.reduce((acc: number, cls: any) => acc + (cls.currentStudents || 0), 0) || "0", 
       icon: <UserRound className="h-6 w-6 text-white" />,
-      bgColor: "bg-secondary-500 dark:bg-secondary-500",
+      bgColor: "bg-cyan-500 dark:bg-cyan-600",
       loading: isLoadingClasses
     },
     { 
@@ -125,10 +125,10 @@ export function TeacherDashboard() {
     <div className="fade-in">
       <div className="md:flex md:items-center md:justify-between mb-8">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold leading-7 text-gray-900 dark:text-white sm:truncate">
+          <h2 className="text-2xl sm:text-3xl font-bold leading-7 text-foreground sm:truncate">
             Bem-vindo, {user?.firstName || 'Professor'}!
           </h2>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-muted-foreground">
             Visão geral do professor - {currentDate}
           </p>
         </div>
@@ -155,7 +155,7 @@ export function TeacherDashboard() {
       {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {stats.map((stat, index) => (
-          <Card key={index} className="bg-white dark:bg-dark-600 overflow-hidden shadow rounded-lg">
+          <Card key={index} className="overflow-hidden rounded-lg shadow-sm">
             <CardContent className="p-5">
               <div className="flex items-center">
                 <div className={`flex-shrink-0 ${stat.bgColor} rounded-md p-3`}>
@@ -163,14 +163,14 @@ export function TeacherDashboard() {
                 </div>
                 <div className="ml-5 w-0 flex-1">
                   <dl>
-                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                    <dt className="text-sm font-medium text-muted-foreground truncate">
                       {stat.title}
                     </dt>
                     <dd className="flex items-baseline">
                       {stat.loading ? (
-                        <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+                        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
                       ) : (
-                        <div className="text-2xl font-semibold text-gray-900 dark:text-white">
+                        <div className="text-2xl font-semibold text-foreground">
                           {stat.value}
                         </div>
                       )}
@@ -185,9 +185,9 @@ export function TeacherDashboard() {
 
       {/* Charts and Classes */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <Card className="bg-white dark:bg-dark-600 shadow rounded-lg">
+        <Card className="rounded-lg shadow-sm">
           <CardContent className="p-6">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white mb-4">
+            <h3 className="mb-4 text-lg font-medium leading-6 text-foreground">
               Desempenho por Turma
             </h3>
             <div className="h-80">
@@ -196,26 +196,26 @@ export function TeacherDashboard() {
           </CardContent>
         </Card>
         
-        <Card className="bg-white dark:bg-dark-600 shadow rounded-lg overflow-hidden">
-          <div className="px-6 py-5 border-b border-gray-200 dark:border-dark-500 flex justify-between items-center">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+        <Card className="overflow-hidden rounded-lg shadow-sm">
+          <div className="flex items-center justify-between border-b border-border px-6 py-5">
+            <h3 className="text-lg font-medium leading-6 text-foreground">
               Próximas Aulas
             </h3>
             <button 
               onClick={() => navigate('/my-classes')} 
-              className="text-primary-500 dark:text-primary-300 hover:text-primary-600 dark:hover:text-primary-400 text-sm flex items-center"
+              className="flex items-center text-sm font-medium text-primary transition-colors hover:text-primary/80"
             >
               Ver todas <ChevronRight className="h-4 w-4 ml-1" />
             </button>
           </div>
-          <div className="p-6 overflow-y-auto max-h-[300px] divide-y divide-gray-200 dark:divide-dark-500">
+          <div className="max-h-[300px] divide-y divide-border overflow-y-auto p-6">
             {isLoadingUpcoming ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="h-6 w-6 animate-spin" />
                 <span className="ml-2">Carregando...</span>
               </div>
             ) : upcomingClasses.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
+              <div className="py-8 text-center text-muted-foreground">
                 <Calendar className="h-12 w-12 mx-auto mb-4 opacity-20" />
                 <p>Nenhuma aula agendada</p>
                 <p className="text-sm">Você não tem aulas nos próximos dias</p>
@@ -224,14 +224,14 @@ export function TeacherDashboard() {
               upcomingClasses.map((cls: any, index: number) => (
                 <div key={index} className="py-3">
                   <div className="flex flex-col">
-                    <div className="text-sm font-medium text-gray-900 dark:text-white">
+                    <div className="text-sm font-medium text-foreground">
                       {cls.className} - {cls.subjectName}
                     </div>
-                    <div className="mt-1 flex items-center text-xs text-gray-500 dark:text-gray-400">
-                      <Calendar className="flex-shrink-0 mr-1.5 h-4 w-4 text-gray-400 dark:text-gray-500" />
+                    <div className="mt-1 flex items-center text-xs text-muted-foreground">
+                      <Calendar className="mr-1.5 h-4 w-4 flex-shrink-0 text-muted-foreground" />
                       {cls.day}, {cls.time}
                     </div>
-                    <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    <div className="mt-1 text-xs text-muted-foreground">
                       {cls.room || "Sala não definida"}
                     </div>
                     <div className="mt-2">
@@ -249,26 +249,26 @@ export function TeacherDashboard() {
 
       {/* Recent Grades and Students to Watch */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="bg-white dark:bg-dark-600 shadow rounded-lg overflow-hidden">
-          <div className="px-6 py-5 border-b border-gray-200 dark:border-dark-500 flex justify-between items-center">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+        <Card className="overflow-hidden rounded-lg shadow-sm">
+          <div className="flex items-center justify-between border-b border-border px-6 py-5">
+            <h3 className="text-lg font-medium leading-6 text-foreground">
               Notas Recentes
             </h3>
             <button 
               onClick={() => navigate('/grades')} 
-              className="text-primary-500 dark:text-primary-300 hover:text-primary-600 dark:hover:text-primary-400 text-sm flex items-center"
+              className="flex items-center text-sm font-medium text-primary transition-colors hover:text-primary/80"
             >
               Lançar notas <ChevronRight className="h-4 w-4 ml-1" />
             </button>
           </div>
-          <div className="p-6 overflow-y-auto max-h-[300px] divide-y divide-gray-200 dark:divide-dark-500">
+          <div className="max-h-[300px] divide-y divide-border overflow-y-auto p-6">
             {isLoadingGrades ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="h-6 w-6 animate-spin" />
                 <span className="ml-2">Carregando...</span>
               </div>
             ) : recentGrades.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
+              <div className="py-8 text-center text-muted-foreground">
                 <BookOpen className="h-12 w-12 mx-auto mb-4 opacity-20" />
                 <p>Nenhuma nota lançada</p>
                 <p className="text-sm">Comece a lançar notas para seus alunos</p>
@@ -278,21 +278,21 @@ export function TeacherDashboard() {
                 <div key={index} className="py-3">
                   <div className="flex items-start justify-between">
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm font-medium text-foreground">
                         {grade.className}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-muted-foreground">
                         {grade.subjectName}
                       </p>
-                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      <p className="mt-1 text-xs text-muted-foreground">
                         Lançada em: {formatDate(new Date(grade.createdAt))}
                       </p>
-                      <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                      <p className="mt-1 text-xs text-muted-foreground">
                         {grade.studentsCount || 0} alunos avaliados
                       </p>
                     </div>
                     <div className="ml-4 flex-shrink-0">
-                      <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                      <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-200">
                         {grade.status || "Lançada"}
                       </Badge>
                     </div>
@@ -303,20 +303,20 @@ export function TeacherDashboard() {
           </div>
         </Card>
         
-        <Card className="bg-white dark:bg-dark-600 shadow rounded-lg overflow-hidden">
-          <div className="px-6 py-5 border-b border-gray-200 dark:border-dark-500">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+        <Card className="overflow-hidden rounded-lg shadow-sm">
+          <div className="border-b border-border px-6 py-5">
+            <h3 className="text-lg font-medium leading-6 text-foreground">
               Alunos em Atenção
             </h3>
           </div>
-          <div className="p-6 overflow-y-auto max-h-[300px] divide-y divide-gray-200 dark:divide-dark-500">
+          <div className="max-h-[300px] divide-y divide-border overflow-y-auto p-6">
             {isLoadingStudents ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="h-6 w-6 animate-spin" />
                 <span className="ml-2">Carregando...</span>
               </div>
             ) : studentsToWatch.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
+              <div className="py-8 text-center text-muted-foreground">
                 <CheckCircle className="h-12 w-12 mx-auto mb-4 opacity-20 text-green-500" />
                 <p>Nenhum aluno em atenção</p>
                 <p className="text-sm">Todos os alunos estão com bom desempenho</p>
@@ -326,15 +326,15 @@ export function TeacherDashboard() {
                 <div key={index} className="py-3">
                   <div className="flex items-center">
                     <Avatar className="h-10 w-10 flex-shrink-0">
-                      <AvatarFallback className="bg-primary-100 text-primary-600 dark:bg-primary-900 dark:text-primary-300">
+                      <AvatarFallback className="bg-primary/15 text-primary">
                         {getUserInitials(student.name)}
                       </AvatarFallback>
                     </Avatar>
                     <div className="ml-3 flex-1">
-                      <p className="text-sm font-medium text-gray-900 dark:text-white">
+                      <p className="text-sm font-medium text-foreground">
                         {student.name}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-muted-foreground">
                         {student.className} - {student.issue}
                       </p>
                       <div className="mt-1 flex items-center gap-2">
@@ -347,7 +347,7 @@ export function TeacherDashboard() {
                         {student.issue === "Indisciplina" && (
                           <AlertTriangle className="h-3 w-3 text-orange-500" />
                         )}
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-muted-foreground">
                           {student.issue}
                         </span>
                       </div>
@@ -365,9 +365,9 @@ export function TeacherDashboard() {
 
       {/* Quick Actions */}
       <div className="mt-8">
-        <Card className="bg-white dark:bg-dark-600 shadow rounded-lg">
+        <Card className="rounded-lg shadow-sm">
           <CardContent className="p-6">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white mb-4">
+            <h3 className="mb-4 text-lg font-medium leading-6 text-foreground">
               Ações Rápidas
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+﻿import { useState, useMemo } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -37,12 +37,12 @@ import { format } from "date-fns";
 
 // Define event types with distinctive colors and icons
 const EVENT_TYPES = [
-  { value: "exam", label: "Prova", color: "bg-red-600", lightColor: "bg-red-100", textColor: "text-red-800", icon: "📝" },
-  { value: "homework", label: "Tarefa", color: "bg-blue-600", lightColor: "bg-blue-100", textColor: "text-blue-800", icon: "📚" },
-  { value: "meeting", label: "Reunião", color: "bg-green-600", lightColor: "bg-green-100", textColor: "text-green-800", icon: "👥" },
-  { value: "holiday", label: "Feriado", color: "bg-purple-600", lightColor: "bg-purple-100", textColor: "text-purple-800", icon: "🎉" },
-  { value: "activity", label: "Atividade", color: "bg-yellow-600", lightColor: "bg-yellow-100", textColor: "text-yellow-800", icon: "🎯" },
-  { value: "other", label: "Outro", color: "bg-gray-600", lightColor: "bg-gray-100", textColor: "text-gray-800", icon: "📅" }
+  { value: "exam", label: "Prova", color: "bg-red-600", lightColor: "bg-red-500/10 dark:bg-red-500/15", textColor: "text-red-700 dark:text-red-200", icon: "ðŸ“" },
+  { value: "homework", label: "Tarefa", color: "bg-blue-600", lightColor: "bg-blue-500/10 dark:bg-blue-500/15", textColor: "text-blue-700 dark:text-blue-200", icon: "ðŸ“š" },
+  { value: "meeting", label: "Reunião", color: "bg-green-600", lightColor: "bg-green-500/10 dark:bg-green-500/15", textColor: "text-green-700 dark:text-green-200", icon: "ðŸ‘¥" },
+  { value: "holiday", label: "Feriado", color: "bg-violet-600", lightColor: "bg-violet-500/10 dark:bg-violet-500/15", textColor: "text-violet-700 dark:text-violet-200", icon: "ðŸŽ‰" },
+  { value: "activity", label: "Atividade", color: "bg-yellow-600", lightColor: "bg-yellow-500/10 dark:bg-yellow-500/15", textColor: "text-yellow-700 dark:text-yellow-200", icon: "ðŸŽ¯" },
+  { value: "other", label: "Outro", color: "bg-slate-600", lightColor: "bg-muted/60", textColor: "text-foreground", icon: "ðŸ“…" }
 ];
 
 const CLASSES = [
@@ -220,22 +220,22 @@ export default function CalendarPage() {
 
   const getEventTypeColor = (type: string) => {
     const eventType = EVENT_TYPES.find(t => t.value === type);
-    return eventType ? eventType.color : "bg-gray-600";
+    return eventType ? eventType.color : "bg-slate-600";
   };
 
   const getEventTypeLightColor = (type: string) => {
     const eventType = EVENT_TYPES.find(t => t.value === type);
-    return eventType ? eventType.lightColor : "bg-gray-100";
+    return eventType ? eventType.lightColor : "bg-muted/60";
   };
 
   const getEventTypeTextColor = (type: string) => {
     const eventType = EVENT_TYPES.find(t => t.value === type);
-    return eventType ? eventType.textColor : "text-gray-800";
+    return eventType ? eventType.textColor : "text-foreground";
   };
 
   const getEventTypeIcon = (type: string) => {
     const eventType = EVENT_TYPES.find(t => t.value === type);
-    return eventType ? eventType.icon : "📅";
+    return eventType ? eventType.icon : "ðŸ“…";
   };
 
   const getEventTypeLabel = (type: string) => {
@@ -259,8 +259,8 @@ export default function CalendarPage() {
       <MainLayout pageTitle="Calendário">
         <div className="flex items-center justify-center h-64">
           <div className="text-center">
-            <p className="text-red-600 mb-2">Erro ao carregar calendário</p>
-            <p className="text-sm text-gray-600">Tente novamente mais tarde</p>
+            <p className="mb-2 text-destructive">Erro ao carregar calendário</p>
+            <p className="text-sm text-muted-foreground">Tente novamente mais tarde</p>
           </div>
         </div>
       </MainLayout>
@@ -271,7 +271,7 @@ export default function CalendarPage() {
     <MainLayout pageTitle="Calendário">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Calendário Escolar</h1>
+          <h1 className="text-2xl font-bold text-foreground">Calendário Escolar</h1>
           
           <div className="flex flex-col sm:flex-row gap-4 mt-4 sm:mt-0 w-full sm:w-auto">
             <Select 
@@ -428,14 +428,14 @@ export default function CalendarPage() {
         {/* Legend */}
         <Card className="mb-6">
           <CardContent className="p-4">
-            <h3 className="font-semibold mb-3 text-gray-900 dark:text-white">Legenda de Eventos</h3>
+            <h3 className="mb-3 font-semibold text-foreground">Legenda de Eventos</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
               {EVENT_TYPES.map((type) => (
                 <div key={type.value} className="flex items-center gap-2">
                   <div className={`h-4 w-4 rounded-full ${type.color} flex items-center justify-center text-white text-xs font-bold`}>
                     {type.icon}
                   </div>
-                  <span className="text-sm text-gray-700 dark:text-gray-300">{type.label}</span>
+                  <span className="text-sm text-muted-foreground">{type.label}</span>
                 </div>
               ))}
             </div>
@@ -475,11 +475,11 @@ export default function CalendarPage() {
             <Card>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold text-gray-900 dark:text-white">
+                  <h3 className="font-semibold text-foreground">
                     Eventos de {format(date, "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
                   </h3>
                   {eventsForSelectedDay.length > 0 && (
-                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
                       <span>{eventsForSelectedDay.length} evento(s)</span>
                     </div>
                   )}
@@ -487,8 +487,8 @@ export default function CalendarPage() {
                 
                 {eventsForSelectedDay.length === 0 ? (
                   <div className="text-center py-8">
-                    <CalendarIcon className="h-12 w-12 text-gray-300 mx-auto mb-2" />
-                    <p className="text-gray-500 text-sm">Nenhum evento para esta data.</p>
+                    <CalendarIcon className="h-12 w-12 text-muted-foreground/40 mx-auto mb-2" />
+                    <p className="text-muted-foreground text-sm">Nenhum evento para esta data.</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -508,12 +508,12 @@ export default function CalendarPage() {
                                 {getEventTypeLabel(event.type)}
                               </span>
                             </div>
-                            <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
+                            <h4 className="font-semibold text-foreground mb-2">
                               {event.title}
                             </h4>
                             
                             {/* Event Details */}
-                            <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                            <div className="space-y-1 text-sm text-muted-foreground">
                               <div className="flex items-center gap-2">
                                 <Clock className="h-4 w-4" />
                                 <span>Todo o dia</span>
@@ -533,7 +533,7 @@ export default function CalendarPage() {
                             </div>
                             
                             {event.description && (
-                              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+                              <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
                                 {event.description}
                               </p>
                             )}
@@ -553,7 +553,7 @@ export default function CalendarPage() {
                               {canCreateEvent && (
                                 <DropdownMenuItem 
                                   onClick={() => handleDeleteEvent(event.id)}
-                                  className="text-red-600 dark:text-red-400"
+                                  className="text-destructive"
                                 >
                                   <Trash2 className="h-4 w-4 mr-2" />
                                   Excluir
@@ -575,7 +575,7 @@ export default function CalendarPage() {
                 <h3 className="font-semibold mb-3">Próximos Eventos</h3>
                 
                 {events.length === 0 ? (
-                  <p className="text-gray-500 text-sm">Nenhum evento agendado.</p>
+                  <p className="text-muted-foreground text-sm">Nenhum evento agendado.</p>
                 ) : (
                   <div className="space-y-2">
                     {events
@@ -585,19 +585,19 @@ export default function CalendarPage() {
                       .map((event) => (
                         <div 
                           key={event.id}
-                          className="p-2 rounded border cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                          className="cursor-pointer rounded border border-border p-2 transition-colors hover:bg-muted/60"
                           onClick={() => handleViewEvent(event)}
                         >
                           <div className="flex items-center gap-2 mb-1">
                             <div className={`h-2 w-2 rounded-full ${getEventTypeColor(event.type)}`}></div>
-                            <span className="text-xs text-gray-600 dark:text-gray-400">
+                            <span className="text-xs text-muted-foreground dark:text-gray-400">
                               {getEventTypeLabel(event.type)}
                             </span>
                           </div>
-                          <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                          <h4 className="text-sm font-medium text-foreground">
                             {event.title}
                           </h4>
-                          <p className="text-xs text-gray-500 dark:text-gray-500">
+                          <p className="text-xs text-muted-foreground dark:text-muted-foreground">
                             {format(new Date(event.date + 'T00:00:00'), "dd/MM/yyyy")}
                           </p>
                         </div>
@@ -662,7 +662,7 @@ export default function CalendarPage() {
               {selectedEvent && (
                 <div className="space-y-6">
                   {/* Evento atual */}
-                  <div className="p-6 rounded-xl border-2 border-gray-200 bg-gradient-to-br from-white to-gray-50 shadow-lg">
+                  <div className="p-6 rounded-xl border-2 border-border bg-gradient-to-br from-card to-muted/40 shadow-lg">
                     <div className="flex items-start gap-4">
                       {/* Ícone do evento */}
                       <div className={`flex-shrink-0 w-16 h-16 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-lg ${getEventTypeColor(selectedEvent.type)}`}>
@@ -673,7 +673,7 @@ export default function CalendarPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">
+                            <h3 className="mb-3 text-xl font-bold text-foreground">
                               {selectedEvent.title}
                             </h3>
                             
@@ -686,10 +686,10 @@ export default function CalendarPage() {
                             
                             {/* Descrição */}
                             {selectedEvent.description && (
-                              <div className="mb-4 p-4 bg-gray-50 rounded-lg border">
+                              <div className="mb-4 rounded-lg border border-border bg-muted/60 p-4">
                                 <div className="flex items-start gap-2">
-                                  <div className="text-gray-500 mt-0.5">📄</div>
-                                  <p className="text-gray-700 leading-relaxed">
+                                  <div className="text-muted-foreground mt-0.5">ðŸ“„</div>
+                                  <p className="text-foreground leading-relaxed">
                                     {selectedEvent.description}
                                   </p>
                                 </div>
@@ -700,14 +700,14 @@ export default function CalendarPage() {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               {/* Data e Horário */}
                               <div className="space-y-2">
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                   <CalendarIcon className="h-4 w-4" />
                                   <span className="font-medium">
                                     {format(new Date(selectedEvent.date + 'T00:00:00'), 'dd/MM/yyyy', { locale: ptBR })}
                                   </span>
                                 </div>
                                 
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                   <Clock className="h-4 w-4" />
                                   <span className="font-medium">
                                     {selectedEvent.startTime || 'Todo o dia'}
@@ -719,15 +719,15 @@ export default function CalendarPage() {
                               {/* Turma e Disciplina */}
                               <div className="space-y-2">
                                 {selectedEvent.className && (
-                                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                     <Users className="h-4 w-4" />
                                     <span className="font-medium">{selectedEvent.className}</span>
                                   </div>
                                 )}
                                 
                                 {selectedEvent.subjectName && (
-                                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                                    <div className="h-4 w-4 flex items-center justify-center">📚</div>
+                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <div className="h-4 w-4 flex items-center justify-center">ðŸ“š</div>
                                     <span className="font-medium">{selectedEvent.subjectName}</span>
                                   </div>
                                 )}
@@ -737,20 +737,20 @@ export default function CalendarPage() {
                             {/* Informações adicionais */}
                             <div className="flex flex-wrap gap-2 mt-4">
                               {selectedEvent.totalPoints && (
-                                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-50 text-blue-700 border border-blue-200">
-                                  🎯 {selectedEvent.totalPoints} pontos
+                                <span className="inline-flex items-center rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-sm text-blue-700 dark:bg-blue-500/15 dark:text-blue-200">
+                                  ðŸŽ¯ {selectedEvent.totalPoints} pontos
                                 </span>
                               )}
                               
                               {selectedEvent.duration && (
-                                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-50 text-green-700 border border-green-200">
-                                  ⏱️ {selectedEvent.duration}min
+                                <span className="inline-flex items-center rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-sm text-green-700 dark:bg-green-500/15 dark:text-green-200">
+                                  ?? {selectedEvent.duration}min
                                 </span>
                               )}
                               
                               {selectedEvent.bimonthly && (
-                                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-50 text-purple-700 border border-purple-200">
-                                  📊 {selectedEvent.bimonthly}º Bimestre
+                                <span className="inline-flex items-center rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-sm text-violet-700 dark:bg-violet-500/15 dark:text-violet-200">
+                                  ðŸ“Š {selectedEvent.bimonthly}º Bimestre
                                 </span>
                               )}
                             </div>
@@ -762,22 +762,22 @@ export default function CalendarPage() {
                     {/* Lista de todos os eventos para referência */}
                     {eventsForSelectedDay.length > 1 && (
                       <div className="border-t pt-4">
-                        <h4 className="text-sm font-semibold text-gray-700 mb-3">Todos os eventos do dia:</h4>
+                        <h4 className="mb-3 text-sm font-semibold text-foreground">Todos os eventos do dia:</h4>
                         <div className="space-y-2">
                           {eventsForSelectedDay.map((event, index) => (
                             <div
                               key={event.id}
                               className={`p-3 rounded-lg border cursor-pointer transition-all duration-200 ${
                                 index === currentEventIndex
-                                  ? "border-blue-400 bg-blue-50 shadow-md"
-                                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                                  ? "border-blue-400 bg-blue-500/10 shadow-md dark:bg-blue-500/15"
+                                  : "border-border hover:border-border/80 hover:bg-muted/60"
                               }`}
                               onClick={() => setCurrentEventIndex(index)}
                             >
                               <div className="flex items-center gap-3">
                                 <div className={`w-3 h-3 rounded-full ${getEventTypeColor(event.type)}`} />
-                                <span className="text-sm font-medium text-gray-900">{event.title}</span>
-                                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-700">
+                                <span className="text-sm font-medium text-foreground">{event.title}</span>
+                                <span className="inline-flex items-center rounded-full bg-muted px-2 py-1 text-xs text-foreground">
                                   {getEventTypeLabel(event.type)}
                                 </span>
                               </div>
@@ -814,16 +814,16 @@ export default function CalendarPage() {
         <Dialog open={showDeleteConfirmModal} onOpenChange={setShowDeleteConfirmModal}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle className="flex items-center gap-2 text-red-600">
+              <DialogTitle className="flex items-center gap-2 text-destructive">
                 <Trash2 className="h-5 w-5" />
                 Confirmar Exclusão
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <p className="text-gray-600">
+              <p className="text-muted-foreground">
                 Tem certeza que deseja excluir o evento <strong>"{eventToDelete?.title}"</strong>?
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-muted-foreground">
                 Esta ação não pode ser desfeita.
               </p>
               <div className="flex justify-end gap-2">

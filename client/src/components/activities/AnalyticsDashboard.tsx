@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -216,7 +216,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
       case 'high': return 'text-green-600 bg-green-100';
       case 'medium': return 'text-yellow-600 bg-yellow-100';
       case 'low': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      default: return 'text-muted-foreground bg-muted';
     }
   };
 
@@ -225,7 +225,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
       case 'high': return 'text-red-600 bg-red-100';
       case 'medium': return 'text-yellow-600 bg-yellow-100';
       case 'low': return 'text-green-600 bg-green-100';
-      default: return 'text-gray-600 bg-gray-100';
+      default: return 'text-muted-foreground bg-muted';
     }
   };
 
@@ -243,7 +243,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
       <div className="flex items-center justify-center py-12">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-500">Carregando analytics...</p>
+          <p className="text-muted-foreground">Carregando analytics...</p>
         </div>
       </div>
     );
@@ -252,8 +252,8 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
   if (!analyticsData) {
     return (
       <div className="text-center py-12">
-        <BarChart3 className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-        <p className="text-gray-500">Nenhum dado disponível</p>
+        <BarChart3 className="w-12 h-12 mx-auto mb-4 text-muted-foreground/60" />
+        <p className="text-muted-foreground">Nenhum dado disponível</p>
       </div>
     );
   }
@@ -352,7 +352,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Total de Alunos</p>
+                    <p className="text-sm font-medium text-muted-foreground">Total de Alunos</p>
                     <p className="text-3xl font-bold text-blue-600">
                       {analyticsData.overview.totalStudents}
                     </p>
@@ -368,7 +368,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Atividades</p>
+                    <p className="text-sm font-medium text-muted-foreground">Atividades</p>
                     <p className="text-3xl font-bold text-green-600">
                       {analyticsData.overview.totalActivities}
                     </p>
@@ -384,7 +384,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Nota Média</p>
+                    <p className="text-sm font-medium text-muted-foreground">Nota Média</p>
                     <p className="text-3xl font-bold text-purple-600">
                       {formatPercentage(analyticsData.overview.averageScore)}
                     </p>
@@ -400,7 +400,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Taxa de Conclusão</p>
+                    <p className="text-sm font-medium text-muted-foreground">Taxa de Conclusão</p>
                     <p className="text-3xl font-bold text-orange-600">
                       {formatPercentage(analyticsData.overview.completionRate)}
                     </p>
@@ -495,30 +495,30 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
                         <p className="text-2xl font-bold text-blue-600">
                           {formatPercentage(activity.averageScore)}
                         </p>
-                        <p className="text-sm text-gray-500">Nota média</p>
+                        <p className="text-sm text-muted-foreground">Nota média</p>
                       </div>
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <div className="text-center">
                         <p className="text-lg font-semibold">{activity.submissions}</p>
-                        <p className="text-sm text-gray-500">Submissões</p>
+                        <p className="text-sm text-muted-foreground">Submissões</p>
                       </div>
                       <div className="text-center">
                         <p className="text-lg font-semibold">
                           {formatPercentage(activity.completionRate)}
                         </p>
-                        <p className="text-sm text-gray-500">Taxa de Conclusão</p>
+                        <p className="text-sm text-muted-foreground">Taxa de Conclusão</p>
                       </div>
                       <div className="text-center">
                         <p className="text-lg font-semibold">{activity.difficulty}/5</p>
-                        <p className="text-sm text-gray-500">Dificuldade</p>
+                        <p className="text-sm text-muted-foreground">Dificuldade</p>
                       </div>
                       <div className="text-center">
                         <p className="text-lg font-semibold">
                           {formatTime(activity.timeSpent)}
                         </p>
-                        <p className="text-sm text-gray-500">Tempo Médio</p>
+                        <p className="text-sm text-muted-foreground">Tempo Médio</p>
                       </div>
                     </div>
                   </div>
@@ -562,7 +562,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Projetos em Equipe</p>
+                    <p className="text-sm font-medium text-muted-foreground">Projetos em Equipe</p>
                     <p className="text-3xl font-bold text-blue-600">
                       {analyticsData.collaborationMetrics.teamProjects}
                     </p>
@@ -576,7 +576,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Avaliações por Pares</p>
+                    <p className="text-sm font-medium text-muted-foreground">Avaliações por Pares</p>
                     <p className="text-3xl font-bold text-green-600">
                       {analyticsData.collaborationMetrics.peerReviews}
                     </p>
@@ -590,7 +590,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Discussões</p>
+                    <p className="text-sm font-medium text-muted-foreground">Discussões</p>
                     <p className="text-3xl font-bold text-purple-600">
                       {analyticsData.collaborationMetrics.discussions}
                     </p>
@@ -604,7 +604,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Tamanho Médio da Equipe</p>
+                    <p className="text-sm font-medium text-muted-foreground">Tamanho Médio da Equipe</p>
                     <p className="text-3xl font-bold text-orange-600">
                       {analyticsData.collaborationMetrics.averageTeamSize.toFixed(1)}
                     </p>
@@ -659,8 +659,8 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
                             {student.engagementLevel === 'high' ? 'Alto' :
                              student.engagementLevel === 'medium' ? 'Médio' : 'Baixo'}
                           </Badge>
-                          <span className="text-sm text-gray-500">
-                            Última atividade: {new Date(student.lastActivity).toLocaleDateString()}
+                          <span className="text-sm text-muted-foreground">
+                            Ãšltima atividade: {new Date(student.lastActivity).toLocaleDateString()}
                           </span>
                         </div>
                       </div>
@@ -670,7 +670,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
                       <p className="text-lg font-bold">
                         {formatPercentage(student.averageScore)}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-muted-foreground">
                         {student.activitiesCompleted} atividades
                       </p>
                     </div>
@@ -702,7 +702,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
                           <Badge variant="outline">Esforço: {opportunity.effort}/10</Badge>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-600">{opportunity.description}</p>
+                      <p className="text-sm text-muted-foreground">{opportunity.description}</p>
                     </div>
                   ))}
                 </div>
@@ -775,7 +775,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <h5 className="font-medium mb-2">Fatores de Risco:</h5>
-                        <ul className="text-sm text-gray-600 space-y-1">
+                        <ul className="text-sm text-muted-foreground space-y-1">
                           {student.factors.map((factor, index) => (
                             <li key={index}>• {factor}</li>
                           ))}
@@ -784,7 +784,7 @@ export function AnalyticsDashboard({ classId, activityId }: AnalyticsDashboardPr
                       
                       <div>
                         <h5 className="font-medium mb-2">Recomendações:</h5>
-                        <ul className="text-sm text-gray-600 space-y-1">
+                        <ul className="text-sm text-muted-foreground space-y-1">
                           {student.recommendations.map((rec, index) => (
                             <li key={index}>• {rec}</li>
                           ))}

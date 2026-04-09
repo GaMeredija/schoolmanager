@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -36,18 +36,18 @@ export default function CoordinatorActivities() {
   const { data: activitiesData, isLoading: activitiesLoading, error: activitiesError } = useQuery({
     queryKey: ['coordinator-activities'],
     queryFn: async () => {
-      console.log('🔄 Fazendo chamada para API de atividades do coordenador...');
+      console.log('ðŸ”„ Fazendo chamada para API de atividades do coordenador...');
       const response = await fetch('/api/coordinator/activities', {
         credentials: 'include'
       });
-      console.log('📡 Resposta da API:', response.status, response.statusText);
+      console.log('ðŸ“¡ Resposta da API:', response.status, response.statusText);
       if (!response.ok) {
         const errorText = await response.text();
         console.error('❌ Erro na API:', errorText);
         throw new Error('Erro ao buscar atividades');
       }
       const data = await response.json();
-      console.log('📊 Dados recebidos:', data);
+      console.log('ðŸ“Š Dados recebidos:', data);
       return data;
     }
   });
@@ -112,7 +112,7 @@ export default function CoordinatorActivities() {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Carregando atividades...</p>
+            <p className="text-muted-foreground">Carregando atividades...</p>
           </div>
         </div>
       </MainLayout>
@@ -124,9 +124,9 @@ export default function CoordinatorActivities() {
       <MainLayout pageTitle="Atividades da Escola">
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <div className="text-red-600 text-6xl mb-4">⚠️</div>
+            <div className="text-red-600 text-6xl mb-4">⚠️ï¸</div>
             <h2 className="text-xl font-semibold mb-2">Erro ao carregar atividades</h2>
-            <p className="text-gray-600 mb-4">Não foi possível buscar as atividades da escola.</p>
+            <p className="text-muted-foreground mb-4">Não foi possível buscar as atividades da escola.</p>
             <Button onClick={() => window.location.reload()} className="bg-purple-600 hover:bg-purple-700">
               Tentar Novamente
             </Button>
@@ -142,8 +142,8 @@ export default function CoordinatorActivities() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Atividades da Escola</h1>
-            <p className="text-gray-600 mt-2">
+            <h1 className="text-3xl font-bold text-foreground">Atividades da Escola</h1>
+            <p className="text-muted-foreground mt-2">
               Gerencie e monitore todas as atividades pedagógicas desenvolvidas pelos professores
             </p>
           </div>
@@ -160,7 +160,7 @@ export default function CoordinatorActivities() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Total de Atividades</p>
+                <p className="text-sm text-muted-foreground">Total de Atividades</p>
                 <p className="text-2xl font-bold">{activities.length}</p>
               </div>
               <BookOpen className="h-8 w-8 text-blue-600" />
@@ -170,7 +170,7 @@ export default function CoordinatorActivities() {
           <Card className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">Atividades Ativas</p>
+                <p className="text-sm text-muted-foreground">Atividades Ativas</p>
                 <p className="text-2xl font-bold text-green-600">
                   {activities.filter((a: any) => a.isActive !== false).length}
                 </p>
@@ -185,7 +185,7 @@ export default function CoordinatorActivities() {
           <div className="flex flex-wrap gap-4 items-center">
             <div className="flex-1 min-w-[300px]">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground/60 h-4 w-4" />
                 <Input
                   placeholder="Buscar atividades, professores OU matérias..."
                   value={searchTerm}
@@ -235,30 +235,30 @@ export default function CoordinatorActivities() {
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-semibold text-gray-900">{activity.title || 'Atividade sem título'}</h3>
+                      <h3 className="text-xl font-semibold text-foreground">{activity.title || 'Atividade sem título'}</h3>
                     </div>
                     
-                    <p className="text-gray-600 mb-3">{activity.description || 'Sem descrição'}</p>
+                    <p className="text-muted-foreground mb-3">{activity.description || 'Sem descrição'}</p>
                     
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                       <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4 text-gray-400" />
+                        <Users className="h-4 w-4 text-muted-foreground/60" />
                         <span className="font-medium">Professor:</span>
-                        <span className={activity.teacherName ? 'text-gray-900' : 'text-red-500'}>
+                        <span className={activity.teacherName ? 'text-foreground' : 'text-destructive'}>
                           {activity.teacherName || 'Não informado'}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <BookOpen className="h-4 w-4 text-gray-400" />
+                        <BookOpen className="h-4 w-4 text-muted-foreground/60" />
                         <span className="font-medium">Matéria:</span>
-                        <span className={activity.subjectName ? 'text-gray-900' : 'text-red-500'}>
+                        <span className={activity.subjectName ? 'text-foreground' : 'text-destructive'}>
                           {activity.subjectName || 'Não informado'}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Users className="h-4 w-4 text-gray-400" />
+                        <Users className="h-4 w-4 text-muted-foreground/60" />
                         <span className="font-medium">Turma:</span>
-                        <span className={activity.className ? 'text-gray-900' : 'text-red-500'}>
+                        <span className={activity.className ? 'text-foreground' : 'text-destructive'}>
                           {activity.className || 'Não informado'}
                         </span>
                       </div>
@@ -266,14 +266,14 @@ export default function CoordinatorActivities() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-sm">
                       <div>
-                        <span className="font-medium text-gray-700">Criada em:</span>
-                        <p className="text-gray-600">
+                        <span className="font-medium text-foreground">Criada em:</span>
+                        <p className="text-muted-foreground">
                           {activity.createdAt ? new Date(activity.createdAt).toLocaleDateString('pt-BR') : 'Não informado'}
                         </p>
                       </div>
                       <div>
-                        <span className="font-medium text-gray-700">Prazo:</span>
-                        <p className="text-gray-600">
+                        <span className="font-medium text-foreground">Prazo:</span>
+                        <p className="text-muted-foreground">
                           {activity.dueDate ? new Date(activity.dueDate).toLocaleDateString('pt-BR') : 'Não definido'}
                         </p>
                       </div>
@@ -295,9 +295,9 @@ export default function CoordinatorActivities() {
             ))
           ) : (
             <Card className="p-12 text-center">
-              <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhuma atividade encontrada</h3>
-              <p className="text-gray-600">
+              <BookOpen className="h-12 w-12 text-muted-foreground/60 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-foreground mb-2">Nenhuma atividade encontrada</h3>
+              <p className="text-muted-foreground">
                 {activities.length === 0 
                   ? 'Não há atividades cadastradas no sistema ainda.'
                   : 'Não há atividades que correspondam aos filtros selecionados.'
@@ -309,7 +309,7 @@ export default function CoordinatorActivities() {
 
         {/* Pagination */}
         <div className="flex justify-between items-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-muted-foreground">
             Exibindo {filteredActivities.length} de {activities.length} atividades
           </p>
           <div className="flex gap-2">
@@ -337,7 +337,7 @@ export default function CoordinatorActivities() {
             <div className="space-y-6">
               {/* Data de criação */}
               <div className="flex items-center gap-3">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-muted-foreground">
                   Criada em {new Date(selectedActivity.createdAt).toLocaleDateString('pt-BR')}
                 </span>
               </div>
@@ -345,7 +345,7 @@ export default function CoordinatorActivities() {
               {/* Descrição */}
               <div>
                 <Label className="text-base font-semibold">Descrição</Label>
-                <p className="mt-2 p-4 bg-gray-50 rounded-lg">
+                <p className="mt-2 p-4 bg-muted/60 rounded-lg">
                   {selectedActivity.description || 'Descrição não disponível'}
                 </p>
               </div>
@@ -354,19 +354,19 @@ export default function CoordinatorActivities() {
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <Label className="text-sm font-semibold">Professor Responsável</Label>
-                  <p className={`text-lg ${selectedActivity.teacherName ? 'text-gray-900' : 'text-red-500'}`}>
+                  <p className={`text-lg ${selectedActivity.teacherName ? 'text-foreground' : 'text-destructive'}`}>
                     {selectedActivity.teacherName || 'Não informado'}
                   </p>
                 </div>
                 <div>
                   <Label className="text-sm font-semibold">Disciplina</Label>
-                  <p className={`text-lg ${selectedActivity.subjectName ? 'text-gray-900' : 'text-red-500'}`}>
+                  <p className={`text-lg ${selectedActivity.subjectName ? 'text-foreground' : 'text-destructive'}`}>
                     {selectedActivity.subjectName || 'Não informado'}
                   </p>
                 </div>
                 <div>
                   <Label className="text-sm font-semibold">Turma</Label>
-                  <p className={`text-lg ${selectedActivity.className ? 'text-gray-900' : 'text-red-500'}`}>
+                  <p className={`text-lg ${selectedActivity.className ? 'text-foreground' : 'text-destructive'}`}>
                     {selectedActivity.className || 'Não informado'}
                   </p>
                 </div>
@@ -384,7 +384,7 @@ export default function CoordinatorActivities() {
                   <Label className="text-sm font-semibold">Status</Label>
                   <Badge 
                     variant={selectedActivity.status === 'active' ? 'default' : 'secondary'}
-                    className={selectedActivity.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}
+                    className={selectedActivity.status === 'active' ? 'bg-green-500/10 text-green-700 dark:bg-green-500/15 dark:text-green-200' : 'bg-muted text-foreground'}
                   >
                     {selectedActivity.status === 'active' ? 'Ativa' : selectedActivity.status || 'Indefinido'}
                   </Badge>
@@ -404,14 +404,14 @@ export default function CoordinatorActivities() {
                   {activityFiles.length > 0 ? (
                     <div className="space-y-2">
                       {activityFiles.map((file: any, index: number) => (
-                        <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={index} className="flex items-center justify-between p-3 bg-muted/60 rounded-lg">
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 bg-blue-100 rounded flex items-center justify-center">
-                              📎
+                              ðŸ“Ž
                             </div>
                             <div>
-                              <p className="font-medium text-gray-900">{file.originalFileName || file.fileName}</p>
-                              <p className="text-sm text-gray-500">
+                              <p className="font-medium text-foreground">{file.originalFileName || file.fileName}</p>
+                              <p className="text-sm text-muted-foreground">
                                 {file.fileSize ? `${(file.fileSize / 1024).toFixed(1)} KB` : 'Tamanho não disponível'}
                               </p>
                             </div>
@@ -428,8 +428,8 @@ export default function CoordinatorActivities() {
                       ))}
                     </div>
                   ) : (
-                    <div className="p-4 bg-gray-50 rounded-lg text-center">
-                      <p className="text-gray-500">Nenhum arquivo anexado a esta atividade</p>
+                    <div className="p-4 bg-muted/60 rounded-lg text-center">
+                      <p className="text-muted-foreground">Nenhum arquivo anexado a esta atividade</p>
                     </div>
                   )}
                 </div>

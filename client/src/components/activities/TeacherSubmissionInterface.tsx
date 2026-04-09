@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -205,7 +205,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
           <div className="flex items-center justify-between">
             <div>
               <CardTitle className="text-xl">{activity.title}</CardTitle>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-muted-foreground mt-1">
                 Gerenciar submissões e avaliações dos alunos
               </p>
             </div>
@@ -236,10 +236,10 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
         <Card>
           <CardContent className="p-4 text-center">
             <div className="flex items-center justify-center mb-2">
-              <Users className="w-5 h-5 text-gray-600" />
+              <Users className="w-5 h-5 text-muted-foreground" />
             </div>
             <div className="text-2xl font-bold">{stats.total}</div>
-            <div className="text-sm text-gray-600">Total de Submissões</div>
+            <div className="text-sm text-muted-foreground">Total de Submissões</div>
           </CardContent>
         </Card>
         
@@ -249,7 +249,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
               <CheckCircle className="w-5 h-5 text-green-600" />
             </div>
             <div className="text-2xl font-bold text-green-600">{stats.graded}</div>
-            <div className="text-sm text-gray-600">Avaliadas</div>
+            <div className="text-sm text-muted-foreground">Avaliadas</div>
           </CardContent>
         </Card>
         
@@ -259,7 +259,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
               <Clock className="w-5 h-5 text-blue-600" />
             </div>
             <div className="text-2xl font-bold text-blue-600">{stats.pending}</div>
-            <div className="text-sm text-gray-600">Pendentes</div>
+            <div className="text-sm text-muted-foreground">Pendentes</div>
           </CardContent>
         </Card>
         
@@ -269,7 +269,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
               <AlertCircle className="w-5 h-5 text-red-600" />
             </div>
             <div className="text-2xl font-bold text-red-600">{stats.late}</div>
-            <div className="text-sm text-gray-600">Atrasadas</div>
+            <div className="text-sm text-muted-foreground">Atrasadas</div>
           </CardContent>
         </Card>
         
@@ -279,7 +279,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
               <Star className="w-5 h-5 text-yellow-600" />
             </div>
             <div className="text-2xl font-bold">{stats.averageGrade.toFixed(1)}</div>
-            <div className="text-sm text-gray-600">Média Geral</div>
+            <div className="text-sm text-muted-foreground">Média Geral</div>
           </CardContent>
         </Card>
       </div>
@@ -321,10 +321,10 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
               {stats.pending === 0 ? (
                 <div className="text-center py-8">
                   <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <h3 className="text-lg font-medium text-foreground mb-2">
                     Todas as submissões foram avaliadas!
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Parabéns! Você avaliou todas as submissões desta atividade.
                   </p>
                 </div>
@@ -335,7 +335,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
                     .map((submission) => (
                       <div
                         key={submission.submission.id}
-                        className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50"
+                        className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/60"
                       >
                         <div className="flex items-center space-x-4">
                           <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
@@ -345,7 +345,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
                             <p className="font-medium">
                               {submission.student.firstName} {submission.student.lastName}
                             </p>
-                            <p className="text-sm text-gray-600">{submission.student.email}</p>
+                            <p className="text-sm text-muted-foreground">{submission.student.email}</p>
                             {submission.submission.isLate && (
                               <Badge variant="outline" className="text-red-600 border-red-600 mt-1">
                                 <AlertCircle className="w-3 h-3 mr-1" />
@@ -391,11 +391,11 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
             <CardContent>
               {stats.graded === 0 ? (
                 <div className="text-center py-8">
-                  <Star className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <Star className="w-12 h-12 text-muted-foreground/60 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-foreground mb-2">
                     Nenhuma submissão avaliada ainda
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     As submissões avaliadas aparecerão aqui.
                   </p>
                 </div>
@@ -407,7 +407,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
                     .map((submission) => (
                       <div
                         key={submission.submission.id}
-                        className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50"
+                        className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/60"
                       >
                         <div className="flex items-center space-x-4">
                           <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
@@ -417,11 +417,11 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
                             <p className="font-medium">
                               {submission.student.firstName} {submission.student.lastName}
                             </p>
-                            <p className="text-sm text-gray-600">{submission.student.email}</p>
+                            <p className="text-sm text-muted-foreground">{submission.student.email}</p>
                             {submission.submission.feedback && (
                               <div className="flex items-center mt-1">
-                                <MessageSquare className="w-3 h-3 text-gray-400 mr-1" />
-                                <span className="text-xs text-gray-500">Com feedback</span>
+                                <MessageSquare className="w-3 h-3 text-muted-foreground/60 mr-1" />
+                                <span className="text-xs text-muted-foreground">Com feedback</span>
                               </div>
                             )}
                           </div>
@@ -430,7 +430,7 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
                           <div className="text-right">
                             <div className="text-lg font-bold">
                               {submission.submission.finalGrade?.toFixed(1) || submission.submission.grade?.toFixed(1) || 0}
-                              <span className="text-sm text-gray-600">/{activity.maxGrade}</span>
+                              <span className="text-sm text-muted-foreground">/{activity.maxGrade}</span>
                             </div>
                             {submission.submission.latePenaltyApplied > 0 && (
                               <div className="text-xs text-red-600">
@@ -478,4 +478,5 @@ export function TeacherSubmissionInterface({ activity }: TeacherSubmissionInterf
     </div>
   );
 }
+
 

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+﻿import React, { useMemo, useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -209,7 +209,7 @@ export default function DirectorTransferPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2"><UserCheck className="w-5 h-5" /> Solicitação de Cargo</h1>
+        <h1 className="text-2xl font-bold text-foreground flex items-center gap-2"><UserCheck className="w-5 h-5" /> Solicitação de Cargo</h1>
       </div>
 
       <Card>
@@ -228,7 +228,7 @@ export default function DirectorTransferPage() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
                     <div>
-                      <label className="text-sm text-gray-600">Filtro por Cargo</label>
+                      <label className="text-sm text-muted-foreground">Filtro por Cargo</label>
                       <Select value={roleFilter} onValueChange={setRoleFilter}>
                         <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                         <SelectContent>
@@ -243,11 +243,11 @@ export default function DirectorTransferPage() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
                     <div className="relative">
-                      <label className="text-sm text-gray-600">Usuário</label>
+                      <label className="text-sm text-muted-foreground">Usuário</label>
                       <Input placeholder="Digite para pesquisar" value={userQuery} onChange={(e) => setUserQuery(e.target.value)} />
                       {userQuery && (
                         <div className="absolute left-0 right-0 top-full mt-1 z-50">
-                          <Command className="border rounded-md bg-white shadow-lg">
+                          <Command className="border rounded-md bg-card shadow-lg">
                             <CommandList>
                               <CommandEmpty>Digite para pesquisar</CommandEmpty>
                               <CommandGroup>
@@ -261,7 +261,7 @@ export default function DirectorTransferPage() {
                             })}
                               </CommandGroup>
                               {userQuery && userMatches.length > MAX_RESULTS && (
-                                <div className="px-2 py-2 text-xs text-gray-500">Mostrando {MAX_RESULTS} de {userMatches.length}. Refine a busca.</div>
+                                <div className="px-2 py-2 text-xs text-muted-foreground">Mostrando {MAX_RESULTS} de {userMatches.length}. Refine a busca.</div>
                               )}
                             </CommandList>
                           </Command>
@@ -269,7 +269,7 @@ export default function DirectorTransferPage() {
                       )}
                     </div>
                     <div>
-                      <label className="text-sm text-gray-600">Novo Papel</label>
+                      <label className="text-sm text-muted-foreground">Novo Papel</label>
                       <Select value={promotionRole} onValueChange={setPromotionRole}>
                         <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                         <SelectContent>
@@ -282,7 +282,7 @@ export default function DirectorTransferPage() {
                     </div>
                     {promotionRole === 'director' && (
                       <div>
-                        <label className="text-sm text-gray-600">Rebaixar Diretor Atual para</label>
+                        <label className="text-sm text-muted-foreground">Rebaixar Diretor Atual para</label>
                         <Select value={promotionDemoteRole} onValueChange={setPromotionDemoteRole}>
                           <SelectTrigger className="w-full"><SelectValue /></SelectTrigger>
                           <SelectContent>
@@ -294,20 +294,20 @@ export default function DirectorTransferPage() {
                       </div>
                     )}
                     <div>
-                      <label className="text-sm text-gray-600">Confirmação</label>
+                      <label className="text-sm text-muted-foreground">Confirmação</label>
                       <Input placeholder="Digite transferir" value={confirmText} onChange={(e) => setConfirmText(e.target.value)} />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                     <div className="md:col-span-2">
                       {newDirectorId && (
-                        <div className="flex items-center gap-2 text-sm text-gray-700">
+                        <div className="flex items-center gap-2 text-sm text-foreground">
                           <span>Selecionado:</span>
                           <Badge variant="secondary">
                             {`${users.find((u: any) => u.id === newDirectorId)?.firstName || ''} ${users.find((u: any) => u.id === newDirectorId)?.lastName || ''}`.trim() || 'Usuário'}
                           </Badge>
                           <Badge variant="secondary">{roleLabel(users.find((u: any) => u.id === newDirectorId)?.role || '')}</Badge>
-                          <span className="opacity-60">→</span>
+                          <span className="opacity-60">?</span>
                           <Badge>{roleLabel(promotionRole)}</Badge>
                           <Button variant="secondary" size="sm" onClick={() => setNewDirectorId('')}>Limpar</Button>
                         </div>
@@ -367,20 +367,20 @@ export default function DirectorTransferPage() {
                 <div>
                   <div className="font-semibold mb-2">Promoção de Usuário</div>
                   {!pendingPromotion ? (
-                    <div className="text-gray-600">Nenhuma solicitação pendente</div>
+                    <div className="text-muted-foreground">Nenhuma solicitação pendente</div>
                   ) : (
                     <div className="space-y-4">
-                      <div className="text-sm text-gray-800">
+                      <div className="text-sm text-foreground">
                         Promover {users.find((u: any) => u.id === pendingPromotion.userId)?.firstName} {users.find((u: any) => u.id === pendingPromotion.userId)?.lastName} para {pendingPromotion.newRole}.
                       </div>
                       {(() => {
-                        const approvalsCount = (pendingPromotion.approvalsCount ?? (Array.isArray(pendingPromotion.approvals) ? pendingPromotion.approvals.length : 0)) || 0;
-                        const requiredCount = (pendingPromotion.requiredCount ?? (Array.isArray(pendingPromotion.requiredAdminIds) ? pendingPromotion.requiredAdminIds.length : 0)) || 0;
+                        const approvalsCount = pendingPromotion.approvalsCount ?? (Array.isArray(pendingPromotion.approvals) ? pendingPromotion.approvals.length : 0);
+                        const requiredCount = pendingPromotion.requiredCount ?? (Array.isArray(pendingPromotion.requiredAdminIds) ? pendingPromotion.requiredAdminIds.length : 0);
                         const total = Math.max(1, requiredCount || 1);
                         const pct = Math.min(100, Math.round((approvalsCount / total) * 100));
                         return (
                           <>
-                            <div className="text-sm text-gray-600">Aprovações: {approvalsCount}/{requiredCount || total}</div>
+                            <div className="text-sm text-muted-foreground">Aprovações: {approvalsCount}/{requiredCount || total}</div>
                             <div className="h-2 bg-gray-200 rounded">
                               <div className="h-2 bg-purple-500 rounded" style={{ width: `${pct}%` }} />
                             </div>
@@ -388,7 +388,7 @@ export default function DirectorTransferPage() {
                         );
                       })()}
                       {!!pendingPromotion.approvals?.length && (
-                        <div className="text-xs text-gray-500">Aprovado por: {pendingPromotion.approvals.map((id: string) => displayNameById(id)).join(', ')}</div>
+                        <div className="text-xs text-muted-foreground">Aprovado por: {pendingPromotion.approvals.map((id: string) => displayNameById(id)).join(', ')}</div>
                       )}
                       <div className="grid grid-cols-3 gap-4 items-end">
                         <div className="col-span-2" />
@@ -402,20 +402,28 @@ export default function DirectorTransferPage() {
                 <div>
                   <div className="font-semibold mb-2">Transferência de Diretoria</div>
                   {!pendingTransfer ? (
-                    <div className="text-gray-600">Nenhuma transferência pendente</div>
+                    <div className="text-muted-foreground">Nenhuma transferência pendente</div>
                   ) : (
                     <div className="space-y-4">
-                      <div className="text-sm text-gray-800">
+                      <div className="text-sm text-foreground">
                         Transferir diretoria para {users.find((u: any) => u.id === pendingTransfer.newDirectorId)?.firstName} {users.find((u: any) => u.id === pendingTransfer.newDirectorId)?.lastName}. Rebaixar atual para {pendingTransfer.demoteRole}.
                       </div>
                       {(() => {
-                        const approvalsCount = (pendingTransfer.approvalsCount ?? (Array.isArray(pendingTransfer.approvals) ? pendingTransfer.approvals.length : 0)) || 0;
-                        const requiredCount = (pendingTransfer.requiredCount ?? (Array.isArray(pendingTransfer.requiredAdminIds) ? pendingTransfer.requiredAdminIds.length : 0)) || 0;
+                        const approvalsCount = typeof pendingTransfer.approvalsCount === 'number'
+                          ? pendingTransfer.approvalsCount
+                          : Array.isArray(pendingTransfer.approvals)
+                            ? pendingTransfer.approvals.length
+                            : 0;
+                        const requiredCount = typeof pendingTransfer.requiredCount === 'number'
+                          ? pendingTransfer.requiredCount
+                          : Array.isArray(pendingTransfer.requiredAdminIds)
+                            ? pendingTransfer.requiredAdminIds.length
+                            : 0;
                         const total = Math.max(1, requiredCount || 1);
                         const pct = Math.min(100, Math.round((approvalsCount / total) * 100));
                         return (
                           <>
-                            <div className="text-sm text-gray-600">Aprovações: {approvalsCount}/{requiredCount || total}</div>
+                            <div className="text-sm text-muted-foreground">Aprovações: {approvalsCount}/{requiredCount || total}</div>
                             <div className="h-2 bg-gray-200 rounded">
                               <div className="h-2 bg-purple-500 rounded" style={{ width: `${pct}%` }} />
                             </div>
@@ -423,7 +431,7 @@ export default function DirectorTransferPage() {
                         );
                       })()}
                       {!!pendingTransfer.approvals?.length && (
-                        <div className="text-xs text-gray-500">Aprovado por: {pendingTransfer.approvals.map((id: string) => displayNameById(id)).join(', ')}</div>
+                        <div className="text-xs text-muted-foreground">Aprovado por: {pendingTransfer.approvals.map((id: string) => displayNameById(id)).join(', ')}</div>
                       )}
                       <div className="grid grid-cols-3 gap-4 items-end">
                         <div className="col-span-2" />
@@ -462,3 +470,4 @@ export default function DirectorTransferPage() {
     </div>
   );
 }
+
